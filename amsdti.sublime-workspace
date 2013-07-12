@@ -1,0 +1,621 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"us",
+				"UserNotFoundException  (class)"
+			],
+			[
+				"superUser",
+				"superUserGroup"
+			],
+			[
+				"superAdmin",
+				"superAdminGroup"
+			],
+			[
+				"home",
+				"home-feature"
+			],
+			[
+				"html",
+				"htmlentities"
+			],
+			[
+				"cu",
+				"curr_elem"
+			],
+			[
+				"items",
+				"itemsW2"
+			],
+			[
+				"getIn",
+				"getInfix"
+			],
+			[
+				"right",
+				"rightSubTree"
+			],
+			[
+				"sq",
+				"SQRT_OP"
+			],
+			[
+				"ne",
+				"NEG_OP  (variable)"
+			],
+			[
+				"root",
+				"rootType"
+			],
+			[
+				"left",
+				"leftSubTree"
+			],
+			[
+				"exp",
+				"EXP_OP"
+			],
+			[
+				"roo",
+				"rootType"
+			],
+			[
+				"token",
+				"TokenType"
+			],
+			[
+				"is",
+				"isOk"
+			],
+			[
+				"letter",
+				"letter-spacing"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "composer.json",
+			"settings":
+			{
+				"buffer_size": 616,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/routes.php",
+			"settings":
+			{
+				"buffer_size": 1649,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 93.0,
+		"selected_items":
+		[
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: Remove Package"
+			],
+			[
+				"packages",
+				"Preferences: Browse Packages"
+			],
+			[
+				"upgrade",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"remove pack",
+				"Package Control: Remove Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"markdown",
+				"Markdown Preview: preview in Browser"
+			],
+			[
+				"instl",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"form",
+				"Tag: Auto-Format Tags on Selection"
+			],
+			[
+				"pagkage",
+				"Package Control: Remove Package"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"remov",
+				"Package Control: Remove Package"
+			],
+			[
+				"re",
+				"Package Control: Remove Package"
+			],
+			[
+				"remove ",
+				"Package Control: Remove Package"
+			],
+			[
+				"format",
+				"Tag: Auto-Format Tags on Selection"
+			],
+			[
+				"html",
+				"Tidy HTML"
+			],
+			[
+				"sftp",
+				"SFTP: Browse Remote…"
+			],
+			[
+				"tidy",
+				"Tidy HTML"
+			],
+			[
+				"soda",
+				"Preferences: Package Control Settings – Default"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"dif",
+				"Set Syntax: Diff"
+			],
+			[
+				"package control",
+				"Package Control: Remove Package"
+			],
+			[
+				"anchor ",
+				"Snippet: anchor"
+			],
+			[
+				"new file",
+				"File: New View into File"
+			]
+		],
+		"width": 435.0
+	},
+	"console":
+	{
+		"height": 125.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/database.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_07_134044_create_users.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/seeds/SentryUserSeeder.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/seeds/SentryUserGroupSeeder.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/seeds/SentryGroupSeeder.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/auth.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/login.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/models/User.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/UserController.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/DashboardController.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/routes.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/BaseController.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/filters.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/partials/sidebar.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_07_134054_create_groups.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_07_134114_create_throttle.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/seeds/DatabaseSeeder.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_07_134105_create_users_groups.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/vendor/cartalyst/sentry/src/migrations/2012_12_06_225945_migration_cartalyst_sentry_install_users_groups_pivot.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/mail.php",
+		"/Volumes/Content Drive/Dropbox/Sites/happybirthday.php",
+		"/Users/choernig/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/choernig/Library/Application Support/Sublime Text 2/Settings/Session.sublime_session",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/app.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/vendor/cartalyst/sentry/schema/mysql.sql",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_03_140000_install_labprofile.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/packages/cartalyst/sentry/config.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_03_134828_install_users_groups.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/vendor/cartalyst/sentry/src/migrations/2012_12_06_225988_migration_cartalyst_sentry_install_throttle.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_03_134941_install_throttle.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/vendor/cartalyst/sentry/src/migrations/2012_12_06_225929_migration_cartalyst_sentry_install_groups.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_03_134614_install_groups.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/vendor/laravel/framework/src/Illuminate/Auth/Guard.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/partials/header.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/start/global.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/about.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/vendor/laravel/framework/src/Illuminate/Auth/AMSDTIUserInterface.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/vendor/amsauth/Auth/AmsAuthUserProvider.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/vendor/laravel/framework/src/Illuminate/Html/HtmlBuilder.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/layouts/dashboard_no_sidebar.blade.php",
+		"/Users/choernig/Documents/Grow Diary.txt",
+		"/Volumes/Content Drive/Downloads/Pineapple Express UNRATED (2008)/Pineapple.Express.UNRATED.2008.720p.BrRip.x264.YIFY.srt",
+		"/Users/choernig/Desktop/4777579576 TGIF Coupon Number.txt",
+		"/Volumes/Content Drive/Downloads/Ableton Live 9 Suite 9.0.1 Mac os x (64 bit-io) [ChingLiu]/io.nfo",
+		"/Users/choernig/.ssh/known_hosts",
+		"/Volumes/.PEVolumes/PEVolume{5e1af21c-4116-4f32-909a-63f78188ada3}/cs45500/homework/hw3/problem1.c",
+		"/Volumes/.PEVolumes/PEVolume{5e1af21c-4116-4f32-909a-63f78188ada3}/cs45500/homework/hw3/problem3.c",
+		"/Volumes/Content Drive/Dropbox/School/CS455 - Computer Graphics/Exam 1 Study List.txt",
+		"/Volumes/Content Drive/Dropbox/Work/Preferences.sublime-settings",
+		"/Volumes/Content Drive/Downloads/hw3/problem1.c",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/7C0B3539-3D41-41F8-9DD9-4C8BE99D88F5/livestream_chat_log.html",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/5371F81D-DEF7-4A85-A204-45D5DEED96EE/livestream_chat_log.html",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/5E6A9D70-2875-4EE6-9010-8774CB4EC0FF/index.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/4D79A874-FD0C-4D3C-874D-50FC3DCCA75D/index.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/74112EB6-4DF3-47B5-A777-23DAE1FEDE2D/vhosts.conf",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/E6072674-71D1-49AF-AC35-F25D5984F80D/httpd-vhosts.conf",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/00514F1F-6174-45E1-82A2-BE81392493EB/ftpchroot",
+		"/Volumes/Content Drive/Downloads/template_maxi_1.6.0/template_maxi/TemplateMaxi.as",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/6925D4CA-DC19-44EF-AD1C-557A6B0A6AF7/livestream_test.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/082E77CF-A25E-4338-BC37-3C4A8DBB29C7/header.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/E09CFF45-D0C1-4F43-938F-A776FCC13BA9/admin.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/408D7EED-48C0-44D3-8B92-A715BF9DF077/full-width-page-homepage.php",
+		"/Library/Preferences/REVisionEffects/TwixtorPro5",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/0945EA63-D595-45D7-89C9-1D7AFB2F07BE/index.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/0D004EFF-F6D3-4B92-A061-EAC82A054795/autoload.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/744DCAF8-D6BD-4E1F-98F1-0E51F399B130/index.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/435BFC7B-3EC6-4171-9435-57F6A9D0036B/frontpage.php",
+		"/Users/choernig/Desktop/Revelation.tmTheme",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/E2D19E5D-CB7D-441F-BFFE-DAE83D27C364/style.css",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/DDEDE955-81BD-47CC-AFEC-256F14007CC5/administration.php",
+		"/Volumes/Content Drive/Sites/thatshitsbangin/application/controllers/example.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/2171BC92-7CEB-4AF1-AB04-5111AE2363A6/administration.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/E5577936-ACE5-4B2C-A23E-8B68823D8898/purchaseConfirmation.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/2FE5F7D6-09A4-46AA-8477-26ABE0ECBE26/purchaseTickets.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/DAEB5F1B-95BB-4679-BB59-9127D12FBF01/processTransaction.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/F927E033-E710-43CB-878E-8B76F8786A68/purchaseConfirmation.php",
+		"/Volumes/Content Drive/Sites/elliottsweb/thecottonlawfirm.com/Config/StyleSheet.css",
+		"/Volumes/Content Drive/Sites/elliottsweb/thecottonlawfirm.com/Config/MasterPage.master",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/7B9B1308-3C8B-4439-B4ED-65B4B71C0018/db_open.asp",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/782F0B98-DEE6-496E-A9BD-6993B1F4FCE6/db_open.asp",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/F7B5C2A8-9C3E-4F0F-9906-572DA9A1E0DE/index.asp",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/CC7656C1-539E-47DA-89E3-B1362E9B4106/login.asp",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/5F2BE23B-C99F-40B1-9D7A-A31E7A808490/web.config",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/4771FC2F-00D2-42A1-9F0B-1EDFE808A6CA/global.asa",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/8E95EF80-2F39-4535-888D-10AF3113824B/donate.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/2FA1F8AB-C644-47D0-AA36-82F9A1214138/purchaseTickets.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/236D95C7-1219-46D8-80F6-E9B425E925BC/wp-config.php",
+		"/Volumes/Content Drive/Downloads/phil_giaimoandassociates.sql",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/785641E9-D064-4614-9017-F82A5F3A586E/login.asp",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/388A3BFE-8935-4CC3-B3F1-54D8356F90BD/page-contact-us.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/A620E135-B064-420E-A183-6B58F495D34F/index.asp",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/EFB5EA2C-E8E7-4175-92D5-3B6511E67789/.htaccess",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/44F4FB20-B700-4B98-B0F4-9B7806FE0B9C/.htaccess",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/CF6695E6-E6A2-4D34-8306-5352D3561148/sidebar.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/D8462F7D-CC10-47D5-B824-7977AF76CC3D/sidebar-info.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/894152E1-C92C-4CAA-97FB-55E3A6DE044B/page.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/2E38778C-D96B-4090-B602-0EFD2C7B6FD8/page-contact-us.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/1222A3B4-C35D-4184-B3B2-2D7B901A2588/index.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/46A105BB-88F3-4E45-85C0-F6D041B8ADB5/header.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/39350C88-48E6-4A88-A342-0C4EEB8BB93C/functions.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/E504834D-EADC-4561-84C7-5806903EE592/style.css",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/EAC6397A-C0D1-42DD-BF6D-08F1BC516A79/homeslice.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/C3A2BF45-DB1A-49B2-9B01-F0E3CEB17748/sidebar.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/A87B008B-8B38-4085-94D9-5477519DD3D9/homeslice.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/9B534A69-94E9-4C03-9B14-B1CE1EBB0F38/functions.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/453A050A-04EE-4843-ACBD-368803816384/page-home.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/3F1EDAD3-1828-492B-9703-7FFB75C015CD/purchaseConfirmationTest.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/7618EAA2-AD8F-4AD9-8C8C-273CB651E822/processTransactionTest.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/91337DCE-13CA-40DF-BC6B-1C83E6C586A5/purchaseTicketsTest.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/D1802DEA-02A7-474C-8817-4529F99554ED/purchaseConfirmationTest.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/F3AFA37C-A7AC-422C-BFF3-6F5906BD37D2/processTransactionTest.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/58747E70-A0D2-4970-A915-E555C7C3EF15/purchaseTicketsTest.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/B5AB89A6-C6CD-4AC2-9BE1-4B923388CA12/purchaseTickets.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/FC72C294-DD4F-4004-878A-DD688C4726D5/processTransactionTest.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/187865D9-29BA-48EB-A348-6AE5F1F1F2C9/purchaseConfirmationTest.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/BC4C07E7-1A16-4235-8DAA-D714D37D1EE9/purchaseTicketsTest.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/D6FB5346-60C6-4634-8C5B-B94EE3A3AAF1/wp-config.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/728BCAD7-7478-4CF8-941B-360771E032A6/wp-config.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/A0EB79CF-3490-48D3-B459-5F4F04548960/wp-config.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/E7023C87-48D5-4066-BA0C-FBF22E0AE42E/.htaccess",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/9130F872-B0C7-4524-911F-DFE0692F1753/purchaseConfirmationTest.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/9F5691E4-E9FE-4C69-876C-1A40C12B7825/processTransactionTest.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/C7906355-94BE-4980-A582-9B01E15AAC67/index.asp",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/C6720DE5-288B-4BA8-8F82-53210E2B1CDB/purchaseTickets.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/45E9EB9B-F9A3-4D25-9522-1F316D216B05/processTransaction.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/D2EB4F7D-0B5E-495F-B973-A041FA69472F/purchaseConfirmation.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/50B1B62A-57AC-4990-B506-40A4281E738E/style.css",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/E1B1885E-4807-469A-A36E-CC4178DAE17E/loan_application_new_test.php"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"",
+			"<open folders>,<open files>",
+			"<open folders>",
+			"/Volumes/Content Drive/Sites/elliottsweb/michaeljacksonforeverfans.com",
+			"/Volumes/Content Drive/Sites/elliottsweb/trifreight.com/contact-form-7",
+			"/Volumes/Content Drive/Sites/elliottsweb/trifreight.com",
+			"",
+			"<open folders>",
+			"/Volumes/Content Drive/Sites/elliottsweb/opencart_test",
+			"<open folders>",
+			"",
+			"/Volumes/Content Drive/Sites/bradzditosky/local",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"logout",
+			"nav",
+			"jockey",
+			"giaimoandassociates",
+			"/home/ewebdev/dev.ewebpreview.com/htdocs/giaimoandassociates.com/",
+			"dev.ewebpreview.com",
+			"dev.ewebpreview.com/giaimoandassociates.com",
+			"july",
+			"strip_tags(html_entity_decode(",
+			"$headers .= \"To: \".strip_tags(html_entity_decode($_SESSION['first_name'] .\"  \". strip_tags(html_entity_decode($_SESSION['last_name'].\"<\".strip_tags(html_entity_decode($_SESSION['email'] .\">\". \"\\r\\n\";\n			$headers .= \"From : Permanently Disabled Jockeys Foundation<info@pdjf.org>\" . \"\\r\\n\";\n			\n			//$headers .= \"To:\" .$_SESSION['first_name'] .\" \". $_SESSION['last_name']. \" \" .$_SESSION['email']  . \"\\r\\n\";\n			//$headers .=  \"From: Prematurely Disabled Jockeys Foundation\" . \"\\r\\n\";\n			$headers .= \"Reply-To:\". \"info@pdjf.org\" . \"<info@pdjf.org>\\r\\n\";\n			$headers .= \"Cc:\". \"nancy.lasala@yahoo.com\\r\\n\"; // nancy.lasala@yahoo.com\n			$headers .= \"Bcc:\". \"info@pdjf.org\"; // info@pdjf.org\n			\n			\n			$message =\"\"; \n \n \n \n 			$message .= \"Thank you, your payment is complete!!!\\r\\n\\r\\n\";\n 			$message .= \"Your order confirmation code is #\" . strip_tags(html_entity_decode($_SESSION['confirmation_code'] . \"\\r\\n\\r\\n\";\n			\n			if ($_SESSION['event1']) {\n				$message .=  'This is your confirmation of tickets purchased for ' . strip_tags(html_entity_decode($_SESSION['event1_name']. \"\\r\\n\\r\\n\";\n				$message .=  'Number of Tickets Purchased: ' . strip_tags(html_entity_decode($_SESSION['event1_ticket_quantity']. \"\\r\\n\\r\\n\";\n				$message .=  'Name of Purchaser: ' . strip_tags(html_entity_decode($_SESSION['first_name'] . \" \" . strip_tags(html_entity_decode($_SESSION['last_name'] . \"\\r\\n\\r\\n\";\n				\n				if (isset($_SESSION['event1_note'])) {\n					$message .= strip_tags(html_entity_decode($_SESSION['event1_note'])) . \"\\r\\n\\r\\n\";\n				}\n				\n				$message .= \"Event Information\\r\\n\\r\\n\";\n				$message .= 'Event Date: ' . strip_tags(html_entity_decode($_SESSION['event1_date']. \"\\r\\n\\r\\n\";\n				$message .= 'Event Address: ' . strip_tags(html_entity_decode($_SESSION['event1_address'] . \" \" . strip_tags(html_entity_decode($_SESSION['event1_city_state'] . \"\\r\\n\\r\\n\";\n				$message .= 'Event Time: ' . strip_tags(html_entity_decode($_SESSION['event1_time']. \"\\r\\n\\r\\n\";\n				\n				if (isset($_SESSION['event1_note2'])) {\n					$message .= strip_tags(html_entity_decode($_SESSION['event1_note2'])) . \"\\r\\n\\r\\n\";\n				}\n			}\n			\n			if ($_SESSION['event2']) {\n				$message .= 'This is your confirmation of tickets purchased for ' . strip_tags(html_entity_decode($_SESSION['event2_name']. \"\\r\\n\\r\\n\";\n				$message .= 'Number of Tickets Purchased: ' . strip_tags(html_entity_decode($_SESSION['event2_ticket_quantity']. \"\\r\\n\\r\\n\";\n				$message .= 'Name of Purchaser: ' . strip_tags(html_entity_decode($_SESSION['first_name'] . \" \" . strip_tags(html_entity_decode($_SESSION['last_name'] . \"\\r\\n\\r\\n\";\n				\n				if (isset($_SESSION['event2_note'])) {\n					$message .= strip_tags(html_entity_decode($_SESSION['event2_note'])) . \"\\r\\n\\r\\n\";\n				}\n				\n				$message .= \"Event Information\";\n				$message .= 'Event Date: ' . strip_tags(html_entity_decode($_SESSION['event2_date']. \"\\r\\n\\r\\n\";\n				$message .= 'Event Address: ' . strip_tags(html_entity_decode($_SESSION['event2_address'] . \" \" . strip_tags(html_entity_decode($_SESSION['event2_city_state'] . \"\\r\\n\\r\\n\";\n				$message .= 'Event Time:' . strip_tags(html_entity_decode($_SESSION['event2_time']. \"\\r\\n\\r\\n\";\n				\n				if (isset($_SESSION['event2_note2'])) {\n					$message .= strip_tags(html_entity_decode($_SESSION['event2_note2'])) . \"\\r\\n\\r\\n\";",
+			"horizon",
+			"clearfix",
+			"payment",
+			"form",
+			"image",
+			"dev.ewebpreview.com/michael_jackson_forever/",
+			"dev.eweb",
+			"http://",
+			"phil",
+			"config",
+			"michael_jackson_forever",
+			"phil",
+			"dev.eweb",
+			"ewebdev",
+			"primary font family and color",
+			"ewebdev",
+			"dev.ewebpreview.com",
+			"michael_jackson_forever",
+			"please accept the terms to proceed",
+			"mail",
+			"['wp_contact_form_7']",
+			"$_POST",
+			"mail()",
+			"$this->mail",
+			"compose_and_send_mail",
+			"mail_template",
+			"$mail_template['body']",
+			"preg_replace_callback",
+			"wpcf7_autop",
+			"addScript(",
+			"class Document",
+			"Document",
+			"document",
+			"data['document",
+			"['document",
+			"document",
+			"$document",
+			"$this->data['text_backup'] = $this->language->get('text_backup');",
+			"default",
+			"sum",
+			"miny",
+			"minx",
+			"sqrt",
+			"getlatex",
+			"http://bradzditosky.com",
+			"http://localhost:8888/bradzditosky/new/",
+			"last"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"njcondolawyers.com/",
+			"njcondolawyers.com",
+			"strip_tags(html_entity_decode(stripslashes(",
+			"strip_tags(html_entity_decode(stripslashes",
+			"$headers .= \"To: \".strip_tags(html_entity_decode($_SESSION['first_name'] .\"  \". strip_tags(html_entity_decode($_SESSION['last_name'].\"<\".strip_tags(html_entity_decode($_SESSION['email'] .\">\". \"\\r\\n\";\n			$headers .= \"From : Permanently Disabled Jockeys Foundation<info@pdjf.org>\" . \"\\r\\n\";\n			\n			//$headers .= \"To:\" .$_SESSION['first_name'] .\" \". $_SESSION['last_name']. \" \" .$_SESSION['email']  . \"\\r\\n\";\n			//$headers .=  \"From: Prematurely Disabled Jockeys Foundation\" . \"\\r\\n\";\n			$headers .= \"Reply-To:\". \"info@pdjf.org\" . \"<info@pdjf.org>\\r\\n\";\n			$headers .= \"Cc:\". \"nancy.lasala@yahoo.com\\r\\n\"; // nancy.lasala@yahoo.com\n			$headers .= \"Bcc:\". \"info@pdjf.org\"; // info@pdjf.org\n			\n			\n			$message =\"\"; \n \n \n \n 			$message .= \"Thank you, your payment is complete!!!\\r\\n\\r\\n\";\n 			$message .= \"Your order confirmation code is #\" . strip_tags(html_entity_decode($_SESSION['confirmation_code'] . \"\\r\\n\\r\\n\";\n			\n			if ($_SESSION['event1']) {\n				$message .=  'This is your confirmation of tickets purchased for ' . strip_tags(html_entity_decode($_SESSION['event1_name']. \"\\r\\n\\r\\n\";\n				$message .=  'Number of Tickets Purchased: ' . strip_tags(html_entity_decode($_SESSION['event1_ticket_quantity']. \"\\r\\n\\r\\n\";\n				$message .=  'Name of Purchaser: ' . strip_tags(html_entity_decode($_SESSION['first_name'] . \" \" . strip_tags(html_entity_decode($_SESSION['last_name'] . \"\\r\\n\\r\\n\";\n				\n				if (isset($_SESSION['event1_note'])) {\n					$message .= strip_tags(html_entity_decode($_SESSION['event1_note'])) . \"\\r\\n\\r\\n\";\n				}\n				\n				$message .= \"Event Information\\r\\n\\r\\n\";\n				$message .= 'Event Date: ' . strip_tags(html_entity_decode($_SESSION['event1_date']. \"\\r\\n\\r\\n\";\n				$message .= 'Event Address: ' . strip_tags(html_entity_decode($_SESSION['event1_address'] . \" \" . strip_tags(html_entity_decode($_SESSION['event1_city_state'] . \"\\r\\n\\r\\n\";\n				$message .= 'Event Time: ' . strip_tags(html_entity_decode($_SESSION['event1_time']. \"\\r\\n\\r\\n\";\n				\n				if (isset($_SESSION['event1_note2'])) {\n					$message .= strip_tags(html_entity_decode($_SESSION['event1_note2'])) . \"\\r\\n\\r\\n\";\n				}\n			}\n			\n			if ($_SESSION['event2']) {\n				$message .= 'This is your confirmation of tickets purchased for ' . strip_tags(html_entity_decode($_SESSION['event2_name']. \"\\r\\n\\r\\n\";\n				$message .= 'Number of Tickets Purchased: ' . strip_tags(html_entity_decode($_SESSION['event2_ticket_quantity']. \"\\r\\n\\r\\n\";\n				$message .= 'Name of Purchaser: ' . strip_tags(html_entity_decode($_SESSION['first_name'] . \" \" . strip_tags(html_entity_decode($_SESSION['last_name'] . \"\\r\\n\\r\\n\";\n				\n				if (isset($_SESSION['event2_note'])) {\n					$message .= strip_tags(html_entity_decode($_SESSION['event2_note'])) . \"\\r\\n\\r\\n\";\n				}\n				\n				$message .= \"Event Information\";\n				$message .= 'Event Date: ' . strip_tags(html_entity_decode($_SESSION['event2_date']. \"\\r\\n\\r\\n\";\n				$message .= 'Event Address: ' . strip_tags(html_entity_decode($_SESSION['event2_address'] . \" \" . strip_tags(html_entity_decode($_SESSION['event2_city_state'] . \"\\r\\n\\r\\n\";\n				$message .= 'Event Time:' . strip_tags(html_entity_decode($_SESSION['event2_time']. \"\\r\\n\\r\\n\";\n				\n				if (isset($_SESSION['event2_note2'])) {\n					$message .= strip_tags(html_entity_decode($_SESSION['event2_note2'])) . \"\\r\\n\\r\\n\";",
+			"michaeljacksonforeverfans.com/",
+			"custom",
+			"minCost",
+			"itemsW2",
+			"itemsW1",
+			"http://localhost:8888/bradzditosky/local",
+			"http://bradzditosky.com/"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "composer.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 616,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								613,
+								613
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/routes.php",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 1649,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 32.0
+	},
+	"input":
+	{
+		"height": 29.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.sftp":
+	{
+		"height": 92.0
+	},
+	"project": "amsdti.sublime-project",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 225.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
