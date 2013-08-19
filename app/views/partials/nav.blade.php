@@ -21,7 +21,7 @@
                     <li class="divider"></li>
                     <li><a tabindex="-1" class="visible-phone" href="#">Settings</a></li>
                     <li class="divider visible-phone"></li>
-                    <li><a tabindex="-1" href="{{ URL::to('logout') }}">Logout</a></li>
+                    <li>{{ Html::linkRoute('logout', 'Logout of AMSDTI', null , array('tabindex' => '-1')) }}</li>
                 </ul>
             </li>
 

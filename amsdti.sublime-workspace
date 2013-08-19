@@ -79,36 +79,20 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "composer.json",
-			"settings":
-			{
-				"buffer_size": 616,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/routes.php",
-			"settings":
-			{
-				"buffer_size": 1649,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 93.0,
+		"height": 52.0,
 		"selected_items":
 		[
 			[
-				"remove",
-				"Package Control: Remove Package"
-			],
-			[
 				"install",
 				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
 			],
 			[
 				"package",
@@ -215,7 +199,7 @@
 				"File: New View into File"
 			]
 		],
-		"width": 435.0
+		"width": 417.0
 	},
 	"console":
 	{
@@ -235,6 +219,12 @@
 	},
 	"file_history":
 	[
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/D6542D9A-2AA1-4393-9DC8-7605A7A8750D/db.frankfortsmiles.com",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/E8313949-0DCB-42A1-A45F-1E30B7B1893B/db.artistic-dental.com",
+		"/Users/choernig/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/4B3F6058-F9D8-496C-9085-4C57201DAA76/db.oralprostheticsbydesign.com",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/D5A25FCE-B2C1-4DA9-A031-B1021FA4F10C/webstats",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/composer.json",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/database.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_07_134044_create_users.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/seeds/SentryUserSeeder.php",
@@ -356,21 +346,15 @@
 		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/A0EB79CF-3490-48D3-B459-5F4F04548960/wp-config.php",
 		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/E7023C87-48D5-4066-BA0C-FBF22E0AE42E/.htaccess",
 		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/9130F872-B0C7-4524-911F-DFE0692F1753/purchaseConfirmationTest.php",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/9F5691E4-E9FE-4C69-876C-1A40C12B7825/processTransactionTest.php",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/C7906355-94BE-4980-A582-9B01E15AAC67/index.asp",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/C6720DE5-288B-4BA8-8F82-53210E2B1CDB/purchaseTickets.php",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/45E9EB9B-F9A3-4D25-9522-1F316D216B05/processTransaction.php",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/D2EB4F7D-0B5E-495F-B973-A041FA69472F/purchaseConfirmation.php",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/50B1B62A-57AC-4990-B506-40A4281E738E/style.css",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/E1B1885E-4807-469A-A36E-CC4178DAE17E/loan_application_new_test.php"
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/9F5691E4-E9FE-4C69-876C-1A40C12B7825/processTransactionTest.php"
 	],
 	"find":
 	{
-		"height": 35.0
+		"height": 33.0
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 91.0,
 		"where_history":
 		[
 			"",
@@ -479,65 +463,8 @@
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "composer.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 616,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								613,
-								613
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "app/routes.php",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 1649,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],
