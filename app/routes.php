@@ -32,11 +32,25 @@ Route::get('help', array(
 	'uses' => 'HelpController@getIndex'
 ));
 
+	Route::post('search', array(
+		'as' => 'search',
+		function() {
+			return "TEST!";
+		}
+	));
+
 Route::get('admin', array(
 	'as' => 'admin', 
 	'before' => 'auth', 
 	'uses' => 'AdminController@getIndex'
 ));
+
+Route::group(array('domain' => '{user}.amdsti.dev'), function() {
+	Route::get('about', function() {
+		$version = $user;
+		return View::make('public.about', compact("version"));
+	});
+});
 
 // Routes protected from unauthorized users
 //Route::group(array('before' => 'auth'), function() {

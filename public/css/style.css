@@ -1,0 +1,9 @@
+.login-page .login-wrapper form {
+    width: 450px;
+    text-align: center;
+}
+
+.dropdown-menu .divider {
+	margin: 2px 1px;
+	border-bottom: none;
+}
