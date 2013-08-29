@@ -7,8 +7,9 @@ class DashboardController extends BaseController {
 
 	public function getIndex() {
 		if (Sentry::hasAccess('admin')) {
-			$this->layout->title = 'Administration Dashboard';
 			$this->layout->content = View::make('admin.dashboard');
+		} else {
+			$this->layout->content = View::make('user.dashboard');
 		}
 	}
 

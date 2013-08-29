@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -22,35 +21,20 @@ Route::get('/', array(
 	}
 ));
 
-Route::get('about', function() {
-	$version = '25 million';
-	return View::make('public.about', compact("version"));
-});
+Route::controller('file', 'FileController');
 
-Route::get('help', array(
-	'as' => 'help',
-	'uses' => 'HelpController@getIndex'
+Route::post('search', array(
+	'as' => 'search',
+	function() {
+		return "TEST!";
+	}
 ));
-
-	Route::post('search', array(
-		'as' => 'search',
-		function() {
-			return "TEST!";
-		}
-	));
 
 Route::get('admin', array(
 	'as' => 'admin', 
 	'before' => 'auth', 
 	'uses' => 'AdminController@getIndex'
 ));
-
-Route::group(array('domain' => '{user}.amdsti.dev'), function() {
-	Route::get('about', function() {
-		$version = $user;
-		return View::make('public.about', compact("version"));
-	});
-});
 
 // Routes protected from unauthorized users
 //Route::group(array('before' => 'auth'), function() {
@@ -80,14 +64,3 @@ Route::get('user/login', array(
 Route::post('user/login', array(
 	'uses' => 'UserController@postLogin'
 ));
-
-
-
-
-
-// Testing routes
-Route::group(array('domain' => '{account}.amsdti.dev'), function() {
-	Route::get('/', function($account) {
-		return View::make('public.about', compact("account"));
-	});
-});

@@ -1,23 +1,46 @@
 @include('partials.header')
 
-	{{-- BEGIN Container --}}
+	@if (Sentry::check())
+   		@include('partials.nav')
+	@endif
+
+	<!-- BEGIN Container -->
     <div class="container-fluid sidebar-blue" id="main-container">
 
-		{{-- BEGIN Content --}}
-	    @section('main-content')
-	    	@parent
+		<!-- BEGIN Content -->
+		<div id="main-content">
 
-			<footer>
+			<!-- BEGIN Page Title -->
+		    <div class="page-title">
+		        <div>
+		            <h1><i class="icon-file-alt"></i> @yield('title')</h1>
+		            <h4>Overview, stats, chat and more</h4>
+		        </div>
+		    </div>
+		    <!-- END Page Title -->
+
+		    <!-- BEGIN Breadcrumb -->
+		    <div id="breadcrumbs">
+		        <ul class="breadcrumb">
+		            <li class="active"><i class="icon-home"></i> Home</li>
+		        </ul>
+		    </div>
+		    <!-- END Breadcrumb -->
+		    
+	    	@yield('main-content')
+
+	    	<footer>
                 <p>
-                	&copy; {{ date('Y') }} {{ Html::link('/', Config::get('app.company_name'), null, array('class' => 'brand')) }}
+                	&copy; {{{ date('Y') }}}
+                	{{ Html::link('/', Config::get('app.company_name'), null, array('class' => 'brand')) }}
                 </p>
             </footer>
 
             <a id="btn-scrollup" class="btn btn-circle btn-large" href="#"><i class="icon-chevron-up"></i></a>
-		@show
-		{{-- END Content --}}
+		</div>
+		<!-- END Content -->
 
 	</div>
-	{{-- END Container --}}
+	<!-- END Container -->
 
 @include('partials.footer')

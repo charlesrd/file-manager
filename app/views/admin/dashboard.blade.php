@@ -1,21 +1,5 @@
+@section('title', 'Dashboard')
 @section('main-content')
-    <!-- BEGIN Page Title -->
-    <div class="page-title">
-        <div>
-            <h1><i class="icon-file-alt"></i> Dashboard</h1>
-            <h4>Overview, stats, chat and more</h4>
-        </div>
-    </div>
-    <!-- END Page Title -->
-
-    <!-- BEGIN Breadcrumb -->
-    <div id="breadcrumbs">
-        <ul class="breadcrumb">
-            <li class="active"><i class="icon-home"></i> Home</li>
-        </ul>
-    </div>
-    <!-- END Breadcrumb -->
-
     <!-- BEGIN Main Content -->
     <div class="row-fluid">
         <div class="span7">
