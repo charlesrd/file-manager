@@ -27,6 +27,9 @@
     {{ Html::style('css/flaty.css') }}
     {{ Html::style('css/flaty-responsive.css') }}
 
+    @section('extra-styles')
+    @show
+
     {{-- AMSDTI Styles --}}
     {{ Html::style('css/style.css') }}
 

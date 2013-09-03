@@ -13,15 +13,28 @@
                     </div>
                 </div>
                 <div class="box-content">
-                    <p>Blank page</p>
+                {{ Form::open(array('route' => 'file_upload_post', 'files' => true, 'class' => 'dropzone', 'id' => 'dropzone')) }}
+                    <div class="fallback">
+                        <input name="file" type="file" multiple="multiple" />
+                    </div>
+                    {{ Form::token() }}
+                {{ Form::close() }}
                 </div>
             </div>
         </div>
     </div>
 @stop
 
-@section('extra-scripts')
-    @parent
+@section('extra-styles')
+    {{ Html::style('assets/dropzone/downloads/css/dropzone.css')}}
+@stop
 
+@section('extra-scripts')
     {{ Html::script('assets/dropzone/downloads/dropzone.min.js') }}
+
+    <script>
+    Dropzone.options.dropzone = {
+        addRemoveLinks: true
+    }
+    </script>
 @stop

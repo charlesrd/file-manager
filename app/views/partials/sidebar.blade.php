@@ -56,8 +56,8 @@
 
             <!-- BEGIN Submenu -->
             <ul class="submenu">
-                <li>{{ Html::linkRoute('file_upload') }}</li>
-                <li>{{ Html::linkRoute('file_history') }}</li>
+                <li>{{ Html::linkRoute('file_upload', 'Upload Files') }}</li>
+                <li>{{ Html::linkRoute('file_history', 'File History') }}</li>
             </ul>
             <!-- END Submenu -->
         </li>
@@ -71,12 +71,8 @@
 
             <!-- BEGIN Submenu -->
             <ul class="submenu">
-                <li><a href="ui_general.html">General</a></li>
-                <li><a href="ui_button.html">Button</a></li>
-                <li><a href="ui_slider.html">Slider</a></li>
-                <li><a href="ui_chart.html">Chart</a></li>
-                <li><a href="ui_message.html">Conversation</a></li>
-                <li><a href="ui_icon.html">Icon</a></li>
+                <li>{{ Html::linkRoute('message_inbox', 'Inbox') }}</li>
+                <li>{{ Html::linkRoute('message_outbox', 'Outbox') }}</li>
             </ul>
             <!-- END Submenu -->
         </li>

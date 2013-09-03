@@ -2,8 +2,8 @@
 
 return array(
 
-	'company_name' => 'AmericaSmiles Dental Technologies, Inc.',
-	'site_title' => 'AMSDTI File Management System',
+	'company_name' => 'AMSDTI',
+	'site_title' => 'File Management System',
 
 	/*
 	|--------------------------------------------------------------------------

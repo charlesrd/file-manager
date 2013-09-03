@@ -21,7 +21,26 @@ Route::get('/', array(
 	}
 ));
 
-Route::controller('file', 'FileController');
+Route::controller('file', 'FileController', array(
+	'getIndex' => 'file',
+	'getUpload' => 'file_upload',
+	'postUpload' => 'file_upload_post',
+	'getHistory' => 'file_history'
+));
+
+Route::get('message/inbox', array(
+	'as' => 'message_inbox',
+	function() {
+		return Redirect::route('dashboard');
+	}
+));
+
+Route::get('message/outbox', array(
+	'as' => 'message_outbox',
+	function() {
+		return Redirect::route('dashboard');
+	}
+));
 
 Route::post('search', array(
 	'as' => 'search',
