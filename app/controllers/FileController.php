@@ -12,7 +12,7 @@ class FileController extends \BaseController {
 	}
 
     public function getUpload() {
-        $this->layout->content = View::make('public.upload');
+        return View::make('public.upload')->with('title', 'Upload Files');
     }
 
     public function postUpload() {
@@ -74,7 +74,7 @@ class FileController extends \BaseController {
     }
 
     public function getHistory() {
-        $this->layout->content = View::make('public.upload');
+        return View::make('public.upload');
     }
 
 }

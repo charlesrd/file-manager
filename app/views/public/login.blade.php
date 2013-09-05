@@ -1,3 +1,5 @@
+@extends('layouts.login')
+
 @section('main-content')
     <div class="login-wrapper">
         <!-- BEGIN Login Form -->

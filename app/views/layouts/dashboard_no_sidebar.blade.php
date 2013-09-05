@@ -5,7 +5,7 @@
 	@endif
 
 	<!-- BEGIN Container -->
-    <div class="container-fluid sidebar-blue" id="main-container">
+    <div class="container-fluid" id="main-container">
 
 		<!-- BEGIN Content -->
 		<div id="main-content">

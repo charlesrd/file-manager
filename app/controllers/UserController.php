@@ -3,16 +3,13 @@
 class UserController extends BaseController {
 
 	public $restful = true;
-	public $layout = 'layouts.dashboard_no_sidebar';
 
 	public function getIndex() {
-		$this->layout->title = 'User Login';
-		$this->layout->content = View::make('public.login');
+		return View::make('public.login')->with('title', 'User Login');
 	}
 
 	public function getLogin() {
-		$this->layout->title = 'User Login';
-		$this->layout->content = View::make('public.login');
+		return View::make('public.login')->with('title', 'User Login');
 	}
 
 	public function postLogin() {

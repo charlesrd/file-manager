@@ -1,3 +1,5 @@
+@extends('layouts.dashboard_sidebar')
+
 @section('title', 'Upload Files')
 
 @section('main-content')

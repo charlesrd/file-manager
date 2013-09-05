@@ -7,9 +7,9 @@ class DashboardController extends BaseController {
 
 	public function getIndex() {
 		if (Sentry::hasAccess('admin')) {
-			$this->layout->content = View::make('admin.dashboard');
+			return View::make('admin.dashboard');
 		} else {
-			$this->layout->content = View::make('user.dashboard');
+			return View::make('user.dashboard');
 		}
 	}
 

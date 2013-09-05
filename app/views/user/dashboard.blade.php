@@ -1,3 +1,4 @@
+@extends('layouts.dashboard_sidebar')
 @section('title', 'Dashboard')
 @section('main-content')
     <!-- BEGIN Main Content -->
