@@ -28,6 +28,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	protected $fillable = array('labLogin', 'labEmail');
 	protected $guarded  = array('labID', 'labPassword');
 
+	public function files() {
+		return $this->hasMany('File');
+	}
+
 	/**
 	 * Get the unique identifier for the user.
 	 *
