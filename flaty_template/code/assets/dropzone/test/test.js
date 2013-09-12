@@ -2,7 +2,7 @@
   chai.should();
 
   describe("Dropzone", function() {
-    var getMockFile;
+    var getMockFile, xhr;
     getMockFile = function() {
       return {
         name: "test file name",
@@ -10,6 +10,10 @@
         type: "text/html"
       };
     };
+    xhr = null;
+    beforeEach(function() {
+      return xhr = sinon.useFakeXMLHttpRequest();
+    });
     describe("static functions", function() {
       describe("Dropzone.createElement()", function() {
         var element;
@@ -141,14 +145,21 @@
           after(function() {
             return document.body.removeChild(element3);
           });
-          return it("should not create dropzones if Dropzone.autoDiscover == false", function() {
+          it("should create dropzones even if Dropzone.autoDiscover == false", function() {
             Dropzone.autoDiscover = false;
             Dropzone.discover();
-            return expect(element3.dropzone).to.not.be.ok;
+            return expect(element3.dropzone).to.be.ok;
+          });
+          return it("should not automatically be called if Dropzone.autoDiscover == false", function() {
+            Dropzone.autoDiscover = false;
+            Dropzone.discover = function() {
+              return expect(false).to.be.ok;
+            };
+            return Dropzone._autoDiscoverFunction();
           });
         });
       });
-      return describe("Dropzone.isValidFile()", function() {
+      describe("Dropzone.isValidFile()", function() {
         it("should return true if called without acceptedFiles", function() {
           return Dropzone.isValidFile({
             type: "some/type"
@@ -245,6 +256,48 @@
             name: "some-file file.png",
             type: "random/type"
           }, acceptedMimeTypes).should.be.ok;
+        });
+      });
+      return describe("Dropzone.confirm", function() {
+        beforeEach(function() {
+          return sinon.stub(window, "confirm");
+        });
+        afterEach(function() {
+          return window.confirm.restore();
+        });
+        it("should forward to window.confirm and call the callbacks accordingly", function() {
+          var accepted, rejected;
+          accepted = rejected = false;
+          window.confirm.returns(true);
+          Dropzone.confirm("test question", (function() {
+            return accepted = true;
+          }), (function() {
+            return rejected = true;
+          }));
+          window.confirm.args[0][0].should.equal("test question");
+          accepted.should.equal(true);
+          rejected.should.equal(false);
+          accepted = rejected = false;
+          window.confirm.returns(false);
+          Dropzone.confirm("test question 2", (function() {
+            return accepted = true;
+          }), (function() {
+            return rejected = true;
+          }));
+          window.confirm.args[1][0].should.equal("test question 2");
+          accepted.should.equal(false);
+          return rejected.should.equal(true);
+        });
+        return it("should not error if rejected is not provided", function() {
+          var accepted, rejected;
+          accepted = rejected = false;
+          window.confirm.returns(false);
+          Dropzone.confirm("test question", (function() {
+            return accepted = true;
+          }));
+          window.confirm.args[0][0].should.equal("test question");
+          accepted.should.equal(false);
+          return rejected.should.equal(false);
         });
       });
     });
@@ -375,6 +428,12 @@
           url: "url"
         });
         return element.dropzone.should.equal(dropzone);
+      });
+      it("should use the action attribute not the element with the name action", function() {
+        var element;
+        element = Dropzone.createElement("<form action=\"real-action\"><input type=\"hidden\" name=\"action\" value=\"wrong-action\" /></form>");
+        dropzone = new Dropzone(element);
+        return dropzone.options.url.should.equal("real-action");
       });
       return describe("options", function() {
         var element, element2;
@@ -560,7 +619,8 @@
         return dropzone = new Dropzone(element, {
           maxFilesize: 4,
           url: "url",
-          acceptedMimeTypes: "audio/*,image/png"
+          acceptedMimeTypes: "audio/*,image/png",
+          maxFiles: 3
         });
       });
       return describe("file specific", function() {
@@ -611,13 +671,11 @@
       });
     });
     describe("instance", function() {
-      var dropzone, element, requests, xhr;
+      var dropzone, element, requests;
       element = null;
       dropzone = null;
-      xhr = null;
       requests = null;
       beforeEach(function() {
-        xhr = sinon.useFakeXMLHttpRequest();
         requests = [];
         xhr.onCreate = function(xhr) {
           return requests.push(xhr);
@@ -626,6 +684,7 @@
         document.body.appendChild(element);
         return dropzone = new Dropzone(element, {
           maxFilesize: 4,
+          maxFiles: 100,
           url: "url",
           acceptedMimeTypes: "audio/*,image/png",
           uploadprogress: function() {}
@@ -670,12 +729,39 @@
             return expect(err).to.be.undefined;
           });
         });
-        return it("should properly reject files when the mime type isn't listed in acceptedFiles", function() {
+        it("should properly reject files when the mime type isn't listed in acceptedFiles", function() {
           return dropzone.accept({
             type: "image/jpeg"
           }, function(err) {
             return err.should.eql("You can't upload files of this type.");
           });
+        });
+        return it("should fail if maxFiles has been exceeded and call the event maxfilesexceeded", function() {
+          var called, file;
+          sinon.stub(dropzone, "getAcceptedFiles");
+          file = {
+            type: "audio/mp3"
+          };
+          dropzone.getAcceptedFiles.returns({
+            length: 99
+          });
+          called = false;
+          dropzone.on("maxfilesexceeded", function(lfile) {
+            lfile.should.equal(file);
+            return called = true;
+          });
+          dropzone.accept(file, function(err) {
+            return expect(err).to.be.undefined;
+          });
+          called.should.not.be.ok;
+          dropzone.getAcceptedFiles.returns({
+            length: 100
+          });
+          dropzone.accept(file, function(err) {
+            return expect(err).to.equal("You can only upload 100 files.");
+          });
+          called.should.be.ok;
+          return dropzone.getAcceptedFiles.restore();
         });
       });
       describe(".removeFile()", function() {
@@ -839,6 +925,37 @@
           return dropzone.filesize(2 * 1000 * 1000 * 1000).should.eql("<strong>2</strong> GB");
         });
       });
+      describe("._updateMaxFilesReachedClass()", function() {
+        it("should properly add the dz-max-files-reached class", function() {
+          dropzone.getAcceptedFiles = function() {
+            return {
+              length: 10
+            };
+          };
+          dropzone.options.maxFiles = 10;
+          dropzone.element.classList.contains("dz-max-files-reached").should.not.be.ok;
+          dropzone._updateMaxFilesReachedClass();
+          return dropzone.element.classList.contains("dz-max-files-reached").should.be.ok;
+        });
+        return it("should properly remove the dz-max-files-reached class", function() {
+          dropzone.getAcceptedFiles = function() {
+            return {
+              length: 10
+            };
+          };
+          dropzone.options.maxFiles = 10;
+          dropzone.element.classList.contains("dz-max-files-reached").should.not.be.ok;
+          dropzone._updateMaxFilesReachedClass();
+          dropzone.element.classList.contains("dz-max-files-reached").should.be.ok;
+          dropzone.getAcceptedFiles = function() {
+            return {
+              length: 9
+            };
+          };
+          dropzone._updateMaxFilesReachedClass();
+          return dropzone.element.classList.contains("dz-max-files-reached").should.not.be.ok;
+        });
+      });
       return describe("events", function() {
         return describe("progress updates", function() {
           return it("should properly emit a totaluploadprogress event", function(done) {
@@ -991,8 +1108,8 @@
           mock2 = getMockFile();
           mock3 = getMockFile();
           mock4 = getMockFile();
-          dropzone.options.accept = function(file, done) {
-            return file.done = done;
+          dropzone.options.accept = function(file, _done) {
+            return file.done = _done;
           };
           dropzone.uploadFile = function() {};
           dropzone.addFile(mock1);
@@ -1109,11 +1226,9 @@
         });
       });
       return describe("uploadFiles()", function() {
-        var requests, xhr;
-        xhr = null;
+        var requests;
         requests = null;
         beforeEach(function() {
-          xhr = sinon.useFakeXMLHttpRequest();
           requests = [];
           return xhr.onCreate = function(xhr) {
             return requests.push(xhr);

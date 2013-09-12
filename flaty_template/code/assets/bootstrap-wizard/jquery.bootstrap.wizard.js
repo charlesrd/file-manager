@@ -52,6 +52,9 @@ var bootstrapWizardCreate = function(element, options) {
 		if($index > obj.navigationLength()) {
 		} else {
 			$navigation.find('li:eq('+$index+') a').tab('show');
+			$activeTab = $navigation.find('li.active', element);
+			$($settings.previousSelector, element).toggleClass('disabled', (obj.firstIndex() >= obj.currentIndex()));
+			$($settings.nextSelector, element).toggleClass('disabled', (obj.currentIndex() >= obj.navigationLength()));
 		}
 	};
 
@@ -70,6 +73,9 @@ var bootstrapWizardCreate = function(element, options) {
 		if($index < 0) {
 		} else {
 			$navigation.find('li:eq('+$index+') a').tab('show');
+			$activeTab = $navigation.find('li.active', element);
+			$($settings.previousSelector, element).toggleClass('disabled', (obj.firstIndex() >= obj.currentIndex()));
+			$($settings.nextSelector, element).toggleClass('disabled', (obj.currentIndex() >= obj.navigationLength()));
 		}
 	};
 

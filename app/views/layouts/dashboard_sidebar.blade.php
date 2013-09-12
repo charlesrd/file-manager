@@ -5,11 +5,11 @@
 	@endif
 
 	<!-- BEGIN Container -->
-    <div class="container-fluid sidebar-blue" id="main-container">
+    <div class="container" id="main-container">
 		
-    	<!-- BEGIN Sidebar -->
+    	{{-- BEGIN Sidebar --}}
 		@include('partials.sidebar')
-    	<!-- END Sidebar -->
+    	{{-- END Sidebar --}}
 
 		<!-- BEGIN Content -->
 		<div id="main-content">
@@ -36,11 +36,11 @@
 	    	<footer>
                 <p>
                 	&copy; {{{ date('Y') }}}
-                	{{ Html::link('/', Config::get('app.company_name'), null, array('class' => 'brand')) }}
+                	{{ Html::link('/', Config::get('app.company_name')) }}
                 </p>
             </footer>
 
-            <a id="btn-scrollup" class="btn btn-circle btn-large" href="#"><i class="icon-chevron-up"></i></a>
+            <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="icon-chevron-up"></i></a>
 		</div>
 		<!-- END Content -->
 

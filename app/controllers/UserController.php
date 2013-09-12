@@ -2,14 +2,12 @@
 
 class UserController extends BaseController {
 
-	public $restful = true;
-
 	public function getIndex() {
-		return View::make('public.login')->with('title', 'User Login');
+		return Redirect::route('user_login');
 	}
 
 	public function getLogin() {
-		return View::make('public.login')->with('title', 'User Login');
+		return View::make('public.landing');
 	}
 
 	public function postLogin() {
@@ -27,7 +25,7 @@ class UserController extends BaseController {
 
         // run validation check
         if ($validation->fails()) {
-            return Redirect::route('login')->withErrors($validation)->withInput();
+            return Redirect::route('user_login')->withErrors($validation)->withInput();
         } else {
         	// try to log a user in
         	try {
@@ -38,11 +36,11 @@ class UserController extends BaseController {
         			'password' => $inputs['user_password']
         		);
 
-        		$user = Sentry::authenticate($userCredentials, true);
+        		$user = Sentry::authenticate($userCredentials, isset($inputs['remember']));
         	// uh oh, we couldn't find the user
         	} catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
         		Session::flash('login_errors', true);
-        		return Redirect::route('login')->withErrors($validation)->withInput(Input::except('user_password'));
+        		return Redirect::route('user_login')->withErrors($validation)->withInput(Input::except('user_password'));
         	}
 
         	// User login was successful, let's go to the dashboard!
@@ -56,5 +54,13 @@ class UserController extends BaseController {
 		// redirect to homepage
 		return Redirect::route('home');
 	}
+
+    public function getResetPassword() {
+        dd($user);
+    }
+
+    public function postResetPassword() {
+
+    }
 
 }

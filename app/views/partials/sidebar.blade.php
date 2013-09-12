@@ -22,12 +22,12 @@
 
 
 <!-- BEGIN Sidebar -->
-<div id="sidebar" class="nav-collapse">
+<div id="sidebar" class="navbar-collapse collapse">
     <!-- BEGIN Navlist -->
     <ul class="nav nav-list">
         <!-- BEGIN Search Form -->
         <li>
-            {{ Form::open(array('route' => 'search', 'class' => 'search-form')) }}
+            {{ Form::open(array('route' => 'file_search', 'class' => 'search-form')) }}
                 <span class="search-pan">
                     <button type="submit">
                         <i class="icon-search"></i>
@@ -80,7 +80,7 @@
     <!-- END Navlist -->
 
     <!-- BEGIN Sidebar Collapse Button -->
-    <div id="sidebar-collapse" class="visible-desktop">
+    <div id="sidebar-collapse" class="visible-lg">
         <i class="icon-double-angle-left"></i>
     </div>
     <!-- END Sidebar Collapse Button -->

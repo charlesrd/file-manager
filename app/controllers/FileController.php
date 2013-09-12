@@ -4,11 +4,8 @@ use App\Models\File;
 
 class FileController extends \BaseController {
 
-	public $layout = 'layouts.dashboard_sidebar';
-
 	public function getIndex() {
-        dd(Sentry::getUser()->upload_folder);
-		//$this->layout->content = View::make('public.upload');
+        return Redirect::route('file_upload');
 	}
 
     public function getUpload() {
@@ -26,7 +23,13 @@ class FileController extends \BaseController {
         $uploadFilesArray = Input::all();
 
         // Set destination for uploads
-        $destinationPath = 'uploads/' . Sentry::getUser()->upload_folder;
+        if ($user) {
+            // user is logged in, upload to their user folder
+            $destinationPath = 'uploads/' . $user->upload_folder;
+        } else {
+            // user is not logged in, upload to guest folder
+            $destinationPath = 'uploads/guest';
+        }
 
         // Set upload validation rules
         $uploadValidationRules = array(
@@ -58,7 +61,12 @@ class FileController extends \BaseController {
         if ($uploadSuccess) {
             // Upload was successful, let's add a reference of it to the database
             $file = new File;
-            $file->user_id = $user->id;
+
+            if ($user) {
+                $file->user_id = $user->id;
+            } else {
+                $file->user_id = null;
+            }
             $file->filename_original = $uploadFileName;
             $file->filename_random = $uploadFileNameRandomized;
 

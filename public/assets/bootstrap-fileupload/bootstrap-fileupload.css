@@ -28,7 +28,7 @@
   cursor: text;
 }
 
-.fileupload .thumbnail {
+.fileupload .img-thumbnail {
   display: inline-block;
   margin-bottom: 5px;
   overflow: hidden;
@@ -36,7 +36,7 @@
   vertical-align: middle;
 }
 
-.fileupload .thumbnail > img {
+.fileupload .img-thumbnail > img {
   display: inline-block;
   max-height: 100%;
   vertical-align: middle;
@@ -55,13 +55,13 @@
   display: inline;
 }
 
-.fileupload-new .input-append .btn-file {
+.fileupload-new .input-group .btn-file {
   -webkit-border-radius: 0 3px 3px 0;
      -moz-border-radius: 0 3px 3px 0;
           border-radius: 0 3px 3px 0;
 }
 
-.thumbnail-borderless .thumbnail {
+.img-thumbnail-borderless .img-thumbnail {
   padding: 0;
   border: none;
   -webkit-border-radius: 0;
@@ -72,7 +72,7 @@
           box-shadow: none;
 }
 
-.fileupload-new.thumbnail-borderless .thumbnail {
+.fileupload-new.img-thumbnail-borderless .img-thumbnail {
   border: 1px solid #ddd;
 }
 
@@ -85,7 +85,7 @@
   color: #a47e3c;
 }
 
-.control-group.warning .fileupload .thumbnail {
+.control-group.warning .fileupload .img-thumbnail {
   border-color: #a47e3c;
 }
 
@@ -98,7 +98,7 @@
   color: #b94a48;
 }
 
-.control-group.error .fileupload .thumbnail {
+.control-group.error .fileupload .img-thumbnail {
   border-color: #b94a48;
 }
 
@@ -111,6 +111,6 @@
   color: #468847;
 }
 
-.control-group.success .fileupload .thumbnail {
+.control-group.success .fileupload .img-thumbnail {
   border-color: #468847;
 }

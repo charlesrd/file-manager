@@ -1,6 +1,50 @@
+.login-page .login-wrapper {
+	width: 1050px;
+	margin: 0 auto;
+}
+
 .login-page .login-wrapper form {
-    width: 450px;
+    width: 475px;
     text-align: center;
+}
+
+.login-page .login-wrapper form#form-guest-upload {
+    float: left;
+}
+
+.login-page .login-wrapper form#form-login {
+    float: right;
+}
+
+.login-page .login-wrapper form label.checkbox {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.login-page .login-wrapper form#form-login ul {
+	text-align: left;
+}
+
+.login-page .login-wrapper span#landing-separator {
+	text-align: center;
+	display: inline-block;
+	width: 100px;
+	float: left;
+	margin-top:  200px;
+	font-size: 36px;
+	font-weight: bold;
+	background-color: white;
+	padding: .5em 0;
+}
+
+.login-page form input, .login-page form textarea {
+    padding: 15px 10px !important;
+    height: auto !important;
+    font-size: 16px;
+}
+
+.login-page form textarea {
+	height: 100px !important;
 }
 
 .dropdown-menu .divider {

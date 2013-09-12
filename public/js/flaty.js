@@ -1,6 +1,5 @@
 $(function() {
 
-
     //Handel user layout settings using cookie
     function handleUserLayoutSetting() {
         if (typeof cookie_not_handle_user_settings != 'undefined' && cookie_not_handle_user_settings == true) {
@@ -41,7 +40,7 @@ $(function() {
         }
     }
     //If you want to handle skin color by server-side code, don't forget to comment next line  
-    //handleUserLayoutSetting();
+    handleUserLayoutSetting();
 
 
     //Disable certain links
@@ -126,6 +125,12 @@ $(function() {
         }
         $(".nice-scroll").getNiceScroll().resize();
         scrollableSidebar();
+    });
+
+    $('#sidebar').on('show.bs.collapse', function () {
+        if ($(this).hasClass('sidebar-collapsed')) {
+            $(this).removeClass('sidebar-collapsed');
+        }
     });
     //Search Form
     $('#sidebar .search-form').click(function(){
@@ -714,6 +719,9 @@ $(function() {
                     $('#form-wizard-1').find('.button-next').show();
                     $('#form-wizard-1').find('.button-submit').hide();
                 }
+                var $percent = (current / total) * 100;
+                $('#form-wizard-1').find('.progress-bar').css('width', $percent+'%');
+
                 $('html, body').animate({scrollTop: $("#form-wizard-1").offset().top}, 900);
             },
             onPrevious: function (tab, navigation, index) {
@@ -741,6 +749,8 @@ $(function() {
                     $('#form-wizard-1').find('.button-next').show();
                     $('#form-wizard-1').find('.button-submit').hide();
                 }
+                var $percent = (current / total) * 100;
+                $('#form-wizard-1').find('.progress-bar').css('width', $percent+'%');
 
                 $('html, body').animate({scrollTop: $("#form-wizard-1").offset().top}, 900);
             },
@@ -748,7 +758,7 @@ $(function() {
                 var total = navigation.find('li').length;
                 var current = index + 1;
                 var $percent = (current / total) * 100;
-                $('#form-wizard-1').find('.bar').css({
+                $('#form-wizard-1').find('.progress-bar').css({
                     width: $percent + '%'
                 });
             }
@@ -791,6 +801,9 @@ $(function() {
                     $('#form-wizard-2').find('.button-next').show();
                     $('#form-wizard-2').find('.button-submit').hide();
                 }
+                var $percent = (current / total) * 100;
+                $('#form-wizard-2').find('.progress-bar').css('width', $percent+'%');
+
                 $('html, body').animate({scrollTop: $("#form-wizard-2").offset().top}, 900);
             },
             onPrevious: function (tab, navigation, index) {
@@ -818,6 +831,8 @@ $(function() {
                     $('#form-wizard-2').find('.button-next').show();
                     $('#form-wizard-2').find('.button-submit').hide();
                 }
+                var $percent = (current / total) * 100;
+                $('#form-wizard-2').find('.progress-bar').css('width', $percent+'%');
 
                 $('html, body').animate({scrollTop: $("#form-wizard-2").offset().top}, 900);
             },
@@ -825,7 +840,7 @@ $(function() {
                 var total = navigation.find('li').length;
                 var current = index + 1;
                 var $percent = (current / total) * 100;
-                $('#form-wizard-2').find('.bar').css({
+                $('#form-wizard-2').find('.progress-bar').css({
                     width: $percent + '%'
                 });
             }
@@ -840,11 +855,11 @@ $(function() {
     //------------------------------ Form validation --------------------------//
     if (jQuery().validate) {
         var removeSuccessClass = function(e) {
-            $(e).closest('.control-group').removeClass('success');
+            $(e).closest('.form-group').removeClass('has-success');
         }
         $('#validation-form').validate({
             errorElement: 'span', //default input error message container
-            errorClass: 'help-inline', // default input error message class
+            errorClass: 'help-block', // default input error message class
             focusInvalid: false, // do not focus the last invalid input
             ignore: "",
 
@@ -853,16 +868,16 @@ $(function() {
             },
 
             highlight: function (element) { // hightlight error inputs
-                $(element).closest('.control-group').removeClass('success').addClass('error'); // set error class to the control group
+                $(element).closest('.form-group').removeClass('has-success').addClass('has-error'); // set error class to the control group
             },
 
             unhighlight: function (element) { // revert the change dony by hightlight
-                $(element).closest('.control-group').removeClass('error'); // set error class to the control group
+                $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
                 setTimeout(function(){removeSuccessClass(element);}, 3000);
             },
 
             success: function (label) {
-                label.closest('.control-group').removeClass('error').addClass('success'); // set success class to the control group
+                label.closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
             }
         });
     }

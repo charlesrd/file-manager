@@ -2,11 +2,15 @@
 
 class BaseController extends Controller {
 
+	public $user = null;
+
 	public function __construct() {
 		//Check CSRF token on POST
 		$this->beforeFilter('csrf', array('on' => 'post'));
+		
 		if (Sentry::check()) {
-			View::share('user', Sentry::getUser());
+			$this->user = Sentry::getUser();
+			View::share('user', $this->user);
 		}
 	}
 

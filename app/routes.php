@@ -10,17 +10,26 @@
 |
 */
 
-// Basic  page routes
-
-// index
+// Index route
 Route::get('/', array(
-	'as' => 'home', 
-	'before' => 'auth', 
+	'as' => 'home',
 	function() {
-		return Redirect::route('dashboard');
+		if (Sentry::getUser()) {
+			return Redirect::route('dashboard');
+		} else {
+			return View::make('public.landing');
+		}
 	}
 ));
 
+// Dashboard route
+Route::any('dashboard', array(
+	'before' => 'auth',
+	'as' => 'dashboard',
+	'uses' => 'DashboardController@getIndex'
+));
+
+// File Routes
 Route::controller('file', 'FileController', array(
 	'getIndex' => 'file',
 	'getUpload' => 'file_upload',
@@ -28,25 +37,10 @@ Route::controller('file', 'FileController', array(
 	'getHistory' => 'file_history'
 ));
 
-Route::get('message/inbox', array(
-	'as' => 'message_inbox',
-	function() {
-		return Redirect::route('dashboard');
-	}
-));
-
-Route::get('message/outbox', array(
-	'as' => 'message_outbox',
-	function() {
-		return Redirect::route('dashboard');
-	}
-));
-
 Route::post('search', array(
-	'as' => 'search',
-	function() {
-		return "TEST!";
-	}
+	'before' => 'csrf',
+	'as' => 'file_search',
+	'uses' => 'SearchController@getResults'
 ));
 
 Route::get('admin', array(
@@ -55,31 +49,41 @@ Route::get('admin', array(
 	'uses' => 'AdminController@getIndex'
 ));
 
-// Routes protected from unauthorized users
-//Route::group(array('before' => 'auth'), function() {
-	Route::any('dashboard', array(
-		'as' => 'dashboard', 
-		'uses' => 'DashboardController@getIndex',
-		'before' => 'auth'
+// Message Routes
+Route::controller('message', 'MessageController', array(
+	'getIndex' => 'message',
+	'getInbox' => 'message_inbox',
+	'getOutbox' => 'message_outbox'
+));
+
+// User Routes
+Route::group(array('prefix' => 'user'), function() {
+
+	Route::get('/', array(
+		'as' => 'user',
+		'uses' => 'UserController@getIndex'
 	));
-//});
 
+	Route::get('login', array(
+		'as' => 'user_login',
+		'before' => 'guest',
+		'uses' => 'UserController@getLogin'
+	));
 
-Route::get('user', array(
-	'uses' => 'UserController@getIndex'
-));
+	Route::post('login', array(
+		'uses' => 'UserController@postLogin'
+	));
 
-Route::get('user/logout', array(
-	'as' => 'logout', 
-	'uses' => 'UserController@getLogout'
-));
+	Route::get('logout', array(
+		'as' => 'user_logout',
+		'before' => 'auth',
+		'uses' => 'UserController@getLogout'
+	));
 
-Route::get('user/login', array(
-	'as' => 'login', 
-	'uses' => 'UserController@getLogin', 
-	'before' => 'guest'
-));
+	Route::get('resetpassword', array(
+		'as' => 'user_resetpassword',
+		'before' => 'auth',
+		'uses' => 'UserController@getResetPassword'
+	));
 
-Route::post('user/login', array(
-	'uses' => 'UserController@postLogin'
-));
+});

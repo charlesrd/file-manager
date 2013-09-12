@@ -52,6 +52,7 @@ class Dropzone extends Em
     "removedfile"
     "thumbnail"
     "error"
+    "errormultiple"
     "processing"
     "processingmultiple"
     "uploadprogress"
@@ -65,6 +66,7 @@ class Dropzone extends Em
     "complete"
     "completemultiple"
     "reset"
+    "maxfilesexceeded"
   ]
 
 
@@ -81,6 +83,10 @@ class Dropzone extends Em
     maxThumbnailFilesize: 10 # in MB. When the filename exceeds this limit, the thumbnail will not be generated.
     thumbnailWidth: 100
     thumbnailHeight: 100
+
+    # Can be used to limit the maximum number of files that will be handled
+    # by this Dropzone
+    maxFiles: null
 
     # Can be an object of additional parameters to transfer to the server.
     # This is the same as adding hidden input fields in the form element.
@@ -156,6 +162,13 @@ class Dropzone extends Em
 
     # If used, the text to be used to remove a file.
     dictRemoveFile: "Remove file"
+
+    # If this is not null, then the user will be prompted before removing a file.
+    dictRemoveFileConfirmation: null
+
+    # Displayed when the maxFiles have been exceeded
+    dictMaxFilesExceeded: "You can only upload {{maxFiles}} files."
+
 
     # If `done()` is called without argument the file is accepted
     # If you call it with an error message, the file is rejected
@@ -277,15 +290,21 @@ class Dropzone extends Em
           e.preventDefault()
           e.stopPropagation()
           if file.status == Dropzone.UPLOADING
-            @removeFile file if window.confirm @options.dictCancelUploadConfirmation
+            Dropzone.confirm @options.dictCancelUploadConfirmation, => @removeFile file
           else
-            @removeFile file
+            if @options.dictRemoveFileConfirmation
+              Dropzone.confirm @options.dictRemoveFileConfirmation, => @removeFile file
+            else
+              @removeFile file
 
         file.previewElement.appendChild file._removeLink
+
+      @_updateMaxFilesReachedClass()
 
     # Called whenever a file is removed.
     removedfile: (file) ->
       file.previewElement?.parentNode.removeChild file.previewElement
+      @_updateMaxFilesReachedClass()
 
     # Called when a thumbnail has been generated
     # Receives `file` and `dataUrl`
@@ -303,6 +322,7 @@ class Dropzone extends Em
       file.previewElement.classList.add "dz-error"
       file.previewElement.querySelector("[data-dz-errormessage]").textContent = message
     
+    errormultiple: noop
     
     # Called when a file gets processed. Since there is a cue, not all added
     # files are processed immediately.
@@ -349,6 +369,7 @@ class Dropzone extends Em
 
     completemultiple: noop
 
+    maxfilesexceeded: noop
 
 
 
@@ -400,7 +421,11 @@ class Dropzone extends Em
 
     @options = extend { }, @defaultOptions, elementOptions, options ? { }
 
-    @options.url = @element.action unless @options.url?
+    # If the browser failed, just call the fallback and leave
+    return @options.fallback.call this if @options.forceFallback or !Dropzone.isBrowserSupported()
+
+    # @options.url = @element.getAttribute "action" unless @options.url?
+    @options.url = @element.getAttribute "action" unless @options.url?
 
     throw new Error "No URL provided." unless @options.url
 
@@ -412,9 +437,6 @@ class Dropzone extends Em
       delete @options.acceptedMimeTypes
 
     @options.method = @options.method.toUpperCase()
-
-    # If the browser failed, just call the fallback and leave
-    return @options.fallback.call this if @options.forceFallback or !Dropzone.isBrowserSupported()
 
     if (fallback = @getExistingFallback()) and fallback.parentNode
       # Remove the fallback
@@ -460,7 +482,7 @@ class Dropzone extends Em
         document.body.removeChild @hiddenFileInput if @hiddenFileInput
         @hiddenFileInput = document.createElement "input"
         @hiddenFileInput.setAttribute "type", "file"
-        @hiddenFileInput.setAttribute "multiple", "multiple" if @options.uploadMultiple
+        @hiddenFileInput.setAttribute "multiple", "multiple"
 
         @hiddenFileInput.setAttribute "accept", @options.acceptedFiles if @options.acceptedFiles?
 
@@ -520,7 +542,6 @@ class Dropzone extends Em
           "drop": (e) =>
             noPropagation e
             @drop e
-            @emit "drop", e
           "dragend": (e) =>
             @emit "dragend", e
       }
@@ -641,8 +662,20 @@ class Dropzone extends Em
       string = "b"
     "<strong>#{Math.round(size)/10}</strong> #{string}"
 
+
+  # Adds or removes the `dz-max-files-reached` class from the form.
+  _updateMaxFilesReachedClass: ->
+    if @options.maxFiles and @getAcceptedFiles().length >= @options.maxFiles
+      @element.classList.add "dz-max-files-reached"
+    else
+      @element.classList.remove "dz-max-files-reached"
+
+
+
   drop: (e) ->
     return unless e.dataTransfer
+    @emit "drop", e
+
     files = e.dataTransfer.files
     @emit "selectedfiles", files
 
@@ -684,6 +717,9 @@ class Dropzone extends Em
       done @options.dictFileTooBig.replace("{{filesize}}", Math.round(file.size / 1024 / 10.24) / 100).replace("{{maxFilesize}}", @options.maxFilesize)
     else unless Dropzone.isValidFile file, @options.acceptedFiles
       done @options.dictInvalidFileType
+    else if @options.maxFiles and @getAcceptedFiles().length >= @options.maxFiles
+      done @options.dictMaxFilesExceeded.replace "{{maxFiles}}", @options.maxFiles
+      @emit "maxfilesexceeded", file
     else
       @options.accept.call this, file, done
 
@@ -704,17 +740,16 @@ class Dropzone extends Em
 
     @accept file, (error) =>
       if error
-        file.accepted = false # Backwards compatibility
+        file.accepted = false
         @_errorProcessing [ file ], error # Will set the file.status
       else
-        file.accepted = true # Backwards compatibility
-
-        @enqueueFile file
+        @enqueueFile file # Will set .accepted = true
 
   # Wrapper for enqueuFile
   enqueueFiles: (files) -> @enqueueFile file for file in files; null
 
   enqueueFile: (file) ->
+    file.accepted = true
     if file.status == Dropzone.ADDED
       file.status = Dropzone.QUEUED
       if @options.autoProcessQueue
@@ -792,13 +827,16 @@ class Dropzone extends Em
     processingLength = @getUploadingFiles().length
     i = processingLength
 
+    # There are already at least as many files uploading than should be
+    return if processingLength >= parallelUploads
+
     queuedFiles = @getQueuedFiles()
 
     return unless queuedFiles.length > 0
 
     if @options.uploadMultiple
       # The files should be uploaded in one request
-      @processFiles queuedFiles.slice 0, parallelUploads
+      @processFiles queuedFiles.slice 0, (parallelUploads - processingLength)
     else
       while i < parallelUploads
         return unless queuedFiles.length # Nothing left to process
@@ -930,7 +968,7 @@ class Dropzone extends Em
 
     extend headers, @options.headers if @options.headers
       
-    xhr.setRequestHeader header, name for header, name of headers
+    xhr.setRequestHeader headerName, headerValue for headerName, headerValue of headers
 
     formData = new FormData()
 
@@ -988,7 +1026,7 @@ class Dropzone extends Em
 
 
 
-Dropzone.version = "3.6.1"
+Dropzone.version = "3.7.1"
 
 
 # This is a map of options for your different dropzones. Add configurations
@@ -1029,8 +1067,6 @@ Dropzone.autoDiscover = on
 
 # Looks for all .dropzone elements and creates a dropzone for them
 Dropzone.discover = ->
-  return unless Dropzone.autoDiscover
-
   if document.querySelectorAll
     dropzones = document.querySelectorAll ".dropzone"
   else
@@ -1133,7 +1169,15 @@ Dropzone.getElements = (els, name) ->
 
   return elements
 
-
+# Asks the user the question and calls accepted or rejected accordingly
+# 
+# The default implementation just uses `window.confirm` and then calls the
+# appropriate callback.
+Dropzone.confirm = (question, accepted, rejected) ->
+  if window.confirm question
+    accepted()
+  else if rejected?
+    rejected()
 
 # Validates the mime type like this:
 # 
@@ -1243,4 +1287,7 @@ contentLoaded = (win, fn) ->
     win[add] pre + "load", init, false
 
 
-contentLoaded window, Dropzone.discover
+# As a single function to be able to write tests.
+Dropzone._autoDiscoverFunction = -> Dropzone.discover() if Dropzone.autoDiscover
+contentLoaded window, Dropzone._autoDiscoverFunction
+

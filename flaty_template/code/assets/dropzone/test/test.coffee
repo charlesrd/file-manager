@@ -9,6 +9,10 @@ describe "Dropzone", ->
     type: "text/html"
 
 
+  xhr = null
+  beforeEach -> xhr = sinon.useFakeXMLHttpRequest()
+
+
   describe "static functions", ->
 
     describe "Dropzone.createElement()", ->
@@ -117,10 +121,17 @@ describe "Dropzone", ->
         after ->
           document.body.removeChild element3
 
-        it "should not create dropzones if Dropzone.autoDiscover == false", ->
+        it "should create dropzones even if Dropzone.autoDiscover == false", ->
+          # Because the check is in the actual contentLoaded function.
           Dropzone.autoDiscover = off
           Dropzone.discover()
-          expect(element3.dropzone).to.not.be.ok
+          expect(element3.dropzone).to.be.ok
+
+        it "should not automatically be called if Dropzone.autoDiscover == false", ->
+          Dropzone.autoDiscover = off
+          Dropzone.discover = -> expect(false).to.be.ok
+          Dropzone._autoDiscoverFunction()
+
 
     describe "Dropzone.isValidFile()", ->
       it "should return true if called without acceptedFiles", ->
@@ -168,6 +179,33 @@ describe "Dropzone", ->
         # .pdf has to be in the end
         Dropzone.isValidFile({ name: "some-file.pdf file.gif", type: "random/type" }, acceptedMimeTypes).should.not.be.ok
         Dropzone.isValidFile({ name: "some-file file.png", type: "random/type" }, acceptedMimeTypes).should.be.ok
+
+    describe "Dropzone.confirm", ->
+      beforeEach -> sinon.stub window, "confirm"
+      afterEach -> window.confirm.restore()
+      it "should forward to window.confirm and call the callbacks accordingly", ->
+        accepted = rejected = no
+        window.confirm.returns yes
+        Dropzone.confirm "test question", (-> accepted = yes), (-> rejected = yes)
+        window.confirm.args[0][0].should.equal "test question"
+        accepted.should.equal yes
+        rejected.should.equal no
+
+        accepted = rejected = no
+        window.confirm.returns no
+        Dropzone.confirm "test question 2", (-> accepted = yes), (-> rejected = yes)
+        window.confirm.args[1][0].should.equal "test question 2"
+        accepted.should.equal no
+        rejected.should.equal yes
+
+      it "should not error if rejected is not provided", ->
+        accepted = rejected = no
+        window.confirm.returns no
+        Dropzone.confirm "test question", (-> accepted = yes)
+        window.confirm.args[0][0].should.equal "test question"
+        # Nothing should have changed since there is no rejected function.
+        accepted.should.equal no
+        rejected.should.equal no
 
 
   describe "Dropzone.getElement() / getElements()", ->
@@ -241,6 +279,11 @@ describe "Dropzone", ->
       element = document.createElement "div"
       dropzone = new Dropzone element, url: "url"
       element.dropzone.should.equal dropzone
+
+    it "should use the action attribute not the element with the name action", ->
+      element = Dropzone.createElement """<form action="real-action"><input type="hidden" name="action" value="wrong-action" /></form>"""
+      dropzone = new Dropzone element
+      dropzone.options.url.should.equal "real-action"
 
     describe "options", ->
       element = null
@@ -362,7 +405,7 @@ describe "Dropzone", ->
 
     beforeEach ->
       element = Dropzone.createElement """<div></div>"""
-      dropzone = new Dropzone element, maxFilesize: 4, url: "url", acceptedMimeTypes: "audio/*,image/png"
+      dropzone = new Dropzone element, maxFilesize: 4, url: "url", acceptedMimeTypes: "audio/*,image/png", maxFiles: 3
 
     describe "file specific", ->
       file = null
@@ -409,16 +452,14 @@ describe "Dropzone", ->
 
     element = null
     dropzone = null
-    xhr = null
     requests = null
     beforeEach ->
-      xhr = sinon.useFakeXMLHttpRequest()
       requests = [ ]
       xhr.onCreate = (xhr) -> requests.push xhr
 
       element = Dropzone.createElement """<div></div>"""
       document.body.appendChild element
-      dropzone = new Dropzone element, maxFilesize: 4, url: "url", acceptedMimeTypes: "audio/*,image/png", uploadprogress: ->
+      dropzone = new Dropzone element, maxFilesize: 4, maxFiles: 100, url: "url", acceptedMimeTypes: "audio/*,image/png", uploadprogress: ->
     afterEach ->
       document.body.removeChild element
       dropzone.destroy()
@@ -439,8 +480,27 @@ describe "Dropzone", ->
         dropzone.accept { type: "audio/wav" }, (err) -> expect(err).to.be.undefined
 
       it "should properly reject files when the mime type isn't listed in acceptedFiles", ->
-
         dropzone.accept { type: "image/jpeg" }, (err) -> err.should.eql "You can't upload files of this type."
+
+      it "should fail if maxFiles has been exceeded and call the event maxfilesexceeded", ->
+        sinon.stub dropzone, "getAcceptedFiles"
+        file = { type: "audio/mp3" }
+
+        dropzone.getAcceptedFiles.returns { length: 99 }
+
+        called = no
+        dropzone.on "maxfilesexceeded", (lfile) ->
+          lfile.should.equal file
+          called = yes
+
+        dropzone.accept file, (err) -> expect(err).to.be.undefined
+        called.should.not.be.ok
+
+        dropzone.getAcceptedFiles.returns { length: 100 }
+        dropzone.accept file, (err) -> expect(err).to.equal "You can only upload 100 files."
+        called.should.be.ok
+
+        dropzone.getAcceptedFiles.restore()
 
 
     describe ".removeFile()", ->
@@ -625,6 +685,23 @@ describe "Dropzone", ->
         dropzone.filesize(2 * 1024 * 1024 * 1024).should.eql "<strong>2.1</strong> GB"
         dropzone.filesize(2 * 1000 * 1000 * 1000).should.eql "<strong>2</strong> GB"
 
+    describe "._updateMaxFilesReachedClass()", ->
+      it "should properly add the dz-max-files-reached class", ->
+        dropzone.getAcceptedFiles = -> length: 10
+        dropzone.options.maxFiles = 10
+        dropzone.element.classList.contains("dz-max-files-reached").should.not.be.ok
+        dropzone._updateMaxFilesReachedClass()
+        dropzone.element.classList.contains("dz-max-files-reached").should.be.ok
+      it "should properly remove the dz-max-files-reached class", ->
+        dropzone.getAcceptedFiles = -> length: 10
+        dropzone.options.maxFiles = 10
+        dropzone.element.classList.contains("dz-max-files-reached").should.not.be.ok
+        dropzone._updateMaxFilesReachedClass()
+        dropzone.element.classList.contains("dz-max-files-reached").should.be.ok
+        dropzone.getAcceptedFiles = -> length: 9
+        dropzone._updateMaxFilesReachedClass()
+        dropzone.element.classList.contains("dz-max-files-reached").should.not.be.ok
+
     describe "events", ->
 
       describe "progress updates", ->
@@ -671,7 +748,6 @@ describe "Dropzone", ->
           # It shouldn't matter that progress is not properly updated since the total size
           # should be calculated from the bytes
           dropzone.emit "uploadprogress", { }
-
 
 
   describe "helper function", ->
@@ -769,7 +845,7 @@ describe "Dropzone", ->
         mock3 = getMockFile()
         mock4 = getMockFile()
 
-        dropzone.options.accept = (file, done) -> file.done = done
+        dropzone.options.accept = (file, _done) -> file.done = _done
         dropzone.uploadFile = ->
 
         dropzone.addFile mock1
@@ -886,13 +962,11 @@ describe "Dropzone", ->
         , 10
 
     describe "uploadFiles()", ->
-      xhr = null
       requests = null
 
 
 
       beforeEach ->
-        xhr = sinon.useFakeXMLHttpRequest()
         requests = [ ]
 
         xhr.onCreate = (xhr) -> requests.push xhr

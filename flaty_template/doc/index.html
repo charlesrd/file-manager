@@ -28,7 +28,7 @@
     <header class="jumbotron subhead">
       <div class="container container-narrow">
         <h1>FLATY - Premium Responsive Admin Template</h1>
-        <p class="lead">Documentation v1.2.0</p>
+        <p class="lead">Documentation v2.0.0</p>
       </div>
     </header>
       
@@ -62,7 +62,7 @@
                           Author: <a href="http://themeforest.net/user/ShaMSofT" target="_blank">ShaMSofT</a><br>
                           Contact: <a href="mailto:support@shamsoft.net">support@shamsoft.net</a><br>
                           Created On: 26/07/2013<br>
-                          Last Update: 21/08/2013<br>
+                          Last Update: 09/09/2013<br>
                         </p>
 						<hr>
 						<p>
@@ -127,9 +127,9 @@
         &lt;!-- END Navbar --&gt;
 
         &lt;!-- BEGIN Container --&gt;
-        &lt;div class=&quot;container-fluid&quot; id=&quot;main-container&quot;&gt;
+        &lt;div class=&quot;container&quot; id=&quot;main-container&quot;&gt;
             &lt;!-- BEGIN Sidebar --&gt;
-            &lt;div id=&quot;sidebar&quot; class=&quot;nav-collapse&quot;&gt;
+            &lt;div id=&quot;sidebar&quot; class=&quot;navbar-collapse collapse&quot;&gt;
                 ...
             &lt;/div&gt;
             &lt;!-- END Sidebar --&gt;
@@ -147,21 +147,6 @@
 &lt;/html&gt;
 </pre>
 
-            <h3>
-            Beginning of Page  
-            </h3>
-            <p>
-              Below code is used at the beginning of all HTML pages to detect Internet Explorer browser version 
-              and set a spesific class applied to Internet Explorer versions.
-            </p>
-            <pre class="prettyprint linenums">
-&lt;!DOCTYPE html&gt;
-&lt;!--[if lt IE 7]&gt;      &lt;html class=&quot;no-js lt-ie9 lt-ie8 lt-ie7&quot;&gt; &lt;![endif]--&gt;
-&lt;!--[if IE 7]&gt;         &lt;html class=&quot;no-js lt-ie9 lt-ie8&quot;&gt; &lt;![endif]--&gt;
-&lt;!--[if IE 8]&gt;         &lt;html class=&quot;no-js lt-ie9&quot;&gt; &lt;![endif]--&gt;
-&lt;!--[if gt IE 8]&gt;&lt;!--&gt; &lt;html class=&quot;no-js&quot;&gt; &lt;!--&lt;![endif]--&gt;
-</pre>  
-
 <h3>Page Head</h3>
 <p>
 Page head contains metadata, javascript and css files:
@@ -172,15 +157,13 @@ Page head contains metadata, javascript and css files:
     &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge,chrome=1&quot;&gt;
     &lt;title&gt;Dashboard - FLATY Admin&lt;/title&gt;
     &lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
 
     &lt;!-- Place favicon.ico and apple-touch-icon.png in the root directory --&gt;
 
     &lt;!--base css styles--&gt;
-    &lt;link rel=&quot;stylesheet&quot; href=&quot;assets/bootstrap/bootstrap.min.css&quot;&gt;
-    &lt;link rel=&quot;stylesheet&quot; href=&quot;assets/bootstrap/bootstrap-responsive.min.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;assets/bootstrap/css/bootstrap.min.css&quot;&gt;
     &lt;link rel=&quot;stylesheet&quot; href=&quot;assets/font-awesome/css/font-awesome.min.css&quot;&gt;
-    &lt;link rel=&quot;stylesheet&quot; href=&quot;assets/normalize/normalize.css&quot;&gt;
 
     &lt;!--page specific css styles--&gt;
 
@@ -189,8 +172,6 @@ Page head contains metadata, javascript and css files:
     &lt;link rel=&quot;stylesheet&quot; href=&quot;css/flaty-responsive.css&quot;&gt;
 
     &lt;link rel=&quot;shortcut icon&quot; href=&quot;img/favicon.png&quot;&gt;
-
-    &lt;script src=&quot;assets/modernizr/modernizr-2.6.2.min.js&quot;&gt;&lt;/script&gt;
 &lt;/head&gt;
 </pre>  
 
@@ -201,32 +182,23 @@ Navbar contains of logo and top menu bar and it used in all pages. HTML code of 
 <pre class="prettyprint linenums">
 &lt;!-- BEGIN Navbar --&gt;
 &lt;div id=&quot;navbar&quot; class=&quot;navbar&quot;&gt;
-    &lt;div class=&quot;navbar-inner&quot;&gt;
-        &lt;div class=&quot;container-fluid&quot;&gt;
-            &lt;!-- BEGIN Brand --&gt;
-            &lt;a href=&quot;#&quot; class=&quot;brand&quot;&gt;
-                &lt;small&gt;
-                    &lt;i class=&quot;icon-desktop&quot;&gt;&lt;/i&gt;
-                    FLATY Admin
-                &lt;/small&gt;
-            &lt;/a&gt;
-            &lt;!-- END Brand --&gt;
+    &lt;button type=&quot;button&quot; class=&quot;navbar-toggle navbar-btn collapsed&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#sidebar&quot;&gt;
+        &lt;span class=&quot;icon-reorder&quot;&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;a class=&quot;navbar-brand&quot; href=&quot;#&quot;&gt;
+        &lt;small&gt;
+            &lt;i class=&quot;icon-desktop&quot;&gt;&lt;/i&gt;
+            FLATY Admin
+        &lt;/small&gt;
+    &lt;/a&gt;
 
-            &lt;!-- BEGIN Responsive Sidebar Collapse --&gt;
-            &lt;a href=&quot;#&quot; class=&quot;btn-navbar collapsed&quot; data-toggle=&quot;collapse&quot; data-target=&quot;.nav-collapse&quot;&gt;
-                &lt;i class=&quot;icon-reorder&quot;&gt;&lt;/i&gt;
-            &lt;/a&gt;
-            &lt;!-- END Responsive Sidebar Collapse --&gt;
-
-            &lt;!-- BEGIN Navbar Buttons --&gt;
-            &lt;ul class=&quot;nav flaty-nav pull-right&quot;&gt;
-                .
-                ....Buttons
-                .
-            &lt;/ul&gt;
-            &lt;!-- END Navbar Buttons --&gt;
-        &lt;/div&gt;&lt;!--/.container-fluid--&gt;
-    &lt;/div&gt;&lt;!--/.navbar-inner--&gt;
+    &lt;!-- BEGIN Navbar Buttons --&gt;
+    &lt;ul class=&quot;nav flaty-nav pull-right&quot;&gt;
+        &lt;!-- BEGIN Button Tasks --&gt;
+            ...
+        &lt;!-- END Button User --&gt;
+    &lt;/ul&gt;
+    &lt;!-- END Navbar Buttons --&gt;
 &lt;/div&gt;
 &lt;!-- END Navbar --&gt;
 </pre>
@@ -237,7 +209,7 @@ Sidebar contains of quick search form and main navigation menu. HTML code of sid
 </p>
 <pre class="prettyprint linenums">
 &lt;!-- BEGIN Sidebar --&gt;
-&lt;div id=&quot;sidebar&quot; class=&quot;nav-collapse&quot;&gt;
+&lt;div id=&quot;sidebar&quot; class=&quot;navbar-collapse collapse&quot;&gt;
     &lt;!-- BEGIN Navlist --&gt;
     &lt;ul class=&quot;nav nav-list&quot;&gt;
         .
@@ -298,10 +270,11 @@ Content consists of page title, breadcrumbs and page's main body. HTML code of C
 <p>Javascript files loaded in the end of page. This will reduce page load time.</p>
 <pre class="prettyprint linenums">
 &lt;!--basic scripts--&gt;
-&lt;script src=&quot;//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js&quot;&gt;&lt;/script&gt;
-&lt;script&gt;window.jQuery || document.write('&lt;script src=&quot;assets/jquery/jquery-1.10.1.min.js&quot;&gt;&lt;\/script&gt;')&lt;/script&gt;
-&lt;script src=&quot;assets/bootstrap/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;window.jQuery || document.write('&lt;script src=&quot;assets/jquery/jquery-2.0.3.min.js&quot;&gt;&lt;\/script&gt;')&lt;/script&gt;
+&lt;script src=&quot;assets/bootstrap/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;assets/nicescroll/jquery.nicescroll.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;assets/jquery-cookie/jquery.cookie.js&quot;&gt;&lt;/script&gt;
 
 &lt;!--page specific plugin scripts--&gt;
 &lt;script src=&quot;assets/flot/jquery.flot.js&quot;&gt;&lt;/script&gt;
@@ -483,9 +456,9 @@ $('#sidebar a.dropdown-toggle').click(function() {
               </p>
 <pre class="prettyprint linenums">
 &lt;!-- BEGIN Container --&gt;
-&lt;div class=&quot;container-fluid sidebar-pink&quot; id=&quot;main-container&quot;&gt;
+&lt;div class=&quot;container sidebar-pink&quot; id=&quot;main-container&quot;&gt;
     &lt;!-- BEGIN Sidebar --&gt;
-    &lt;div id=&quot;sidebar&quot; class=&quot;nav-collapse&quot;&gt;
+    &lt;div id=&quot;sidebar&quot; class=&quot;navbar-collapse collapse&quot;&gt;
         ...
     &lt;/div&gt;
     &lt;!-- END Sidebar --&gt;
@@ -501,7 +474,7 @@ $('#sidebar a.dropdown-toggle').click(function() {
 
                 <ol>
                   <li>Add <code>navbar-fixed</code> class to #navbar element <code>&lt;div id="navbar" class="navbar navbar-fixed"&gt;</code></li> 
-                  <li>Add <code>sidebar-fixed</code> class to #sidebar element <code>&lt;div id="sidebar" class="nav-collapse sidebar-fixed"&gt;</code></li> 
+                  <li>Add <code>sidebar-fixed</code> class to #sidebar element <code>&lt;div id="sidebar" class="navbar-collapse collapse sidebar-fixed"&gt;</code></li> 
                 </ol>
 
               </p>
@@ -511,7 +484,7 @@ $('#sidebar a.dropdown-toggle').click(function() {
                 To set default hidden sidebar just add <code>sidebar-collapsed</code> class to the #sidebar as shown below:
 <pre class="prettyprint linenums">
 &lt;!-- BEGIN Sidebar --&gt;
-&lt;div id=&quot;sidebar&quot; class=&quot;nav-collapse sidebar-collapsed&quot;&gt;
+&lt;div id=&quot;sidebar&quot; class=&quot;navbar-collapse collapse sidebar-collapsed&quot;&gt;
     ...
 &lt;/div&gt;
 &lt;!-- END Sidebar --&gt;
@@ -540,14 +513,14 @@ $('#sidebar a.dropdown-toggle').click(function() {
 &lt;!-- BEGIN Navbar Buttons --&gt;
 &lt;ul class=&quot;nav flaty-nav pull-right&quot;&gt;
     &lt;!-- BEGIN Button Tasks --&gt;
-    &lt;li class=&quot;hidden-phone&quot;&gt;
+    &lt;li class=&quot;hidden-xs&quot;&gt;
         &lt;a data-toggle=&quot;dropdown&quot; class=&quot;dropdown-toggle&quot; href=&quot;#&quot;&gt;
             &lt;i class=&quot;icon-tasks&quot;&gt;&lt;/i&gt;
             &lt;span class=&quot;badge badge-warning&quot;&gt;4&lt;/span&gt;
         &lt;/a&gt;
 
         &lt;!-- BEGIN Tasks Dropdown --&gt;
-        &lt;ul class=&quot;pull-right dropdown-navbar dropdown-menu&quot;&gt;
+        &lt;ul class=&quot;dropdown-navbar dropdown-menu&quot;&gt;
             &lt;li class=&quot;nav-header&quot;&gt;
                 &lt;i class=&quot;icon-ok&quot;&gt;&lt;/i&gt;
                 4 Tasks to complete
@@ -560,8 +533,8 @@ $('#sidebar a.dropdown-toggle').click(function() {
                         &lt;span class=&quot;pull-right&quot;&gt;75%&lt;/span&gt;
                     &lt;/div&gt;
 
-                    &lt;div class=&quot;progress progress-mini progress-warning&quot;&gt;
-                        &lt;div style=&quot;width:75%&quot; class=&quot;bar&quot;&gt;&lt;/div&gt;
+                    &lt;div class=&quot;progress progress-mini&quot;&gt;
+                        &lt;div style=&quot;width:75%&quot; class=&quot;progress-bar progress-bar-warning&quot;&gt;&lt;/div&gt;
                     &lt;/div&gt;
                 &lt;/a&gt;
             &lt;/li&gt;
@@ -577,7 +550,7 @@ $('#sidebar a.dropdown-toggle').click(function() {
     &lt;!-- END Button Tasks --&gt;
 
     &lt;!-- BEGIN Button Notifications --&gt;
-    &lt;li class=&quot;hidden-phone&quot;&gt;
+    &lt;li class=&quot;hidden-xs&quot;&gt;
         &lt;a data-toggle=&quot;dropdown&quot; class=&quot;dropdown-toggle&quot; href=&quot;#&quot;&gt;
             &lt;i class=&quot;icon-bell-alt&quot;&gt;&lt;/i&gt;
             &lt;span class=&quot;badge badge-important&quot;&gt;5&lt;/span&gt;
@@ -609,7 +582,7 @@ $('#sidebar a.dropdown-toggle').click(function() {
     &lt;!-- END Button Notifications --&gt;
 
     &lt;!-- BEGIN Button Messages --&gt;
-    &lt;li class=&quot;hidden-phone&quot;&gt;
+    &lt;li class=&quot;hidden-xs&quot;&gt;
         &lt;a data-toggle=&quot;dropdown&quot; class=&quot;dropdown-toggle&quot; href=&quot;#&quot;&gt;
             &lt;i class=&quot;icon-envelope&quot;&gt;&lt;/i&gt;
             &lt;span class=&quot;badge badge-success&quot;&gt;3&lt;/span&gt;
@@ -632,7 +605,7 @@ $('#sidebar a.dropdown-toggle').click(function() {
                             &lt;span&gt;a moment ago&lt;/span&gt;
                         &lt;/span&gt;
                     &lt;/div&gt;
-                    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur ...&lt;/p&gt;
+                    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.&lt;/p&gt;
                 &lt;/a&gt;
             &lt;/li&gt;
             .
@@ -650,7 +623,7 @@ $('#sidebar a.dropdown-toggle').click(function() {
     &lt;li class=&quot;user-profile&quot;&gt;
         &lt;a data-toggle=&quot;dropdown&quot; href=&quot;#&quot; class=&quot;user-menu dropdown-toggle&quot;&gt;
             &lt;img class=&quot;nav-user-photo&quot; src=&quot;img/demo/avatar/avatar1.jpg&quot; alt=&quot;Penny's Photo&quot; /&gt;
-            &lt;span class=&quot;hidden-phone&quot; id=&quot;user_info&quot;&gt;
+            &lt;span class=&quot;hidden-sm&quot; id=&quot;user_info&quot;&gt;
                 Penny
             &lt;/span&gt;
             &lt;i class=&quot;icon-caret-down&quot;&gt;&lt;/i&gt;
@@ -705,7 +678,7 @@ $('#sidebar a.dropdown-toggle').click(function() {
               <h3>Sidebar Navlist</h3>              
               <pre class="prettyprint linenums">
 &lt;!-- BEGIN Sidebar --&gt;
-&lt;div id=&quot;sidebar&quot; class=&quot;nav-collapse&quot;&gt;
+&lt;div id=&quot;sidebar&quot; class=&quot;navbar-collapse collapse&quot;&gt;
     &lt;!-- BEGIN Navlist --&gt;
     &lt;ul class=&quot;nav nav-list&quot;&gt;
         &lt;!-- BEGIN Search Form --&gt;
@@ -720,7 +693,7 @@ $('#sidebar a.dropdown-toggle').click(function() {
             &lt;/form&gt;
         &lt;/li&gt;
         &lt;!-- END Search Form --&gt;
-        &lt;li&gt;
+        &lt;li class=&quot;active&quot;&gt;
             &lt;a href=&quot;index.html&quot;&gt;
                 &lt;i class=&quot;icon-dashboard&quot;&gt;&lt;/i&gt;
                 &lt;span&gt;Dashboard&lt;/span&gt;
@@ -746,6 +719,8 @@ $('#sidebar a.dropdown-toggle').click(function() {
                 &lt;li&gt;&lt;a href=&quot;ui_general.html&quot;&gt;General&lt;/a&gt;&lt;/li&gt;
                 &lt;li&gt;&lt;a href=&quot;ui_button.html&quot;&gt;Button&lt;/a&gt;&lt;/li&gt;
                 &lt;li&gt;&lt;a href=&quot;ui_slider.html&quot;&gt;Slider&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;ui_tile.html&quot;&gt;Tile&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;ui_timeline.html&quot;&gt;Timeline&lt;/a&gt;&lt;/li&gt;
                 &lt;li&gt;&lt;a href=&quot;ui_chart.html&quot;&gt;Chart&lt;/a&gt;&lt;/li&gt;
                 &lt;li&gt;&lt;a href=&quot;ui_message.html&quot;&gt;Conversation&lt;/a&gt;&lt;/li&gt;
                 &lt;li&gt;&lt;a href=&quot;ui_icon.html&quot;&gt;Icon&lt;/a&gt;&lt;/li&gt;
@@ -786,7 +761,22 @@ $('#sidebar a.dropdown-toggle').click(function() {
             &lt;!-- END Submenu --&gt;
         &lt;/li&gt;
 
-        &lt;li class=&quot;active&quot;&gt;
+        &lt;li&gt;
+            &lt;a href=&quot;#&quot; class=&quot;dropdown-toggle&quot;&gt;
+                &lt;i class=&quot;icon-globe&quot;&gt;&lt;/i&gt;
+                &lt;span&gt;Maps&lt;/span&gt;
+                &lt;b class=&quot;arrow icon-angle-right&quot;&gt;&lt;/b&gt;
+            &lt;/a&gt;
+
+            &lt;!-- BEGIN Submenu --&gt;
+            &lt;ul class=&quot;submenu&quot;&gt;
+                &lt;li&gt;&lt;a href=&quot;map_google.html&quot;&gt;Google Maps&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;map_vector.html&quot;&gt;Vector Maps&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;!-- END Submenu --&gt;
+        &lt;/li&gt;
+
+        &lt;li&gt;
             &lt;a href=&quot;box.html&quot;&gt;
                 &lt;i class=&quot;icon-list-alt&quot;&gt;&lt;/i&gt;
                 &lt;span&gt;Box&lt;/span&gt;
@@ -816,6 +806,23 @@ $('#sidebar a.dropdown-toggle').click(function() {
 
         &lt;li&gt;
             &lt;a href=&quot;#&quot; class=&quot;dropdown-toggle&quot;&gt;
+                &lt;i class=&quot;icon-file-text-alt&quot;&gt;&lt;/i&gt;
+                &lt;span&gt;Sample Pages&lt;/span&gt;
+                &lt;b class=&quot;arrow icon-angle-right&quot;&gt;&lt;/b&gt;
+            &lt;/a&gt;
+
+            &lt;!-- BEGIN Submenu --&gt;
+            &lt;ul class=&quot;submenu&quot;&gt;
+                &lt;li&gt;&lt;a href=&quot;extra_login.html&quot;&gt;Login &amp;amp; Register&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;extra_profile.html&quot;&gt;User Profile&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;extra_invoice.html&quot;&gt;Invoice&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;extra_search.html&quot;&gt;Search Results&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;!-- END Submenu --&gt;
+        &lt;/li&gt;
+
+        &lt;li&gt;
+            &lt;a href=&quot;#&quot; class=&quot;dropdown-toggle&quot;&gt;
                 &lt;i class=&quot;icon-file&quot;&gt;&lt;/i&gt;
                 &lt;span&gt;Other Pages&lt;/span&gt;
                 &lt;b class=&quot;arrow icon-angle-right&quot;&gt;&lt;/b&gt;
@@ -823,10 +830,10 @@ $('#sidebar a.dropdown-toggle').click(function() {
 
             &lt;!-- BEGIN Submenu --&gt;
             &lt;ul class=&quot;submenu&quot;&gt;
-                &lt;li&gt;&lt;a href=&quot;more_login.html&quot;&gt;Login &amp;amp; Register&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;more_blank.html&quot;&gt;Blank Page&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;more_full-width.html&quot;&gt;Full Width Page&lt;/a&gt;&lt;/li&gt;
                 &lt;li&gt;&lt;a href=&quot;more_error-404.html&quot;&gt;Error 404&lt;/a&gt;&lt;/li&gt;
                 &lt;li&gt;&lt;a href=&quot;more_error-500.html&quot;&gt;Error 500&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a href=&quot;more_blank.html&quot;&gt;Blank Page&lt;/a&gt;&lt;/li&gt;
                 &lt;li&gt;&lt;a href=&quot;more_set-skin.html&quot;&gt;Skin&lt;/a&gt;&lt;/li&gt;
                 &lt;li&gt;&lt;a href=&quot;more_set-sidebar-navbar-color.html&quot;&gt;Sidebar &amp;amp; Navbar&lt;/a&gt;&lt;/li&gt;
                 &lt;li&gt;&lt;a href=&quot;more_sidebar-collapsed.html&quot;&gt;Collapsed Sidebar&lt;/a&gt;&lt;/li&gt;
@@ -837,7 +844,7 @@ $('#sidebar a.dropdown-toggle').click(function() {
     &lt;!-- END Navlist --&gt;
 
     &lt;!-- BEGIN Sidebar Collapse Button --&gt;
-    &lt;div id=&quot;sidebar-collapse&quot; class=&quot;visible-desktop&quot;&gt;
+    &lt;div id=&quot;sidebar-collapse&quot; class=&quot;visible-lg&quot;&gt;
         &lt;i class=&quot;icon-double-angle-left&quot;&gt;&lt;/i&gt;
     &lt;/div&gt;
     &lt;!-- END Sidebar Collapse Button --&gt;
@@ -953,17 +960,17 @@ $('#sidebar a.dropdown-toggle').click(function() {
                   </thead>
                   <tbody>
                     <tr>
-                      <td>jQuery 1.10.1</td>
+                      <td>jQuery</td>
                       <td>Core Javascript library</td>
                       <td><a href="http://www.jquery.com" target="_blank">http://www.jquery.com</a></td>
                     </tr>
                     <tr>
-                      <td>Twitter Bootstrap v2.3.2</td>
+                      <td>Twitter Bootstrap</td>
                       <td>Sleek, intuitive, and powerful front-end framework for faster and easier web development</td>
                       <td><a href="http://twitter.github.com/bootstrap/" target="_blank">http://twitter.github.com/bootstrap/</a></td>
                     </tr>
                     <tr>
-                      <td>jQuery UI 1.10.3</td>
+                      <td>jQuery UI</td>
                       <td>jQuery UI</td>
                       <td><a href="http://jqueryui.com" target="_blank">http://jqueryui.com</a></td>
                     </tr>
@@ -1056,7 +1063,7 @@ $('#sidebar a.dropdown-toggle').click(function() {
                      <tr>
                       <td>Jquery Sparkline</td>
                       <td>This jQuery plugin generates sparklines (small inline charts) directly in the browser using data supplied either inline in the HTML, or via javascript.</td>
-                      <td><a href="http://omnipotent.net/jquery.sparkline/ /" target="_blank">http://omnipotent.net/jquery.sparkline/ </a></td>
+                      <td><a href="http://omnipotent.net/jquery.sparkline/" target="_blank">http://omnipotent.net/jquery.sparkline/ </a></td>
                     </tr>
                      <tr>
                       <td>FullCalendar</td>
@@ -1113,16 +1120,6 @@ $('#sidebar a.dropdown-toggle').click(function() {
                       <td>Google Code Prettify</td>
                       <td>Syntax highlighting of code snippets in a web pages</td>
                       <td><a href="http://code.google.com/p/google-code-prettify" target="_blank">http://code.google.com/p/google-code-prettify</a></td>
-                    </tr>
-                    <tr>
-                      <td>Modernizr</td>
-                      <td>Modernizr is a JavaScript library that detects HTML5 and CSS3 features in the user’s browser.</td>
-                      <td><a href="http://modernizr.com/" target="_blank">http://modernizr.com/</a></td>
-                    </tr>
-                    <tr>
-                      <td>Normalize.css</td>
-                      <td>Normalize.css is a customisable CSS file that makes browsers render all elements more consistently and in line with modern standards</td>
-                      <td><a href="https://github.com/necolas/normalize.css" target="_blank">https://github.com/necolas/normalize.css</a></td>
                     </tr>				
                     <tr>
                       <td>Font Awesome</td>
@@ -1149,6 +1146,17 @@ $('#sidebar a.dropdown-toggle').click(function() {
                     <h1>9. Change Log</h1>
                     <a href="javascript:;">To top <i class="icon-arrow-up"></i></a>
                 </div>
+				<h4>Version 2.0.0 – 09 September 2013</h4>
+                <ul>
+					<li>Moved to Twitter Bootstrap 3.0</li>
+					<li>Moved to jQuery 2.0.3</li>
+					<li>Added : Timeline Page</li>
+					<li>Added : Full Width Page</li>
+					<li>Added : Sortable classes for columns of table header</li>
+					<li>Changes : Update all assets to latest version</li>
+					<li>Changes : Some improvements and minor bugs</li>
+                </ul>
+				
 				<h4>Version 1.2.0 – 21 August 2013</h4>
                 <ul>
 					<li>Added : Tiles Page</li>
@@ -1201,9 +1209,6 @@ $('#sidebar a.dropdown-toggle').click(function() {
       </div>
     </footer>
 
-    <!-- Le javascript
-      ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
     <script src="assets/js/jquery-1.8.3.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/google-code-prettify/prettify.js"></script>

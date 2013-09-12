@@ -19,7 +19,6 @@
                     <div class="fallback">
                         <input name="file" type="file" multiple="multiple" />
                     </div>
-                    {{ Form::token() }}
                 {{ Form::close() }}
                 </div>
             </div>
@@ -28,7 +27,7 @@
 @stop
 
 @section('extra-styles')
-    {{ Html::style('assets/dropzone/downloads/css/dropzone.css')}}
+    {{ Html::style('assets/dropzone/downloads/css/dropzone.css') }}
 @stop
 
 @section('extra-scripts')

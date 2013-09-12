@@ -1,22 +1,17 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Form Layout - FLATY Admin</title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
         <!--base css styles-->
-        <link rel="stylesheet" href="assets/bootstrap/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/bootstrap/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
-        <link rel="stylesheet" href="assets/normalize/normalize.css">
 
         <!--page specific css styles-->
 
@@ -25,13 +20,8 @@
         <link rel="stylesheet" href="css/flaty-responsive.css">
 
         <link rel="shortcut icon" href="img/favicon.png">
-
-        <script src="assets/modernizr/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
-        <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-        <![endif]-->
 
         <!-- BEGIN Theme Setting -->
         <div id="theme-setting">
@@ -82,7 +72,7 @@
                 <li>
                     <span></span>
                     <a data-target="navbar" href="#"><i class="icon-check-empty"></i> Fixed Navbar</a>
-                    <a class="pull-right visible-desktop" data-target="sidebar" href="#"><i class="icon-check-empty"></i> Fixed Sidebar</a>
+                    <a class="pull-right visible-lg" data-target="sidebar" href="#"><i class="icon-check-empty"></i> Fixed Sidebar</a>
                 </li>
             </ul>
         </div>
@@ -90,308 +80,299 @@
 
         <!-- BEGIN Navbar -->
         <div id="navbar" class="navbar">
-            <div class="navbar-inner">
-                <div class="container-fluid">
-                    <!-- BEGIN Brand -->
-                    <a href="#" class="brand">
-                        <small>
-                            <i class="icon-desktop"></i>
-                            FLATY Admin
-                        </small>
-                    </a>
-                    <!-- END Brand -->
+            <button type="button" class="navbar-toggle navbar-btn collapsed" data-toggle="collapse" data-target="#sidebar">
+                <span class="icon-reorder"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <small>
+                    <i class="icon-desktop"></i>
+                    FLATY Admin
+                </small>
+            </a>
 
-                    <!-- BEGIN Responsive Sidebar Collapse -->
-                    <a href="#" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
-                        <i class="icon-reorder"></i>
+            <!-- BEGIN Navbar Buttons -->
+            <ul class="nav flaty-nav pull-right">
+                <!-- BEGIN Button Tasks -->
+                <li class="hidden-xs">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="icon-tasks"></i>
+                        <span class="badge badge-warning">4</span>
                     </a>
-                    <!-- END Responsive Sidebar Collapse -->
 
-                    <!-- BEGIN Navbar Buttons -->
-                    <ul class="nav flaty-nav pull-right">
-                        <!-- BEGIN Button Tasks -->
-                        <li class="hidden-phone">
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <i class="icon-tasks"></i>
+                    <!-- BEGIN Tasks Dropdown -->
+                    <ul class="dropdown-navbar dropdown-menu">
+                        <li class="nav-header">
+                            <i class="icon-ok"></i>
+                            4 Tasks to complete
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <div class="clearfix">
+                                    <span class="pull-left">Software Update</span>
+                                    <span class="pull-right">75%</span>
+                                </div>
+
+                                <div class="progress progress-mini">
+                                    <div style="width:75%" class="progress-bar progress-bar-warning"></div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <div class="clearfix">
+                                    <span class="pull-left">Transfer To New Server</span>
+                                    <span class="pull-right">45%</span>
+                                </div>
+
+                                <div class="progress progress-mini">
+                                    <div style="width:45%" class="progress-bar progress-bar-danger"></div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <div class="clearfix">
+                                    <span class="pull-left">Bug Fixes</span>
+                                    <span class="pull-right">20%</span>
+                                </div>
+
+                                <div class="progress progress-mini">
+                                    <div style="width:20%" class="progress-bar"></div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <div class="clearfix">
+                                    <span class="pull-left">Writing Documentation</span>
+                                    <span class="pull-right">85%</span>
+                                </div>
+
+                                <div class="progress progress-mini progress-striped active">
+                                    <div style="width:85%" class="progress-bar progress-bar-success"></div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="more">
+                            <a href="#">See tasks with details</a>
+                        </li>
+                    </ul>
+                    <!-- END Tasks Dropdown -->
+                </li>
+                <!-- END Button Tasks -->
+
+                <!-- BEGIN Button Notifications -->
+                <li class="hidden-xs">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="icon-bell-alt"></i>
+                        <span class="badge badge-important">5</span>
+                    </a>
+
+                    <!-- BEGIN Notifications Dropdown -->
+                    <ul class="dropdown-navbar dropdown-menu">
+                        <li class="nav-header">
+                            <i class="icon-warning-sign"></i>
+                            5 Notifications
+                        </li>
+
+                        <li class="notify">
+                            <a href="#">
+                                <i class="icon-comment orange"></i>
+                                <p>New Comments</p>
                                 <span class="badge badge-warning">4</span>
                             </a>
-
-                            <!-- BEGIN Tasks Dropdown -->
-                            <ul class="pull-right dropdown-navbar dropdown-menu">
-                                <li class="nav-header">
-                                    <i class="icon-ok"></i>
-                                    4 Tasks to complete
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <div class="clearfix">
-                                            <span class="pull-left">Software Update</span>
-                                            <span class="pull-right">75%</span>
-                                        </div>
-
-                                        <div class="progress progress-mini progress-warning">
-                                            <div style="width:75%" class="bar"></div>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <div class="clearfix">
-                                            <span class="pull-left">Transfer To New Server</span>
-                                            <span class="pull-right">45%</span>
-                                        </div>
-
-                                        <div class="progress progress-mini progress-danger">
-                                            <div style="width:45%" class="bar"></div>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <div class="clearfix">
-                                            <span class="pull-left">Bug Fixes</span>
-                                            <span class="pull-right">20%</span>
-                                        </div>
-
-                                        <div class="progress progress-mini">
-                                            <div style="width:20%" class="bar"></div>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <div class="clearfix">
-                                            <span class="pull-left">Writing Documentation</span>
-                                            <span class="pull-right">85%</span>
-                                        </div>
-
-                                        <div class="progress progress-mini progress-success progress-striped active">
-                                            <div style="width:85%" class="bar"></div>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li class="more">
-                                    <a href="#">See tasks with details</a>
-                                </li>
-                            </ul>
-                            <!-- END Tasks Dropdown -->
                         </li>
-                        <!-- END Button Tasks -->
 
-                        <!-- BEGIN Button Notifications -->
-                        <li class="hidden-phone">
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <i class="icon-bell-alt"></i>
-                                <span class="badge badge-important">5</span>
+                        <li class="notify">
+                            <a href="#">
+                                <i class="icon-twitter blue"></i>
+                                <p>New Twitter followers</p>
+                                <span class="badge badge-info">7</span>
                             </a>
-
-                            <!-- BEGIN Notifications Dropdown -->
-                            <ul class="dropdown-navbar dropdown-menu">
-                                <li class="nav-header">
-                                    <i class="icon-warning-sign"></i>
-                                    5 Notifications
-                                </li>
-
-                                <li class="notify">
-                                    <a href="#">
-                                        <i class="icon-comment orange"></i>
-                                        <p>New Comments</p>
-                                        <span class="badge badge-warning">4</span>
-                                    </a>
-                                </li>
-
-                                <li class="notify">
-                                    <a href="#">
-                                        <i class="icon-twitter blue"></i>
-                                        <p>New Twitter followers</p>
-                                        <span class="badge badge-info">7</span>
-                                    </a>
-                                </li>
-
-                                <li class="notify">
-                                    <a href="#">
-                                        <img src="img/demo/avatar/avatar2.jpg" alt="Alex" />
-                                        <p>David would like to become moderator.</p>
-                                    </a>
-                                </li>
-
-                                <li class="notify">
-                                    <a href="#">
-                                        <i class="icon-bug pink"></i>
-                                        <p>New bug in program!</p>
-                                    </a>
-                                </li>
-
-                                <li class="notify">
-                                    <a href="#">
-                                        <i class="icon-shopping-cart green"></i>
-                                        <p>You have some new orders</p>
-                                        <span class="badge badge-success">+10</span>
-                                    </a>
-                                </li>
-
-                                <li class="more">
-                                    <a href="#">See all notifications</a>
-                                </li>
-                            </ul>
-                            <!-- END Notifications Dropdown -->
                         </li>
-                        <!-- END Button Notifications -->
 
-                        <!-- BEGIN Button Messages -->
-                        <li class="hidden-phone">
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <i class="icon-envelope"></i>
-                                <span class="badge badge-success">3</span>
+                        <li class="notify">
+                            <a href="#">
+                                <img src="img/demo/avatar/avatar2.jpg" alt="Alex" />
+                                <p>David would like to become moderator.</p>
                             </a>
-
-                            <!-- BEGIN Messages Dropdown -->
-                            <ul class="dropdown-navbar dropdown-menu">
-                                <li class="nav-header">
-                                    <i class="icon-comments"></i>
-                                    3 Messages
-                                </li>
-
-                                <li class="msg">
-                                    <a href="#">
-                                        <img src="img/demo/avatar/avatar3.jpg" alt="Sarah's Avatar" />
-                                        <div>
-                                            <span class="msg-title">Sarah</span>
-                                            <span class="msg-time">
-                                                <i class="icon-time"></i>
-                                                <span>a moment ago</span>
-                                            </span>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    </a>
-                                </li>
-
-                                <li class="msg">
-                                    <a href="#">
-                                        <img src="img/demo/avatar/avatar4.jpg" alt="Emma's Avatar" />
-                                        <div>
-                                            <span class="msg-title">Emma</span>
-                                            <span class="msg-time">
-                                                <i class="icon-time"></i>
-                                                <span>2 Days ago</span>
-                                            </span>
-                                        </div>
-                                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ...</p>
-                                    </a>
-                                </li>
-
-                                <li class="msg">
-                                    <a href="#">
-                                        <img src="img/demo/avatar/avatar5.jpg" alt="John's Avatar" />
-                                        <div>
-                                            <span class="msg-title">John</span>
-                                            <span class="msg-time">
-                                                <i class="icon-time"></i>
-                                                <span>8:24 PM</span>
-                                            </span>
-                                        </div>
-                                        <p>Duis aute irure dolor in reprehenderit in ...</p>
-                                    </a>
-                                </li>
-
-                                <li class="more">
-                                    <a href="#">See all messages</a>
-                                </li>
-                            </ul>
-                            <!-- END Notifications Dropdown -->
                         </li>
-                        <!-- END Button Messages -->
 
-                        <!-- BEGIN Button User -->
-                        <li class="user-profile">
-                            <a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-                                <img class="nav-user-photo" src="img/demo/avatar/avatar1.jpg" alt="Penny's Photo" />
-                                <span class="hidden-phone" id="user_info">
-                                    Penny
-                                </span>
-                                <i class="icon-caret-down"></i>
+                        <li class="notify">
+                            <a href="#">
+                                <i class="icon-bug pink"></i>
+                                <p>New bug in program!</p>
                             </a>
-
-                            <!-- BEGIN User Dropdown -->
-                            <ul class="dropdown-menu dropdown-navbar" id="user_menu">
-                                <li class="nav-header">
-                                    <i class="icon-time"></i>
-                                    Logined From 20:45
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-cog"></i>
-                                        Account Settings
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-user"></i>
-                                        Edit Profile
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-question"></i>
-                                        Help
-                                    </a>
-                                </li>
-
-                                <li class="divider visible-phone"></li>
-
-                                <li class="visible-phone">
-                                    <a href="#">
-                                        <i class="icon-tasks"></i>
-                                        Tasks
-                                        <span class="badge badge-warning">4</span>
-                                    </a>
-                                </li>
-                                <li class="visible-phone">
-                                    <a href="#">
-                                        <i class="icon-bell-alt"></i>
-                                        Notifications
-                                        <span class="badge badge-important">8</span>
-                                    </a>
-                                </li>
-                                <li class="visible-phone">
-                                    <a href="#">
-                                        <i class="icon-envelope"></i>
-                                        Messages
-                                        <span class="badge badge-success">5</span>
-                                    </a>
-                                </li>
-
-                                <li class="divider"></li>
-
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-off"></i>
-                                        Logout
-                                    </a>
-                                </li>
-                            </ul>
-                            <!-- BEGIN User Dropdown -->
                         </li>
-                        <!-- END Button User -->
+
+                        <li class="notify">
+                            <a href="#">
+                                <i class="icon-shopping-cart green"></i>
+                                <p>You have some new orders</p>
+                                <span class="badge badge-success">+10</span>
+                            </a>
+                        </li>
+
+                        <li class="more">
+                            <a href="#">See all notifications</a>
+                        </li>
                     </ul>
-                    <!-- END Navbar Buttons -->
-                </div><!--/.container-fluid-->
-            </div><!--/.navbar-inner-->
+                    <!-- END Notifications Dropdown -->
+                </li>
+                <!-- END Button Notifications -->
+
+                <!-- BEGIN Button Messages -->
+                <li class="hidden-xs">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="icon-envelope"></i>
+                        <span class="badge badge-success">3</span>
+                    </a>
+
+                    <!-- BEGIN Messages Dropdown -->
+                    <ul class="dropdown-navbar dropdown-menu">
+                        <li class="nav-header">
+                            <i class="icon-comments"></i>
+                            3 Messages
+                        </li>
+
+                        <li class="msg">
+                            <a href="#">
+                                <img src="img/demo/avatar/avatar3.jpg" alt="Sarah's Avatar" />
+                                <div>
+                                    <span class="msg-title">Sarah</span>
+                                    <span class="msg-time">
+                                        <i class="icon-time"></i>
+                                        <span>a moment ago</span>
+                                    </span>
+                                </div>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </a>
+                        </li>
+
+                        <li class="msg">
+                            <a href="#">
+                                <img src="img/demo/avatar/avatar4.jpg" alt="Emma's Avatar" />
+                                <div>
+                                    <span class="msg-title">Emma</span>
+                                    <span class="msg-time">
+                                        <i class="icon-time"></i>
+                                        <span>2 Days ago</span>
+                                    </span>
+                                </div>
+                                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ...</p>
+                            </a>
+                        </li>
+
+                        <li class="msg">
+                            <a href="#">
+                                <img src="img/demo/avatar/avatar5.jpg" alt="John's Avatar" />
+                                <div>
+                                    <span class="msg-title">John</span>
+                                    <span class="msg-time">
+                                        <i class="icon-time"></i>
+                                        <span>8:24 PM</span>
+                                    </span>
+                                </div>
+                                <p>Duis aute irure dolor in reprehenderit in ...</p>
+                            </a>
+                        </li>
+
+                        <li class="more">
+                            <a href="#">See all messages</a>
+                        </li>
+                    </ul>
+                    <!-- END Notifications Dropdown -->
+                </li>
+                <!-- END Button Messages -->
+
+                <!-- BEGIN Button User -->
+                <li class="user-profile">
+                    <a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
+                        <img class="nav-user-photo" src="img/demo/avatar/avatar1.jpg" alt="Penny's Photo" />
+                        <span class="hidden-sm" id="user_info">
+                            Penny
+                        </span>
+                        <i class="icon-caret-down"></i>
+                    </a>
+
+                    <!-- BEGIN User Dropdown -->
+                    <ul class="dropdown-menu dropdown-navbar" id="user_menu">
+                        <li class="nav-header">
+                            <i class="icon-time"></i>
+                            Logined From 20:45
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="icon-cog"></i>
+                                Account Settings
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="icon-user"></i>
+                                Edit Profile
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="icon-question"></i>
+                                Help
+                            </a>
+                        </li>
+
+                        <li class="divider visible-sm"></li>
+
+                        <li class="visible-sm">
+                            <a href="#">
+                                <i class="icon-tasks"></i>
+                                Tasks
+                                <span class="badge badge-warning">4</span>
+                            </a>
+                        </li>
+                        <li class="visible-sm">
+                            <a href="#">
+                                <i class="icon-bell-alt"></i>
+                                Notifications
+                                <span class="badge badge-important">8</span>
+                            </a>
+                        </li>
+                        <li class="visible-sm">
+                            <a href="#">
+                                <i class="icon-envelope"></i>
+                                Messages
+                                <span class="badge badge-success">5</span>
+                            </a>
+                        </li>
+
+                        <li class="divider"></li>
+
+                        <li>
+                            <a href="#">
+                                <i class="icon-off"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- BEGIN User Dropdown -->
+                </li>
+                <!-- END Button User -->
+            </ul>
+            <!-- END Navbar Buttons -->
         </div>
         <!-- END Navbar -->
 
         <!-- BEGIN Container -->
-        <div class="container-fluid" id="main-container">
+        <div class="container" id="main-container">
             <!-- BEGIN Sidebar -->
-            <div id="sidebar" class="nav-collapse">
+            <div id="sidebar" class="navbar-collapse collapse">
                 <!-- BEGIN Navlist -->
                 <ul class="nav nav-list">
                     <!-- BEGIN Search Form -->
@@ -433,6 +414,7 @@
                             <li><a href="ui_button.html">Button</a></li>
                             <li><a href="ui_slider.html">Slider</a></li>
                             <li><a href="ui_tile.html">Tile</a></li>
+                            <li><a href="ui_timeline.html">Timeline</a></li>
                             <li><a href="ui_chart.html">Chart</a></li>
                             <li><a href="ui_message.html">Conversation</a></li>
                             <li><a href="ui_icon.html">Icon</a></li>
@@ -543,6 +525,7 @@
                         <!-- BEGIN Submenu -->
                         <ul class="submenu">
                             <li><a href="more_blank.html">Blank Page</a></li>
+                            <li><a href="more_full-width.html">Full Width Page</a></li>
                             <li><a href="more_error-404.html">Error 404</a></li>
                             <li><a href="more_error-500.html">Error 500</a></li>
                             <li><a href="more_set-skin.html">Skin</a></li>
@@ -555,7 +538,7 @@
                 <!-- END Navlist -->
 
                 <!-- BEGIN Sidebar Collapse Button -->
-                <div id="sidebar-collapse" class="visible-desktop">
+                <div id="sidebar-collapse" class="visible-lg">
                     <i class="icon-double-angle-left"></i>
                 </div>
                 <!-- END Sidebar Collapse Button -->
@@ -587,8 +570,8 @@
                 <!-- END Breadcrumb -->
 
                 <!-- BEGIN Main Content -->
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="box">
                             <div class="box-title">
                                 <h3><i class="icon-reorder"></i> Simple Form</h3>
@@ -599,73 +582,45 @@
                             </div>
                             <div class="box-content">
                                  <form action="#" class="form-horizontal">
-                                    <div class="control-group">
-                                       <label class="control-label">Mini Input</label>
-                                       <div class="controls">
-                                          <input type="text" placeholder="mini" class="input-mini" />
+                                    <div class="form-group">
+                                       <label class="col-sm-3 col-lg-2 control-label">Small Input</label>
+                                       <div class="col-sm-9 col-lg-10 controls">
+                                          <input type="text" placeholder="small" class="form-control input-sm" />
                                           <span class="help-inline">Some hint here</span>
                                        </div>
                                     </div>
-                                    <div class="control-group">
-                                       <label class="control-label">Small Input</label>
-                                       <div class="controls">
-                                          <input type="text" placeholder="small" class="input-small" />
+                                    <div class="form-group">
+                                       <label class="col-sm-3 col-lg-2 control-label">Default Input</label>
+                                       <div class="col-sm-9 col-lg-10 controls">
+                                          <input type="text" placeholder="medium" class="form-control" />
                                           <span class="help-inline">Some hint here</span>
                                        </div>
                                     </div>
-                                    <div class="control-group">
-                                       <label class="control-label">Meduam Input</label>
-                                       <div class="controls">
-                                          <input type="text" placeholder="medium" class="input-medium" />
+                                    <div class="form-group">
+                                       <label class="col-sm-3 col-lg-2 control-label">Large Input</label>
+                                       <div class="col-sm-9 col-lg-10 controls">
+                                          <input type="text" placeholder="large" class="form-control input-lg" />
                                           <span class="help-inline">Some hint here</span>
                                        </div>
                                     </div>
-                                    <div class="control-group">
-                                       <label class="control-label">Large Input</label>
-                                       <div class="controls">
-                                          <input type="text" placeholder="large" class="input-large" />
+                                    <div class="form-group">
+                                       <label class="col-sm-3 col-lg-2 control-label">Disabled Input</label>
+                                       <div class="col-sm-9 col-lg-10 controls">   
+                                          <input class="form-control" type="text" placeholder="Disabled input here..." disabled />
                                           <span class="help-inline">Some hint here</span>
                                        </div>
                                     </div>
-                                    <div class="control-group">
-                                       <label class="control-label">xLarge Input</label>
-                                       <div class="controls">
-                                          <input type="text" placeholder="xlarge" class="input-xlarge" />
+                                    <div class="form-group">
+                                       <label class="col-sm-3 col-lg-2 control-label">Readonly Input</label>
+                                       <div class="col-sm-9 col-lg-10 controls">   
+                                          <input class="form-control" readonly type="text" placeholder="Readonly input here..." disabled />
                                           <span class="help-inline">Some hint here</span>
                                        </div>
                                     </div>
-                                    <div class="control-group">
-                                       <label class="control-label">xxLarge Input</label>
-                                       <div class="controls">
-                                          <input type="text" placeholder="xxlarge" class="input-xxlarge" />
-                                          <span class="help-inline">Some hint here</span>
-                                       </div>
-                                    </div>
-                                    <div class="control-group">
-                                       <label class="control-label">Block Level Input</label>
-                                       <div class="controls">
-                                          <input type="text" placeholder="block level" class="input-block-level" />
-                                          <span class="help-inline">Some hint here</span>
-                                       </div>
-                                    </div>
-                                    <div class="control-group">
-                                       <label class="control-label">Disabled Input</label>
-                                       <div class="controls">   
-                                          <input class="input-medium" type="text" placeholder="Disabled input here..." disabled />
-                                          <span class="help-inline">Some hint here</span>
-                                       </div>
-                                    </div>
-                                    <div class="control-group">
-                                       <label class="control-label">Readonly Input</label>
-                                       <div class="controls">   
-                                          <input class="input-medium" readonly type="text" placeholder="Readonly input here..." disabled />
-                                          <span class="help-inline">Some hint here</span>
-                                       </div>
-                                    </div>
-                                    <div class="control-group">
-                                       <label class="control-label">Small Dropdown</label>
-                                       <div class="controls">
-                                          <select class="input-small" tabindex="1">
+                                    <div class="form-group">
+                                       <label class="col-sm-3 col-lg-2 control-label">Small Dropdown</label>
+                                       <div class="col-sm-9 col-lg-10 controls">
+                                          <select class="form-control input-sm" tabindex="1">
                                              <option value="Category 1">Category 1</option>
                                              <option value="Category 2">Category 2</option>
                                              <option value="Category 3">Category 5</option>
@@ -673,10 +628,10 @@
                                           </select>
                                        </div>
                                     </div>
-                                    <div class="control-group">
-                                       <label class="control-label">Medium Dropdown</label>
-                                       <div class="controls">
-                                          <select class="input-medium" tabindex="1">
+                                    <div class="form-group">
+                                       <label class="col-sm-3 col-lg-2 control-label">Default Dropdown</label>
+                                       <div class="col-sm-9 col-lg-10 controls">
+                                          <select class="form-control" tabindex="1">
                                              <option value="Category 1">Category 1</option>
                                              <option value="Category 2">Category 2</option>
                                              <option value="Category 3">Category 5</option>
@@ -684,10 +639,10 @@
                                           </select>
                                        </div>
                                     </div>
-                                    <div class="control-group">
-                                       <label class="control-label">Large Dropdown</label>
-                                       <div class="controls">
-                                          <select class="input-large" tabindex="1">
+                                    <div class="form-group">
+                                       <label class="col-sm-3 col-lg-2 control-label">Large Dropdown</label>
+                                       <div class="col-sm-9 col-lg-10 controls">
+                                          <select class="form-control input-lg" tabindex="1">
                                              <option value="Category 1">Category 1</option>
                                              <option value="Category 2">Category 2</option>
                                              <option value="Category 3">Category 5</option>
@@ -695,42 +650,10 @@
                                           </select>
                                        </div>
                                     </div>
-                                    <div class="control-group">
-                                       <label class="control-label">xLarge Dropdown</label>
-                                       <div class="controls">
-                                          <select class="input-xlarge" tabindex="1">
-                                             <option value="Category 1">Category 1</option>
-                                             <option value="Category 2">Category 2</option>
-                                             <option value="Category 3">Category 5</option>
-                                             <option value="Category 4">Category 4</option>
-                                          </select>
-                                       </div>
-                                    </div>
-                                    <div class="control-group">
-                                       <label class="control-label">xxLarge Dropdown</label>
-                                       <div class="controls">
-                                          <select class="input-xxlarge" tabindex="1">
-                                             <option value="Category 1">Category 1</option>
-                                             <option value="Category 2">Category 2</option>
-                                             <option value="Category 3">Category 5</option>
-                                             <option value="Category 4">Category 4</option>
-                                          </select>
-                                       </div>
-                                    </div>
-                                    <div class="control-group">
-                                       <label class="control-label">Block Level Dropdown</label>
-                                       <div class="controls">
-                                          <select class="input-block-level" tabindex="1">
-                                             <option value="Category 1">Category 1</option>
-                                             <option value="Category 2">Category 2</option>
-                                             <option value="Category 3">Category 5</option>
-                                             <option value="Category 4">Category 4</option>
-                                          </select>
-                                       </div>
-                                    </div>
-                                    <div class="control-group">
-                                       <label class="control-label">Radio Buttons</label>
-                                       <div class="controls">
+
+                                    <div class="form-group">
+                                       <label class="col-sm-3 col-lg-2 control-label">Radio Buttons</label>
+                                       <div class="col-sm-9 col-lg-10 controls">
                                           <label class="radio">
                                               <input type="radio" name="optionsRadios1" value="option1" /> Option 1
                                           </label>
@@ -742,23 +665,23 @@
                                           </label>  
                                        </div>
                                     </div>
-                                    <div class="control-group">
-                                       <label class="control-label">Inline Radio Buttons</label>
-                                       <div class="controls">
-                                          <label class="radio inline">
+                                    <div class="form-group">
+                                       <label class="col-sm-3 col-lg-2 control-label">Inline Radio Buttons</label>
+                                       <div class="col-sm-9 col-lg-10 controls">
+                                          <label class="radio-inline">
                                               <input type="radio" name="optionsRadios2" value="option1" /> Option 1
                                           </label>
-                                          <label class="radio inline">
+                                          <label class="radio-inline">
                                               <input type="radio" name="optionsRadios2" value="option2" checked /> Option 2
                                           </label>  
-                                          <label class="radio inline">
+                                          <label class="radio-inline">
                                               <input type="radio" name="optionsRadios2" value="option2" /> Option 3
                                           </label>  
                                        </div>
                                     </div>
-                                    <div class="control-group">
-                                       <label class="control-label">Checkbox</label>
-                                       <div class="controls">
+                                    <div class="form-group">
+                                       <label class="col-sm-3 col-lg-2 control-label">Checkbox</label>
+                                       <div class="col-sm-9 col-lg-10 controls">
                                           <label class="checkbox">
                                             <input type="checkbox" value="" /> Checkbox 1
                                           </label>
@@ -770,53 +693,33 @@
                                           </label>
                                        </div>
                                     </div>
-                                    <div class="control-group">
-                                       <label class="control-label">Inline Checkbox</label>
-                                       <div class="controls">
-                                          <label class="checkbox inline">
+                                    <div class="form-group">
+                                       <label class="col-sm-3 col-lg-2 control-label">Inline Checkbox</label>
+                                       <div class="col-sm-9 col-lg-10 controls">
+                                          <label class="checkbox-inline">
                                             <input type="checkbox" value="" /> Checkbox 1
                                           </label>
-                                          <label class="checkbox inline">
+                                          <label class="checkbox-inline">
                                             <input type="checkbox" value="" /> Checkbox 2
                                           </label>
-                                          <label class="checkbox inline">
+                                          <label class="checkbox-inline">
                                             <input type="checkbox" value="" /> Checkbox 3
                                           </label>
                                        </div>
                                     </div>
-                                    <div class="control-group">
-                                       <label class="control-label">Textarea</label>
-                                       <div class="controls">
-                                          <textarea class="input-medium" rows="3"></textarea>
+
+                                    <div class="form-group">
+                                       <label class="col-sm-3 col-lg-2 control-label">Textarea</label>
+                                       <div class="col-sm-9 col-lg-10 controls">
+                                          <textarea class="form-control" rows="3"></textarea>
                                        </div>
                                     </div>
-                                    <div class="control-group">
-                                       <label class="control-label">Large Textarea</label>
-                                       <div class="controls">
-                                          <textarea class="input-large" rows="3"></textarea>
-                                       </div>
-                                    </div>
-                                    <div class="control-group">
-                                       <label class="control-label">xLarge Textarea</label>
-                                       <div class="controls">
-                                          <textarea class="input-xlarge" rows="3"></textarea>
-                                       </div>
-                                    </div>
-                                    <div class="control-group">
-                                       <label class="control-label">xxLarge Textarea</label>
-                                       <div class="controls">
-                                          <textarea class="input-xxlarge" rows="3"></textarea>
-                                       </div>
-                                    </div>
-                                    <div class="control-group">
-                                       <label class="control-label">Block Level Textarea</label>
-                                       <div class="controls">
-                                          <textarea class="input-block-level" rows="3"></textarea>
-                                       </div>
-                                    </div>
-                                    <div class="form-actions">
-                                       <button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Save</button>
-                                       <button type="button" class="btn">Cancel</button>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
+                                           <button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Save</button>
+                                           <button type="button" class="btn">Cancel</button>
+                                        </div>
                                     </div>
                                  </form>
                             </div>
@@ -824,78 +727,98 @@
                     </div>
                 </div>
 
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="box box-magenta">
                             <div class="box-title">
-                                <h3><i class="icon-reorder"></i> Grid System</h3>
+                                <h3><i class="icon-reorder"></i> Input Sizes</h3>
                                 <div class="box-tool">
                                     <a data-action="collapse" href="#"><i class="icon-chevron-up"></i></a>
                                     <a data-action="close" href="#"><i class="icon-remove"></i></a>
                                 </div>
                             </div>
                             <div class="box-content">
-                                <div class="controls">
-                                    <input class="span12" type="text" placeholder=".span12" />
-                                 </div>
-                                 <div class="controls controls-row">
-                                    <input class="span11" type="text" placeholder=".span11" />
-                                    <input class="span1" type="text" placeholder=".span1" />
-                                 </div>
-                                 <div class="controls controls-row">
-                                    <input class="span10" type="text" placeholder=".span10" />
-                                    <input class="span2" type="text" placeholder=".span2" />
-                                 </div>
-                                 <div class="controls controls-row">
-                                    <input class="span9" type="text" placeholder=".span9" />
-                                    <input class="span3" type="text" placeholder=".span3" />
-                                 </div>
-                                 <div class="controls controls-row">
-                                    <input class="span8" type="text" placeholder=".span8" />
-                                    <input class="span4" type="text" placeholder=".span4" />
-                                 </div>
-                                 <div class="controls controls-row">
-                                    <input class="span7" type="text" placeholder=".span7" />
-                                    <input class="span5" type="text" placeholder=".span5" />
-                                 </div>
-                                 <div class="controls controls-row">
-                                    <input class="span6" type="text" placeholder=".span6" />
-                                    <input class="span6" type="text" placeholder=".span6" />
-                                 </div>
-                                 <div class="controls controls-row">
-                                    <input class="span5" type="text" placeholder=".span5" />
-                                    <input class="span7" type="text" placeholder=".span7" />
-                                 </div>
-                                 <div class="controls controls-row">
-                                    <input class="span4" type="text" placeholder=".span4" />
-                                    <input class="span8" type="text" placeholder=".span8" />
-                                 </div>
-                                 <div class="controls controls-row">
-                                    <input class="span3" type="text" placeholder=".span3" />
-                                    <input class="span9" type="text" placeholder=".span9" />
-                                 </div>
-                                 <div class="controls controls-row">
-                                    <input class="span2" type="text" placeholder=".span2" />
-                                    <input class="span10" type="text" placeholder=".span10" />
-                                 </div>
-                                 <div class="controls controls-row">
-                                    <input class="span1" type="text" placeholder=".span1" />
-                                    <input class="span11" type="text" placeholder=".span11" />
-                                 </div>
-                                 <div class="controls controls-row">
-                                    <input class="span2" type="text" placeholder=".span2" />
-                                    <input class="span3" type="text" placeholder=".span3" />
-                                    <input class="span4" type="text" placeholder=".span4" />
-                                    <input class="span2" type="text" placeholder=".span2" />
-                                    <input class="span1" type="text" placeholder=".span1" />
-                                 </div>
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <input class="form-control" type="text" placeholder=".col-md-12" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <div class="col-md-11">
+                                            <input class="form-control" type="text" placeholder=".col-md-11" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" placeholder=".col-md-10" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-9">
+                                            <input class="form-control" type="text" placeholder=".col-md-9" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-8">
+                                            <input class="form-control" type="text" placeholder=".col-md-8" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-7">
+                                            <input class="form-control" type="text" placeholder=".col-md-7" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <input class="form-control" type="text" placeholder=".col-md-6" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-5">
+                                            <input class="form-control" type="text" placeholder=".col-md-5" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-4">
+                                            <input class="form-control" type="text" placeholder=".col-md-4" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <input class="form-control" type="text" placeholder=".col-md-3" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-2">
+                                            <input class="form-control" type="text" placeholder=".col-md-2" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-1">
+                                            <input class="form-control" type="text" placeholder=".col-md-1" />
+                                        </div>
+                                    </div>
+
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="box box-green">
                             <div class="box-title">
                                 <h3><i class="icon-reorder"></i> Tow Column Form</h3>
@@ -906,24 +829,24 @@
                             </div>
                             <div class="box-content">
                                 <form action="#" class="form-horizontal">
-                                    <div class="row-fluid">
-                                       <div class="span6 ">
+                                    <div class="row">
+                                       <div class="col-md-6 ">
                                           <!-- BEGIN Left Side -->
-                                            <div class="control-group">
-                                                <label for="textfield1" class="control-label">Text input</label>
-                                                <div class="controls">
-                                                    <input type="text" name="textfield1" id="textfield1" placeholder="Text input" class="input-xlarge">
+                                            <div class="form-group">
+                                                <label for="textfield1" class="col-xs-3 col-lg-2 control-label">Text input</label>
+                                                <div class="col-sm-9 col-lg-10 controls">
+                                                    <input type="text" name="textfield1" id="textfield1" placeholder="Text input" class="form-control">
                                                 </div>
                                             </div>
-                                            <div class="control-group">
-                                                <label for="password1" class="control-label">Password</label>
-                                                <div class="controls">
-                                                    <input type="password" name="password1" id="password1" placeholder="Password input" class="input-xlarge">
+                                            <div class="form-group">
+                                                <label for="password1" class="col-xs-3 col-lg-2 control-label">Password</label>
+                                                <div class="col-sm-9 col-lg-10 controls">
+                                                    <input type="password" name="password1" id="password1" placeholder="Password input" class="form-control">
                                                 </div>
                                             </div>
-                                            <div class="control-group">
-                                                <label class="control-label">Checkboxes</label>
-                                                <div class="controls">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 col-lg-2 control-label">Checkboxes</label>
+                                                <div class="col-sm-9 col-lg-10 controls">
                                                     <label class='checkbox'>
                                                         <input type="checkbox" name="checkbox"> Checkbox 1
                                                     </label>
@@ -932,31 +855,31 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="control-group">
-                                                <label for="textarea1" class="control-label">Textarea</label>
-                                                <div class="controls">
-                                                    <textarea name="textarea1" id="textarea1" rows="5" class="input-block-level"></textarea>
+                                            <div class="form-group">
+                                                <label for="textarea1" class="col-xs-3 col-lg-2 control-label">Textarea</label>
+                                                <div class="col-sm-9 col-lg-10 controls">
+                                                    <textarea name="textarea1" id="textarea1" rows="5" class="form-control"></textarea>
                                                 </div>
                                             </div>
                                           <!-- END Left Side -->
                                        </div>
-                                       <div class="span6 ">
+                                       <div class="col-md-6 ">
                                           <!-- BEGIN Right Side -->
-                                            <div class="control-group">
-                                                <label for="textfield2" class="control-label">Text input</label>
-                                                <div class="controls">
-                                                    <input type="text" name="textfield2" id="textfield2" placeholder="Text input" class="input-xlarge">
+                                            <div class="form-group">
+                                                <label for="textfield2" class="col-xs-3 col-lg-2 control-label">Text input</label>
+                                                <div class="col-sm-9 col-lg-10 controls">
+                                                    <input type="text" name="textfield2" id="textfield2" placeholder="Text input" class="form-control">
                                                 </div>
                                             </div>
-                                            <div class="control-group">
-                                                <label for="password2" class="control-label">Password</label>
-                                                <div class="controls">
-                                                    <input type="password" name="password2" id="password2" placeholder="Password input" class="input-xlarge">
+                                            <div class="form-group">
+                                                <label for="password2" class="col-xs-3 col-lg-2 control-label">Password</label>
+                                                <div class="col-sm-9 col-lg-10 controls">
+                                                    <input type="password" name="password2" id="password2" placeholder="Password input" class="form-control">
                                                 </div>
                                             </div>
-                                            <div class="control-group">
-                                                <label class="control-label">Checkboxes</label>
-                                                <div class="controls">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 col-lg-2 control-label">Checkboxes</label>
+                                                <div class="col-sm-9 col-lg-10 controls">
                                                     <label class='checkbox'>
                                                         <input type="checkbox" name="checkbox"> Checkbox 1
                                                     </label>
@@ -965,19 +888,21 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="control-group">
-                                                <label for="textarea2" class="control-label">Textarea</label>
-                                                <div class="controls">
-                                                    <textarea name="textarea2" id="textarea2" rows="5" class="input-block-level"></textarea>
+                                            <div class="form-group">
+                                                <label for="textarea2" class="col-xs-3 col-lg-2 control-label">Textarea</label>
+                                                <div class="col-sm-9 col-lg-10 controls">
+                                                    <textarea name="textarea2" id="textarea2" rows="5" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
+                                                   <button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Save</button>
+                                                   <button type="button" class="btn">Cancel</button>
                                                 </div>
                                             </div>
                                           <!-- END Right Side -->
                                        </div>
-                                    </div>
-
-                                    <div class="form-actions">
-                                       <button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Save</button>
-                                       <button type="button" class="btn">Cancel</button>
                                     </div>
                                  </form>
                             </div>
@@ -985,8 +910,8 @@
                     </div>
                 </div>
 
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="box box-red">
                             <div class="box-title">
                                 <h3><i class="icon-reorder"></i> Row Separated Form</h3>
@@ -997,21 +922,21 @@
                             </div>
                             <div class="box-content">
                                 <form action="#" class="form-horizontal form-row-separated">
-                                    <div class="control-group">
-                                        <label for="textfield3" class="control-label">Text input</label>
-                                        <div class="controls">
-                                            <input type="text" name="textfield3" id="textfield3" placeholder="Text input" class="input-xlarge">
+                                    <div class="form-group">
+                                        <label for="textfield3" class="col-xs-3 col-lg-2 control-label">Text input</label>
+                                        <div class="col-sm-9 col-lg-10 controls">
+                                            <input type="text" name="textfield3" id="textfield3" placeholder="Text input" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="control-group">
-                                        <label for="password3" class="control-label">Password</label>
-                                        <div class="controls">
-                                            <input type="password" name="password3" id="password3" placeholder="Password input" class="input-xlarge">
+                                    <div class="form-group">
+                                        <label for="password3" class="col-xs-3 col-lg-2 control-label">Password</label>
+                                        <div class="col-sm-9 col-lg-10 controls">
+                                            <input type="password" name="password3" id="password3" placeholder="Password input" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="control-group">
-                                        <label class="control-label">Checkboxes</label>
-                                        <div class="controls">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 col-lg-2 control-label">Checkboxes</label>
+                                        <div class="col-sm-9 col-lg-10 controls">
                                             <label class='checkbox'>
                                                 <input type="checkbox" name="checkbox"> Checkbox 1
                                             </label>
@@ -1020,15 +945,18 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="control-group last">
-                                        <label for="textarea3" class="control-label">Textarea</label>
-                                        <div class="controls">
-                                            <textarea name="textarea3" id="textarea3" rows="5" class="input-block-level"></textarea>
+                                    <div class="form-group">
+                                        <label for="textarea3" class="col-xs-3 col-lg-2 control-label">Textarea</label>
+                                        <div class="col-sm-9 col-lg-10 controls">
+                                            <textarea name="textarea3" id="textarea3" rows="5" class="form-control"></textarea>
                                         </div>
                                     </div>
-                                    <div class="form-actions">
-                                       <button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Save</button>
-                                       <button type="button" class="btn">Cancel</button>
+                                    
+                                    <div class="form-group last">
+                                        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
+                                           <button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Save</button>
+                                           <button type="button" class="btn">Cancel</button>
+                                        </div>
                                     </div>
                                  </form>
                             </div>
@@ -1036,8 +964,8 @@
                     </div>
                 </div>
 
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="box box-black">
                             <div class="box-title">
                                 <h3><i class="icon-reorder"></i> Bordered Form</h3>
@@ -1048,21 +976,21 @@
                             </div>
                             <div class="box-content">
                                 <form action="#" class="form-horizontal form-bordered">
-                                    <div class="control-group">
-                                        <label for="textfield4" class="control-label">Text input</label>
-                                        <div class="controls">
-                                            <input type="text" name="textfield4" id="textfield4" placeholder="Text input" class="input-xlarge">
+                                    <div class="form-group">
+                                        <label for="textfield4" class="col-xs-3 col-lg-2 control-label">Text input</label>
+                                        <div class="col-sm-9 col-lg-10 controls">
+                                            <input type="text" name="textfield4" id="textfield4" placeholder="Text input" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="control-group">
-                                        <label for="password4" class="control-label">Password</label>
-                                        <div class="controls">
-                                            <input type="password" name="password4" id="password4" placeholder="Password input" class="input-xlarge">
+                                    <div class="form-group">
+                                        <label for="password4" class="col-xs-3 col-lg-2 control-label">Password</label>
+                                        <div class="col-sm-9 col-lg-10 controls">
+                                            <input type="password" name="password4" id="password4" placeholder="Password input" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="control-group">
-                                        <label class="control-label">Checkboxes</label>
-                                        <div class="controls">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 col-lg-2 control-label">Checkboxes</label>
+                                        <div class="col-sm-9 col-lg-10 controls">
                                             <label class='checkbox'>
                                                 <input type="checkbox" name="checkbox"> Checkbox 1
                                             </label>
@@ -1071,15 +999,18 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="control-group last">
-                                        <label for="textarea4" class="control-label">Textarea</label>
-                                        <div class="controls">
-                                            <textarea name="textarea4" id="textarea4" rows="5" class="input-block-level"></textarea>
+                                    <div class="form-group">
+                                        <label for="textarea4" class="col-xs-3 col-lg-2 control-label">Textarea</label>
+                                        <div class="col-sm-9 col-lg-10 controls">
+                                            <textarea name="textarea4" id="textarea4" rows="5" class="form-control"></textarea>
                                         </div>
                                     </div>
-                                    <div class="form-actions">
-                                       <button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Save</button>
-                                       <button type="button" class="btn">Cancel</button>
+                                    
+                                    <div class="form-group last">
+                                        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
+                                           <button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Save</button>
+                                           <button type="button" class="btn">Cancel</button>
+                                        </div>
                                     </div>
                                  </form>
                             </div>
@@ -1087,8 +1018,8 @@
                     </div>
                 </div>
 
-                <div class="row-fluid">
-                    <div class="span12">
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="box box-pink">
                             <div class="box-title">
                                 <h3><i class="icon-reorder"></i> Row Separated & Striped Form</h3>
@@ -1099,21 +1030,21 @@
                             </div>
                             <div class="box-content">
                                 <form action="#" class="form-horizontal form-bordered form-row-stripped">
-                                    <div class="control-group">
-                                        <label for="textfield5" class="control-label">Text input</label>
-                                        <div class="controls">
-                                            <input type="text" name="textfield5" id="textfield5" placeholder="Text input" class="input-xlarge">
+                                    <div class="form-group">
+                                        <label for="textfield5" class="col-xs-3 col-lg-2 control-label">Text input</label>
+                                        <div class="col-sm-9 col-lg-10 controls">
+                                            <input type="text" name="textfield5" id="textfield5" placeholder="Text input" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="control-group">
-                                        <label for="password5" class="control-label">Password</label>
-                                        <div class="controls">
-                                            <input type="password" name="password5" id="password5" placeholder="Password input" class="input-xlarge">
+                                    <div class="form-group">
+                                        <label for="password5" class="col-xs-3 col-lg-2 control-label">Password</label>
+                                        <div class="col-sm-9 col-lg-10 controls">
+                                            <input type="password" name="password5" id="password5" placeholder="Password input" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="control-group">
-                                        <label class="control-label">Checkboxes</label>
-                                        <div class="controls">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 col-lg-2 control-label">Checkboxes</label>
+                                        <div class="col-sm-9 col-lg-10 controls">
                                             <label class='checkbox'>
                                                 <input type="checkbox" name="checkbox"> Checkbox 1
                                             </label>
@@ -1122,15 +1053,18 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="control-group last">
-                                        <label for="textarea5" class="control-label">Textarea</label>
-                                        <div class="controls">
-                                            <textarea name="textarea5" id="textarea5" rows="5" class="input-block-level"></textarea>
+                                    <div class="form-group">
+                                        <label for="textarea5" class="col-xs-3 col-lg-2 control-label">Textarea</label>
+                                        <div class="col-sm-9 col-lg-10 controls">
+                                            <textarea name="textarea5" id="textarea5" rows="5" class="form-control"></textarea>
                                         </div>
                                     </div>
-                                    <div class="form-actions">
-                                       <button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Save</button>
-                                       <button type="button" class="btn">Cancel</button>
+                                    
+                                    <div class="form-group last">
+                                        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
+                                           <button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Save</button>
+                                           <button type="button" class="btn">Cancel</button>
+                                        </div>
                                     </div>
                                  </form>
                             </div>
@@ -1143,7 +1077,7 @@
                     <p>2013 © FLATY Admin Template.</p>
                 </footer>
 
-                <a id="btn-scrollup" class="btn btn-circle btn-large" href="#"><i class="icon-chevron-up"></i></a>
+                <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="icon-chevron-up"></i></a>
             </div>
             <!-- END Content -->
         </div>
@@ -1151,9 +1085,9 @@
 
 
         <!--basic scripts-->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="assets/jquery/jquery-1.10.1.min.js"><\/script>')</script>
-        <script src="assets/bootstrap/bootstrap.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="assets/jquery/jquery-2.0.3.min.js"><\/script>')</script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/nicescroll/jquery.nicescroll.min.js"></script>
         <script src="assets/jquery-cookie/jquery.cookie.js"></script>
 
