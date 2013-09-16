@@ -233,10 +233,6 @@
 
                         <!-- BEGIN User Dropdown -->
                         <ul class="dropdown-menu dropdown-navbar" id="user_menu">
-                            <li class="nav-header">
-                                <i class="icon-time"></i>
-                                Logined From 20:45
-                            </li>
 
                             <li>
                                 <a href="#">
@@ -248,7 +244,7 @@
                             <li>
                                 <a href="#">
                                     <i class="icon-user"></i>
-                                    Edit Profile
+                                    Manage DentalLabProfile Account
                                 </a>
                             </li>
 

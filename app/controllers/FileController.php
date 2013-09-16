@@ -82,7 +82,28 @@ class FileController extends \BaseController {
     }
 
     public function getHistory() {
-        return View::make('public.upload');
+        $files = File::where('user_id', '=', $this->user->id)->orderBy('created_at', 'DESC')->paginate(20);
+        return View::make('user.file.history')->with("files", $files);
+    }
+
+    public function postHistory() {
+        $canViewDetail = false;
+        $file_id = null;
+        if (Input::has('file_id')) {
+            $file_id = Input::get('file_id');
+            $file = File::find($file_id);
+
+            if ($file->user_id != $this->user->id) {
+                $canViewDetail = true;
+            }
+        }
+
+        // Check if the request is AJAX
+        if (Request::ajax()) {
+            return View::make('user.file.history_detail_modal')->with('id', $file_id);
+        } else {
+            return View::make('user.file.history_detail');
+        }
     }
 
 }

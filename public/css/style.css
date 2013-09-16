@@ -41,6 +41,9 @@
     padding: 15px 10px !important;
     height: auto !important;
     font-size: 16px;
+    background-color: #f5f6f7;
+    color: #888;
+    border: none;
 }
 
 .login-page form textarea {
@@ -50,4 +53,8 @@
 .dropdown-menu .divider {
 	margin: 2px 1px;
 	border-bottom: none;
+}
+
+body.modal-open {
+    overflow: hidden;
 }

@@ -4,9 +4,9 @@
 
 @section('main-content')
     <!-- BEGIN Main Content -->
-    <div class="row-fluid">
-        <div class="span12">
-            <div class="box">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-black">
                 <div class="box-title">
                     <h3><i class="icon-file"></i> Sample Box</h3>
                     <div class="box-tool">
