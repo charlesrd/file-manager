@@ -4,6 +4,11 @@ use App\Models\File;
 
 class FileController extends \BaseController {
 
+    public function __construct() {
+        parent::__construct();
+        $this->beforeFilter('auth', array('only' => array('getHistory', 'postHistory')));
+    }
+
 	public function getIndex() {
         return Redirect::route('file_upload');
 	}
@@ -83,6 +88,7 @@ class FileController extends \BaseController {
 
     public function getHistory() {
         $files = File::where('user_id', '=', $this->user->id)->orderBy('created_at', 'DESC')->paginate(20);
+
         return View::make('user.file.history')->with("files", $files);
     }
 

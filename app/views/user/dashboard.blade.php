@@ -2,8 +2,8 @@
 @section('title', 'Dashboard')
 @section('main-content')
     <!-- BEGIN Main Content -->
-    <div class="row-fluid">
-        <div class="span7">
+    <div class="row">
+        <div class="col-md-7">
             <div class="box">
                 <div class="box-title">
                     <h3><i class="icon-bar-chart"></i> Visitors Chart</h3>
@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <div class="span5">
+        <div class="col-md-5">
             <div class="box">
                 <div class="box-title">
                     <h3><i class="icon-bar-chart"></i> Weekly Visitors Stat</h3>
@@ -46,7 +46,7 @@
                         </li>
                         <li>
                             <span class="inline-sparkline">2.34,2.67,1.47,1.97,2.25,2.47,1.27</span>
-                            Avg. Visit Duration: <span class="value">00:02:34</span>
+                            Avg. Visit Time: <span class="value">00:02:34</span>
                         </li>
                         <li>
                             <span class="inline-sparkline">70.34,67.41,59.45,65.43,78.42,75.92,74.29</span>
@@ -62,8 +62,8 @@
         </div>
     </div>
 
-    <div class="row-fluid">
-        <div class="span7">
+    <div class="row">
+        <div class="col-md-7">
             <div class="box box-black">
                 <div class="box-title">
                     <h3><i class="icon-retweet"></i> Thing To Do</h3>
@@ -118,7 +118,7 @@
                 </div>
             </div>
         </div>
-        <div class="span5">
+        <div class="col-md-5">
             <div class="box box-orange">
                 <div class="box-title">
                     <h3><i class="icon-bar-chart"></i> Weekly Changes</h3>
@@ -170,8 +170,8 @@
         </div>
     </div>
 
-    <div class="row-fluid">
-        <div class="span7">
+    <div class="row">
+        <div class="col-md-7">
             <div class="box box-magenta">
                 <div class="box-title">
                     <h3><i class="icon-comment"></i> Last Comments</h3>
@@ -261,7 +261,7 @@
                 </div>
             </div>
         </div>
-        <div class="span5">
+        <div class="col-md-5">
             <div class="box box-red">
                 <div class="box-title">
                     <h3><i class="icon-tasks"></i> Tasks In Progress</h3>
@@ -277,17 +277,17 @@
                                 Backend Development
                                 <span>45%</span>
                             </p>
-                            <div class="progress progress-mini progress-warning">
-                                <div class="bar" style="width:45%"></div>
+                            <div class="progress progress-mini">
+                                <div class="progress-bar progress-bar-warning" style="width:45%"></div>
                             </div>
                         </li>
                         <li>
                             <p>
-                                Some Optimization On Javascript Code
+                                Some Optimization On JS Code
                                 <span>63%</span>
                             </p>
                             <div class="progress progress-mini">
-                                <div class="bar" style="width:63%"></div>
+                                <div class="progress-bar" style="width:63%"></div>
                             </div>
                         </li>
                         <li>
@@ -295,8 +295,8 @@
                                 Writing Documentation
                                 <span>30%</span>
                             </p>
-                            <div class="progress progress-mini progress-danger">
-                                <div class="bar" style="width:30%"></div>
+                            <div class="progress progress-mini">
+                                <div class="progress-bar progress-bar-danger" style="width:30%"></div>
                             </div>
                         </li>
                         <li>
@@ -304,8 +304,8 @@
                                 Android App Development
                                 <span>80%</span>
                             </p>
-                            <div class="progress progress-mini progress-success">
-                                <div class="bar" style="width:80%"></div>
+                            <div class="progress progress-mini">
+                                <div class="progress-bar progress-bar-success" style="width:80%"></div>
                             </div>
                         </li>
                         <li>
@@ -314,7 +314,7 @@
                                 <span>35%</span>
                             </p>
                             <div class="progress progress-mini progress-striped">
-                                <div class="bar" style="width:35%"></div>
+                                <div class="progress-bar" style="width:35%"></div>
                             </div>
                         </li>
                         <li>
@@ -322,8 +322,8 @@
                                 iOS App Developement
                                 <span>55%</span>
                             </p>
-                            <div class="progress progress-mini progress-warning progress-striped">
-                                <div class="bar" style="width:55%"></div>
+                            <div class="progress progress-mini progress-striped">
+                                <div class="progress-bar progress-bar-warning" style="width:55%"></div>
                             </div>
                         </li>
                     </ul>
@@ -332,8 +332,8 @@
         </div>
     </div>
 
-    <div class="row-fluid">
-        <div class="span7">
+    <div class="row">
+        <div class="col-md-7">
             <div class="box box-pink">
                 <div class="box-title">
                     <h3><i class="icon-comments"></i> Chat</h3>
@@ -394,7 +394,7 @@
                     <div class="messages-input-form">
                         <form method="POST" action="#">
                             <div class="input">
-                                <input type="text" name="text" placeholder="Write here..." class="input-block-level">
+                                <input type="text" name="text" placeholder="Write here..." class="form-control">
                             </div>
                             <div class="buttons">
                                 <a class="show-tooltip" href="#" title="Take Picture"><i class="icon-camera"></i></a>
@@ -406,7 +406,7 @@
                 </div>
             </div>
         </div>
-        <div class="span5">
+        <div class="col-md-5">
             <div class="box box-green">
                 <div class="box-title">
                     <h3><i class="icon-check"></i> Todo List</h3>
@@ -491,4 +491,5 @@
                 </div>
             </div>
         </div>
+    </div>
 @stop

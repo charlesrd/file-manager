@@ -4,23 +4,18 @@
 
 @section('main-content')
     <!-- BEGIN Main Content -->
-    <div class="row-fluid">
-        <div class="span12">
-            <div class="box">
-                <div class="box-title">
-                    <h3><i class="icon-file"></i> Sample Box</h3>
-                    <div class="box-tool">
-                        <a data-action="collapse" href="#"><i class="icon-chevron-up"></i></a>
-                        <a data-action="close" href="#"><i class="icon-remove"></i></a>
-                    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3><i class="icon-table"></i> File History</h3>
                 </div>
-                <div class="box-content">
-                {{ Form::open(array('route' => 'file_upload_post', 'files' => true, 'class' => 'dropzone', 'id' => 'dropzone')) }}
-                    <div class="fallback">
-                        <input name="file" type="file" multiple="multiple" />
-                    </div>
-                    {{ Form::token() }}
-                {{ Form::close() }}
+                <div class="panel-body">
+                    {{ Form::open(array('route' => 'file_upload_post', 'files' => true, 'class' => 'dropzone', 'id' => 'dropzone')) }}
+                        <div class="fallback">
+                            <input name="file" type="file" multiple="multiple" />
+                        </div>
+                    {{ Form::close() }}
                 </div>
             </div>
         </div>
@@ -33,10 +28,4 @@
 
 @section('extra-scripts')
     {{ Html::script('assets/dropzone/downloads/dropzone.min.js') }}
-
-    <script>
-    Dropzone.options.dropzone = {
-        addRemoveLinks: true
-    }
-    </script>
 @stop

@@ -2,7 +2,7 @@
 
 class BaseController extends Controller {
 
-	public $user = null;
+	public $user;
 
 	public function __construct() {
 		//Check CSRF token on POST
@@ -11,6 +11,8 @@ class BaseController extends Controller {
 		if (Sentry::check()) {
 			$this->user = Sentry::getUser();
 			View::share('user', $this->user);
+		} else {
+			$this->user = null;
 		}
 	}
 
