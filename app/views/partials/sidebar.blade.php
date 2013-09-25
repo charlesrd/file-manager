@@ -40,31 +40,31 @@
             {{ Form::close() }}
         </li>
         <!-- END Search Form -->
-        <li class="active">
+        <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
             <a href="{{ URL::route('dashboard') }}">
                 <i class="icon-dashboard"></i>
                 <span>Dashboard</span>
             </a>
         </li>
 
-        <li>
+        <li class="{{ Request::is('file/*') ? 'active' : '' }}">
             <a href="#" class="dropdown-toggle">
-                <i class="icon-file"></i>
+                <i class="icon-cloud"></i>
                 <span>File Management</span>
                 <b class="arrow icon-angle-right"></b>
             </a>
 
             <!-- BEGIN Submenu -->
             <ul class="submenu">
-                <li>{{ Html::linkRoute('file_upload', 'Upload Files') }}</li>
-                <li>{{ Html::linkRoute('file_history', 'File History') }}</li>
+                <li class="{{ Request::is('file/upload') ? 'active' : '' }}">{{ Html::linkRoute('file_upload', 'Upload Files') }}</li>
+                <li class="{{ Request::is('file/history') ? 'active' : '' }}">{{ Html::linkRoute('file_history', 'File History') }}</li>
             </ul>
             <!-- END Submenu -->
         </li>
 
-        <li>
+        <li class="{{ Request::is('message/*') ? 'active' : '' }}">
             <a href="#" class="dropdown-toggle">
-                <i class="icon-desktop"></i>
+                <i class="icon-comment"></i>
                 <span>Messages</span>
                 <b class="arrow icon-angle-right"></b>
             </a>

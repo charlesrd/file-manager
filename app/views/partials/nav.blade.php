@@ -9,7 +9,7 @@
                 <!-- BEGIN Brand -->
                 <a href="{{ route('home') }}" class="navbar-brand">
                     <small>
-                        <i class="icon-desktop"></i>
+                        <i class="icon-home"></i>
                         &nbsp;
                         {{ Config::get('app.company_name') }} - {{ Config::get('app.site_title') }}
                     </small>
@@ -21,136 +21,26 @@
                     <!-- BEGIN Button Tasks -->
                     <li class="hidden-xs">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <i class="icon-tasks"></i>
-                            <span class="badge badge-warning">4</span>
+                            <i class="icon-file"></i>
+                            <span class="badge badge-important">{{ App\Models\File::where('status', '=', '0')->count() }}</span>
                         </a>
 
                         <!-- BEGIN Tasks Dropdown -->
                         <ul class="dropdown-navbar dropdown-menu">
                             <li class="nav-header">
-                                <i class="icon-ok"></i>
-                                4 Tasks to complete
+                                <a class="label label-important show-tooltip" title="Download all new files..." href="{{ route('file_history') }}"><i class="icon-download"></i></a>
+                                {{ App\Models\File::where('status', '=', '0')->count() }} NEW FILES
                             </li>
+                                
 
-                            <li>
-                                <a href="#">
-                                    <div class="clearfix">
-                                        <span class="pull-left">Software Update</span>
-                                        <span class="pull-right">75%</span>
-                                    </div>
-
-                                    <div class="progress progress-mini">
-                                        <div style="width:75%" class="progress-bar progress-bar-warning"></div>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    <div class="clearfix">
-                                        <span class="pull-left">Transfer To New Server</span>
-                                        <span class="pull-right">45%</span>
-                                    </div>
-
-                                    <div class="progress progress-mini">
-                                        <div style="width:45%" class="progress-bar progress-bar-danger"></div>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    <div class="clearfix">
-                                        <span class="pull-left">Bug Fixes</span>
-                                        <span class="pull-right">20%</span>
-                                    </div>
-
-                                    <div class="progress progress-mini">
-                                        <div style="width:20%" class="progress-bar"></div>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    <div class="clearfix">
-                                        <span class="pull-left">Writing Documentation</span>
-                                        <span class="pull-right">85%</span>
-                                    </div>
-
-                                    <div class="progress progress-mini progress-striped active">
-                                        <div style="width:85%" class="progress-bar progress-bar-success"></div>
-                                    </div>
-                                </a>
-                            </li>
 
                             <li class="more">
-                                <a href="#">See tasks with details</a>
+                                {{ Html::linkRoute('file_history', 'View new files...') }}
                             </li>
                         </ul>
                         <!-- END Tasks Dropdown -->
                     </li>
                     <!-- END Button Tasks -->
-
-                    <!-- BEGIN Button Notifications -->
-                    <li class="hidden-xs">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <i class="icon-bell-alt"></i>
-                            <span class="badge badge-important">5</span>
-                        </a>
-
-                        <!-- BEGIN Notifications Dropdown -->
-                        <ul class="dropdown-navbar dropdown-menu">
-                            <li class="nav-header">
-                                <i class="icon-warning-sign"></i>
-                                5 Notifications
-                            </li>
-
-                            <li class="notify">
-                                <a href="#">
-                                    <i class="icon-comment orange"></i>
-                                    <p>New Comments</p>
-                                    <span class="badge badge-warning">4</span>
-                                </a>
-                            </li>
-
-                            <li class="notify">
-                                <a href="#">
-                                    <i class="icon-twitter blue"></i>
-                                    <p>New Twitter followers</p>
-                                    <span class="badge badge-info">7</span>
-                                </a>
-                            </li>
-
-                            <li class="notify">
-                                <a href="#">
-                                    <img src="img/demo/avatar/avatar2.jpg" alt="Alex" />
-                                    <p>David would like to become moderator.</p>
-                                </a>
-                            </li>
-
-                            <li class="notify">
-                                <a href="#">
-                                    <i class="icon-bug pink"></i>
-                                    <p>New bug in program!</p>
-                                </a>
-                            </li>
-
-                            <li class="notify">
-                                <a href="#">
-                                    <i class="icon-shopping-cart green"></i>
-                                    <p>You have some new orders</p>
-                                    <span class="badge badge-success">+10</span>
-                                </a>
-                            </li>
-
-                            <li class="more">
-                                <a href="#">See all notifications</a>
-                            </li>
-                        </ul>
-                        <!-- END Notifications Dropdown -->
-                    </li>
-                    <!-- END Button Notifications -->
 
                     <!-- BEGIN Button Messages -->
                     <li class="hidden-xs">

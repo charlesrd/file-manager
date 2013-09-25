@@ -74,6 +74,7 @@ class FileController extends \BaseController {
             }
             $file->filename_original = $uploadFileName;
             $file->filename_random = $uploadFileNameRandomized;
+            //$file->user()->associate($user);
 
             if ($file->save()) {
                 return Response::json('success', 200);
@@ -106,7 +107,9 @@ class FileController extends \BaseController {
 
         // Check if the request is AJAX
         if (Request::ajax()) {
-            return View::make('user.file.history_detail_modal')->with('id', $file_id);
+            if ($file) {
+                return View::make('user.file.history_detail_modal')->with('file', $file);
+            }
         } else {
             return View::make('user.file.history_detail');
         }

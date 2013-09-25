@@ -49,9 +49,9 @@ $(function() {
     });
 
     //Add animation to notification and messages icon, if they have any new item
-    var badge = $('.flaty-nav .dropdown-toggle > .icon-bell-alt + .badge')
+    var badge = $('.flaty-nav .dropdown-toggle > .icon-file + .badge')
     if ($(badge).length > 0 && parseInt($(badge).html()) > 0) {
-        $('.flaty-nav .dropdown-toggle > .icon-bell-alt').addClass('anim-swing');
+        $('.flaty-nav .dropdown-toggle > .icon-file').addClass('anim-swing');
     }
     badge = $('.flaty-nav .dropdown-toggle > .icon-envelope + .badge')
     if ($(badge).length > 0 && parseInt($(badge).html()) > 0) {

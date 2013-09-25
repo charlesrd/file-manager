@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBatches extends Migration {
+class CreateMessages extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,19 +11,16 @@ class CreateBatches extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('batches', function($table)
+		Schema::create('messages', function($table)
 		{
-			$table->bigInteger('id')->unsigned();
-			$table->bigInteger('file_id')->unsigned();
+			$table->bigIncrements('id');
+			$table->text('body');
 			$table->integer('user_id')->unsigned();
-			$table->text('message');
+			$table->timestamps();
 
 			// We'll need to ensure that MySQL uses the InnoDB engine to
 			// support the indexes, other engines aren't affected.
 			$table->engine = 'InnoDB';
-
-			// Set the table keys for relationships
-			$table->primary(array('id', 'file_id'));
 		});
 	}
 
@@ -34,7 +31,7 @@ class CreateBatches extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('batches');
+		Schema::drop('messages');
 	}
 
 }

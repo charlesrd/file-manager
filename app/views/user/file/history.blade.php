@@ -7,7 +7,7 @@
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3><i class="icon-table"></i> File History</h3>
+                                <h3>File History</h3>
                             </div>
                             <div class="panel-body">
                                 @if ($files->count())
@@ -16,24 +16,26 @@
                                             <thead>
                                                 <tr>
                                                     <th>Date Received</th>
-                                                    <th># of #</th>
+                                                    <th class="visible-lg"># of #</th>
+                                                    <th>From</th>
                                                     <th>Filename</th>
                                                     <th class="text-center">Status</th>
                                                     <th class="text-center">Expiring</th>
-                                                    <th class="text-center visible-md visible-lg" style="width:100px"></th>
+                                                    <th class="text-center visible-md visible-lg"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                     @foreach ($files as $file)
                                                         <tr class="table-flag-red">
                                                             <td>{{ date('g:ia \o\n F j, Y', strtotime($file->created_at)) }}</td>
-                                                            <td></td>
+                                                            <td class="visible-lg"></td>
+                                                            <td>{{ DB::table('users')->where('id', '=', $file->user_id)->pluck('email') }}</td>
                                                             <td>{{ $file->filename_original }}</td>
                                                             <td class="text-center">
                                                                 @if ($file->status == 0)
-                                                                    <a class="btn btn-danger show-tooltip" title="This file has not yet been downloaded.  Click to download."><i class="icon-cloud-download"> Not Downloaded</i></a>
+                                                                    <a class="btn btn-danger show-tooltip" title="This file has not yet been downloaded.  Click to download."><i class="icon-cloud-download"></i> Not Downloaded</a>
                                                                 @else
-                                                                    <a class="btn btn-success show-tooltip" title="This file has already been downloaded.  Click to download."><i class="icon-cloud-download"> Downloaded</i></a>
+                                                                    <a class="btn btn-success show-tooltip" title="This file has already been downloaded.  Click to download."><i class="icon-cloud-download"></i> Downloaded</a>
                                                                 @endif
                                                             </td>
                                                             <td class="text-center">
@@ -45,7 +47,7 @@
                                                             </td>
                                                             <td class="text-center visible-md visible-lg">
                                                                 <div class="btn-group">
-                                                                    <a class="label label-default label-xlarge show-tooltip" title="View file details" href="{{ route('file_history_post') }}" data-toggle="modal" data-target="#modal-file_details" data-id="{{ $file->id }}"><i class="icon-zoom-in"></i> Detail</a>
+                                                                    <a class="btn btn-primary show-tooltip" title="View file details" href="{{ route('file_history_post') }}" data-toggle="modal" data-target="#modal-file_details" data-id="{{ $file->id }}"><i class="icon-zoom-in"></i> Detail</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -88,7 +90,6 @@
                     },
                     function(response, status, xhr) {
                         $(modal).html(response);
-                        //console.log("response = " + response + " with status = " + status);
                     }
                 );
 

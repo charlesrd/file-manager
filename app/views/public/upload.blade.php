@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3><i class="icon-table"></i> File History</h3>
+                    <h3>File Upload</h3>
                 </div>
                 <div class="panel-body">
                     {{ Form::open(array('route' => 'file_upload_post', 'files' => true, 'class' => 'dropzone', 'id' => 'dropzone')) }}
