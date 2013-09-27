@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersMessages extends Migration {
+class CreateUsersConversations extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,16 +11,16 @@ class CreateUsersMessages extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('users_messages', function($table)
+		Schema::create('users_conversations', function($table)
 		{
-			$table->integer('from_user_id')->unsigned();
-			$table->integer('to_user_id')->unsigned();
-			$table->integer('message_id')->unsigned();
+			$table->bigIncrements('id');
+			$table->integer('user_id');
+			$table->integer('conversation_id');
+			$table->timestamps();
 
 			// We'll need to ensure that MySQL uses the InnoDB engine to
 			// support the indexes, other engines aren't affected.
 			$table->engine = 'InnoDB';
-			$table->primary(array('to_user_id', 'from_user_id', 'message_id'));
 		});
 	}
 
@@ -31,7 +31,7 @@ class CreateUsersMessages extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('users_messages');
+		Schema::drop('users_conversations');
 	}
 
 }

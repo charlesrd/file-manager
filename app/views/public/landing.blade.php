@@ -3,18 +3,18 @@
 @section('main-content')
     <div class="login-wrapper">
         <!-- BEGIN Guest Upload Form -->
-        {{ Form::open(array('route' => 'file_upload_post', 'id' => 'form-guest-upload', 'files' => true)) }}
+        {{ Form::open(array('route' => 'file_upload_post', 'files' => true, 'id' => 'form-guest-upload')) }}
             <h3>Upload Files as Guest</h3>
             <hr/>
             <div class="form-group">
                 <div class="controls">
-                    {{ Form::text('guest_lab_name', Input::old('guest_lab_name'), array('class' => 'form-control', 'id' => 'guest_lab_name', 'placeholder' => 'lab name')) }}
+                    {{ Form::text('guest_lab_name', Input::old('guest_lab_name'), array('class' => 'form-control', 'id' => 'guest_lab_name', 'placeholder' => 'lab name', 'data-rule-required' => 'true')) }}
                     {{ $errors->first('guest_lab_name', '<div class="alert alert-danger"><strong>Error!</strong> :message </div>') }}
                 </div>
             </div>
             <div class="form-group">
                 <div class="controls">
-                    {{ Form::email('guest_lab_email', Input::old('guest_lab_email'), array('class' => 'form-control', 'id' => 'guest_lab_email', 'placeholder' => 'lab email')) }}
+                    {{ Form::email('guest_lab_email', Input::old('guest_lab_email'), array('class' => 'form-control', 'id' => 'guest_lab_email', 'placeholder' => 'lab email', 'data-rule-required' => 'true', 'data-rule-email' => 'true')) }}
                     {{ $errors->first('guest_lab_email', '<div class="alert alert-danger"><strong>Error!</strong> :message </div>') }}
                 </div>
             </div>
@@ -27,7 +27,7 @@
                 <div class="controls">
                     <div id="dz-guest-upload" class="dropzone">
                         <div class="fallback">
-                            <input name="file" type="file" multiple="multiple" />
+                            {{ Form::file('file', array('multiple' => 'multiple')) }}
                         </div>
                     </div>
                 </div>
@@ -134,26 +134,62 @@
 @stop
 
 @section('extra-scripts')
+    {{ Html::script('assets/jquery-validation/dist/jquery.validate.min.js') }}
+    {{ Html::script('assets/jquery-validation/dist/additional-methods.min.js') }}
     {{ Html::script('assets/dropzone/downloads/dropzone.min.js') }}
 
     <script type="text/javascript">
-        $(function() {
+        $(document).ready(function() {
+            var validationOptions = {
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",
 
-            Dropzone.options.dzGuestUpload = {
+                invalidHandler: function (event, validator) { //display error alert on form submit              
+                    
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                    $(element).closest('.form-group').removeClass('has-success').addClass('has-error'); // set error class to the control group
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
+                    setTimeout(function(){removeSuccessClass(element);}, 3000);
+                },
+
+                success: function (label) {
+                    label.closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                }
+            }
+
+            Dropzone.autoDiscover = false;
+
+            $("#dz-guest-upload").dropzone({
                 autoProcessQueue: false,
-                uploadMultiple: true,
                 parallelUploads: 100,
                 maxFiles: 100,
-                url: "/file/upload",
+                addRemoveLinks: true,
+                url: "{{ route('file_upload_post') }}",
 
                 init: function() {
                     var dz = this;
 
                     $("form#form-guest-upload button[type=submit]").click(
                         function(e) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            dz.processQueue();
+
+                            if (jQuery().validate) {
+                                var removeSuccessClass = function(e) {
+                                    $(e).closest('.form-group').removeClass('has-success');
+                                }
+                                $('#form-guest-upload').validate(validationOptions);
+                            }
+
+                            //e.preventDefault();
+                            //e.stopPropagation();
+
+                            //dz.processQueue();
                         }
                     );
                 },
@@ -164,8 +200,7 @@
                     formData.append('guest_lab_message', $("#guest_lab_message").val());
                     formData.append('_token', $("input[name=_token]").val());
                 }
-            }
-
+            });
         });
 
         function goToForm(form)

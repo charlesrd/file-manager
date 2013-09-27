@@ -50,7 +50,7 @@
         <li class="{{ Request::is('file/*') ? 'active' : '' }}">
             <a href="#" class="dropdown-toggle">
                 <i class="icon-cloud"></i>
-                <span>File Management</span>
+                <span>File Activity</span>
                 <b class="arrow icon-angle-right"></b>
             </a>
 

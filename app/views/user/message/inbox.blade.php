@@ -1,6 +1,6 @@
 @extends('layouts.dashboard_sidebar')
 
-@section('title', 'File History')
+@section('title', 'Message Inbox')
 
 @section('main-content')
                 <div class="row">

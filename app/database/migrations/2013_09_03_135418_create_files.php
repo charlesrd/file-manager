@@ -18,7 +18,7 @@ class CreateFiles extends Migration {
 
 		// Create the files database table
 		Schema::create('files', function($table) {
-			$table->bigIncrements('id');
+			$table->increments('id');
 			$table->integer('user_id')->nullable();
 			$table->string('filename_original');
 			$table->string('filename_random');

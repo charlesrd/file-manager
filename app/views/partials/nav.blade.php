@@ -111,12 +111,7 @@
                         <a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
                             <i class="icon-user"></i>
                             <span class="hidden-phone" id="user_info">
-                            @if($user->hasAccess('admin'))
-                                Administrator
-                            @else
-                                Lab
-                            @endif
-                            &nbsp;-&nbsp;{{ $user->email }}
+                                {{ $user->email }}
                             </span>
                             <i class="icon-caret-down"></i>
                         </a>

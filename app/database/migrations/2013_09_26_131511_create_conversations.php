@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMessages extends Migration {
+class CreateConversations extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,12 +11,11 @@ class CreateMessages extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('messages', function($table)
+		Schema::create('conversations', function($table)
 		{
 			$table->bigIncrements('id');
 			$table->integer('user_id');
-			$table->integer('conversation_id');
-			$table->text('body');
+			$table->text('subject');
 			$table->timestamps();
 
 			// We'll need to ensure that MySQL uses the InnoDB engine to
@@ -32,7 +31,7 @@ class CreateMessages extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('messages');
+		Schema::drop('conversations');
 	}
 
 }

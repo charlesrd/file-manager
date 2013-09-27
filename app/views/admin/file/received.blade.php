@@ -1,13 +1,13 @@
 @extends('layouts.dashboard_sidebar')
 
-@section('title', 'File History')
+@section('title', 'Files Received')
 
 @section('main-content')
                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3>File History</h3>
+                                <h3>Files Received</h3>
                             </div>
                             <div class="panel-body">
                                 @if ($files->count())
@@ -15,8 +15,9 @@
                                         <table class="table table-advance">
                                             <thead>
                                                 <tr>
-                                                    <th>Date Sent</th>
+                                                    <th>Date Received</th>
                                                     <th class="visible-lg"># of #</th>
+                                                    <th>From</th>
                                                     <th>Filename</th>
                                                     <th class="text-center">Status</th>
                                                     <th class="text-center">Expiring</th>
@@ -26,11 +27,9 @@
                                             <tbody>
                                                     @foreach ($files as $file)
                                                         <tr class="table-flag-red">
-                                                            <td>
-                                                                {{ $file->formattedCreatedAt() }}
-                                                                
-                                                            </td>
+                                                            <td>{{ date('g:ia \o\n F j, Y', strtotime($file->created_at)) }}</td>
                                                             <td class="visible-lg"></td>
+                                                            <td>{{ DB::table('users')->where('id', '=', $file->user_id)->pluck('email') }}</td>
                                                             <td>{{ $file->filename_original }}</td>
                                                             <td class="text-center">
                                                                 @if ($file->status == 0)

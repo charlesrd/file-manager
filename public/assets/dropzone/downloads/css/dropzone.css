@@ -153,7 +153,8 @@
   display: block;
 }
 .dropzone {
-  min-height: 180px;
+  min-height: 200px;
+  height: 225px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
   background: rgba(0,0,0,0.03);
@@ -170,12 +171,12 @@
   transition: opacity 0.3s ease-in-out;
   background-image: url("../images/spritemap.png");
   background-repeat: no-repeat;
-  background-position: 0 0;
+  background-position: -0px -123px;
   position: absolute;
-  width: 428px;
-  height: 123px;
-  margin-left: -214px;
-  margin-top: -61.5px;
+  width: 250px;
+  height: 200px;
+  margin-left: -125px;
+  margin-top: -85px;
   top: 50%;
   left: 50%;
 }

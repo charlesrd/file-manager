@@ -64,7 +64,7 @@ $(function() {
     //$('#sidebar.sidebar-fixed').css('height', $(window).height()).niceScroll({railoffset: {left: -3}});
 
     //---------------- Tooltip & Popover --------------------//
-    $('.show-tooltip').tooltip({container: 'body', delay: {show:500}});
+    $('.show-tooltip').tooltip({container: 'body', delay: {show:100}});
     $('.show-popover').popover();
 
     //---------------- Syntax Highlighter --------------------//

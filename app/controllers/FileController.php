@@ -31,15 +31,18 @@ class FileController extends \BaseController {
         if ($user) {
             // user is logged in, upload to their user folder
             $destinationPath = 'uploads/' . $user->upload_folder;
+            // Set upload validation rules
+            $uploadValidationRules = array('file' => 'required');
         } else {
             // user is not logged in, upload to guest folder
             $destinationPath = 'uploads/guest';
+            // Set upload validation rules for guests
+            $uploadValidationRules = array(
+                'file' => 'required',
+                'guest_lab_name' => 'required',
+                'guest_lab_email' => 'required'
+            );
         }
-
-        // Set upload validation rules
-        $uploadValidationRules = array(
-            'file' => 'max:262144|required'
-        );
 
         // Instantiate a validation object
         $uploadValidation = Validator::make($uploadFilesArray, $uploadValidationRules);
@@ -74,7 +77,6 @@ class FileController extends \BaseController {
             }
             $file->filename_original = $uploadFileName;
             $file->filename_random = $uploadFileNameRandomized;
-            //$file->user()->associate($user);
 
             if ($file->save()) {
                 return Response::json('success', 200);
@@ -88,30 +90,26 @@ class FileController extends \BaseController {
     }
 
     public function getHistory() {
-        $files = File::where('user_id', '=', $this->user->id)->orderBy('created_at', 'DESC')->paginate(20);
+        $files = $this->user->files()->orderBy('created_at', 'DESC')->paginate(20);
 
         return View::make('user.file.history')->with("files", $files);
     }
 
     public function postHistory() {
-        $canViewDetail = false;
         $file_id = null;
         if (Input::has('file_id')) {
             $file_id = Input::get('file_id');
             $file = File::find($file_id);
 
-            if ($file->user_id != $this->user->id) {
-                $canViewDetail = true;
-            }
-        }
-
-        // Check if the request is AJAX
-        if (Request::ajax()) {
+            // Check for non-empty file object
             if ($file) {
-                return View::make('user.file.history_detail_modal')->with('file', $file);
+                // Check if the request is AJAX
+                if (Request::ajax()) {
+                    return View::make('user.file.history_detail_modal')->with('file', $file);
+                } else {
+                    return View::make('user.file.history_detail');
+                }
             }
-        } else {
-            return View::make('user.file.history_detail');
         }
     }
 
