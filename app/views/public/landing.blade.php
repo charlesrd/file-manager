@@ -8,19 +8,19 @@
             <hr/>
             <div class="form-group">
                 <div class="controls">
-                    {{ Form::text('guest_lab_name', Input::old('guest_lab_name'), array('class' => 'form-control', 'id' => 'guest_lab_name', 'placeholder' => 'lab name', 'data-rule-required' => 'true')) }}
+                    {{ Form::text('guest_lab_name', Input::old('guest_lab_name'), array('class' => 'form-control', 'id' => 'guest_lab_name', 'placeholder' => 'lab name (required)', 'data-rule-required' => 'true')) }}
                     {{ $errors->first('guest_lab_name', '<div class="alert alert-danger"><strong>Error!</strong> :message </div>') }}
                 </div>
             </div>
             <div class="form-group">
                 <div class="controls">
-                    {{ Form::email('guest_lab_email', Input::old('guest_lab_email'), array('class' => 'form-control', 'id' => 'guest_lab_email', 'placeholder' => 'lab email', 'data-rule-required' => 'true', 'data-rule-email' => 'true')) }}
+                    {{ Form::email('guest_lab_email', Input::old('guest_lab_email'), array('class' => 'form-control', 'id' => 'guest_lab_email', 'placeholder' => 'lab email (required)', 'data-rule-required' => 'true', 'data-rule-email' => 'true')) }}
                     {{ $errors->first('guest_lab_email', '<div class="alert alert-danger"><strong>Error!</strong> :message </div>') }}
                 </div>
             </div>
             <div class="form-group">
                 <div class="controls">
-                    {{ Form::textarea('guest_lab_message', Input::old('guest_lab_message'), array('class' => 'form-control', 'id' => 'guest_lab_message', 'placeholder' => 'message to include with upload')) }}
+                    {{ Form::textarea('guest_lab_message', Input::old('guest_lab_message'), array('class' => 'form-control', 'id' => 'guest_lab_message', 'placeholder' => 'message to include with upload (optional)')) }}
                 </div>
             </div>
             <div class="form-group">
@@ -104,7 +104,7 @@
         <!-- END Login Form -->
 
         <!-- BEGIN Forgot Password Form -->
-        {{ Form::open(array('route' => 'user_resetpassword', 'id' => 'form-forgot', 'style' => 'display:none')) }}
+        {{ Form::open(array('route' => 'user_resetpassword', 'id' => 'form-forgot')) }}
             <h3>Reset your password</h3>
             <hr/>
             <div class="form-group">
@@ -124,8 +124,6 @@
         {{ Form::close() }}
         <!-- END Forgot Password Form -->
 
-        <div class="clearfix">
-        </div>
     </div>
 @stop
 
@@ -141,13 +139,13 @@
     <script type="text/javascript">
         $(document).ready(function() {
             var validationOptions = {
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block', // default input error message class
+                errorElement: 'div', //default input error message container
+                errorClass: 'alert alert-danger', // default input error message class
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              
-                    
+
                 },
 
                 highlight: function (element) { // hightlight error inputs
@@ -173,8 +171,32 @@
                 addRemoveLinks: true,
                 url: "{{ route('file_upload_post') }}",
 
+                dictRemoveFile: "Delete",
+
                 init: function() {
                     var dz = this;
+                    var guestUploadForm = $('#form-guest-upload');
+                    var submitBtn = $("form#form-guest-upload button[type=submit]");
+
+                    submitBtn.attr("disabled", "true");
+
+                    dz.on("addedfile", function() {
+                        if (dz.files.length !== 0 && guestUploadForm.validate(validationOptions).checkForm()) {
+                            submitBtn.removeAttr("disabled");
+                        }
+                    }).on("removedfile", function() {
+                        if (dz.files.length === 0 || !guestUploadForm.validate(validationOptions).checkForm()) {
+                            submitBtn.attr("disabled", "true");
+                        }
+                    });
+
+                    $("#guest_lab_name, #guest_lab_email").on('change', function() {
+                        if (dz.files.length !== 0 && guestUploadForm.validate(validationOptions).checkForm()) {
+                            submitBtn.removeAttr("disabled");
+                        } else {
+                            submitBtn.attr("disabled", "true");
+                        }
+                    });
 
                     $("form#form-guest-upload button[type=submit]").click(
                         function(e) {
@@ -183,13 +205,16 @@
                                 var removeSuccessClass = function(e) {
                                     $(e).closest('.form-group').removeClass('has-success');
                                 }
-                                $('#form-guest-upload').validate(validationOptions);
+                                guestUploadForm.validate(validationOptions).showErrors({
+                                    "guest_lab_name": "Please provide the name of your lab.",
+                                    "guest_lab_email": "Please provide an email where we can reach you if necessary."
+                                });
                             }
 
-                            //e.preventDefault();
-                            //e.stopPropagation();
+                            e.preventDefault();
+                            e.stopPropagation();
 
-                            //dz.processQueue();
+                            dz.processQueue();
                         }
                     );
                 },
@@ -201,6 +226,9 @@
                     formData.append('_token', $("input[name=_token]").val());
                 }
             });
+
+            $("form#form-forgot").css("display", "none");
+
         });
 
         function goToForm(form)

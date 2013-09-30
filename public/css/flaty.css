@@ -19,7 +19,7 @@ html {
     text-rendering: optimizelegibility;
 }
 body {
-    padding-bottom: 0;
+    padding-bottom: 2em;
     min-height: 100%;
     font-family: 'Open Sans';
     font-size: 13px;
