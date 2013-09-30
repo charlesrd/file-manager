@@ -41,7 +41,7 @@
                                                             </td>
                                                             <td class="text-center">
                                                                 @if (strtotime($file->expiration) > strtotime(date("Y-m-d")))
-                                                                    {{ date('F j, Y', strtotime($file->expiration)) }}
+                                                                    {{ $file->formattedExpiration() }}
                                                                 @else
                                                                     Expired
                                                                 @endif

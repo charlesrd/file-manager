@@ -11,7 +11,7 @@
                     <small>
                         <i class="icon-home"></i>
                         &nbsp;
-                        {{ Config::get('app.company_name') }} - {{ Config::get('app.site_title') }}
+                        {{ Config::get('app.company_name') }} <span class="hidden-xs" style="display:inline;"> - {{ Config::get('app.site_title') }}</span>
                     </small>
                 </a>
                 <!-- END Brand -->

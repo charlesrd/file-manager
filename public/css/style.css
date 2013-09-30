@@ -79,3 +79,16 @@ body.modal-open {
 	padding: 0;
 	margin: 0 auto;
 }
+
+.login-page form button {
+	margin-top: 0;
+}
+
+span.hidden-xs {
+	display: inline !important;
+}
+@media (max-width: 768px) {
+	span.hidden-xs {
+		display: none !important;
+	}
+}

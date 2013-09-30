@@ -8,14 +8,20 @@
             <hr/>
             <div class="form-group">
                 <div class="controls">
-                    {{ Form::text('guest_lab_name', Input::old('guest_lab_name'), array('class' => 'form-control', 'id' => 'guest_lab_name', 'placeholder' => 'lab name (required)', 'data-rule-required' => 'true')) }}
+                    {{ Form::text('guest_lab_name', Input::old('guest_lab_name'), array('class' => 'form-control', 'id' => 'guest_lab_name', 'placeholder' => 'lab name (required)')) }}
                     {{ $errors->first('guest_lab_name', '<div class="alert alert-danger"><strong>Error!</strong> :message </div>') }}
                 </div>
             </div>
             <div class="form-group">
                 <div class="controls">
-                    {{ Form::email('guest_lab_email', Input::old('guest_lab_email'), array('class' => 'form-control', 'id' => 'guest_lab_email', 'placeholder' => 'lab email (required)', 'data-rule-required' => 'true', 'data-rule-email' => 'true')) }}
+                    {{ Form::email('guest_lab_email', Input::old('guest_lab_email'), array('class' => 'form-control', 'id' => 'guest_lab_email', 'placeholder' => 'lab email (required)')) }}
                     {{ $errors->first('guest_lab_email', '<div class="alert alert-danger"><strong>Error!</strong> :message </div>') }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="controls">
+                    {{ Form::text('guest_lab_phone', Input::old('guest_lab_phone'), array('class' => 'form-control', 'id' => 'guest_lab_phone', 'placeholder' => 'lab phone number (required)')) }}
+                    {{ $errors->first('guest_lab_phone', '<div class="alert alert-danger"><strong>Error!</strong> :message </div>') }}
                 </div>
             </div>
             <div class="form-group">
@@ -54,7 +60,7 @@
         <!-- END Guest Upload Form -->
 
         <span id="landing-separator">
-            OR
+            or
         </span>
 
         <!-- BEGIN Login Form -->
@@ -63,14 +69,14 @@
             <hr />
             <div class="form-group">
                 <div class="controls">
-                    {{ Form::email('user_email', Input::old('user_email'), array('class' => 'form-control', 'id' => 'user_email', 'placeholder' => 'username')) }}
-                    {{ $errors->first('user_email', '<div class="alert alert-danger"><strong>Error!</strong> :message </div>') }}
+                    {{ Form::email('user_email', Input::old('user_email'), array('class' => 'form-control', 'id' => 'user_email', 'placeholder' => 'email')) }}
+                    {{ $errors->first('user_email', '<div class="alert alert-danger"> :message </div>') }}
                 </div>
             </div>
             <div class="form-group">
                 <div class="controls">
                     {{ Form::password('user_password', array('class' => 'form-control', 'id' => 'user_password', 'placeholder' => 'password')) }}
-                    {{ $errors->first('user_password', '<div class="alert alert-danger"><strong>Error!</strong> :message </div>') }}
+                    {{ $errors->first('user_password', '<div class="alert alert-danger"> :message </div>') }}
                 </div>
             </div>
 
@@ -104,7 +110,7 @@
         <!-- END Login Form -->
 
         <!-- BEGIN Forgot Password Form -->
-        {{ Form::open(array('route' => 'user_resetpassword', 'id' => 'form-forgot')) }}
+        {{ Form::open(array('route' => 'user_resetpassword', 'id' => 'form-forgot', 'style' => 'display: none;')) }}
             <h3>Reset your password</h3>
             <hr/>
             <div class="form-group">
@@ -138,30 +144,6 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            var validationOptions = {
-                errorElement: 'div', //default input error message container
-                errorClass: 'alert alert-danger', // default input error message class
-                focusInvalid: false, // do not focus the last invalid input
-                ignore: "",
-
-                invalidHandler: function (event, validator) { //display error alert on form submit              
-
-                },
-
-                highlight: function (element) { // hightlight error inputs
-                    $(element).closest('.form-group').removeClass('has-success').addClass('has-error'); // set error class to the control group
-                },
-
-                unhighlight: function (element) { // revert the change done by hightlight
-                    $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
-                    setTimeout(function(){removeSuccessClass(element);}, 3000);
-                },
-
-                success: function (label) {
-                    label.closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
-                }
-            }
-
             Dropzone.autoDiscover = false;
 
             $("#dz-guest-upload").dropzone({
@@ -169,6 +151,7 @@
                 parallelUploads: 100,
                 maxFiles: 100,
                 addRemoveLinks: true,
+                createImageThumbnails: false,
                 url: "{{ route('file_upload_post') }}",
 
                 dictRemoveFile: "Delete",
@@ -178,61 +161,155 @@
                     var guestUploadForm = $('#form-guest-upload');
                     var submitBtn = $("form#form-guest-upload button[type=submit]");
 
-                    submitBtn.attr("disabled", "true");
+                    // Set vaidation options for guest upload form
+                    var validationOptions = {
+                        errorElement: 'div', //default input error message container
+                        errorClass: 'alert alert-danger', // default input error message class
+                        focusInvalid: false, // do not focus the last invalid input
 
-                    dz.on("addedfile", function() {
-                        if (dz.files.length !== 0 && guestUploadForm.validate(validationOptions).checkForm()) {
-                            submitBtn.removeAttr("disabled");
+                        rules: {
+                            guest_lab_name: {
+                                required: true
+                            },
+                            guest_lab_email: {
+                                required: true,
+                                email: true
+                            },
+                            guest_lab_phone: {
+                                required: true,
+                                phoneUS: true
+                            }
+                        },
+
+                        messages: {
+                            guest_lab_name: "Please provide the name of your lab.",
+                            guest_lab_email: {
+                                required: "Please provide a valid email.",
+                                email: "Please provide a correctly formatted email.<br /> Example: fake@example.com"
+                            },
+                            guest_lab_phone: {
+                                required: "Please provide a valid phone number.",
+                                phoneUS: "Please provide a correctly formatted U.S. phone number.<br /> Example: 8005556789 or 800-555-6789"
+                            }
+                        },
+
+                        highlight: function(element, errorClass, validClass) {
+                            $(element).removeClass(errorClass);
+                        },
+
+                        // Callback for handling actual submit when form is valid
+                        submitHandler: function(form) {
+                            form.submit();
                         }
-                    }).on("removedfile", function() {
-                        if (dz.files.length === 0 || !guestUploadForm.validate(validationOptions).checkForm()) {
-                            submitBtn.attr("disabled", "true");
+                    }
+
+                    // disable submit button by default
+                    submitBtn.prop("disabled", true);
+
+                    // Enable or disable submit button based on form validation and dropzone queue length
+                    guestUploadForm.bind('keyup', function() {
+                        if ($(this).validate(validationOptions).checkForm() && dz.files.length > 0) {
+                            submitBtn.prop("disabled", false);
+                        } else {
+                            submitBtn.prop("disabled", true);
                         }
                     });
 
-                    $("#guest_lab_name, #guest_lab_email").on('change', function() {
-                        if (dz.files.length !== 0 && guestUploadForm.validate(validationOptions).checkForm()) {
-                            submitBtn.removeAttr("disabled");
-                        } else {
-                            submitBtn.attr("disabled", "true");
+                    dz.on("addedfile", function() {
+                        if (dz.files.length !== 0) {
+                            $(".dropzone").css('overflow-y', 'scroll');
+                            if (guestUploadForm.validate(validationOptions).checkForm()) {
+                                submitBtn.prop("disabled", false);
+                            }
+                        }
+                    }).on("removedfile", function() {
+                        if (dz.files.length === 0) {
+                            $(".dropzone").css('overflow-y', '');
+                            if (!guestUploadForm.validate(validationOptions).checkForm()) {
+                                submitBtn.prop("disabled", true);
+                            }
                         }
                     });
 
                     $("form#form-guest-upload button[type=submit]").click(
                         function(e) {
+                            e.preventDefault(); // prevent default action of click event
+                            e.stopPropagation(); // stop DOM propagation
 
-                            if (jQuery().validate) {
-                                var removeSuccessClass = function(e) {
-                                    $(e).closest('.form-group').removeClass('has-success');
-                                }
-                                guestUploadForm.validate(validationOptions).showErrors({
-                                    "guest_lab_name": "Please provide the name of your lab.",
-                                    "guest_lab_email": "Please provide an email where we can reach you if necessary."
-                                });
-                            }
-
-                            e.preventDefault();
-                            e.stopPropagation();
-
+                            // Process uploads if all validation has passed.
                             dz.processQueue();
                         }
                     );
-                },
 
-                sending: function(file, xhr, formData) {
-                    formData.append('guest_lab_name', $("#guest_lab_name").val());
-                    formData.append('guest_lab_email', $("#guest_lab_email").val());
-                    formData.append('guest_lab_message', $("#guest_lab_message").val());
-                    formData.append('_token', $("input[name=_token]").val());
+                    this.on("sending", function(file, xhr, formData) {
+                        formData.append('guest_lab_name', $("#guest_lab_name").val());
+                        formData.append('guest_lab_email', $("#guest_lab_email").val());
+                        formData.append('guest_lab_message', $("#guest_lab_message").val());
+                        formData.append('_token', $("input[name=_token]").val());
+                    });
+
+                    this.on("success", function(file, response) {
+                        $("a.dz-remove").remove();
+                    });
+
+                    this.on("complete", function(file) {
+                        if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+                            $("#dz-guest-upload").after('<div class="alert alert-success">Your files have been uploaded successfully.  {{ link_to_route("home", "Upload more?") }}</div>').fadeIn();
+                        }
+                    });
+
                 }
             });
 
-            $("form#form-forgot").css("display", "none");
+            var loginForm = $('#form-login');
+            var submitBtn = $("form#form-login button[type=submit]");
+            
+            // Set vaidation options for guest upload form
+            var validationOptions = {
+                errorElement: 'div', //default input error message container
+                errorClass: 'alert alert-danger', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
 
+                rules: {
+                    user_email: {
+                        required: true,
+                        email: true
+                    },
+                    user_password: {
+                        required: true
+                    }
+                },
+
+                messages: {
+                    user_email: {
+                        required: "Please provide your DentalLabProfile login.",
+                        email: "Please provide a correctly formatted email.<br /> Example: fake@example.com"
+                    },
+                    user_password: "Please provide your password."
+                },
+
+                highlight: function(element, errorClass, validClass) {
+                    $(element).removeClass(errorClass);
+                },
+
+                // Callback for handling actual submit when form is valid
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            }
+
+            submitBtn.prop("disabled", 'true');
+
+            loginForm.bind('keyup', function() {
+                if ($(this).validate(validationOptions).checkForm()) {
+                    submitBtn.prop("disabled", false);
+                } else {
+                    submitBtn.prop("disabled", true);
+                }
+            });
         });
 
-        function goToForm(form)
-        {
+        function goToForm(form) {
             if (form == "login") {
                 $('.login-wrapper > form:visible').fadeOut(500, function(){
                     $('#form-login, #form-guest-upload, span#landing-separator').fadeIn(500);

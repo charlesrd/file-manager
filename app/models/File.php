@@ -27,8 +27,16 @@ class File extends \Eloquent {
 	// 								->first();
 	// }
 
+	public function getDates() {
+		return array('created_at', 'updated_at', 'deleted_at', 'expiration');
+	}
+
 	public function formattedCreatedAt() {
-		return $this->created_at->format('g:ia - M j, Y');
+		return $this->created_at->format('g:ia \o\n M j, Y');
+	}
+
+	public function formattedExpiration() {
+		return $this->expiration->format('g:ia \o\n M j, Y');
 	}
 
 }

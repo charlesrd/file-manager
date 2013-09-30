@@ -23,7 +23,7 @@ class CreateFiles extends Migration {
 			$table->string('filename_original');
 			$table->string('filename_random');
 			$table->boolean('status');
-			$table->date('expiration');
+			$table->timestamp('expiration');
 			$table->timestamps();
 
 			// We'll need to ensure that MySQL uses the InnoDB engine to
@@ -34,7 +34,7 @@ class CreateFiles extends Migration {
 		if (Schema::hasColumn('files', 'expiration')) {
 			DB::unprepared('CREATE TRIGGER set_expiration 
 						   BEFORE INSERT ON `files` 
-						   FOR EACH ROW SET NEW.expiration = DATE_ADD(CURDATE(), INTERVAL 7 DAY)');
+						   FOR EACH ROW SET NEW.expiration = TIMESTAMPADD(WEEK, 1, CURDATE())');
 		}
 	}
 

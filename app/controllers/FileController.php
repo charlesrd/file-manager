@@ -14,7 +14,11 @@ class FileController extends \BaseController {
 	}
 
     public function getUpload() {
-        return View::make('public.upload')->with('title', 'Upload Files');
+        if ($this->user) {
+            return View::make('public.upload')->with('title', 'Upload Files');
+        } else {
+            return Redirect::route('home');
+        }
     }
 
     public function postUpload() {
@@ -40,7 +44,8 @@ class FileController extends \BaseController {
             $uploadValidationRules = array(
                 'file' => 'required',
                 'guest_lab_name' => 'required',
-                'guest_lab_email' => 'required'
+                'guest_lab_email' => 'required|email|alpha_dash',
+                'guest_lab_phone' => 'required'
             );
         }
 
