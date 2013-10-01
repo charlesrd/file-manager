@@ -39,6 +39,7 @@ body {
 	font-weight: bold;
 	background-color: white;
 	padding: .5em 0;
+	color: rgba(0,0,0,0.15);
 }
 
 .login-page form input, .login-page form textarea {
@@ -91,4 +92,43 @@ span.hidden-xs {
 	span.hidden-xs {
 		display: none !important;
 	}
+}
+@media (max-width: 949px) {
+	.login-page {
+		padding: 0;
+	}
+	.login-page .login-wrapper {
+        width: 100%;
+        margin: 0 auto;
+    }
+    .login-page .login-wrapper form#form-login,
+    .login-page .login-wrapper form#form-guest-upload {
+        clear: both;
+        float: none;
+    }
+    .login-page .login-wrapper form {
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+@media (min-width: 950px) and (max-width: 1053px) {
+	.login-page .login-wrapper span#landing-separator {
+		visibility: hidden;
+		height: 0;
+		font-size: 0;
+		padding: 0;
+		margin: 0;
+		float: none;
+	}
+	.login-page .login-wrapper {
+		overflow: auto;
+		width: 950px;
+		background-color: white;
+	}
+}
+@media (max-width: 767px) {
+	form#form-login label {
+        font-weight: normal;
+        padding-bottom: inherit;
+    }
 }

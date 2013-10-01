@@ -63,7 +63,7 @@
   display: block;
   float: left;
   height: 100%;
-  width: 75%;
+  width: 70%;
   text-align: left;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -73,6 +73,7 @@
 .dropzone .dz-preview .dz-details .dz-size,
 .dropzone-previews .dz-preview .dz-details .dz-size {
   float: right;
+  margin-right: 28px;
 }
 .dropzone .dz-preview.dz-error .dz-error-mark,
 .dropzone-previews .dz-preview.dz-error .dz-error-mark {
@@ -92,12 +93,12 @@
 .dropzone-previews .dz-preview .dz-error-mark {
   display: none;
   position: absolute;
-  width: 40px;
-  height: 40px;
-  font-size: 30px;
+  width: 28px;
+  height: 28px;
+  font-size: 18px;
   text-align: center;
-  right: -10px;
-  top: -10px;
+  right: 0px;
+  top: 0px;
 }
 .dropzone .dz-preview .dz-success-mark,
 .dropzone-previews .dz-preview .dz-success-mark {
@@ -265,11 +266,11 @@
 }
 .dropzone .dz-preview .dz-error-mark,
 .dropzone-previews .dz-preview .dz-error-mark {
-  background-position: -268px -123px;
+  background-position: -267px -123px;
 }
 .dropzone .dz-preview .dz-success-mark,
 .dropzone-previews .dz-preview .dz-success-mark {
-  background-position: -268px -163px;
+  background-position: -267px -150px;
 }
 .dropzone .dz-preview .dz-progress .dz-upload,
 .dropzone-previews .dz-preview .dz-progress .dz-upload {

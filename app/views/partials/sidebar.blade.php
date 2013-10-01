@@ -80,7 +80,7 @@
     <!-- END Navlist -->
 
     <!-- BEGIN Sidebar Collapse Button -->
-    <div id="sidebar-collapse" class="visible-lg">
+    <div id="sidebar-collapse" class="hidden-xs">
         <i class="icon-double-angle-left"></i>
     </div>
     <!-- END Sidebar Collapse Button -->

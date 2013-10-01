@@ -4,7 +4,7 @@
     <div class="login-wrapper">
         <!-- BEGIN Guest Upload Form -->
         {{ Form::open(array('route' => 'file_upload_post', 'files' => true, 'id' => 'form-guest-upload')) }}
-            <h3>Upload Files as Guest</h3>
+            <h3>Upload Files as Guest Lab</h3>
             <hr/>
             <div class="form-group">
                 <div class="controls">
@@ -30,17 +30,12 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="controls">
+                <div class="controls" id="dz-container">
                     <div id="dz-guest-upload" class="dropzone">
                         <div class="fallback">
                             {{ Form::file('file', array('multiple' => 'multiple')) }}
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="controls">
-                    <div class="dropzone-previews"></div>
                 </div>
             </div>
 
@@ -59,13 +54,13 @@
         {{ Form::close() }}
         <!-- END Guest Upload Form -->
 
-        <span id="landing-separator">
+        <span id="landing-separator" class="visible-md visible-lg">
             or
         </span>
 
         <!-- BEGIN Login Form -->
         {{ Form::open(array('route' => 'user_login', 'id' => 'form-login')) }}
-            <h3>Login using DentalLabProfile account</h3>
+            <h3>Login using DentalLabProfile</h3>
             <hr />
             <div class="form-group">
                 <div class="controls">
@@ -238,6 +233,8 @@
 
                             // Process uploads if all validation has passed.
                             dz.processQueue();
+
+                            $(this).prop('disabled', true);
                         }
                     );
 
@@ -245,6 +242,7 @@
                         formData.append('guest_lab_name', $("#guest_lab_name").val());
                         formData.append('guest_lab_email', $("#guest_lab_email").val());
                         formData.append('guest_lab_message', $("#guest_lab_message").val());
+                        formData.append('guest_lab_phone', $("#guest_lab_phone").val());
                         formData.append('_token', $("input[name=_token]").val());
                     });
 
@@ -254,7 +252,20 @@
 
                     this.on("complete", function(file) {
                         if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
-                            $("#dz-guest-upload").after('<div class="alert alert-success">Your files have been uploaded successfully.  {{ link_to_route("home", "Upload more?") }}</div>').fadeIn();
+                            $('<div class="alert alert-success">Your files have been uploaded successfully. Check your email for a confirmation.  <a href="#" id="upload-more">Upload more?</a></div>').hide().appendTo('#dz-container').slideDown(500);
+
+                            $(document).on('click', '#upload-more', function(e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+
+                                dz.removeAllFiles();
+
+                                $(".alert-success").slideUp(500, function() {
+                                    $(this).remove();
+                                });
+
+                                submitBtn.prop('disabled', false)
+                            });
                         }
                     });
 

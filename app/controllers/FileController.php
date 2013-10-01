@@ -44,7 +44,7 @@ class FileController extends \BaseController {
             $uploadValidationRules = array(
                 'file' => 'required',
                 'guest_lab_name' => 'required',
-                'guest_lab_email' => 'required|email|alpha_dash',
+                'guest_lab_email' => 'required|email',
                 'guest_lab_phone' => 'required'
             );
         }
