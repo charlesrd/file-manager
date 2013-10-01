@@ -394,13 +394,6 @@ hr.margin-0  {margin: 0;}
     width: 320px;
     border-top: 1px solid #f5f6f7;
 }
-.dropdown-navbar .msg img {
-    float: left;
-    width: 40px;
-    height: 40px;
-    margin-right: 15px;
-    border-radius: 100%;
-}
 .dropdown-navbar .msg div {
     margin-bottom: 20px;
 }
@@ -446,14 +439,6 @@ hr.margin-0  {margin: 0;}
     color: #fff;
     font-size: 14px;
     padding: 8px;
-    border-radius: 100%;
-}
-.dropdown-navbar .notify img {
-    float: left;
-    width: 30px;
-    height: 30px;
-    margin-right: 5px;
-    border-radius: 100%;
 }
 .dropdown-navbar .notify [class*="icon-"].pink   {background: #e36781;}
 .dropdown-navbar .notify [class*="icon-"].green  {background: #74c054;}
@@ -664,7 +649,6 @@ hr.margin-0  {margin: 0;}
     border: 1px solid rgba(255,255,255,0.2);
     padding: 1px 6px 1px 5px;
     line-height: 18px;
-    border-radius: 100%;
     position: relative;
 }
 #sidebar-collapse:before {
@@ -2400,7 +2384,6 @@ a.tile:hover {
     float: left;
     width: 60px;
     height: 60px;
-    border-radius: 100%;
 }
 .messages > li > div {
     background-color: #f7f8f9;
@@ -3401,7 +3384,6 @@ div.tagsinput .not_valid {
     width: 18px;
     height: 18px;
     background-color: #40a9bc;
-    border-radius: 100%;
     border: 2px solid #fff;
     position: absolute;
     top: 13px;
