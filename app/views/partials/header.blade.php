@@ -35,7 +35,7 @@
     <link rel="shortcut icon" href="img/favicon.png">
 </head>
 
-@if (!Sentry::getUser() && (Request::is('user/login') || Request::is('/')))
+@if (!Sentry::getUser() || (Request::is('user/login') || Request::is('/')))
     <body class="login-page">
 @else
     <body>

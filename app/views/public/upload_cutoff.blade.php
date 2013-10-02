@@ -10,6 +10,8 @@
                 {{ Form::open(array('route' => 'file_upload_post', 'files' => true, 'class' => 'dropzone', 'id' => 'dropzone')) }}
                     <div class="panel-heading">
                         <h3>Important: Upload Time is after 4pm CST</h3>
+                        <hr />
+                        <p class="lead">Our policy states that our cutoff time for accepting file uploads is 4pm CST
                     </div>
                     <div class="panel-body">
                         <p>By choosing to have your files processed today, you agree to pay the $x expedited charge.  If you choose this option, we will bill your card on file for a total of $x.</p>

@@ -27,7 +27,7 @@
                                             <tbody>
                                                     @foreach ($files as $file)
                                                         <tr class="table-flag-red">
-                                                            <td>{{ date('g:ia \o\n F j, Y', strtotime($file->created_at)) }}</td>
+                                                            <td>{{ $file->formattedCreatedAt() }}</td>
                                                             <td class="visible-lg"></td>
                                                             <td>{{ DB::table('users')->where('id', '=', $file->user_id)->pluck('email') }}</td>
                                                             <td>{{ $file->filename_original }}</td>
@@ -40,7 +40,7 @@
                                                             </td>
                                                             <td class="text-center">
                                                                 @if (strtotime($file->expiration) > strtotime(date("Y-m-d")))
-                                                                    {{ date('F j, Y', strtotime($file->expiration)) }}
+                                                                    {{ $file->formattedExpiration() }}
                                                                 @else
                                                                     Expired
                                                                 @endif

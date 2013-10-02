@@ -19,17 +19,24 @@ class SentryUserSeeder extends Seeder {
 	    ));
 
 	    Sentry::getUserProvider()->create(array(
-	        'email'    => 'test@test.com',
+	        'email'    => 'superuser@test.com',
 	        'password' => 'test12345',
 	        'activated' => 1,
-	        'upload_folder' => 'testtest'
+	        'upload_folder' => 'superuser'
 	    ));
 
 	    Sentry::getUserProvider()->create(array(
-	        'email'    => 'casey@caseysceramicarts.com',
+	        'email'    => 'admin@test.com',
 	        'password' => 'test12345',
 	        'activated' => 1,
-	        'upload_folder' => 'caseytest'
+	        'upload_folder' => 'admintest'
+	    ));
+
+	    Sentry::getUserProvider()->create(array(
+	    	'email'    => 'user@test.com',
+	        'password' => 'test12345',
+	        'activated' => 1,
+	        'upload_folder' => 'usertest'
 	    ));
 	}
 

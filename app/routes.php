@@ -35,7 +35,8 @@ Route::controller('file', 'FileController', array(
 	'getUpload' => 'file_upload',
 	'postUpload' => 'file_upload_post',
 	'getHistory' => 'file_history',
-	'postHistory' => 'file_history_post'
+	'postHistory' => 'file_history_post',
+	'getReceived' => 'file_received'
 ));
 
 Route::post('search', array(

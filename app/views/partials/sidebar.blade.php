@@ -1,24 +1,5 @@
-{{--
-<div class="sidebar-nav">
-    <form class="search form-inline">
-        <input type="text" placeholder="Search for files...">
-    </form>
-    @if ($user->hasAccess('admin'))
-        <a href="#admin-dashboard-menu" class="nav-header" data-toggle="collapse">
-            <i class="icon-dashboard"></i>Administrator<i class="icon-chevron-up"></i></a>
-        <ul id="admin-dashboard-menu" class="nav nav-list collapse in tooltip-overlay">
-                <li><a href="{{ action('DashboardController@getIndex') }}" data-toggle="tooltip" data-placement="right" title="View an overview of all system activity">Dashboard Overview<span class="label label-important">+3</span></a></li>
-                <li>{{ Html::link('uploads.index', 'File Uploads') }}</li>
-        </ul>
-    @endif
-    @if ($user->hasAccess('user'))
-        <a href="#user-dashboard-menu" class="nav-header" data-toggle="collapse"><i class="icon-dashboard"></i>User <i class="icon-chevron-up"></i></a>
-        <ul id="user-dashboard-menu" class="nav nav-list collapse in">
-            <li>{{ Html::linkRoute('dashboard', 'Dashboard Overview') }}</li>
-        </ul>
-    @endif
-</div>
---}}
+{{-- Show different menus based on different roles, I didn't see a need to break them up into more partial templates --}}
+{{-- EventuallY, I want this to be based on a datbase of roles that can be changed with an interface --}}
 
 
 <!-- BEGIN Sidebar -->
@@ -34,9 +15,6 @@
                     </button>
                     <input type="text" name="search" placeholder="Search files..." autocomplete="off" />
                 </span>
-
-                {{-- Cross-Site Request Forgery Token (hidden) --}}
-                {{ Form::token() }}
             {{ Form::close() }}
         </li>
         <!-- END Search Form -->
@@ -56,6 +34,9 @@
 
             <!-- BEGIN Submenu -->
             <ul class="submenu">
+                @if ($user->hasAccess('admin') || $user->hasAccess('superuser'))
+                    <li class="{{ Request::is('file/incoming') ? 'active' : '' }}">{{ Html::linkRoute('file_received', 'Incoming Files') }}</li>
+                @endif
                 <li class="{{ Request::is('file/upload') ? 'active' : '' }}">{{ Html::linkRoute('file_upload', 'Upload Files') }}</li>
                 <li class="{{ Request::is('file/history') ? 'active' : '' }}">{{ Html::linkRoute('file_history', 'File History') }}</li>
             </ul>

@@ -16,6 +16,9 @@ class CreateBatches extends Migration {
 			$table->integer('id');
 			$table->integer('file_id');
 			$table->integer('user_id');
+			$table->text('guest_lab_name')->nullable();
+			$table->text('guest_lab_email')->nullable();
+			$table->text('guest_lab_phone')->nullable();
 			$table->text('message');
 
 			// We'll need to ensure that MySQL uses the InnoDB engine to

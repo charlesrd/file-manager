@@ -15,12 +15,12 @@
                                         <table class="table table-advance">
                                             <thead>
                                                 <tr>
-                                                    <th>Date Sent</th>
-                                                    <th class="visible-lg"># of #</th>
+                                                    <th>Date Uploaded</th>
                                                     <th>Filename</th>
                                                     <th class="text-center">Status</th>
+                                                    <th class="text-center">Tracking #</th>
                                                     <th class="text-center">Expiring</th>
-                                                    <th class="text-center visible-md visible-lg"></th>
+                                                    <th class="text-center"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -30,13 +30,19 @@
                                                                 {{ $file->formattedCreatedAt() }}
                                                                 
                                                             </td>
-                                                            <td class="visible-lg"></td>
                                                             <td>{{ $file->filename_original }}</td>
                                                             <td class="text-center">
                                                                 @if ($file->status == 0)
-                                                                    <a class="btn btn-danger show-tooltip" title="This file has not yet been downloaded.  Click to download."><i class="icon-cloud-download"></i> Not Downloaded</a>
+                                                                    <span class="btn btn-danger show-tooltip" title="This file has not yet been downloaded by the recipient."><i class="icon-cloud-download"></i> Not Downloaded</span>
                                                                 @else
-                                                                    <a class="btn btn-success show-tooltip" title="This file has already been downloaded.  Click to download."><i class="icon-cloud-download"></i> Downloaded</a>
+                                                                    <span class="btn btn-success show-tooltip" title="This file has been downloaded by the recipient."><i class="icon-cloud-download"></i> Downloaded</span>
+                                                                @endif
+                                                            </td>
+                                                            <td class="text-center">
+                                                                @if ($file->tracking && !is_null($file->tracking) && $file->tracking != '')
+                                                                    {{{ $file->tracking }}}
+                                                                @else
+                                                                    N/A
                                                                 @endif
                                                             </td>
                                                             <td class="text-center">
@@ -46,7 +52,7 @@
                                                                     Expired
                                                                 @endif
                                                             </td>
-                                                            <td class="text-center visible-md visible-lg">
+                                                            <td class="text-center">
                                                                 <div class="btn-group">
                                                                     <a class="btn btn-primary show-tooltip" title="View file details" href="{{ route('file_history_post') }}" data-toggle="modal" data-target="#modal-file_details" data-id="{{ $file->id }}"><i class="icon-zoom-in"></i> Detail</a>
                                                                 </div>
@@ -59,6 +65,9 @@
                                     <div class="text-center">
                                         {{ $files->links() }}
                                     </div>
+                                    <p class="lead text-muted">
+                                        <strong>Note:</strong> Files will automatically be deleted once they have expired after 7 days.
+                                    </p>
                                 @else
                                     <div class="alert alert-danger">You don't seem to have any file history.  Once you've uploaded files, detailed information will be available here.</div>
                                 @endif

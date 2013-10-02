@@ -2270,17 +2270,17 @@ a.tile:hover {
     width: 100%;
     z-index: 1;
 }
-.login-page .login-wrapper {
+.login-page .login-wrapper, .success-wrapper {
     position: relative;
     z-index: 2;
 }
-.login-page .login-wrapper form {
+.login-page .login-wrapper form, .success-wrapper div {
     background-color: #fff;
     padding: 20px;
     width: 340px;
     margin: 0 auto;
 }
-.login-page form h3 {
+.login-page form h3, .success-wrapper h3 {
     font-size: 25px;
     font-weight: 300;
 }

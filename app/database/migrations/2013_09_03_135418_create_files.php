@@ -23,6 +23,7 @@ class CreateFiles extends Migration {
 			$table->string('filename_original');
 			$table->string('filename_random');
 			$table->boolean('status');
+			$table->string('tracking')->nullable();
 			$table->timestamp('expiration');
 			$table->timestamps();
 

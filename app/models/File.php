@@ -11,11 +11,12 @@ class File extends \Eloquent {
 	// }
 
 	public function user() {
-		return $this->belongsTo('App\Models\User');
+		//return $this->belongsTo('App\Models\User');
+		return DB::table('users')->where('id', '=', $this->user_id)->first();
 	}
 
 	public function batch() {
-		return $this->belongsTo('App\Models\Batch');
+		//return $this->belongsTo('App\Models\Batch');
 	}
 
 	// public function user() {
@@ -36,7 +37,7 @@ class File extends \Eloquent {
 	}
 
 	public function formattedExpiration() {
-		return $this->expiration->format('g:ia \o\n M j, Y');
+		return $this->expiration->format('M j, Y');
 	}
 
 }

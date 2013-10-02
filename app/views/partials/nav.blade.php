@@ -18,14 +18,15 @@
 
                 <!-- BEGIN Navbar Buttons -->
                 <ul class="nav flaty-nav pull-right">
-                    <!-- BEGIN Button Tasks -->
+                    @if ($user->hasAccess('admin'))
+                    <!-- BEGIN Button Files Not Downloaded -->
                     <li class="hidden-xs">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <i class="icon-file"></i>
                             <span class="badge badge-important">{{ App\Models\File::where('status', '=', '0')->count() }}</span>
                         </a>
 
-                        <!-- BEGIN Tasks Dropdown -->
+                        <!-- BEGIN Files Not Downloaded Dropdown -->
                         <ul class="dropdown-navbar dropdown-menu">
                             <li class="nav-header">
                                 <a class="label label-important show-tooltip" title="Download all new files..." href="{{ route('file_history') }}"><i class="icon-download"></i></a>
@@ -38,9 +39,9 @@
                                 {{ Html::linkRoute('file_history', 'View new files...') }}
                             </li>
                         </ul>
-                        <!-- END Tasks Dropdown -->
+                        <!-- END Files Not Downloaded Dropdown -->
                     </li>
-                    <!-- END Button Tasks -->
+                    <!-- END Files Not Downloaded -->
 
                     <!-- BEGIN Button Messages -->
                     <li class="hidden-xs">
@@ -105,6 +106,7 @@
                         <!-- END Notifications Dropdown -->
                     </li>
                     <!-- END Button Messages -->
+                    @endif
 
                     <!-- BEGIN Button User -->
                     <li class="user-profile">
