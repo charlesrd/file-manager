@@ -64,8 +64,8 @@
             <hr />
             <div class="form-group">
                 <div class="controls">
-                    {{ Form::email('user_email', Input::old('user_email'), array('class' => 'form-control', 'id' => 'user_email', 'placeholder' => 'email')) }}
-                    {{ $errors->first('user_email', '<div class="alert alert-danger"> :message </div>') }}
+                    {{ Form::text('user_username', Input::old('user_username'), array('class' => 'form-control', 'id' => 'user_username', 'placeholder' => 'username')) }}
+                    {{ $errors->first('user_username', '<div class="alert alert-danger"> :message </div>') }}
                 </div>
             </div>
             <div class="form-group">
@@ -106,7 +106,9 @@
 
         <!-- BEGIN Forgot Password Form -->
         {{ Form::open(array('route' => 'user_resetpassword', 'id' => 'form-forgot', 'style' => 'display: none;')) }}
-            <h3>Reset your password</h3>
+            <h3>Password Recovery</h3>
+            <hr/>
+            <p>Enter the email address associated with your DentalLabProfile.com account to receive your password</p>
             <hr/>
             <div class="form-group">
                 <div class="controls">
@@ -282,9 +284,8 @@
                 focusInvalid: false, // do not focus the last invalid input
 
                 rules: {
-                    user_email: {
+                    user_username: {
                         required: true,
-                        email: true
                     },
                     user_password: {
                         required: true
@@ -292,10 +293,7 @@
                 },
 
                 messages: {
-                    user_email: {
-                        required: "Please provide your DentalLabProfile login.",
-                        email: "Please provide a correctly formatted email.<br /> Example: fake@example.com"
-                    },
+                    user_username: "Please provide your DentalLabProfile login.",
                     user_password: "Please provide your password."
                 },
 

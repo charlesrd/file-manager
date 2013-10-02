@@ -20,6 +20,7 @@ class CreateFiles extends Migration {
 		Schema::create('files', function($table) {
 			$table->increments('id');
 			$table->integer('user_id')->nullable();
+			$table->integer('batch_id');
 			$table->string('filename_original');
 			$table->string('filename_random');
 			$table->boolean('status');

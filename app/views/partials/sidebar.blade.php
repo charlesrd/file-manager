@@ -35,7 +35,7 @@
             <!-- BEGIN Submenu -->
             <ul class="submenu">
                 @if ($user->hasAccess('admin') || $user->hasAccess('superuser'))
-                    <li class="{{ Request::is('file/incoming') ? 'active' : '' }}">{{ Html::linkRoute('file_received', 'Incoming Files') }}</li>
+                    <li class="{{ Request::is('file/received') ? 'active' : '' }}">{{ Html::linkRoute('file_received', 'Incoming Files') }}</li>
                 @endif
                 <li class="{{ Request::is('file/upload') ? 'active' : '' }}">{{ Html::linkRoute('file_upload', 'Upload Files') }}</li>
                 <li class="{{ Request::is('file/history') ? 'active' : '' }}">{{ Html::linkRoute('file_history', 'File History') }}</li>
@@ -43,19 +43,11 @@
             <!-- END Submenu -->
         </li>
 
-        <li class="{{ Request::is('message/*') ? 'active' : '' }}">
-            <a href="#" class="dropdown-toggle">
+        <li class="{{ (Request::is('message') || Request::is('message/*')) ? 'active' : '' }}">
+            <a href="{{ route('message') }}">
                 <i class="icon-comment"></i>
                 <span>Messages</span>
-                <b class="arrow icon-angle-right"></b>
             </a>
-
-            <!-- BEGIN Submenu -->
-            <ul class="submenu">
-                <li>{{ Html::linkRoute('message_inbox', 'Inbox') }}</li>
-                <li>{{ Html::linkRoute('message_outbox', 'Outbox') }}</li>
-            </ul>
-            <!-- END Submenu -->
         </li>
     </ul>
     <!-- END Navlist -->

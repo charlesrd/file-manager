@@ -490,6 +490,7 @@ hr.margin-0  {margin: 0;}
     margin: 0;
     padding: 0;
     list-style: none;
+    margin-bottom: 1em;
 }
 .nav-list > li {
     display: block;
@@ -2389,10 +2390,9 @@ a.tile:hover {
     background-color: #f7f8f9;
     padding: 10px;
     padding-top: 1px;
-    margin-left: 80px;
     position: relative;
 }
-.messages > li > div:before {
+.messages > li > div.message-from:before {
     content: "";
     position: absolute;
     width: 0;
@@ -2400,6 +2400,17 @@ a.tile:hover {
     left: -10px;
     top: 19px;
     border-right: 10px solid #f7f8f9;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+}
+.messages > li > div.message-to:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    right: -10px;
+    top: 19px;
+    border-left: 10px solid #f7f8f9;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
 }
@@ -2487,9 +2498,8 @@ a.tile:hover {
     color: #555;
 }
 .messages-input-form .buttons .btn {
-    margin-top: -5px;
-    margin-right: 1px;
-    height: 28px;
+    height: 32px;
+    margin-top:-1px;
 }
 
 /* Search results ------------------------------------------ */

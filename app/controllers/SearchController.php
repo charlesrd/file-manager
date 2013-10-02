@@ -6,15 +6,15 @@ class SearchController extends \BaseController {
 
 	public function getIndex()
 	{
-		//
+		return Redirect::route('home');
 	}
 
-	public function getResults()
+	public function postResults()
 	{
 		$searchPhrase = Input::get('search');
 		$searchResults = File::findAllWithSearchPhrase($searchPhrase);
 
-		return View::make('public.search.results')->with('searchResults', $searchResults);
+		return View::make('user.search.results')->with('searchResults', $searchResults)->with('searchPhrase', $searchPhrase);
 	}
 
 }

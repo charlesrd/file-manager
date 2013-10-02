@@ -13,12 +13,12 @@ body {
 .login-page .login-wrapper {
 	width: 1050px;
 	margin: 0 auto;
+	overflow: auto;
 }
 
 .login-page .login-wrapper form {
     width: 475px;
     text-align: center;
-    max-height: 865px;
 }
 
 .login-page .login-wrapper form#form-guest-upload {
@@ -96,6 +96,14 @@ body.modal-open {
 
 span.hidden-xs {
 	display: inline !important;
+}
+.messages > li > div.message-from {
+	margin-right: 40px;
+	background-color: #f7f8f9;
+}
+.messages > li > div.message-to {
+	margin-left: 40px;
+	background-color: #eef1f4;
 }
 @media (max-width: 768px) {
 	span.hidden-xs {

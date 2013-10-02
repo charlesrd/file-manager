@@ -98,18 +98,31 @@ class FileController extends \BaseController {
             $file = new File;
 
             if ($this->user) {
+                // Set up batch for logged in user
                 $batch->user_id = $this->user->id;
+                $batch->message = Input::get('message');
+
+                // Set up file info for logged in user
                 $file->user_id = $this->user->id;
             } else if ($user) {
+                // Set up batch for guest lab user
+                $batch->guest_lab_name = Input::get('guest_lab_name');
+                $batch->guest_lab_email = Input::get('guest_lab_email');
+                $batch->guest_lab_phone = Input::get('guest_lab_phone');
+                $batch->message = Input::get('message');
+
+                // Set up file info
                 $file->user_id = null;
             } else {
                 // No local or global user, which means no input was passed in 
                 Log::warning('Unauthorized access attempt');
                 App::abort('401', 'Unauthorized access attempt.');
             }
+
+            // More file info that is the same no matter the user
             $file->filename_original = $uploadFileName;
             $file->filename_random = $uploadFileNameRandomized;
-
+            
             if ($file->save()) {
                 if (Request::ajax()) {
                     return Response::json('success', 200);

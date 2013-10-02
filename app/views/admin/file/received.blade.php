@@ -26,16 +26,20 @@
                                             </thead>
                                             <tbody>
                                                     @foreach ($files as $file)
+                                                        @if ($file->status)
+                                                        <tr class="table-flag-green">
+                                                        @else
                                                         <tr class="table-flag-red">
+                                                        @endif
                                                             <td>{{ $file->formattedCreatedAt() }}</td>
                                                             <td class="visible-lg"></td>
                                                             <td>{{ DB::table('users')->where('id', '=', $file->user_id)->pluck('email') }}</td>
                                                             <td>{{ $file->filename_original }}</td>
                                                             <td class="text-center">
-                                                                @if ($file->status == 0)
-                                                                    <a class="btn btn-danger show-tooltip" title="This file has not yet been downloaded.  Click to download."><i class="icon-cloud-download"></i> Not Downloaded</a>
-                                                                @else
+                                                                @if ($file->status)
                                                                     <a class="btn btn-success show-tooltip" title="This file has already been downloaded.  Click to download."><i class="icon-cloud-download"></i> Downloaded</a>
+                                                                @else
+                                                                    <a class="btn btn-danger show-tooltip" title="This file has not yet been downloaded.  Click to download."><i class="icon-cloud-download"></i> Not Downloaded</a>
                                                                 @endif
                                                             </td>
                                                             <td class="text-center">
@@ -59,7 +63,7 @@
                                         {{ $files->links() }}
                                     </div>
                                 @else
-                                    <div class="alert alert-danger">You don't seem to have any file history.  Once you've uploaded files, detailed information will be available here.</div>
+                                    <div class="alert alert-danger text-center">You have not received any files in the last 7 days.</div>
                                 @endif
                             </div>
                         </div>

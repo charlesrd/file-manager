@@ -40,4 +40,10 @@ class File extends \Eloquent {
 		return $this->expiration->format('M j, Y');
 	}
 
+	public static function findAllWithSearchPhrase($searchPhrase) {
+		return File::where('filename_original', 'LIKE', '%' . $searchPhrase . '%')
+			->orWhere('tracking', 'LIKE', '%' . $searchPhrase . '%')
+			->paginate(15);
+	}
+
 }

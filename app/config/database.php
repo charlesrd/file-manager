@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'default' => 'mysql',
+	'default' => 'amsdti',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -52,10 +52,21 @@ return array(
 			'prefix'   => '',
 		),
 
-		'mysql' => array(
+		'amsdti' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
 			'database'  => 'amsdti',
+			'username'  => 'root',
+			'password'  => 'root',
+			'charset'   => 'utf8',
+			'collation' => 'utf8_unicode_ci',
+			'prefix'    => '',
+		),
+
+		'dentallabprofile' => array(
+			'driver'    => 'mysql',
+			'host'      => 'localhost',
+			'database'  => 'dentallabprofile',
 			'username'  => 'root',
 			'password'  => 'root',
 			'charset'   => 'utf8',

@@ -59,7 +59,7 @@ $(function() {
     }
 
     //---------------- Nice Scroll --------------------//
-    $('html').niceScroll({zindex: 999});
+    $('body').niceScroll({zindex: 999});
     $('.nice-scroll').niceScroll({railoffset: {left: -3}});
     //$('#sidebar.sidebar-fixed').css('height', $(window).height()).niceScroll({railoffset: {left: -3}});
 

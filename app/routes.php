@@ -42,7 +42,7 @@ Route::controller('file', 'FileController', array(
 Route::post('search', array(
 	'before' => 'csrf',
 	'as' => 'file_search',
-	'uses' => 'SearchController@getResults'
+	'uses' => 'SearchController@postResults'
 ));
 
 Route::get('admin', array(
@@ -54,8 +54,7 @@ Route::get('admin', array(
 // Message Routes
 Route::controller('message', 'MessageController', array(
 	'getIndex' => 'message',
-	'getInbox' => 'message_inbox',
-	'getOutbox' => 'message_outbox'
+	'postIndex' => 'message_post'
 ));
 
 // User Routes

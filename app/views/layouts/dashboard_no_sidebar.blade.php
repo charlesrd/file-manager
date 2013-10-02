@@ -10,14 +10,6 @@
 		<!-- BEGIN Content -->
 		<div id="main-content">
 
-		    <!-- BEGIN Breadcrumb -->
-		    <div id="breadcrumbs">
-		        <ul class="breadcrumb">
-		            <li class="active"><i class="icon-home"></i> Home</li>
-		        </ul>
-		    </div>
-		    <!-- END Breadcrumb -->
-
 	    	@yield('main-content')
 
 	    	<footer>

@@ -16,7 +16,7 @@ class UserController extends BaseController {
 
 		// define validation rules
         $rules = array(
-            'user_email' => 'required|email',
+            'user_username' => 'required',
             'user_password' => 'required'
         );
 
@@ -27,24 +27,64 @@ class UserController extends BaseController {
         if ($validation->fails()) {
             return Redirect::route('user_login')->withErrors($validation)->withInput();
         } else {
-        	// try to log a user in
-        	try {
-        		$user = Sentry::getUserProvider()->findByLogin($inputs['user_email']);
+            // check if superuser from amsdti table only, used for SUPER account
+            // bypasses all checks below and just logs in super user
+            try {
+                $superuser = Sentry::findUserByCredentials(array(
+                    'username' => $inputs['user_username'],
+                    'password' => $inputs['user_password']
+                ));
 
-        		$userCredentials = array(
-        			'email' => $inputs['user_email'],
-        			'password' => $inputs['user_password']
-        		);
+                $this->user = Sentry::login($superuser, isset($inputs['remember']));
+                return Redirect::intended('dashboard');
+            } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+                // check and see if a DLP user exists with that lab login
+                $dlp_user = DB::connection('dentallabprofile')->table('labprofile')->where('labLogin', '=', $inputs['user_username'])->first();
+                DB::reconnect('amsdti');
 
-        		$user = Sentry::authenticate($userCredentials, isset($inputs['remember']));
-        	// uh oh, we couldn't find the user
-        	} catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
-        		Session::flash('login_errors', true);
-        		return Redirect::route('user_login')->withErrors($validation)->withInput(Input::except('user_password'));
-        	}
+                if (!$dlp_user) {
+                    Session::flash('login_errors', true);
+                    return Redirect::route('user_login')->withInput(Input::except('user_password'));
+                }
 
-        	// User login was successful, let's go to the dashboard!
-            return Redirect::intended('dashboard');
+                $dlp_password = Hash::make($dlp_user->labPassword);
+
+                if (($dlp_user && Hash::check($inputs['user_password'], $dlp_password))) {
+                    // try to log a user in
+                    try {
+                        $this->user = Sentry::getUserProvider()->findByLogin($inputs['user_username']);
+                    } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+                        if (!$this->user) {
+                            try {
+                                $this->user = Sentry::createUser(array(
+                                    'lab_id' => $dlp_user->labID,
+                                    'username' => $dlp_user->labLogin,
+                                    'email'    => $dlp_user->labEmail,
+                                    'password' => Hash::make($dlp_user->labPassword),
+                                    'lab_contact' => $dlp_user->labContact,
+                                    'activated' => 1,
+                                    'upload_folder' => $dlp_user->labLogin . str_random(20)
+                                ));
+
+                                $createUserGroup = Sentry::findGroupById(1);
+
+                                $this->user->addGroup($createUserGroup);
+                            } catch (Cartalyst\Sentry\Users\UserExistsException $e) {
+                                return App::abort('500', 'There was an error converting your DentalLabProfile.com credentials.  If this is your first time logging in, please contact us to resolve the problem.');
+                            }
+                        }
+                    }
+
+                    $this->user = Sentry::login($this->user, isset($inputs['remember']));
+
+                    // User login was successful, let's go to the dashboard!
+                    return Redirect::intended('dashboard');
+                } else {
+                    Session::flash('login_errors', true);;
+                    return Redirect::route('user_login')->withInput(Input::except('user_password'));
+                }
+            }
+
         }
 	}
 

@@ -66,7 +66,7 @@
                                         <strong>Note:</strong> Files will automatically be deleted once they have expired after 7 days.
                                     </p>
                                 @else
-                                    <div class="alert alert-danger">You don't seem to have any file history.  Once you've uploaded files, detailed information will be available here.</div>
+                                    <div class="alert alert-danger text-center">You don't seem to have any recently uploaded files.  <br /><br />Once you've uploaded files, detailed information will be available here.</div>
                                 @endif
                             </div>
                         </div>

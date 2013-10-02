@@ -13,9 +13,7 @@ class CreateConversations extends Migration {
 	{
 		Schema::create('conversations', function($table)
 		{
-			$table->bigIncrements('id');
-			$table->integer('user_id');
-			$table->text('subject');
+			$table->increments('id');
 			$table->timestamps();
 
 			// We'll need to ensure that MySQL uses the InnoDB engine to

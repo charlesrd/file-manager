@@ -25,17 +25,21 @@
                                             </thead>
                                             <tbody>
                                                     @foreach ($files as $file)
+                                                        @if ($file->status)
+                                                        <tr class="table-flag-green">
+                                                        @else
                                                         <tr class="table-flag-red">
+                                                        @endif
                                                             <td>
                                                                 {{ $file->formattedCreatedAt() }}
                                                                 
                                                             </td>
                                                             <td>{{ $file->filename_original }}</td>
                                                             <td class="text-center">
-                                                                @if ($file->status == 0)
-                                                                    <span class="btn btn-danger show-tooltip" title="This file has not yet been downloaded by the recipient."><i class="icon-cloud-download"></i> Not Downloaded</span>
-                                                                @else
+                                                                @if ($file->status)
                                                                     <span class="btn btn-success show-tooltip" title="This file has been downloaded by the recipient."><i class="icon-cloud-download"></i> Downloaded</span>
+                                                                @else
+                                                                    <span class="btn btn-danger show-tooltip" title="This file has not yet been downloaded by the recipient."><i class="icon-cloud-download"></i> Not Downloaded</span>
                                                                 @endif
                                                             </td>
                                                             <td class="text-center">
@@ -69,7 +73,7 @@
                                         <strong>Note:</strong> Files will automatically be deleted once they have expired after 7 days.
                                     </p>
                                 @else
-                                    <div class="alert alert-danger">You don't seem to have any file history.  Once you've uploaded files, detailed information will be available here.</div>
+                                    <div class="alert alert-danger text-center">You don't seem to have any file history.<br /><br />Once you've uploaded files, detailed information will be available here.</div>
                                 @endif
                             </div>
                         </div>

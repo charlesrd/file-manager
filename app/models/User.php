@@ -9,11 +9,11 @@ class User extends SentryUserModel {
 	}
 
 	public function conversations() {
-		return $this->belongsToMany('Conversation', 'users_conversations');
+		return $this->belongsToMany('App\Models\Conversation', 'users_conversations');
 	}
 
 	public function messages() {
-		return $this->hasMany('Message');
+		return $this->hasMany('App\Models\Message');
 	}
 
 }

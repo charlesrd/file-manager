@@ -19,9 +19,6 @@
           @endif
         </dd>
       </dl>
-      <pre>
-        {{-- print_r($file->user) --}}
-      </pre>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default" data-dismiss="modal" style="float:left;">Close</button>

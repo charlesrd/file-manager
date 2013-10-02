@@ -11,7 +11,7 @@ class Conversation extends \Eloquent {
 	}
 
 	public function messages() {
-		return $this->hasMany('App\Models\User');
+		return $this->hasMany('App\Models\Message');
 	}
 
 }
