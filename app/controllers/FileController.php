@@ -42,17 +42,6 @@ class FileController extends BaseController {
     }
 
     public function postUpload() {
-        // if (Session::has('upload.files')) {
-        //     $uploadFiles = Session::get('upload.files');
-        //     if (is_array($uploadFiles)) {
-        //         foreach($uploadFiles as $file) {
-        //             $fileModel = new File;
-        //             $fileModel->
-        //         }
-        //     } else {
-
-        //     }
-        // }
         // check if our global logged in user exists
         if (!$this->user) {
             // local not logged in user to keep track of email, phone, and lab name
@@ -66,8 +55,12 @@ class FileController extends BaseController {
         // Get all input files from dropzone
         $uploadFiles = Input::all();
 
+        // Set user id for uploads (can be null for guests)
+        $user_id = null;
+
         // Set destination for uploads
         if ($this->user) {
+            $user_id = $this->user->id;
             // user is logged in, upload to their user folder
             $destinationPath = 'uploads/' . $this->user->upload_folder;
             // Set upload validation rules
@@ -105,19 +98,22 @@ class FileController extends BaseController {
         $uploadSuccess = false;
 
         if (is_array($uploadFiles)) {
-            $i = 0;
             foreach($uploadFiles as $file) {
                 // Validation passed, begin to upload files
                 // First get the original filename
-                $uploadFileName[$i] = $file->getClientOriginalName();
+                $uploadFileName = $file->getClientOriginalName();
                 // and get the original file extension
                 $uploadFileExtension = $file->getClientOriginalExtension();
                 // Generate a random filename and concatenate original extension
-                $uploadFileNameRandomized[$i] = str_random(64) . '.' . $uploadFileExtension;
+                $uploadFileNameRandomized = str_random(64) . '.' . $uploadFileExtension;
                 // Attempt to move the files, returns true/false
-                $uploadSuccess = $file->move($destinationPath, $uploadFileNameRandomized[$i]);
+                $uploadSuccess = $file->move($destinationPath, $uploadFileNameRandomized);
 
-                $i++;
+                Session::push('upload.files', array(
+                    'user_id' => $user_id,
+                    'filename_original' => $uploadFileName,
+                    'filename_random' => $uploadFileNameRandomized
+                ));
             }
         } else {
             // Validation passed, begin to upload files
@@ -129,48 +125,66 @@ class FileController extends BaseController {
             $uploadFileNameRandomized = str_random(64) . '.' . $uploadFileExtension;
             // Attempt to move the files, returns true/false
             $uploadSuccess = $uploadFiles->move($destinationPath, $uploadFileNameRandomized);
+
+            Session::push('upload.files', array(
+                    'user_id' => $user_id,
+                    'filename_original' => $uploadFileName,
+                    'filename_random' => $uploadFileNameRandomized
+            ));
         }
 
         // Return the correct response based on upload status
         if ($uploadSuccess) {
-            // Upload was successful, let's add a reference of it to the database
-            //$batch = new Batch;
-
-            //return Response::json(json_encode(count(Session::get('upload.files')), 401));
-
-            if ($this->user) {
-                // Set up batch for logged in user
-                $batch->user_id = $this->user->id;
-                $batch->message = Input::get('message');
-
-                // Set up file info for logged in user
-                $file->user_id = $this->user->id;
-            } else if ($user) {
-                // Set up batch for guest lab user
-                $batch->guest_lab_name = Input::get('guest_lab_name');
-                $batch->guest_lab_email = Input::get('guest_lab_email');
-                $batch->guest_lab_phone = Input::get('guest_lab_phone');
-                $batch->message = Input::get('message');
-
-                // Set up file info
-                $file->user_id = null;
-            } else {
-                // No local or global user, which means no input was passed in 
-                Log::warning('Unauthorized access attempt');
-                App::abort('401', 'Unauthorized access attempt.');
-            }
-
-            // More file info that is the same no matter the user
-            $file->filename_original = $uploadFileName;
-            $file->filename_random = $uploadFileNameRandomized;
-
             // Push this file onto the upload.files array session
-            Session::put('upload.files', $file->toJson());
+            //Session::put('upload.files', json_encode($file));
             
             if (Session::has('upload.files')) {
+
+                if (Session::has('batch_id') && Request::ajax()) {
+                    $batch_id = Session::get('batch_id');
+                } else {
+                    $batch_id = $this->postBatchCreate();
+                }
+
+                $uploadFiles = Session::get('upload.files');
+
+                if (is_array($uploadFiles) && !empty($uploadFiles)) {
+                    foreach($uploadFiles as $file) {
+                        $fileModel = new File;
+                        if ($this->user) {
+                            $fileModel->user_id = $this->user->id;
+                        } else {
+                            $fileModel->user_id = null;
+                        }
+                        $fileModel->batch_id = $batch_id;
+                        $fileModel->filename_original = $file['filename_original'];
+                        $fileModel->filename_random = $file['filename_random'];
+
+                        $fileModel->save();
+                    }
+                } elseif (!empty($uploadFiles)) {
+                    $fileModel = new File;
+                    if ($this->user) {
+                        $fileModel->user_id = $this->user->id;
+                    } else {
+                        $fileModel->user_id = null;
+                    }
+                    $fileModel->batch_id = $batch_id;
+                    $fileModel->filename_original = $file['filename_original'];
+                    $fileModel->filename_random = $file['filename_random'];
+
+                    $fileModel->save();
+                }
+
                 if (Request::ajax()) {
+                    Session::forget('upload.files');
+                    Session::forget('batch_id');
+                    $batch_id = null;
                     return Response::json('success', 200);
                 } else {
+                    Session::forget('upload.files');
+                    Session::forget('batch_id');
+                    $batch_id = null;
                     return View::make('public.file.upload_success');
                 }
             } else {
@@ -181,7 +195,12 @@ class FileController extends BaseController {
                 }
             }
         } else {
-            return Response::json('error', 400);
+            if (Request::ajax()) {
+                return Response::json('error', 400);
+            } else {
+
+            }
+            
         }
 
     }
@@ -225,7 +244,6 @@ class FileController extends BaseController {
     }
 
     public function postBatchCreate() {
-        if (Request::ajax()) {
             $batch = new Batch;
 
             if (Input::has('guest_lab_name') && Input::has('guest_lab_email') && Input::has('guest_lab_phone')) {
@@ -238,15 +256,25 @@ class FileController extends BaseController {
                 } else {
                     $batch->message = null;
                 }
+            } else if (Input::has('guest_lab_message')) {
+                $batch->message = Input::get('guest_lab_message');
             }
 
             if ($batch->save()) {
-                Session::put('batch_id' => $batch->id);
-                return Response::json(array('success' => 200, 'batch_id' => $batch->id));
+                if (Request::ajax()) {
+                    Session::put('batch_id', $batch->id);
+                    return Response::json(array('success' => 200));
+                } else {
+                    Session::put('batch_id', $batch->id);
+                    return $batch->id;
+                }
             } else {
-                return Response::json('error', 400);
+                if (Request::ajax()) {
+                    return Response::json('error', 400);
+                } else {
+
+                }
             }
-        }
     }
 
 }
