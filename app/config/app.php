@@ -5,6 +5,9 @@ return array(
 	'company_name' => 'AMSDTI',
 	'site_title' => 'File Management System',
 
+	// Application configuration options set here
+	'file_upload_cutoff_time_CST' => 16, // 4pm CST in 24h format
+
 	/*
 	|--------------------------------------------------------------------------
 	| Application Debug Mode

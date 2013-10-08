@@ -2,8 +2,9 @@
 
 use App\Models\File;
 use App\Models\Batch;
+use Carbon\Carbon;
 
-class FileController extends \BaseController {
+class FileController extends BaseController {
 
     public function __construct() {
         parent::__construct();
@@ -15,6 +16,16 @@ class FileController extends \BaseController {
 	}
 
     public function getUpload() {
+        $afterCutoff = false;
+        $now = Carbon::now();
+
+        // Check the current request time and compare it against upload time set in config.app
+        // If the current request time is on or past the upload cutoff time, set to true
+        if ($now->hour >= Config::get('app.file_upload_cutoff_time_CST')) {
+            $afterCutoff = true;
+            View::share('afterCutoff', true);
+        }
+
         if ($this->user) {
             if ($this->user->hasAccess('superuser')) {
                 return View::make('superuser.file.upload')->with('title', 'Upload Files');
@@ -31,6 +42,17 @@ class FileController extends \BaseController {
     }
 
     public function postUpload() {
+        // if (Session::has('upload.files')) {
+        //     $uploadFiles = Session::get('upload.files');
+        //     if (is_array($uploadFiles)) {
+        //         foreach($uploadFiles as $file) {
+        //             $fileModel = new File;
+        //             $fileModel->
+        //         }
+        //     } else {
+
+        //     }
+        // }
         // check if our global logged in user exists
         if (!$this->user) {
             // local not logged in user to keep track of email, phone, and lab name
@@ -42,7 +64,7 @@ class FileController extends \BaseController {
         }
 
         // Get all input files from dropzone
-        $uploadFilesArray = Input::all();
+        $uploadFiles = Input::all();
 
         // Set destination for uploads
         if ($this->user) {
@@ -52,7 +74,7 @@ class FileController extends \BaseController {
             $uploadValidationRules = array('file' => 'required');
 
             // Instantiate a validation object
-            $uploadValidation = Validator::make($uploadFilesArray, $uploadValidationRules);
+            $uploadValidation = Validator::make($uploadFiles, $uploadValidationRules);
         } else if ($user) {
             // user is not logged in, upload to guest folder
             $destinationPath = 'uploads/guest';
@@ -70,7 +92,7 @@ class FileController extends \BaseController {
             );
 
             // Instantiate a validation object
-            $uploadValidation = Validator::make($uploadFilesArray, $uploadValidationRules, $uploadValidationMessages);
+            $uploadValidation = Validator::make($uploadFiles, $uploadValidationRules, $uploadValidationMessages);
         }
 
         // Run upload validation to check mime type, size, and required
@@ -80,22 +102,41 @@ class FileController extends \BaseController {
 
         // Get the current file from upload array
         $uploadFiles = Input::file('file');
+        $uploadSuccess = false;
 
-        // Validation passed, begin to upload files
-        // First get the original filename
-        $uploadFileName = $uploadFiles->getClientOriginalName();
-        // and get the original file extension
-        $uploadFileExtension = $uploadFiles->getClientOriginalExtension();
-        // Generate a random filename and concatenate original extension
-        $uploadFileNameRandomized = str_random(64) . '.' . $uploadFileExtension;
-        // Attempt to move the files, returns true/false
-        $uploadSuccess = $uploadFiles->move($destinationPath, $uploadFileNameRandomized);
+        if (is_array($uploadFiles)) {
+            $i = 0;
+            foreach($uploadFiles as $file) {
+                // Validation passed, begin to upload files
+                // First get the original filename
+                $uploadFileName[$i] = $file->getClientOriginalName();
+                // and get the original file extension
+                $uploadFileExtension = $file->getClientOriginalExtension();
+                // Generate a random filename and concatenate original extension
+                $uploadFileNameRandomized[$i] = str_random(64) . '.' . $uploadFileExtension;
+                // Attempt to move the files, returns true/false
+                $uploadSuccess = $file->move($destinationPath, $uploadFileNameRandomized[$i]);
+
+                $i++;
+            }
+        } else {
+            // Validation passed, begin to upload files
+            // First get the original filename
+            $uploadFileName = $uploadFiles->getClientOriginalName();
+            // and get the original file extension
+            $uploadFileExtension = $uploadFiles->getClientOriginalExtension();
+            // Generate a random filename and concatenate original extension
+            $uploadFileNameRandomized = str_random(64) . '.' . $uploadFileExtension;
+            // Attempt to move the files, returns true/false
+            $uploadSuccess = $uploadFiles->move($destinationPath, $uploadFileNameRandomized);
+        }
 
         // Return the correct response based on upload status
         if ($uploadSuccess) {
             // Upload was successful, let's add a reference of it to the database
-            $batch = new Batch;
-            $file = new File;
+            //$batch = new Batch;
+
+            //return Response::json(json_encode(count(Session::get('upload.files')), 401));
 
             if ($this->user) {
                 // Set up batch for logged in user
@@ -122,8 +163,11 @@ class FileController extends \BaseController {
             // More file info that is the same no matter the user
             $file->filename_original = $uploadFileName;
             $file->filename_random = $uploadFileNameRandomized;
+
+            // Push this file onto the upload.files array session
+            Session::put('upload.files', $file->toJson());
             
-            if ($file->save()) {
+            if (Session::has('upload.files')) {
                 if (Request::ajax()) {
                     return Response::json('success', 200);
                 } else {
@@ -133,7 +177,7 @@ class FileController extends \BaseController {
                 if (Request::ajax()) {
                     return Response::json('error', 400);
                 } else {
-                    return View::make('public.file.upload_success')->with('file', $file);
+                    return View::make('public.file.upload_fail')->with('file', $file);
                 }
             }
         } else {
@@ -178,6 +222,31 @@ class FileController extends \BaseController {
         // Wrongful request.  Normal users can't go here, log and abort to 404
         Log::warning('Someone tried to access the \'received files\' page without permission.');
         App:abort('401', 'Unauthorized request.  You can\'t do that');
+    }
+
+    public function postBatchCreate() {
+        if (Request::ajax()) {
+            $batch = new Batch;
+
+            if (Input::has('guest_lab_name') && Input::has('guest_lab_email') && Input::has('guest_lab_phone')) {
+                $batch->guest_lab_name = Input::get('guest_lab_name');
+                $batch->guest_lab_email = Input::get('guest_lab_email');
+                $batch->guest_lab_phone = Input::get('guest_lab_phone');
+
+                if (Input::has('guest_lab_message')) {
+                    $batch->message = Input('guest_lab_message');
+                } else {
+                    $batch->message = null;
+                }
+            }
+
+            if ($batch->save()) {
+                Session::put('batch_id' => $batch->id);
+                return Response::json(array('success' => 200, 'batch_id' => $batch->id));
+            } else {
+                return Response::json('error', 400);
+            }
+        }
     }
 
 }

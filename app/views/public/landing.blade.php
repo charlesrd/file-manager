@@ -33,7 +33,7 @@
                 <div class="controls" id="dz-container">
                     <div id="dz-guest-upload" class="dropzone">
                         <div class="fallback">
-                            {{ Form::file('file', array('multiple' => 'multiple')) }}
+                            {{ Form::file('file[]', array('multiple' => 'true')) }}
                         </div>
                     </div>
                 </div>
@@ -145,6 +145,7 @@
 
             $("#dz-guest-upload").dropzone({
                 autoProcessQueue: false,
+                uploadMultiple: true,
                 parallelUploads: 100,
                 maxFiles: 100,
                 addRemoveLinks: true,
@@ -240,7 +241,7 @@
                         }
                     );
 
-                    this.on("sending", function(file, xhr, formData) {
+                    dz.on("sendingmultiple", function(file, xhr, formData) {
                         formData.append('guest_lab_name', $("#guest_lab_name").val());
                         formData.append('guest_lab_email', $("#guest_lab_email").val());
                         formData.append('guest_lab_message', $("#guest_lab_message").val());
@@ -248,12 +249,32 @@
                         formData.append('_token', $("input[name=_token]").val());
                     });
 
-                    this.on("success", function(file, response) {
+                    dz.on("successmultiple", function(file, response) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '{{ route('file_batch_create_post') }}',
+                            data: {
+                                _token: $("input[name=_token]").val(),
+                                guest_lab_name: $("#guest_lab_name").val(),
+                                guest_lab_email: $("#guest_lab_email").val(),
+                                guest_lab_phone: $("#guest_lab_phone").val(),
+                                message: $("#guest_lab_message").val()
+                            }
+                        })
+                        .done(function(response) {
+                            var batch_id = response.batch_id;
+                            console.log('Batch ID = ' + batch_id);
+                        })
+                        .fail(function(xhr, status) {
+                            console.log('status = ' + status + " xhr = " + JSON.stringify(xhr));
+                        });
+
                         $("a.dz-remove").remove();
                     });
 
-                    this.on("complete", function(file) {
+                    dz.on("complete", function(file) {
                         if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+
                             $('<div class="alert alert-success">Your files have been uploaded successfully. <br /><br />Check your email for a confirmation.  <a href="#" id="upload-more">Upload more?</a></div>').hide().appendTo('#dz-container').slideDown(500);
 
                             $(document).on('click', '#upload-more', function(e) {

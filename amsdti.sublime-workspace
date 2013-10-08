@@ -4,72 +4,76 @@
 		"selected_items":
 		[
 			[
-				"mi",
-				"middle"
+				"isa",
+				"is_array"
+			],
+			[
+				"guest_lab",
+				"guest_lab_phone"
+			],
+			[
+				"guest_",
+				"guest_lab_name"
+			],
+			[
+				"gues",
+				"guest_lab_email"
+			],
+			[
+				"gu",
+				"guest_lab_name"
 			],
 			[
 				"file_uplo",
-				"file_upload_post"
+				"file_upload_cutoff_time_CST"
 			],
 			[
-				"find",
-				"findAllWithSearchPhrase"
+				"uploadVali",
+				"uploadValidationMessages"
 			],
 			[
-				"Dash",
-				"DashboardController"
+				"null",
+				"nullable"
+			],
+			[
+				"guest",
+				"guest_lab_email"
+			],
+			[
+				"submit",
+				"submitBtn"
+			],
+			[
+				"type",
+				"type=submit"
+			],
+			[
+				"filan",
+				"filename_original"
 			],
 			[
 				"filename",
-				"filename_random"
+				"filename_original"
 			],
 			[
-				"uploadFile",
-				"uploadFileName"
+				"HTML",
+				"Html-lr	Html-linkRoute"
 			],
 			[
-				"time",
-				"timestamps"
+				"can",
+				"canViewDetail"
 			],
 			[
-				"upload",
-				"uploadSuccess"
-			],
-			[
-				"desti",
-				"destinationPath"
-			],
-			[
-				"uploa",
-				"uploadFiles"
-			],
-			[
-				"erro",
-				"errors"
-			],
-			[
-				"uplo",
-				"uploadValidation"
-			],
-			[
-				"Valid",
-				"Validator"
-			],
-			[
-				"us",
-				"user"
-			],
-			[
-				"link",
-				"linkRoute"
-			],
-			[
-				"Html-s",
-				"HTML-script	HTML-script"
+				"file_history",
+				"file_history_post"
 			],
 			[
 				"dashboard",
 				"dashboard_sidebar"
+			],
+			[
+				"us",
+				"UserNotFoundException  (class)"
 			],
 			[
 				"superUser",
@@ -151,28 +155,28 @@
 		"selected_items":
 		[
 			[
-				"package",
-				"Package Control: Upgrade Package"
-			],
-			[
 				"install",
 				"Package Control: Install Package"
 			],
 			[
-				"upg",
-				"Package Control: Upgrade Package"
+				"remo",
+				"Package Control: Remove Package"
 			],
 			[
-				"insta",
-				"Package Control: Install Package"
+				"remove ",
+				"Package Control: Remove Package"
 			],
 			[
-				"remove",
+				"package",
 				"Package Control: Remove Package"
 			],
 			[
 				"upgrade",
 				"Package Control: Upgrade Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
 			],
 			[
 				"packages",
@@ -199,6 +203,10 @@
 				"Package Control: Install Package"
 			],
 			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
 				"form",
 				"Tag: Auto-Format Tags on Selection"
 			],
@@ -211,19 +219,11 @@
 				"Package Control: Install Package"
 			],
 			[
-				"remo",
-				"Package Control: Remove Package"
-			],
-			[
 				"remov",
 				"Package Control: Remove Package"
 			],
 			[
 				"re",
-				"Package Control: Remove Package"
-			],
-			[
-				"remove ",
 				"Package Control: Remove Package"
 			],
 			[
@@ -288,70 +288,65 @@
 	},
 	"file_history":
 	[
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/partials/nav.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/routes.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_07_134044_create_users.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_03_135418_create_files.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_16_095926_create_batches.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_16_093850_create_users_files.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/FileController.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/layouts/dashboard_no_sidebar.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/dashboard.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/admin/dashboard.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/layouts/dashboard_sidebar.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/public/css/flaty.css",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/public/css/style.css",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/BaseController.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/file/history.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/upload.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/file/upload.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/filters.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/session.php",
-		"/Users/choernig/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
-		"/Users/choernig/Library/Application Support/Sublime Text 3/Packages/User/SideBarEnhancements/Open With/Side Bar.sublime-menu",
-		"/Users/choernig/Library/Application Support/Sublime Text 3/Packages/User/Side Bar.sublime-settings",
-		"/Users/choernig/Library/Application Support/Sublime Text 3/Packages/SideBarEnhancements/Side Bar.sublime-settings",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/models/File.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_16_101549_create_file_details.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_16_095706_create_batches_files.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_16_095507_create_batches.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/UserController.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/models/User.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/landing.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/public/assets/dropzone/downloads/css/dropzone.css",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_12_160840_create_upload_descriptions.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/models/UploadDescription.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/models/GuestFile.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/search/results.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/search/results.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/SearchController.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/partials/header.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/DashboardController.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/login.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/models/Search.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/file/history.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/history.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/MessageController.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/about.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/partials/sidebar.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/partials/footer.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/layouts/login.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/Message.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/seeds/DatabaseSeeder.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/flaty_template/code/more_blank.html",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/seeds/SentryUserSeeder.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/flaty_template/code/table_dynamic.html",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/76715E92-D565-4CAA-80A1-9D6ADDF47434/livestream_chat_log.html",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/view.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/app.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/public/js/scripts.js",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/member/upload.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/.gitignore",
-		"/Volumes/Content Drive/Dropbox/Apps/SublimeText3/Installed Packages/Laravel 4 Snippets.sublime-package",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/BaseController.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/routes.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/file/upload.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/models/Batch.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_16_095926_create_batches.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/landing.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/FileController.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/partials/nav.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/models/File.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/file/history_detail_modal.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/dashboard.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/seeds/SentryUserSeeder.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/seeds/SentryUserGroupSeeder.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/file/history.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/superuser/file/upload.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/admin/dashboard.blade.php",
+		"/Users/choernig/Desktop/Rebate2.pdf",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/partials/sidebar.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/partials/header.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/upload_cutoff.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/file/upload_success.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/public/css/flaty.css",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/public/assets/dropzone/downloads/css/dropzone.css",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/public/css/style.css",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/admin/file/received.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_03_135418_create_files.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/DashboardController.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/upload.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/admin/file/incoming.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/seeds/DatabaseSeeder.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/seeds/BatchSeeder.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/models/User.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_23_173839_create_messages_users.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_23_173804_create_messages.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/public/js/flaty.js",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/partials/footer.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_23_174636_create_users_messages.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/.gitignore",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/file/history_detail.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/elements/pagination.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/view.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/flaty_template/code/table_advance.html",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/flaty_template/code/table_dynamic.html",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/layouts/dashboard_no_sidebar.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/HomeController.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/UserController.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/layouts/login.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/login.blade.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/0F61B88B-C6D5-4A4A-8B69-72A171DAE8CD/vhosts.conf",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/3BB0B77E-6434-4A73-8534-D7CF887CD7C8/vhosts.conf",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/EEEB0F3C-8C24-44F4-9207-78A05CA90046/vhosts.conf",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/4A5BDCB1-09EF-46E3-A1A8-5F11B2C831BD/index.html",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/about.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/layouts/dashboard_sidebar.blade.php",
 		"/Volumes/Content Drive/Downloads/createRecoveryHDUpdater.command",
 		"/private/etc/apache2/extra/httpd-vhosts.conf",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/test.blade.php",
+		"/Users/choernig/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
 		"/Users/choernig/Library/Application Support/Sublime Text 3/Packages/SideBarEnhancements/CHANGELOG",
 		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/D6542D9A-2AA1-4393-9DC8-7605A7A8750D/db.frankfortsmiles.com",
 		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/E8313949-0DCB-42A1-A45F-1E30B7B1893B/db.artistic-dental.com",
@@ -359,9 +354,10 @@
 		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/D5A25FCE-B2C1-4DA9-A031-B1021FA4F10C/webstats",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/composer.json",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/database.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/seeds/SentryUserGroupSeeder.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_07_134044_create_users.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/seeds/SentryGroupSeeder.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/auth.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/filters.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_07_134054_create_groups.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_07_134114_create_throttle.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_07_134105_create_users_groups.php",
@@ -415,7 +411,11 @@
 		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/DDEDE955-81BD-47CC-AFEC-256F14007CC5/administration.php",
 		"/Volumes/Content Drive/Sites/thatshitsbangin/application/controllers/example.php",
 		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/2171BC92-7CEB-4AF1-AB04-5111AE2363A6/administration.php",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/E5577936-ACE5-4B2C-A23E-8B68823D8898/purchaseConfirmation.php"
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/E5577936-ACE5-4B2C-A23E-8B68823D8898/purchaseConfirmation.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/2FE5F7D6-09A4-46AA-8477-26ABE0ECBE26/purchaseTickets.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/DAEB5F1B-95BB-4679-BB59-9127D12FBF01/processTransaction.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/F927E033-E710-43CB-878E-8B76F8786A68/purchaseConfirmation.php",
+		"/Volumes/Content Drive/Sites/elliottsweb/thecottonlawfirm.com/Config/StyleSheet.css"
 	],
 	"find":
 	{
@@ -426,6 +426,7 @@
 		"height": 91.0,
 		"where_history":
 		[
+			"<open files>",
 			"",
 			"<open folders>,<open files>",
 			"<open folders>",
@@ -446,12 +447,22 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"height",
-			"clearfix",
-			"route",
-			"mime",
-			"file",
-			"dropzone",
+			"error",
+			"hasAccess('user",
+			"batch",
+			"form",
+			"2277",
+			"login-wrapper",
+			"max-height",
+			"guest",
+			"uploadForm",
+			"where",
+			"<td><input type=\"checkbox\" /></td>",
+			"advance table",
+			"min-height",
+			"background-size: ",
+			"error-mark",
+			"background-size",
 			"logout",
 			"nav",
 			"jockey",
@@ -516,6 +527,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"",
 			"njcondolawyers.com/",
 			"njcondolawyers.com",
 			"strip_tags(html_entity_decode(stripslashes(",
@@ -581,7 +593,7 @@
 	"project": "amsdti.sublime-project",
 	"replace":
 	{
-		"height": 62.0
+		"height": 66.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -589,6 +601,14 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"dropzone.css",
+				"public/assets/dropzone/downloads/css/dropzone.css"
+			],
+			[
+				"flaty.",
+				"public/css/flaty.css"
+			]
 		],
 		"width": 0.0
 	},
@@ -615,7 +635,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 361.0,
+	"side_bar_width": 190.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

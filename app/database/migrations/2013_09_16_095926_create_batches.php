@@ -13,13 +13,13 @@ class CreateBatches extends Migration {
 	{
 		Schema::create('batches', function($table)
 		{
-			$table->integer('id');
-			$table->integer('file_id');
-			$table->integer('user_id');
+			$table->increments('id');
+			$table->integer('user_id')->nullable();
 			$table->text('guest_lab_name')->nullable();
 			$table->text('guest_lab_email')->nullable();
 			$table->text('guest_lab_phone')->nullable();
-			$table->text('message');
+			$table->text('message')->nullable();
+			$table->timestamps();
 
 			// We'll need to ensure that MySQL uses the InnoDB engine to
 			// support the indexes, other engines aren't affected.

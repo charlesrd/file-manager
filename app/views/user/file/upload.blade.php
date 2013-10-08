@@ -102,6 +102,8 @@
                     });
 
                     this.on("success", function(file, response) {
+
+                        //console.log('response = ' + response);
                         $("a.dz-remove").remove();
                     });
 
