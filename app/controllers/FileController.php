@@ -16,16 +16,6 @@ class FileController extends BaseController {
 	}
 
     public function getUpload() {
-        $afterCutoff = false;
-        $now = Carbon::now();
-
-        // Check the current request time and compare it against upload time set in config.app
-        // If the current request time is on or past the upload cutoff time, set to true
-        if ($now->hour >= Config::get('app.file_upload_cutoff_time_CST')) {
-            $afterCutoff = true;
-            View::share('afterCutoff', true);
-        }
-
         if ($this->user) {
             if ($this->user->hasAccess('superuser')) {
                 return View::make('superuser.file.upload')->with('title', 'Upload Files');
