@@ -13,12 +13,9 @@
                                 <ul class="messages">
                                     @if ($messages->count())
                                         @foreach ($messages as $message)
-                                            <pre>
-                                                {{ $message }}
-                                            </pre>
                                             @if ($message->user_id == $user->id)
                                                 <li>
-                                                    <div class="message-from">
+                                                    <div class="message-to">
                                                         <div>
                                                             <h5>
                                                             @if ($user->lab_contact)
@@ -36,10 +33,10 @@
                                                 </li>
                                             @else
                                                 <li>
-                                                    <div class="message-to">
+                                                    <div class="message-from">
                                                         <div>
                                                             <h5>
-                                                                
+                                                                UDRC
                                                             </h5>
                                                             <span class="time"><i class="icon-time"></i> 26 minutes ago</span>
                                                         </div>

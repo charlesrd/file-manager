@@ -2,6 +2,7 @@
 
 use App\Models\Message;
 use App\Models\Conversation;
+use App\Models\Users;
 
 class MessageController extends \BaseController {
 
@@ -30,7 +31,13 @@ class MessageController extends \BaseController {
 	}
 
 	public function postIndex() {
-		return Redirect::route('message');
+		$message = new Message;
+		$message->user_id = $this->user->id;
+		$message->conversation_id = 1;
+		$message->body = Input::get('message');
+		if ($message->save()) {
+			return Redirect::route('message');
+		}
 	}
 
 }

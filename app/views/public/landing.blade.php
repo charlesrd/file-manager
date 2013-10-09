@@ -250,33 +250,13 @@
                     });
 
                     dz.on("successmultiple", function(file, response) {
-                        $.ajax({
-                            type: 'POST',
-                            url: '{{ route('file_batch_create_post') }}',
-                            data: {
-                                _token: $("input[name=_token]").val(),
-                                guest_lab_name: $("#guest_lab_name").val(),
-                                guest_lab_email: $("#guest_lab_email").val(),
-                                guest_lab_phone: $("#guest_lab_phone").val(),
-                                message: $("#guest_lab_message").val()
-                            }
-                        })
-                        .done(function(response) {
-                            
-                        })
-                        .fail(function(xhr, status) {
-
-                        });
-
                         $("a.dz-remove").remove();
                     });
 
                     dz.on("complete", function(file) {
                         if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
 
-
-
-                            $('<div class="alert alert-success">Your files have been uploaded successfully. <br /><br />Check your email for a confirmation.  <a href="#" id="upload-more">Upload more?</a></div>').hide().appendTo('#dz-container').slideDown(500);
+                            $('<div class="alert alert-success text-center">Your files have been uploaded successfully. <br /><br />Check your email for a confirmation.  <a href="#" id="upload-more">Upload more?</a></div>').hide().appendTo('#dz-container').slideDown(500);
 
                             $(document).on('click', '#upload-more', function(e) {
                                 e.preventDefault();

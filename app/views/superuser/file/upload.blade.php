@@ -13,10 +13,15 @@
                 <div class="panel-body">
                     {{ Form::open(array('route' => 'file_upload_post', 'files' => true, 'id' => 'form-upload')) }}
                         <div class="form-group">
+                            <div class="controls">
+                                {{ Form::textarea('lab_message', Input::old('lab_message'), array('class' => 'form-control', 'id' => 'lab_message', 'placeholder' => 'message to include with upload (optional)')) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="controls" id="dz-container">
                                 <div id="dz-upload" class="dropzone">
                                     <div class="fallback">
-                                        {{ Form::file('file') }}
+                                        {{ Form::file('file[]', array('multiple' => 'true')) }}
                                     </div>
                                 </div>
                             </div>
@@ -48,6 +53,7 @@
 
             $("#dz-upload").dropzone({
                 autoProcessQueue: false,
+                uploadMultiple: true,
                 parallelUploads: 100,
                 maxFiles: 100,
                 addRemoveLinks: true,
@@ -99,6 +105,7 @@
 
                     this.on("sending", function(file, xhr, formData) {
                         formData.append('_token', $("input[name=_token]").val());
+                        formData.append('lab_message', $("#lab_message").val());
                     });
 
                     this.on("success", function(file, response) {
@@ -107,7 +114,7 @@
 
                     this.on("complete", function(file) {
                         if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
-                            $('<div class="alert alert-success text-center">Your files have been uploaded successfully. Check your email for a confirmation.  <a href="#" id="upload-more">Upload more?</a></div>').hide().appendTo('#dz-container').slideDown(500);
+                            $('<div class="alert alert-success text-center">Your files have been uploaded successfully. <br /><br />Check your email for a confirmation.  <a href="#" id="upload-more">Upload more?</a></div>').hide().appendTo('#dz-container').slideDown(500);
 
                             $(document).on('click', '#upload-more', function(e) {
                                 e.preventDefault();

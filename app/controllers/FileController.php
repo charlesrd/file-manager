@@ -139,16 +139,11 @@ class FileController extends BaseController {
             //Session::put('upload.files', json_encode($file));
             
             if (Session::has('upload.files')) {
-
-                if (Session::has('batch_id') && Request::ajax()) {
-                    $batch_id = Session::get('batch_id');
-                } else {
-                    $batch_id = $this->postBatchCreate();
-                }
+                $batch_id = $this->postBatchCreate();
 
                 $uploadFiles = Session::get('upload.files');
 
-                if (is_array($uploadFiles) && !empty($uploadFiles)) {
+                if (is_array($uploadFiles) && !empty($uploadFiles) && $batch_id != null) {
                     foreach($uploadFiles as $file) {
                         $fileModel = new File;
                         if ($this->user) {
@@ -162,35 +157,28 @@ class FileController extends BaseController {
 
                         $fileModel->save();
                     }
-                } elseif (!empty($uploadFiles)) {
-                    $fileModel = new File;
-                    if ($this->user) {
-                        $fileModel->user_id = $this->user->id;
+                } else {
+                    if (Request::ajax()) {
+                        return Response::json('error', 400);
                     } else {
-                        $fileModel->user_id = null;
+                        return View::make('public.file.upload_fail')->with('file', $file);
                     }
-                    $fileModel->batch_id = $batch_id;
-                    $fileModel->filename_original = $file['filename_original'];
-                    $fileModel->filename_random = $file['filename_random'];
-
-                    $fileModel->save();
+                    
                 }
 
                 if (Request::ajax()) {
                     Session::forget('upload.files');
-                    Session::forget('batch_id');
-                    $batch_id = null;
                     return Response::json('success', 200);
                 } else {
                     Session::forget('upload.files');
-                    Session::forget('batch_id');
-                    $batch_id = null;
                     return View::make('public.file.upload_success');
                 }
             } else {
                 if (Request::ajax()) {
+                    Session::forget('upload.files');
                     return Response::json('error', 400);
                 } else {
+                    Session::forget('upload.files');
                     return View::make('public.file.upload_fail')->with('file', $file);
                 }
             }
@@ -245,35 +233,31 @@ class FileController extends BaseController {
 
     public function postBatchCreate() {
             $batch = new Batch;
-
-            if (Input::has('guest_lab_name') && Input::has('guest_lab_email') && Input::has('guest_lab_phone')) {
-                $batch->guest_lab_name = Input::get('guest_lab_name');
-                $batch->guest_lab_email = Input::get('guest_lab_email');
-                $batch->guest_lab_phone = Input::get('guest_lab_phone');
-
-                if (Input::has('guest_lab_message')) {
-                    $batch->message = Input('guest_lab_message');
-                } else {
-                    $batch->message = null;
+            if ($this->user) {
+                $batch->user_id = $this->user->id;
+                if (Input::has('lab_message')) {
+                    $batch->message = Input::get('lab_message');
                 }
-            } else if (Input::has('guest_lab_message')) {
-                $batch->message = Input::get('guest_lab_message');
+            } else {
+                if (Input::has('guest_lab_name') && Input::has('guest_lab_email') && Input::has('guest_lab_phone')) {
+                    $batch->guest_lab_name = Input::get('guest_lab_name');
+                    $batch->guest_lab_email = Input::get('guest_lab_email');
+                    $batch->guest_lab_phone = Input::get('guest_lab_phone');
+
+                    if (Input::has('guest_lab_message')) {
+                        $batch->message = Input::get('guest_lab_message');
+                    } else {
+                        $batch->message = null;
+                    }
+                } else if (Input::has('guest_lab_message')) {
+                    $batch->message = Input::get('guest_lab_message');
+                }
             }
 
             if ($batch->save()) {
-                if (Request::ajax()) {
-                    Session::put('batch_id', $batch->id);
-                    return Response::json(array('success' => 200));
-                } else {
-                    Session::put('batch_id', $batch->id);
-                    return $batch->id;
-                }
+                return $batch->id;
             } else {
-                if (Request::ajax()) {
-                    return Response::json('error', 400);
-                } else {
-
-                }
+                return null;
             }
     }
 
