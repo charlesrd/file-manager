@@ -8,7 +8,7 @@ class FileController extends BaseController {
 
     public function __construct() {
         parent::__construct();
-        $this->beforeFilter('auth', array('only' => array('getHistory', 'postHistory')));
+        $this->beforeFilter('auth', array('only' => array('getHistory', 'postDetail')));
     }
 
 	public function getIndex() {
@@ -199,10 +199,26 @@ class FileController extends BaseController {
             if ($file) {
                 // Check if the request is AJAX
                 if (Request::ajax()) {
-                    return View::make('user.file.history_detail_modal')->with('file', $file);
+                    return View::make('user.file.file')->with('file', $file);
                 } else {
-                    return View::make('user.file.history_detail');
+                    return View::make('user.file.file_detail');
                 }
+            }
+        }
+    }
+
+    public function postDetail() {
+        $file_id = null;
+        if (Input::has('file_id')) {
+            $file_id = Input::get('file_id');
+            $file = File::find($file_id);
+
+            // Check for non-empty file object
+            if ($file) {
+                if (Request::ajax()) {
+                    return View::make('user.file.detail_collapse', compact('file'));
+                }
+                return View::make('user.file.detail');
             }
         }
     }

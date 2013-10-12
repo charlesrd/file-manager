@@ -35,7 +35,7 @@ Route::controller('file', 'FileController', array(
 	'getUpload' => 'file_upload',
 	'postUpload' => 'file_upload_post',
 	'getHistory' => 'file_history',
-	'postHistory' => 'file_history_post',
+	'postDetail' => 'file_detail_post',
 	'getReceived' => 'file_received',
 	'postBatchCreate' => 'file_batch_create_post'
 ));

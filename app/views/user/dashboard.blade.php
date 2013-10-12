@@ -51,7 +51,7 @@
                                                             </td>
                                                             <td class="text-center visible-md visible-lg">
                                                                 <div class="btn-group">
-                                                                    <a class="btn btn-primary show-tooltip" title="View file details" href="{{ route('file_history_post') }}" data-toggle="modal" data-target="#modal-file_details" data-id="{{ $file->id }}"><i class="icon-zoom-in"></i> Detail</a>
+                                                                    <a class="btn btn-primary show-tooltip" title="View file details" href="{{ route('file_detail_post') }}" data-toggle="modal" data-target="#modal-file_details" data-id="{{ $file->id }}"><i class="icon-zoom-in"></i> Detail</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -63,7 +63,7 @@
                                         {{ $uploadedFiles->links() }}
                                     </div>
                                     <p class="lead text-muted">
-                                        <strong>Note:</strong> Files will automatically be deleted once they have expired after 7 days.
+                                        <strong><i class="icon-cloud-download"></i> </strong> Files can be downloaded for 7 days.  Download access to files will be removed after their expiration.
                                     </p>
                                 @else
                                     <div class="alert alert-danger text-center">You don't seem to have any recently uploaded files.  <br /><br />Once you've uploaded files, detailed information will be available here.</div>

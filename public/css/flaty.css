@@ -773,9 +773,11 @@ hr.margin-0  {margin: 0;}
 /* ========================================================
    Main Content
 ======================================================== */
+/*
 #main-content {
     padding: 10px 20px 20px;
 }
+*/
 .page-title > div {
     margin-bottom: 20px;
 }
@@ -3550,9 +3552,8 @@ div.tagsinput .not_valid {
    Footer
 ======================================================== */
 #main-content > footer {
-    background: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.3);
     padding: 12px 20px 3px;
-    margin-top: 20px;
 }
 #main-content > footer p {
     text-align: center;
@@ -3893,9 +3894,10 @@ div.tagsinput .not_valid {
 .nav-list > li .submenu > li > a:hover,
 .nav-list > li .submenu > li.active > a             {background-color: #3294c8;}    /* Submenu Hover */
 .nav-list > li.active > a:after                     {border-right-color: #e9f0f9;}
+html,body,
 .login-page:before,
 .error-page:before,
-#main-content                                       {background: #e9f0f9;}          /* Content Background */
+#main-content                                       {background: #e9f0f9 url('../img/shattered.png');}          /* Content Background */
 
 .box > .box-title {
     background-color: #b6d1f2;

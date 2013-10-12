@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"conversation",
+				"conversation_partner"
+			],
+			[
 				"isa",
 				"is_array"
 			],
@@ -288,14 +292,20 @@
 	},
 	"file_history":
 	[
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/MessageController.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/62867EF7-7C0A-445B-B14A-A378FA09011E/db.dealwithyourreality.com",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/landing.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/file/upload.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/superuser/file/upload.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/file/upload_fail.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/message/messages.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/FileController.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/session.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/app.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/BaseController.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/routes.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/file/upload.blade.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/models/Batch.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_16_095926_create_batches.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/landing.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/FileController.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/partials/nav.blade.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/models/File.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/file/history_detail_modal.blade.php",
@@ -303,7 +313,6 @@
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/seeds/SentryUserSeeder.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/seeds/SentryUserGroupSeeder.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/file/history.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/superuser/file/upload.blade.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/admin/dashboard.blade.php",
 		"/Users/choernig/Desktop/Rebate2.pdf",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/partials/sidebar.blade.php",
@@ -410,12 +419,7 @@
 		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/E2D19E5D-CB7D-441F-BFFE-DAE83D27C364/style.css",
 		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/DDEDE955-81BD-47CC-AFEC-256F14007CC5/administration.php",
 		"/Volumes/Content Drive/Sites/thatshitsbangin/application/controllers/example.php",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/2171BC92-7CEB-4AF1-AB04-5111AE2363A6/administration.php",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/E5577936-ACE5-4B2C-A23E-8B68823D8898/purchaseConfirmation.php",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/2FE5F7D6-09A4-46AA-8477-26ABE0ECBE26/purchaseTickets.php",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/DAEB5F1B-95BB-4679-BB59-9127D12FBF01/processTransaction.php",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/F927E033-E710-43CB-878E-8B76F8786A68/purchaseConfirmation.php",
-		"/Volumes/Content Drive/Sites/elliottsweb/thecottonlawfirm.com/Config/StyleSheet.css"
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/2171BC92-7CEB-4AF1-AB04-5111AE2363A6/administration.php"
 	],
 	"find":
 	{
@@ -447,6 +451,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"json_enc",
+			"Session::put(",
 			"error",
 			"hasAccess('user",
 			"batch",
@@ -635,7 +641,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 190.0,
+	"side_bar_width": 404.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

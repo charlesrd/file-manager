@@ -4,7 +4,7 @@
     <div class="login-wrapper">
         <!-- BEGIN Guest Upload Form -->
         {{ Form::open(array('route' => 'file_upload_post', 'files' => true, 'id' => 'form-guest-upload')) }}
-            <h3>Upload Files as Guest Lab</h3>
+            <h3 class="text-center">Upload Files as Guest Lab</h3>
             <hr/>
             <div class="form-group">
                 <div class="controls">
@@ -54,13 +54,13 @@
         {{ Form::close() }}
         <!-- END Guest Upload Form -->
 
-        <span id="landing-separator" class="visible-md visible-lg">
+        <span id="landing-separator">
             or
         </span>
 
         <!-- BEGIN Login Form -->
         {{ Form::open(array('route' => 'user_login', 'id' => 'form-login')) }}
-            <h3>Login using DentalLabProfile</h3>
+            <h3 class="text-center">Login using DentalLabProfile</h3>
             <hr />
             <div class="form-group">
                 <div class="controls">
@@ -84,7 +84,6 @@
                     {{ Form::button('Sign In', array('class' => 'btn btn-primary form-control', 'type' => 'submit')) }}
                 </div>
             </div>
-            <hr/>
             <p class="clearfix">
                 <label class="checkbox pull-left">
                     {{ Form::checkbox('remember', '1') }} Remember me
@@ -92,14 +91,17 @@
                 <a href="#" class="goto-forgot pull-right">Forgot Password?</a>
             </p>
             <hr />
-            <p class="lead">
+            <img src="{{ asset('img/ams_filemanager_logo.png') }}" alt="{{ Config::get('app.company_name') }} - {{ Config::get('app.site_title') }} Logo" id="logo" />
+            <p class="lead text-center">
                 <span class="text-info">Wondering what the benefits are?</span>
-                <ul>
-                    <li>File Tracking &amp; Updates</li>
-                    <li>AMS Messaging Center</li>
-                    <li>File History</li>
-                    <li>&hellip;and much more!
-                </ul>
+                <dl>
+                    <dt><i class="icon-truck"></i> Real-Time File Tracking &amp; Updates</dt>
+                        <dd>allows you to easily see which files we have processed</dd>
+                    <dt><i class="icon-comment"></i> AMS Messaging Center</dt>
+                        <dd>keeps you connected directly with our staff</dd>
+                    <dt><i class="icon-file"></i> File History</dt>
+                        <dd>keeps track of every file you've ever sent us</dd>
+                </dl>
             </p>
         {{ Form::close() }}
         <!-- END Login Form -->
@@ -126,7 +128,7 @@
             </p>
         {{ Form::close() }}
         <!-- END Forgot Password Form -->
-
+    <div class="clearfix"></div>
     </div>
 @stop
 
@@ -140,6 +142,27 @@
     {{ Html::script('assets/dropzone/downloads/dropzone.min.js') }}
 
     <script type="text/javascript">
+        function goToForm(form) {
+            if (form == "login") {
+                $('.login-wrapper > form:visible').fadeOut(500, function(){
+                    $('#form-login, #form-guest-upload, span#landing-separator').fadeIn(500);
+                });
+            } else {
+                $('.login-wrapper > form:visible, span#landing-separator').fadeOut(500, function(){
+                    $('#form-forgot').fadeIn(500);
+                    $('span#landing-separator').css('')
+                });
+            }
+        }
+        $(function() {
+            $('.goto-login').click(function(){
+                goToForm('login');
+            });
+            $('.goto-forgot').click(function(){
+                goToForm('forgot');
+            });
+        });
+
         $(document).ready(function() {
             Dropzone.autoDiscover = false;
 
@@ -317,26 +340,6 @@
                 } else {
                     submitBtn.prop("disabled", true);
                 }
-            });
-        });
-
-        function goToForm(form) {
-            if (form == "login") {
-                $('.login-wrapper > form:visible').fadeOut(500, function(){
-                    $('#form-login, #form-guest-upload, span#landing-separator').fadeIn(500);
-                });
-            } else {
-                $('.login-wrapper > form:visible, .login-wrapper span#landing-separator').fadeOut(500, function(){
-                    $('#form-' + form).fadeIn(500);
-                });
-            }
-        }
-        $(function() {
-            $('.goto-login').click(function(){
-                goToForm('login');
-            });
-            $('.goto-forgot').click(function(){
-                goToForm('forgot');
             });
         });
     </script>

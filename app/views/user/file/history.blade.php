@@ -58,8 +58,13 @@
                                                             </td>
                                                             <td class="text-center">
                                                                 <div class="btn-group">
-                                                                    <a class="btn btn-primary show-tooltip" title="View file details" href="{{ route('file_history_post') }}" data-toggle="modal" data-target="#modal-file_details" data-id="{{ $file->id }}"><i class="icon-zoom-in"></i> Detail</a>
+                                                                    <a class="btn btn-primary show-tooltip" title="View file details" href="{{ route('file_detail_post') }}" data-toggle="collapse" data-target="#collapse-file_details_{{ $file->id }}" data-id="{{ $file->id }}"><i class="icon-zoom-in"></i> Detail</a>
                                                                 </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr id="collapse-file_details_{{ $file->id }}" class="collapse">
+                                                            <td colspan="6">
+
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -69,9 +74,12 @@
                                     <div class="text-center">
                                         {{ $files->links() }}
                                     </div>
-                                    <p class="lead text-muted">
-                                        <strong>Note:</strong> Files will automatically be deleted once they have expired after 7 days.
-                                    </p>
+                                    <div class="alert alert-info alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                        <p class="lead text-muted text-center">
+                                            <strong><i class="icon-cloud-download"></i> </strong> Files can be downloaded for 7 days.  Download access to files will be removed after their expiration.
+                                        </p>
+                                    </div>
                                 @else
                                     <div class="alert alert-danger text-center">You don't seem to have any file history.<br /><br />Once you've uploaded files, detailed information will be available here.</div>
                                 @endif
@@ -79,35 +87,35 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Modal -->
-                <div class="modal fade" id="modal-file_details" tabindex="-1" role="dialog" aria-hidden="true">
-                </div><!-- /.modal -->
 @stop
 
 @section('extra-scripts')
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $("a[data-toggle=modal]").click(function(e) {
+            $("a[data-toggle=collapse]").click(function(e) {
                 e.preventDefault();
 
                 var post_url = $(this).attr("href");
-                var modal = $(this).attr("data-target");
+                var collapse = $(this).attr("data-target");
                 var file_id = $(this).attr("data-id");
 
-                $.post(
-                    post_url,
-                    {
-                        _token: "{{ Session::token() }}",
-                        file_id: file_id
-                    },
-                    function(response, status, xhr) {
-                        $(modal).html(response);
-                    }
-                );
+                if (!$(collapse).hasClass('in')) {
 
-                $(modal).modal();
+                    $.post(
+                        post_url,
+                        {
+                            _token: "{{ Session::token() }}",
+                            file_id: file_id
+                        },
+                        function(response, status, xhr) {
+                            $(collapse + " td").html(response);
+                        }
+                    );
+
+                }
+
+                $(collapse).collapse();
             });
         });
     </script>
