@@ -9,7 +9,8 @@
 	}],
 	"require": {
 		"laravel/framework": "4.0.*@dev",
-		"cartalyst/sentry": "2.0.*@dev"
+		"cartalyst/sentry": "2.0.*@dev",
+		"alchemy/zippy": "~0.1"
 	},
 	"autoload": {
 		"classmap": [

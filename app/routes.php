@@ -39,7 +39,9 @@ Route::controller('file', 'FileController', array(
 	'postBatchDetail' => 'batch_detail_post',
 	'getReceived' => 'file_received',
 	'postBatchCreate' => 'file_batch_create_post',
-	'getDownload' => 'file_download'
+	'getDownloadSingle' => 'file_download_single',
+	'getDownloadBatch' => 'file_download_batch',
+	'postDownloadChecked' => 'file_download_checked'
 ));
 
 Route::post('search', array(

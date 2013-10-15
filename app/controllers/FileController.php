@@ -207,7 +207,7 @@ class FileController extends BaseController {
         }
     }
 
-    public function postDetail() {
+    public function postFileDetail() {
         $file_id = null;
         if (Input::has('file_id')) {
             $file_id = Input::get('file_id');
@@ -259,9 +259,9 @@ class FileController extends BaseController {
             if ($file && $batch && $data) {
                 if (Request::ajax()) {
                     if ($this->user->hasAccess('admin')) {
-                        return View::make('admin.file.detail_collapse')->with('file', $file)->with('batch', $batch)->with('data', $data);
+                        return View::make('admin.file.batch_detail_collapse')->with('file', $file)->with('batch', $batch)->with('data', $data);
                     } else {
-                        return View::make('user.file.detail_collapse')->with('file', $file)->with('batch', $batch)->with('data', $data);
+                        return View::make('user.file.batch_detail_collapse')->with('file', $file)->with('batch', $batch)->with('data', $data);
                     }
                 }
                 return View::make('user.file.detail');
@@ -273,8 +273,8 @@ class FileController extends BaseController {
         if ($this->user->hasAccess('superuser')) {
             //return View::make('superuser.file.received')->with('files', $files);
         } else if ($this->user->hasAccess('admin')) {
-            $files = File::orderBy('created_at', 'DESC')->get();
-            $batches = Batch::orderBy('created_at', 'DESC')->get();
+            $files = File::orderBy('created_at', 'DESC')->paginate(Config::get('app.pagination_items_per_page'));
+            $batches = Batch::orderBy('created_at', 'DESC')->paginate(Config::get('app.pagination_items_per_page'));
 
             $data = array();
             $user = null;
@@ -294,15 +294,22 @@ class FileController extends BaseController {
                 }
                 $data['batch'][$batch->id]['id'] = $batch->id;
                 $data['batch'][$batch->id]['num_files'] = $batch->files()->count();
-                $data['batch'][$batch->id]['created_at'] = $batch->formattedCreatedAt();
-                $data['batch'][$batch->id]['expiration'] = $batch->formattedExpiration();
+                $data['batch'][$batch->id]['message'] = $batch->message;
+                $data['batch'][$batch->id]['created_at'] = $batch->created_at;
+                $data['batch'][$batch->id]['expiration'] = $batch->expiration;
+                $data['batch'][$batch->id]['created_at_formatted'] = $batch->formattedCreatedAt();
+                $data['batch'][$batch->id]['expiration_formatted'] = $batch->formattedExpiration();
 
                 $totalNotDownloaded = 0;
+                $totalNotShipped = 0;
 
                 foreach($batch->files()->get() as $file) {
                     $data['batch'][$batch->id]['files'][] = $file;
                     if ($file->download_status == 0) {
                         $totalNotDownloaded++;
+                    }
+                    if ($file->shipping_status == 0) {
+                        $totalNotShipped++;
                     }
                 }
                 // if all files from batch completely downloaded
@@ -317,9 +324,22 @@ class FileController extends BaseController {
                 else if ($totalNotDownloaded > 0 && $totalNotDownloaded == $data['batch'][$batch->id]['num_files']) {
                     $data['batch'][$batch->id]['total_download_status'] = "none";
                 }
+
+                // if all files from batch completely shipped
+                if ($totalNotShipped == 0) {
+                    $data['batch'][$batch->id]['total_shipped_status'] = "all";
+                }
+                // if some of the files from batch have been shipped
+                else if ($totalNotShipped > 0 && $totalNotShipped < $data['batch'][$batch->id]['num_files']) {
+                    $data['batch'][$batch->id]['total_shipped_status'] = "some";
+                }
+                // none of the files from batch have been shipped
+                else if ($totalNotShipped > 0 && $totalNotShipped == $data['batch'][$batch->id]['num_files']) {
+                    $data['batch'][$batch->id]['total_shipped_status'] = "none";
+                }
             }
 
-            return View::make('admin.file.received')->with('data', $data);
+            return View::make('admin.file.received')->with('data', $data)->with('batches', $batches);
         }
 
         // Wrongful request.  Normal users can't go here, log and abort to 404
@@ -357,7 +377,7 @@ class FileController extends BaseController {
             }
     }
 
-    public function getDownload($file_id = null) {
+    public function getDownloadSingle($file_id = null) {
             if (!$file_id) {
                 return Redirect::route('file_received');
             }
@@ -376,6 +396,34 @@ class FileController extends BaseController {
             $file->save();
 
             return Response::download(public_path() . '/uploads/' . $upload_path . '/' . $file->filename_random, $file->filename_original);
+        }
+    }
+
+    public function getDownloadBatch($batch_id = null) {
+
+    }
+
+    public function postDownloadChecked() {
+        if (Input::has('download-file') && Input::has('batch_from_lab_name') && Input::has('batch_id')) {
+            $batch = Batch::find(Input::get('batch_id'));
+
+            if (!empty($batch->user_id)) {
+                $file_directory_path = User::find($batch->user_id)->first()->upload_folder;
+            } else {
+                $file_directory_path = 'guest';
+            }
+
+            $zippy = Zippy::load();
+            $archive_name = Str::slug(Input::get('batch_from_lab_name') . ' batchID ' . Input::get('batch_id')) . '_' . str_random(25) . '.zip';
+            $archive_path = public_path() . "/generated-zips/" . $archive_name;
+            $archive = $zippy->create($archive_path);
+
+            foreach(Input::get('download-file') as $file_id) {
+                $file = File::find($file_id)->firstOrFail();
+                $archive->addMembers(array(public_path() . '/uploads/' . $file_directory_path . '/' . $file->filename_original), false);
+            }
+
+            return Response::download($archive_path, $archive_name);
         }
     }
 

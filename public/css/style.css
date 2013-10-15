@@ -11,9 +11,6 @@ body {
 tr.hover {
    cursor: pointer;
 }
-#main-content div.row {
-	background-color: white;
-}
 
 .dl-horizontal dt {
 	text-align: left;
@@ -45,6 +42,36 @@ tr.hover {
 .table thead>tr>th {
 	font-size: 110%;
 	font-weight: 400;
+}
+
+.table tr.batch-details > td {
+	vertical-align: top;
+	padding: 0;
+}
+table#batch-files-list thead,
+table#batch-files-list tr {
+	border-left: none;
+}
+
+table#batch-files-list i[class^="icon-"] {
+	margin: 0;
+}
+
+table#batch-files-list tr td {
+	background-color: white;
+}
+
+table#batch-files-list tr {
+	margin-bottom: 5px;
+}
+
+div.batch-details-row form > div {
+	padding: 1em;
+}
+
+div.batch-details-row hr {
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .panel {
@@ -139,6 +166,8 @@ body.modal-open {
 	vertical-align: middle;
 }
 
+
+
 .dropdown-navbar > li > a.label {
 	float: right;
 	padding: 3px 1px 3px 6px;
@@ -187,6 +216,7 @@ input.form-control, .form-control, btn, input {
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 }
+
 @media (max-width: 1053px) {
 	.login-page .login-wrapper span#landing-separator {
 		display: none;
