@@ -17,18 +17,18 @@
                                                 <tr>
                                                     <th>Date Uploaded</th>
                                                     <th>Filename</th>
-                                                    <th class="text-center">Status</th>
-                                                    <th class="text-center">Tracking #</th>
+                                                    <th class="text-center">Download Status</th>
+                                                    <th class="text-center">Shipping Status</th>
                                                     <th class="text-center">Expiring</th>
                                                     <th class="text-center"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                     @foreach ($files as $file)
-                                                        @if ($file->status)
-                                                        <tr class="table-flag-green">
+                                                        @if ($file->download_status)
+                                                        <tr class="table-flag-green clickable show-tooltip" data-placement="bottom" title="View file details" data-href="{{ route('file_detail_post') }}/{{ $file->id }}" data-placement="bottom" data-toggle="collapse" data-target="#collapse-file_details_{{ $file->id }}" data-id="{{ $file->id }}">
                                                         @else
-                                                        <tr class="table-flag-red">
+                                                        <tr class="table-flag-red clickable show-tooltip" data-placement="bottom" title="View file details" data-href="{{ route('file_detail_post') }}/{{ $file->id }}" data-toggle="collapse" data-target="#collapse-file_details_{{ $file->id }}" data-id="{{ $file->id }}">
                                                         @endif
                                                             <td>
                                                                 {{ $file->formattedCreatedAt() }}
@@ -36,7 +36,7 @@
                                                             </td>
                                                             <td>{{ $file->filename_original }}</td>
                                                             <td class="text-center">
-                                                                @if ($file->status)
+                                                                @if ($file->download_status)
                                                                     <span class="btn btn-success show-tooltip" title="This file has been downloaded by the recipient."><i class="icon-cloud-download"></i> Downloaded</span>
                                                                 @else
                                                                     <span class="btn btn-danger show-tooltip" title="This file has not yet been downloaded by the recipient."><i class="icon-cloud-download"></i> Not Downloaded</span>
@@ -56,11 +56,6 @@
                                                                     Expired
                                                                 @endif
                                                             </td>
-                                                            <td class="text-center">
-                                                                <div class="btn-group">
-                                                                    <a class="btn btn-primary show-tooltip" title="View file details" href="{{ route('file_detail_post') }}" data-toggle="collapse" data-target="#collapse-file_details_{{ $file->id }}" data-id="{{ $file->id }}"><i class="icon-zoom-in"></i> Detail</a>
-                                                                </div>
-                                                            </td>
                                                         </tr>
                                                         <tr id="collapse-file_details_{{ $file->id }}" class="collapse">
                                                             <td colspan="6">
@@ -74,14 +69,11 @@
                                     <div class="text-center">
                                         {{ $files->links() }}
                                     </div>
-                                    <div class="alert alert-info alert-dismissable">
-                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                        <p class="lead text-muted text-center">
-                                            <strong><i class="icon-cloud-download"></i> </strong> Files can be downloaded for 7 days.  Download access to files will be removed after their expiration.
-                                        </p>
+                                    <div class="alert alert-info lead text-muted text-center">
+                                        <strong><i class="icon-cloud-download"></i> </strong> Files can be downloaded for 7 days.  Download access to files will be removed after their expiration.
                                     </div>
                                 @else
-                                    <div class="alert alert-danger text-center">You don't seem to have any file history.<br /><br />Once you've uploaded files, detailed information will be available here.</div>
+                                    <div class="alert alert-danger lead text-muted text-center">You don't seem to have any recently uploaded files.  <br /><br />Once you've uploaded files, detailed information will be available here.</div>
                                 @endif
                             </div>
                         </div>
@@ -93,12 +85,12 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $("a[data-toggle=collapse]").click(function(e) {
+            $(".clickable").click(function(e) {
                 e.preventDefault();
 
-                var post_url = $(this).attr("href");
-                var collapse = $(this).attr("data-target");
-                var file_id = $(this).attr("data-id");
+                var post_url = $(this).data("href");
+                var collapse = $(this).data("target");
+                var file_id = $(this).data("id");
 
                 if (!$(collapse).hasClass('in')) {
 
@@ -116,6 +108,8 @@
                 }
 
                 $(collapse).collapse();
+            }).hover( function() {
+                $(this).toggleClass('hover');
             });
         });
     </script>

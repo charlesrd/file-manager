@@ -1,6 +1,32 @@
 body {
 	background-color: #e9f0f9;
 }
+.no-transition {
+	-webkit-transition: height 0.001s;
+	-moz-transition: height 0.001s;
+	-ms-transition: height 0.001s;
+	-o-transition: height 0.001s;
+	transition: height 0.001s;
+}
+tr.hover {
+   cursor: pointer;
+}
+#main-content div.row {
+	background-color: white;
+}
+
+.dl-horizontal dt {
+	text-align: left;
+	margin-left: .5em;
+	font-weight: 600;
+	width: 200px;
+	font-size: 16px;
+}
+
+.dl-horizontal dd {
+	font-size: 14px;
+	margin-bottom: 5px;
+}
 
 .row {
 	margin-left: 0;
@@ -10,6 +36,17 @@ body {
 	padding-left: 0;
 	padding-right: 0;
 }
+
+.table thead>tr>th, .table tbody>tr>th, .table tfoot>tr>th, .table thead>tr>td, .table tbody>tr>td, .table tfoot>tr>td {
+	color: #666;
+	font-weight: 600;
+}
+
+.table thead>tr>th {
+	font-size: 110%;
+	font-weight: 400;
+}
+
 .panel {
 	margin-bottom: 0;
 	border: none;
@@ -29,11 +66,13 @@ body {
 	margin: 0 auto;
 	overflow: auto;
 	background-color: white;
+	background: url('../img/landing-splitter.png') white repeat-y;
+	background-origin:content-box;
 }
 
 img#logo {
 	margin: 50px auto 40px auto;
-	width: 435px;
+	width: 100%;
 	display:block;
 }
 
@@ -74,13 +113,17 @@ img#logo {
     padding: 15px 10px !important;
     height: auto !important;
     font-size: 16px;
-    background-color: #f5f6f7;
-    color: #888;
     border: none;
 }
 
 .login-page form textarea {
 	height: 100px !important;
+	background-color: #f5f6f7;
+	color: #888;
+}
+
+form input {
+	margin-bottom: 20px;
 }
 
 .dropdown-menu .divider {
@@ -137,6 +180,12 @@ span.hidden-xs {
 	width: 32px;
 	height: 32px;
 	font-size: 22px;
+}
+
+input.form-control, .form-control, btn, input {
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
 }
 @media (max-width: 1053px) {
 	.login-page .login-wrapper span#landing-separator {

@@ -11,6 +11,9 @@ class CreateSessionTable extends Migration {
 	 */
 	public function up()
 	{
+		if (Schema::hasTable('sessions')) {
+			Schema::drop('sessions');
+		}
 		Schema::create('sessions', function($t)
 		{
 			$t->string('id')->unique();

@@ -11,6 +11,9 @@ class CreateGroups extends Migration {
 	 */
 	public function up()
 	{
+		if (Schema::hasTable('groups')) {
+			Schema::drop('groups');
+		}
 		Schema::create('groups', function($table)
 		{
 			$table->increments('id');

@@ -7,39 +7,55 @@
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3>Files Received</h3>
+                                <h3>File History</h3>
                             </div>
                             <div class="panel-body">
-                                @if ($files->count())
+                                @if (!empty($data['batch']))
                                     <div class="table-responsive">
                                         <table class="table table-advance">
                                             <thead>
                                                 <tr>
-                                                    <th>Date Received</th>
-                                                    <th class="visible-lg"># of #</th>
+                                                    <th>Date Uploaded</th>
                                                     <th>From</th>
-                                                    <th>Filename</th>
-                                                    <th class="text-center">Status</th>
+                                                    <th>Files</th>
+                                                    <th class="text-center">Download Status</th>
+                                                    <th class="text-center">Shipping Status</th>
                                                     <th class="text-center">Expiring</th>
-                                                    <th class="text-center visible-md visible-lg"></th>
+                                                    <th class="text-center"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                    @foreach ($files as $file)
-                                                        @if ($file->status)
-                                                        <tr class="table-flag-green">
-                                                        @else
-                                                        <tr class="table-flag-red">
+                                                    @foreach ($data['batch'] as $batch)
+                                                        @if ($batch['total_download_status'] == "all")
+                                                        <tr class="table-flag-green clickable" title="Click to expand and view batch details" data-href="{{ route('batch_detail_post') }}/{{ $batch['id'] }}" data-toggle="collapse" data-target="#collapse-batch_details_{{ $batch['id'] }}" data-id="{{ $batch['id'] }}">
+                                                        @elseif ($batch['total_download_status'] == "none")
+                                                        <tr class="table-flag-red clickable" title="Click to expand and view batch details." data-href="{{ route('batch_detail_post') }}/{{ $batch['id'] }}" data-toggle="collapse" data-target="#collapse-batch_details_{{ $batch['id'] }}" data-id="{{ $batch['id'] }}">
+                                                        @elseif ($batch['total_download_status'] == "some")
+                                                        <tr class="table-flag-orange clickable" title="Click to expand and view batch details." data-href="{{ route('batch_detail_post') }}/{{ $batch['id'] }}" data-toggle="collapse" data-target="#collapse-batch_details_{{ $batch['id'] }}" data-id="{{ $batch['id'] }}">
                                                         @endif
-                                                            <td>{{ $file->formattedCreatedAt() }}</td>
-                                                            <td class="visible-lg"></td>
-                                                            <td>{{ DB::table('users')->where('id', '=', $file->user_id)->pluck('email') }}</td>
+                                                            <td>
+                                                                {{ $file->formattedCreatedAt() }}
+                                                            </td>
+                                                            <td>
+                                                                @if ($file->batch->user_id)
+                                                                    {{ $file->user->dlp_user()->labName }}
+                                                                @else
+                                                                    {{ $file->batch->guest_lab_name }}
+                                                                @endif
+                                                            </td>
                                                             <td>{{ $file->filename_original }}</td>
                                                             <td class="text-center">
-                                                                @if ($file->status)
-                                                                    <a class="btn btn-success show-tooltip" title="This file has already been downloaded.  Click to download."><i class="icon-cloud-download"></i> Downloaded</a>
+                                                                @if ($file->download_status)
+                                                                    <a class="btn btn-success show-tooltip" title="This file has already been downloaded."><i class="icon-cloud-download"></i> Downloaded</a>
                                                                 @else
-                                                                    <a class="btn btn-danger show-tooltip" title="This file has not yet been downloaded.  Click to download."><i class="icon-cloud-download"></i> Not Downloaded</a>
+                                                                    <a class="btn btn-danger show-tooltip" title="This file has not yet been downloaded by the recipient."><i class="icon-cloud-download"></i> Not Downloaded</a>
+                                                                @endif
+                                                            </td>
+                                                            <td class="text-center">
+                                                                @if ($file->tracking && !is_null($file->tracking) && $file->tracking != '')
+                                                                    {{{ $file->tracking }}}
+                                                                @else
+                                                                    N/A
                                                                 @endif
                                                             </td>
                                                             <td class="text-center">
@@ -49,10 +65,10 @@
                                                                     Expired
                                                                 @endif
                                                             </td>
-                                                            <td class="text-center visible-md visible-lg">
-                                                                <div class="btn-group">
-                                                                    <a class="btn btn-primary show-tooltip" title="View file details" href="{{ route('file_detail_post') }}" data-toggle="modal" data-target="#modal-file_details" data-id="{{ $file->id }}"><i class="icon-zoom-in"></i> Detail</a>
-                                                                </div>
+                                                        </tr>
+                                                        <tr id="collapse-file_details_{{ $file->id }}" class="collapse no-transition">
+                                                            <td colspan="6">
+
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -62,42 +78,47 @@
                                     <div class="text-center">
                                         {{ $files->links() }}
                                     </div>
+                                    <div class="alert alert-info lead text-muted text-center">
+                                        <strong><i class="icon-cloud-download"></i> </strong> Files can be downloaded for 7 days.  Download access to files will be removed after their expiration.
+                                    </div>
                                 @else
-                                    <div class="alert alert-danger text-center">You have not received any files in the last 7 days.</div>
+                                    <div class="alert alert-danger lead text-muted text-center">You don't seem to have any recently uploaded files.  <br /><br />Once you've uploaded files, detailed information will be available here.</div>
                                 @endif
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Modal -->
-                <div class="modal fade" id="modal-file_details" tabindex="-1" role="dialog" aria-hidden="true">
-                </div><!-- /.modal -->
 @stop
 
 @section('extra-scripts')
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $("a[data-toggle=modal]").click(function(e) {
+            $(".clickable").click(function(e) {
                 e.preventDefault();
 
-                var post_url = $(this).attr("href");
-                var modal = $(this).attr("data-target");
-                var file_id = $(this).attr("data-id");
+                var post_url = $(this).data("href");
+                var collapse = $(this).data("target");
+                var file_id = $(this).data("id");
 
-                $.post(
-                    post_url,
-                    {
-                        _token: "{{ Session::token() }}",
-                        file_id: file_id
-                    },
-                    function(response, status, xhr) {
-                        $(modal).html(response);
-                    }
-                );
+                if (!$(collapse).hasClass('in')) {
 
-                $(modal).modal();
+                    $.post(
+                        post_url,
+                        {
+                            _token: "{{ Session::token() }}",
+                            file_id: file_id
+                        },
+                        function(response, status, xhr) {
+                            $(collapse + " td").html(response);
+                        }
+                    );
+
+                }
+
+                $(collapse).collapse();
+            }).hover( function() {
+                $(this).toggleClass('hover');
             });
         });
     </script>

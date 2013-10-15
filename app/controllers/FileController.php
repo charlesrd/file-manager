@@ -8,7 +8,7 @@ class FileController extends BaseController {
 
     public function __construct() {
         parent::__construct();
-        $this->beforeFilter('auth', array('only' => array('getHistory', 'postDetail')));
+        $this->beforeFilter('auth', array('only' => array('getHistory', 'postDetail', 'getReceived')));
     }
 
 	public function getIndex() {
@@ -184,7 +184,7 @@ class FileController extends BaseController {
     }
 
     public function getHistory() {
-        $files = $this->user->files()->orderBy('created_at', 'DESC')->paginate(15);
+        $files = $this->user->files()->orderBy('created_at', 'DESC')->paginate(Config::get('app.pagination_items_per_page'));
 
         return View::make('user.file.history')->with("files", $files);
     }
@@ -211,12 +211,58 @@ class FileController extends BaseController {
         $file_id = null;
         if (Input::has('file_id')) {
             $file_id = Input::get('file_id');
-            $file = File::find($file_id);
+            $file = File::findOrFail($file_id);
+            $batch = Batch::findOrFail($file->batch_id);
+            $user = User::find($file->user_id);
 
+            if ($user) {
+                $data['from_lab_email'] = $user->email;
+                $data['from_lab_name'] = $user->dlp_user()->labName;
+                $data['from_lab_phone'] = $user->dlp_user()->labPhone;
+            } else {
+                $data['from_lab_email'] = $batch->guest_lab_email;
+                $data['from_lab_name'] = $batch->guest_lab_name;
+                $data['from_lab_phone'] = $batch->guest_lab_phone;
+            }
             // Check for non-empty file object
-            if ($file) {
+            if ($file && $batch && $data) {
                 if (Request::ajax()) {
-                    return View::make('user.file.detail_collapse', compact('file'));
+                    if ($this->user->hasAccess('admin')) {
+                        return View::make('admin.file.detail_collapse')->with('file', $file)->with('batch', $batch)->with('data', $data);
+                    } else {
+                        return View::make('user.file.detail_collapse')->with('file', $file)->with('batch', $batch)->with('data', $data);
+                    }
+                }
+                return View::make('user.file.detail');
+            }
+        }
+    }
+
+    public function postBatchDetail() {
+        $batch_id = null;
+        if (Input::has('batch_id')) {
+            $batch_id = Input::get('batch_id');
+            $batch = File::findOrFail($file_id);
+            $batch = Batch::findOrFail($file->batch_id);
+            $user = User::find($file->user_id);
+
+            if ($user) {
+                $data['from_lab_email'] = $user->email;
+                $data['from_lab_name'] = $user->dlp_user()->labName;
+                $data['from_lab_phone'] = $user->dlp_user()->labPhone;
+            } else {
+                $data['from_lab_email'] = $batch->guest_lab_email;
+                $data['from_lab_name'] = $batch->guest_lab_name;
+                $data['from_lab_phone'] = $batch->guest_lab_phone;
+            }
+            // Check for non-empty file object
+            if ($file && $batch && $data) {
+                if (Request::ajax()) {
+                    if ($this->user->hasAccess('admin')) {
+                        return View::make('admin.file.detail_collapse')->with('file', $file)->with('batch', $batch)->with('data', $data);
+                    } else {
+                        return View::make('user.file.detail_collapse')->with('file', $file)->with('batch', $batch)->with('data', $data);
+                    }
                 }
                 return View::make('user.file.detail');
             }
@@ -227,9 +273,53 @@ class FileController extends BaseController {
         if ($this->user->hasAccess('superuser')) {
             //return View::make('superuser.file.received')->with('files', $files);
         } else if ($this->user->hasAccess('admin')) {
-            $files = File::orderBy('created_at', 'DESC')->paginate(15);
+            $files = File::orderBy('created_at', 'DESC')->get();
+            $batches = Batch::orderBy('created_at', 'DESC')->get();
 
-            return View::make('admin.file.received')->with('files', $files);
+            $data = array();
+            $user = null;
+
+            foreach($batches as $batch) {
+                if ($batch->user_id) {
+                    $user = User::find($batch->user_id);
+                }
+                if ($user) {
+                    $data['batch'][$batch->id]['from_lab_email'] = $user->email;
+                    $data['batch'][$batch->id]['from_lab_name'] = $user->dlp_user()->labName;
+                    $data['batch'][$batch->id]['from_lab_phone'] = $user->dlp_user()->labPhone;
+                } else {
+                    $data['batch'][$batch->id]['from_lab_email'] = $batch->guest_lab_email;
+                    $data['batch'][$batch->id]['from_lab_name'] = $batch->guest_lab_name;
+                    $data['batch'][$batch->id]['from_lab_phone'] = $batch->guest_lab_phone;
+                }
+                $data['batch'][$batch->id]['id'] = $batch->id;
+                $data['batch'][$batch->id]['num_files'] = $batch->files()->count();
+                $data['batch'][$batch->id]['created_at'] = $batch->formattedCreatedAt();
+                $data['batch'][$batch->id]['expiration'] = $batch->formattedExpiration();
+
+                $totalNotDownloaded = 0;
+
+                foreach($batch->files()->get() as $file) {
+                    $data['batch'][$batch->id]['files'][] = $file;
+                    if ($file->download_status == 0) {
+                        $totalNotDownloaded++;
+                    }
+                }
+                // if all files from batch completely downloaded
+                if ($totalNotDownloaded == 0) {
+                    $data['batch'][$batch->id]['total_download_status'] = "all";
+                }
+                // if some of the files from batch have been downloaded
+                else if ($totalNotDownloaded > 0 && $totalNotDownloaded < $data['batch'][$batch->id]['num_files']) {
+                    $data['batch'][$batch->id]['total_download_status'] = "some";
+                }
+                // none of the files from batch have been downloaded
+                else if ($totalNotDownloaded > 0 && $totalNotDownloaded == $data['batch'][$batch->id]['num_files']) {
+                    $data['batch'][$batch->id]['total_download_status'] = "none";
+                }
+            }
+
+            return View::make('admin.file.received')->with('data', $data);
         }
 
         // Wrongful request.  Normal users can't go here, log and abort to 404
@@ -265,6 +355,28 @@ class FileController extends BaseController {
             } else {
                 return null;
             }
+    }
+
+    public function getDownload($file_id = null) {
+            if (!$file_id) {
+                return Redirect::route('file_received');
+            }
+
+            $file = File::findOrFail($file_id);
+            $upload_path = '';
+
+            if ($file->user) {
+                $upload_path .= $file->user->upload_folder;
+            } else {
+                $upload_path .= "guest";
+            }
+
+        if ($this->user->hasAccess('admin') || $this->user->id = $file->user_id) {
+            $file->download_status = 1;
+            $file->save();
+
+            return Response::download(public_path() . '/uploads/' . $upload_path . '/' . $file->filename_random, $file->filename_original);
+        }
     }
 
 }

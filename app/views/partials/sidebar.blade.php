@@ -36,9 +36,10 @@
             <ul class="submenu">
                 @if ($user->hasAccess('admin') || $user->hasAccess('superuser'))
                     <li class="{{ Request::is('file/received') ? 'active' : '' }}">{{ Html::linkRoute('file_received', 'Incoming Files') }}</li>
+                @else
+                    <li class="{{ Request::is('file/upload') ? 'active' : '' }}">{{ Html::linkRoute('file_upload', 'Upload Files') }}</li>
+                    <li class="{{ Request::is('file/history') ? 'active' : '' }}">{{ Html::linkRoute('file_history', 'File History') }}</li>
                 @endif
-                <li class="{{ Request::is('file/upload') ? 'active' : '' }}">{{ Html::linkRoute('file_upload', 'Upload Files') }}</li>
-                <li class="{{ Request::is('file/history') ? 'active' : '' }}">{{ Html::linkRoute('file_history', 'File History') }}</li>
             </ul>
             <!-- END Submenu -->
         </li>

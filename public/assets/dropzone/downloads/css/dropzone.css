@@ -154,6 +154,7 @@
   -webkit-border-radius: 3px;
   border-radius: 3px;
   background: rgba(0,0,0,0.03);
+  margin-bottom: 1em;
 }
 .dropzone .dz-default.dz-message {
   opacity: 1;

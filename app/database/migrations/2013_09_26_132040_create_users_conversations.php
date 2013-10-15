@@ -11,10 +11,13 @@ class CreateUsersConversations extends Migration {
 	 */
 	public function up()
 	{
+		if (Schema::hasTable('users_conversations')) {
+			Schema::drop('users_conversations');
+		}
 		Schema::create('users_conversations', function($table)
 		{
 			$table->increments('id');
-			$table->integer('user_id');
+			$table->integer('user_id'); // USER ID OF RECIPIENT
 			$table->integer('conversation_id');
 			$table->boolean('read')->default(0);
 			$table->timestamps();

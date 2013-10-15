@@ -23,14 +23,14 @@
                     <li class="hidden-xs">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <i class="icon-file"></i>
-                            <span class="badge badge-important">{{ App\Models\File::where('status', '=', '0')->count() }}</span>
+                            <span class="badge badge-important">{{ $filesNotDownloaded->count() }}</span>
                         </a>
 
                         <!-- BEGIN Files Not Downloaded Dropdown -->
                         <ul class="dropdown-navbar dropdown-menu">
                             <li class="nav-header">
                                 <a class="label label-important show-tooltip" title="Download all new files..." href="{{ route('file_history') }}"><i class="icon-download"></i></a>
-                                {{ App\Models\File::where('status', '=', '0')->count() }} NEW FILES
+                                {{ $filesNotDownloaded->count() }} NEW FILES
                             </li>
                                 
 
@@ -44,22 +44,22 @@
                     <!-- END Files Not Downloaded -->
 
                     <!-- BEGIN Button Messages -->
-                    <li class="hidden-xs">
+                    {{--<li class="hidden-xs">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <i class="icon-envelope"></i>
-                            <span class="badge badge-success">3</span>
+                            <span class="badge badge-success">{{ $conversations->count() }}</span>
                         </a>
 
                         <!-- BEGIN Messages Dropdown -->
                         <ul class="dropdown-navbar dropdown-menu">
                             <li class="nav-header">
                                 <i class="icon-comments"></i>
-                                3 Messages
+                                {{ $conversations->count() }} Unread Messages
                             </li>
+                        
 
                             <li class="msg">
                                 <a href="#">
-                                    <img src="img/demo/avatar/avatar3.jpg" alt="Sarah's Avatar" />
                                     <div>
                                         <span class="msg-title">Sarah</span>
                                         <span class="msg-time">
@@ -71,40 +71,13 @@
                                 </a>
                             </li>
 
-                            <li class="msg">
-                                <a href="#">
-                                    <img src="img/demo/avatar/avatar4.jpg" alt="Emma's Avatar" />
-                                    <div>
-                                        <span class="msg-title">Emma</span>
-                                        <span class="msg-time">
-                                            <i class="icon-time"></i>
-                                            <span>2 Days ago</span>
-                                        </span>
-                                    </div>
-                                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ...</p>
-                                </a>
-                            </li>
-
-                            <li class="msg">
-                                <a href="#">
-                                    <img src="img/demo/avatar/avatar5.jpg" alt="John's Avatar" />
-                                    <div>
-                                        <span class="msg-title">John</span>
-                                        <span class="msg-time">
-                                            <i class="icon-time"></i>
-                                            <span>8:24 PM</span>
-                                        </span>
-                                    </div>
-                                    <p>Duis aute irure dolor in reprehenderit in ...</p>
-                                </a>
-                            </li>
-
                             <li class="more">
-                                <a href="#">See all messages</a>
+                                <a href="#">See all conversa</a>
                             </li>
                         </ul>
                         <!-- END Notifications Dropdown -->
                     </li>
+                    --}}
                     <!-- END Button Messages -->
                     @endif
 
@@ -128,7 +101,7 @@
                                 </a>
                             </li>
 
-                            <li>
+                            <!--<li>
                                 <a href="#">
                                     <i class="icon-user"></i>
                                     Manage DentalLabProfile Account
@@ -140,7 +113,7 @@
                                     <i class="icon-question"></i>
                                     Help
                                 </a>
-                            </li>
+                            </li>-->
 
                             <li class="divider visible-sm"></li>
 

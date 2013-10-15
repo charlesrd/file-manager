@@ -14,12 +14,12 @@ class MessageController extends \BaseController {
 
 	public function getIndex() {
 		if ($this->user->id == 1) {
-			//$conversations = 
+			
 		} else {
 			$conversation = $this->user->conversations->first();
 
 			if ($conversation) {
-				$messages = Conversation::find($conversation->id)->messages()->paginate(15);
+				$messages = Conversation::find($conversation->id)->messages()->paginate(Config::get('app.pagination_items_per_page'));
 			} else {
 				$messages = null;
 			}
@@ -31,10 +31,25 @@ class MessageController extends \BaseController {
 	}
 
 	public function postIndex() {
+		$messageValidationRules = array(
+            'message' => 'required'
+        );
+        $messageValidationMessages = array(
+            'message.required' => 'You cannot send a blank message.'
+        );
+
+        // Instantiate a validation object
+        $messageValidation = Validator::make(Input::all(), $messageValidationRules, $messageValidationMessages);
+
+        if ($messageValidation->fails()) {
+        	return Redirect::route('message')->withErrors($messageValidation);
+        }
+
 		$message = new Message;
 		$message->user_id = $this->user->id;
 		$message->conversation_id = 1;
 		$message->body = Input::get('message');
+
 		if ($message->save()) {
 			return Redirect::route('message');
 		}

@@ -35,9 +35,11 @@ Route::controller('file', 'FileController', array(
 	'getUpload' => 'file_upload',
 	'postUpload' => 'file_upload_post',
 	'getHistory' => 'file_history',
-	'postDetail' => 'file_detail_post',
+	'postFileDetail' => 'file_detail_post',
+	'postBatchDetail' => 'batch_detail_post',
 	'getReceived' => 'file_received',
-	'postBatchCreate' => 'file_batch_create_post'
+	'postBatchCreate' => 'file_batch_create_post',
+	'getDownload' => 'file_download'
 ));
 
 Route::post('search', array(

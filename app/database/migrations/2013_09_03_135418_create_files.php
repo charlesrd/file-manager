@@ -23,7 +23,8 @@ class CreateFiles extends Migration {
 			$table->integer('batch_id');
 			$table->string('filename_original');
 			$table->string('filename_random');
-			$table->boolean('status');
+			$table->boolean('download_status');
+			$table->boolean('shipping_status');
 			$table->string('tracking')->nullable();
 			$table->timestamp('expiration');
 			$table->timestamps();
@@ -34,9 +35,9 @@ class CreateFiles extends Migration {
 		});
 
 		if (Schema::hasColumn('files', 'expiration')) {
-			DB::unprepared('CREATE TRIGGER set_expiration 
+			DB::unprepared('CREATE TRIGGER set_file_expiration 
 						   BEFORE INSERT ON `files` 
-						   FOR EACH ROW SET NEW.expiration = TIMESTAMPADD(WEEK, 1, CURDATE())');
+						   FOR EACH ROW SET NEW.expiration = TIMESTAMPADD(WEEK, 1, NOW())');
 		}
 	}
 

@@ -11,6 +11,9 @@ class CreateUsersFiles extends Migration {
 	 */
 	public function up()
 	{
+		if (Schema::hasTable('users_files')) {
+			Schema::drop('users_files');
+		}
 		Schema::create('users_files', function($table)
 		{
 			$table->integer('user_id');

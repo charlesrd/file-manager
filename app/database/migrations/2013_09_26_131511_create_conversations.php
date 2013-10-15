@@ -11,6 +11,9 @@ class CreateConversations extends Migration {
 	 */
 	public function up()
 	{
+		if (Schema::hasTable('conversations')) {
+			Schema::drop('conversations');
+		}
 		Schema::create('conversations', function($table)
 		{
 			$table->increments('id');

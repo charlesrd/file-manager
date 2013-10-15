@@ -9,11 +9,15 @@ class User extends SentryUserModel {
 	}
 
 	public function conversations() {
-		return $this->belongsToMany('App\Models\Conversation', 'users_conversations');
+		return $this->belongsToMany('App\Models\Conversation', 'users_conversations')->withPivot('read');
 	}
 
 	public function messages() {
 		return $this->hasMany('App\Models\Message');
+	}
+
+	public function dlp_user() {
+		return DB::connection('dentallabprofile')->table('labprofile')->where('labID', '=', $this->lab_id)->first();
 	}
 
 }

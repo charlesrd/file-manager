@@ -3,20 +3,24 @@
 // app/models/File.php
 
 namespace App\Models;
+use DB;
+use Eloquent;
+use Config;
 
-class File extends \Eloquent {
+class File extends Eloquent {
 
 	// public function user() {
 	// 	return $this->hasOne('User');
 	// }
 
 	public function user() {
-		//return $this->belongsTo('App\Models\User');
-		return DB::table('users')->where('id', '=', $this->user_id)->first();
+		return $this->belongsTo('User');
+		//return DB::table('users')->where('id', '=', $this->user_id)->first();
 	}
 
 	public function batch() {
-		//return $this->belongsTo('App\Models\Batch');
+		return $this->belongsTo('Batch');
+		//return DB::table('batches')->where('id', '=', $$this->batch_id)->first();
 	}
 
 	// public function user() {
@@ -40,10 +44,17 @@ class File extends \Eloquent {
 		return $this->expiration->format('M j, Y');
 	}
 
-	public static function findAllWithSearchPhrase($searchPhrase) {
-		return File::where('filename_original', 'LIKE', '%' . $searchPhrase . '%')
-			->orWhere('tracking', 'LIKE', '%' . $searchPhrase . '%')
-			->paginate(15);
+	public static function findAllWithSearchPhrase($searchPhrase, $user) {
+		if ($user->hasAccess('admin') || $user->hasAccess('superuser')) {
+			return File::where('filename_original', 'LIKE', '%' . $searchPhrase . '%')
+				->orWhere('tracking', 'LIKE', '%' . $searchPhrase . '%')
+				->paginate(Config::get('app.pagination_items_per_page'));
+		} else {
+			return File::where('user_id', '=', $user->id)->
+				where('filename_original', 'LIKE', '%' . $searchPhrase . '%')
+				->orWhere('tracking', 'LIKE', '%' . $searchPhrase . '%')
+				->paginate(Config::get('app.pagination_items_per_page'));
+		}
 	}
 
 }

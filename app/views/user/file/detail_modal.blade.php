@@ -9,10 +9,10 @@
         <dt>Message</dt>
         <dd></dd>
         <dt>File Status</dt>
-        <dd>{{ $file->status ? "Shipped" : "Not Shipped" }}</dd>
+        <dd>{{ $file->shipping_status ? "Shipped" : "Not Shipped" }}</dd>
         <dt>Tracking #</dt>
         <dd>
-          @if ($file->status && !is_null($file->tracking) && $file->tracking != '')
+          @if ($file->shipping_status && !is_null($file->tracking) && $file->tracking != '')
              {{{ $file->tracking }}}
           @else
             N/A

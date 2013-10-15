@@ -24,7 +24,7 @@
                                                                 {{ $user->username }}
                                                             @endif
                                                             </h5>
-                                                            <span class="time"><i class="icon-time"></i> 26 minutes ago</span>
+                                                            <span class="time"><i class="icon-time"></i> {{ $message->formattedCreatedAt() }}</span>
                                                         </div>
                                                         <p>
                                                             {{ $message->body }}
@@ -38,7 +38,7 @@
                                                             <h5>
                                                                 UDRC
                                                             </h5>
-                                                            <span class="time"><i class="icon-time"></i> 26 minutes ago</span>
+                                                            <span class="time"><i class="icon-time"></i> {{ $message->formattedCreatedAt() }}</span>
                                                         </div>
                                                         <p>
                                                             {{ $message->body }}
@@ -48,34 +48,79 @@
                                             @endif
                                         @endforeach
                                     @else
-                                        <div class="alert alert-danger text-center">You have not sent or received any messages.</div>
+                                        <div class="alert alert-danger lead text-muted text-center">You have not sent or received any messages.</div>
                                     @endif
                                 </ul>
-
-                                <div class="messages-input-form">
-                                    {{ Form::open(array('route' => 'message_post')) }}
-                                        <div class="input">
-                                            {{ Form::text('message', Input::old('message'), array('class' => 'form-control')) }}
-                                        </div>
-                                        <div class="buttons">
-                                            <button type="submit" class="btn btn-primary"><i class="icon-share-alt"></i> Send</button>
-                                        </div>
-                                    {{ Form::close() }}
-                                </div>
 
                                 <div class="text-center">
                                     {{ $messages->links() }}
                                 </div>
+
+                                {{ Form::open(array('route' => 'message_post', 'id' => 'form-message')) }}
+                                    <div class="form-group" id="form-message-message">
+                                        {{ Form::text('message', Input::old('message'), array('class' => 'form-control', 'placeholder' => 'Type your message here...')) }}
+                                        {{ $errors->first('message', '<div class="alert alert-danger text-center"><strong>Error!</strong> :message </div>') }}
+                                    </div>
+                                    @if (Session::has('message-send-error'))
+                                        <div class="alert alert-danger"><strong>Error!</strong> There was an error sending your message.  Please try again. </div>
+                                    @endif
+
+                                    <div class="form-group" id="form-message-submit">
+                                        <button type="submit" class="btn btn-primary form-control"><i class="icon-share-alt"></i> Send</button>
+                                    </div>
+                                {{ Form::close() }}
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Modal -->
-                <div class="modal fade" id="modal-file_details" tabindex="-1" role="dialog" aria-hidden="true">
-                </div><!-- /.modal -->
 @stop
 
 @section('extra-scripts')
+    {{ Html::script('assets/jquery-validation/dist/jquery.validate.min.js') }}
+    {{ Html::script('assets/jquery-validation/dist/additional-methods.min.js') }}
 
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var messageForm = $('#form-message');
+        var submitBtn = $("form#form-message button[type=submit]");
+
+        // Set vaidation options for guest upload form
+        var validationOptions = {
+            errorElement: 'div', //default input error message container
+            errorClass: 'alert alert-danger', // default input error message class
+            focusInvalid: false, // do not focus the last invalid input
+
+            rules: {
+                message: {
+                    required: true
+                }
+            },
+
+            messages: {
+                message: "Please provide a message.",
+            },
+
+            highlight: function(element, errorClass, validClass) {
+                $(element).removeClass(errorClass);
+            },
+
+            // Callback for handling actual submit when form is valid
+            submitHandler: function(form) {
+                form.submit();
+            }
+        }
+
+        // disable submit button by default
+        submitBtn.prop("disabled", true);
+
+        // Enable or disable submit button based on form validation and dropzone queue length
+        messageForm.bind('keyup', function() {
+            if ($(this).validate(validationOptions).checkForm()) {
+                submitBtn.prop("disabled", false);
+            } else {
+                submitBtn.prop("disabled", true);
+            }
+        });
+    });
+    </script>
 @stop

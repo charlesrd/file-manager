@@ -12,9 +12,14 @@ class SearchController extends \BaseController {
 	public function postResults()
 	{
 		$searchPhrase = Input::get('search');
-		$searchResults = File::findAllWithSearchPhrase($searchPhrase);
+		$searchResults = File::findAllWithSearchPhrase($searchPhrase, $this->user);
 
-		return View::make('user.search.results')->with('searchResults', $searchResults)->with('searchPhrase', $searchPhrase);
+		if ($this->user->hasAccess('admin') || $this->user->hasAccess('superuser')) {
+			return View::make('admin.search.results')->with('searchResults', $searchResults)->with('searchPhrase', $searchPhrase);
+		} else {
+			return View::make('user.search.results')->with('searchResults', $searchResults)->with('searchPhrase', $searchPhrase);
+		}
+		
 	}
 
 }

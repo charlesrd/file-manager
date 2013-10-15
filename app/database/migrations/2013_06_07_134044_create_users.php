@@ -11,6 +11,9 @@ class CreateUsers extends Migration {
 	 */
 	public function up()
 	{
+		if (Schema::hasTable('users')) {
+			Schema::drop('users');
+		}
 		Schema::create('users', function($table) {
 			$table->increments('id');
 			$table->integer('lab_id')->nullable();

@@ -3,6 +3,29 @@
 @section('title', 'Dashboard')
 
 @section('main-content')
+                <!--<div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3>At A Glance</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3>Test</h3>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, rerum, magni, deserunt, veniam nemo non molestiae sed earum reiciendis velit impedit voluptatibus laboriosam amet tenetur ex commodi similique! Maxime, facilis!</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, ex, beatae, quam, aliquid aperiam qui harum laborum dicta illum quo doloremque minus rerum repellat et veritatis cumque aliquam odio possimus.
+                                    </div>
+                                    <div class="col-md-4">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, ex, beatae, quam, aliquid aperiam qui harum laborum dicta illum quo doloremque minus rerum repellat et veritatis cumque aliquam odio possimus.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-default">
@@ -30,7 +53,7 @@
                                                             <td>{{ DB::table('users')->where('id', '=', $file->user_id)->pluck('email') }}</td>
                                                             <td>{{ $file->filename_original }}</td>
                                                             <td class="text-center">
-                                                                @if ($file->status == 0)
+                                                                @if ($file->download_status == 0)
                                                                     <a class="btn btn-danger show-tooltip" title="This file has not yet been downloaded.  Click to download."><i class="icon-cloud-download"></i> Not Downloaded</a>
                                                                 @else
                                                                     <a class="btn btn-success show-tooltip" title="This file has already been downloaded.  Click to download."><i class="icon-cloud-download"></i> Downloaded</a>
@@ -57,16 +80,12 @@
                                         {{ $receivedFiles->links() }}
                                     </div>
                                 @else
-                                    <div class="alert alert-danger">You don't seem to have any file history.  Once you've uploaded files, detailed information will be available here.</div>
+                                    <div class="alert alert-danger lead text-muted text-center">You don't seem to have any file history.  Once you've uploaded files, detailed information will be available here.</div>
                                 @endif
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Modal -->
-                <div class="modal fade" id="modal-file_details" tabindex="-1" role="dialog" aria-hidden="true">
-                </div><!-- /.modal -->
 @stop
 
 @section('extra-scripts')

@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\File;
+use App\Models\Conversation;
+
 class BaseController extends Controller {
 
 	public $user;
@@ -24,6 +27,14 @@ class BaseController extends Controller {
 		if (Sentry::check()) {
 			$this->user = Sentry::getUser();
 			View::share('user', $this->user);
+
+			if ($this->user->hasAccess('admin')) {
+				$filesNotDownloaded = File::where('download_status', '=', '0');
+				$conversations = Conversation::all();
+
+				View::share('filesNotDownloaded', $filesNotDownloaded);
+				View::share('conversations', $conversations);
+			}
 		} else {
 			$this->user = null;
 		}

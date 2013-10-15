@@ -14,4 +14,8 @@ class Message extends \Eloquent {
 		return $this->belongsTo('App\Models\Conversation');
 	}
 
+	public function formattedCreatedAt() {
+		return $this->created_at->format('g:ia \o\n M j, Y');
+	}
+
 }

@@ -115,7 +115,7 @@
 
                     this.on("complete", function(file) {
                         if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
-                            $('<div class="alert alert-success text-center">Your files have been uploaded successfully. <br /><br />Check your email for a confirmation.  <a href="#" id="upload-more">Upload more?</a></div>').hide().appendTo('#dz-container').slideDown(500);
+                            $('<div class="alert alert-success lead text-muted text-center">Your files have been uploaded successfully. <br /><br />Check your email for a confirmation.  <a href="#" id="upload-more">Upload more?</a></div>').hide().appendTo('#dz-container').slideDown(500);
 
                             $(document).on('click', '#upload-more', function(e) {
                                 e.preventDefault();

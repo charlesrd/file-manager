@@ -22,4 +22,5 @@
 			{{{ $file->tracking }}}
 	</dd>
 	@endif
+	{{ link_to_route('file_download', 'Download This File', $file->id) }}
 </dl>

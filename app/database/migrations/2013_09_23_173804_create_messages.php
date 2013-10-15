@@ -11,10 +11,13 @@ class CreateMessages extends Migration {
 	 */
 	public function up()
 	{
+		if (Schema::hasTable('messages')) {
+			Schema::drop('files');
+		}
 		Schema::create('messages', function($table)
 		{
 			$table->bigIncrements('id');
-			$table->integer('user_id'); // FROM USER_ID
+			$table->integer('user_id'); // USER_ID OF THE SENDER
 			$table->integer('conversation_id');
 			$table->text('body');
 			$table->timestamps();

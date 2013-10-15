@@ -11,6 +11,9 @@ class CreateUsersGroups extends Migration {
 	 */
 	public function up()
 	{
+		if (Schema::hasTable('users_groups')) {
+			Schema::drop('users_groups');
+		}
 		Schema::create('users_groups', function($table)
 		{
 			$table->integer('user_id')->unsigned();

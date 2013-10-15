@@ -59,8 +59,8 @@ $(function() {
     }
 
     //---------------- Nice Scroll --------------------//
-    $('body').niceScroll({zindex: 999});
-    $('.nice-scroll').niceScroll({railoffset: {left: -3}});
+    //$('body').niceScroll({zindex: 999});
+    //$('.nice-scroll').niceScroll({railoffset: {left: -3}});
     //$('#sidebar.sidebar-fixed').css('height', $(window).height()).niceScroll({railoffset: {left: -3}});
 
     //---------------- Tooltip & Popover --------------------//
