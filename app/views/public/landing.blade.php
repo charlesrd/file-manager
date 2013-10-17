@@ -1,5 +1,9 @@
 @extends('layouts.landing')
 
+@section('body-class')
+    <body class="login-page">
+@stop
+
 @section('main-content')
     <div class="login-wrapper">
         <!-- BEGIN Guest Upload Form -->
@@ -124,7 +128,7 @@
             </div>
             <hr/>
             <p class="clearfix">
-                <a href="#" class="goto-login pull-left">&larr; Back to login form</a>
+                <a href="#" class="goto-login pull-left"><i class="icon-circle-arrow-left"></i> Back to login form</a>
             </p>
         {{ Form::close() }}
         <!-- END Forgot Password Form -->

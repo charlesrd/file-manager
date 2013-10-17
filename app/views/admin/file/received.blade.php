@@ -79,13 +79,13 @@
                                                         <tr id="collapse-batch_details_{{ $batch['id'] }}" class="collapse no-transition batch-details">
                                                             <td colspan="6">
                                                                 <div class="row batch-details-row">
-                                                                    {{ Form::open(array('route' => 'file_download_checked', 'name' => 'form-batch-files')) }}
+                                                                    {{ Form::open(array('route' => 'file_download_checked', 'name' => 'form-batch-files', 'id' => 'form-batch-files-' . $batch['id'], 'data-batch-id' => $batch['id'])) }}
                                                                         <div class="col-md-2">
                                                                             <h4><i class="icon-comment"></i> Message</h4>
                                                                             <hr />
                                                                             <p>
                                                                                 @if (!empty($batch['message']))
-                                                                                    {{ $batch['message'] }}
+                                                                                    <div class="lead">{{ $batch['message'] }}</div>
                                                                                 @else
                                                                                     No message attached.
                                                                                 @endif
@@ -114,7 +114,11 @@
                                                                                         {{ $file->formattedExpiration() }}
                                                                                     </td>
                                                                                     <td class="text-center">
-                                                                                        <a href="{{ route('file_download_single', $file->id) }}" class="btn btn-info show-tooltip" title="Download {{ $file->filename_original }}"><i class="icon-cloud-download"></i></a>
+                                                                                        @if ($file->download_status)
+                                                                                            <a href="{{ route('file_download_single', $file->id) }}" class="btn btn-success show-tooltip" title="Download {{ $file->filename_original }} again"><i class="icon-cloud-download"></i></a>
+                                                                                        @else
+                                                                                            <a href="{{ route('file_download_single', $file->id) }}" class="btn btn-danger show-tooltip" title="Download {{ $file->filename_original }}"><i class="icon-cloud-download"></i></a>
+                                                                                        @endif
                                                                                     </td>
                                                                                 </tr>
                                                                             @endforeach
@@ -124,7 +128,7 @@
                                                                         <div class="col-md-3">
                                                                             <h4><i class="icon-cloud-download"></i> Download Center</h4>
                                                                             <hr />
-                                                                            <button type="submit" class="btn btn-inverse btn-lg btn-block">Download Checked as .ZIP</button>
+                                                                            <button type="submit" class="btn btn-inverse btn-lg btn-block" id="btn-download-as-batch-{{ $batch['id'] }}">Download Checked as .ZIP</button>
                                                                             <a href="{{ route('file_download_batch', $batch['id']) }}" class="btn btn-inverse btn-lg btn-block">Download Batch as .ZIP</a>
                                                                         </div>
                                                                         {{ Form::hidden('batch_from_lab_name', $batch['from_lab_name']) }}
@@ -157,29 +161,22 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
+            $("form button[id^=btn-download-as-batch]").prop('disabled', true);
+            $("input[type=checkbox]").on('click', function() {
+                var batch_id = $(this).closest("form").data('batch-id');
+
+                console.log(batch_id);
+
+                if ($("form#form-batch-files-" + batch_id + " input[type=checkbox]").is(":checked")) {
+                    $('button#btn-download-as-batch-' + batch_id).prop('disabled', false);
+                } else {
+                    $('button#btn-download-as-batch-' + batch_id).prop('disabled', true);
+                }
+            });
+
             $(".clickable").click(function(e) {
                 e.preventDefault();
 
-                // var post_url = $(this).data("href");
-                // var collapse = $(this).data("target");
-                // var file_id = $(this).data("id");
-
-                // if (!$(collapse).hasClass('in')) {
-
-                //     $.post(
-                //         post_url,
-                //         {
-                //             _token: "{{ Session::token() }}",
-                //             file_id: file_id
-                //         },
-                //         function(response, status, xhr) {
-                //             $(collapse + " td").html(response);
-                //         }
-                //     );
-
-                // }
-
-                $(collapse).collapse();
             }).hover( function() {
                 $(this).toggleClass('hover');
             });

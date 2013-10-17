@@ -29,7 +29,7 @@
                         <!-- BEGIN Files Not Downloaded Dropdown -->
                         <ul class="dropdown-navbar dropdown-menu">
                             <li class="nav-header">
-                                <a class="label label-important show-tooltip" title="Download all new files..." href="{{ route('file_history') }}"><i class="icon-download"></i></a>
+                                <a class="label label-important show-tooltip" title="View all new files..." href="{{ route('file_received') }}"><i class="icon-download"></i></a>
                                 {{ $filesNotDownloaded->count() }} NEW FILES
                             </li>
                                 

@@ -75,7 +75,7 @@ class UserController extends BaseController {
                         }
                     }
 
-                    $this->user = Sentry::login($this->user, isset($inputs['remember']));
+                    Sentry::login($this->user, isset($inputs['remember']));
 
                     // User login was successful, let's go to the dashboard!
                     return Redirect::intended('dashboard');

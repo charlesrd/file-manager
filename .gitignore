@@ -1,7 +1,7 @@
 /bootstrap/compiled.php
 /vendor
-/vendor_bak
 composer.phar
 composer.lock
 .DS_Store
 /public/uploads
+/public/generated-zips

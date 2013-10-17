@@ -8,6 +8,7 @@ return array(
 	// Application configuration options set here
 	'file_upload_cutoff_time_CST' => 16, // 4pm CST in 24h format
 	'pagination_items_per_page' => 10, // Controls how many items we want listed per page of paginated items
+	'items_recently_received_limit' => 10,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -187,8 +188,7 @@ return array(
 		'Validator'   => 'Illuminate\Support\Facades\Validator',
 		'View'        => 'Illuminate\Support\Facades\View',
 		'Sentry'      => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
-		'Carbon'	  => 'Carbon\Carbon',
-		'Zippy' 	  => 'Alchemy\Zippy\Zippy'
+		'Carbon'	  => 'Carbon\Carbon'
 	),
 
 );

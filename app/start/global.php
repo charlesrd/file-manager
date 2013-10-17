@@ -17,6 +17,7 @@ ClassLoader::addDirectories(array(
 	app_path().'/controllers',
 	app_path().'/models',
 	app_path().'/database/seeds',
+	app_path().'/libraries'
 
 ));
 
@@ -49,8 +50,22 @@ Log::useDailyFiles(storage_path().'/logs/'.$logFile);
 */
 
 App::error(function(Exception $exception, $code)
-{
+{	
 	Log::error($exception);
+	// switch ($code)
+ //    {
+ //        case 403:
+ //            return Response::view('errors.403', array(), 403);
+
+ //        case 404:
+ //            return Response::view('errors.404', array(), 404);
+
+ //        case 500:
+ //            return Response::view('errors.500', array(), 500);
+
+ //        default:
+ //            return Response::view('errors.500', array(), 500);
+ //    }
 });
 
 /*

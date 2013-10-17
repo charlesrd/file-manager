@@ -273,78 +273,17 @@ class FileController extends BaseController {
         if ($this->user->hasAccess('superuser')) {
             //return View::make('superuser.file.received')->with('files', $files);
         } else if ($this->user->hasAccess('admin')) {
-            $files = File::orderBy('created_at', 'DESC')->paginate(Config::get('app.pagination_items_per_page'));
+            $data = File::getReceivedFiles();
             $batches = Batch::orderBy('created_at', 'DESC')->paginate(Config::get('app.pagination_items_per_page'));
 
-            $data = array();
-            $user = null;
-
-            foreach($batches as $batch) {
-                if ($batch->user_id) {
-                    $user = User::find($batch->user_id);
-                }
-                if ($user) {
-                    $data['batch'][$batch->id]['from_lab_email'] = $user->email;
-                    $data['batch'][$batch->id]['from_lab_name'] = $user->dlp_user()->labName;
-                    $data['batch'][$batch->id]['from_lab_phone'] = $user->dlp_user()->labPhone;
-                } else {
-                    $data['batch'][$batch->id]['from_lab_email'] = $batch->guest_lab_email;
-                    $data['batch'][$batch->id]['from_lab_name'] = $batch->guest_lab_name;
-                    $data['batch'][$batch->id]['from_lab_phone'] = $batch->guest_lab_phone;
-                }
-                $data['batch'][$batch->id]['id'] = $batch->id;
-                $data['batch'][$batch->id]['num_files'] = $batch->files()->count();
-                $data['batch'][$batch->id]['message'] = $batch->message;
-                $data['batch'][$batch->id]['created_at'] = $batch->created_at;
-                $data['batch'][$batch->id]['expiration'] = $batch->expiration;
-                $data['batch'][$batch->id]['created_at_formatted'] = $batch->formattedCreatedAt();
-                $data['batch'][$batch->id]['expiration_formatted'] = $batch->formattedExpiration();
-
-                $totalNotDownloaded = 0;
-                $totalNotShipped = 0;
-
-                foreach($batch->files()->get() as $file) {
-                    $data['batch'][$batch->id]['files'][] = $file;
-                    if ($file->download_status == 0) {
-                        $totalNotDownloaded++;
-                    }
-                    if ($file->shipping_status == 0) {
-                        $totalNotShipped++;
-                    }
-                }
-                // if all files from batch completely downloaded
-                if ($totalNotDownloaded == 0) {
-                    $data['batch'][$batch->id]['total_download_status'] = "all";
-                }
-                // if some of the files from batch have been downloaded
-                else if ($totalNotDownloaded > 0 && $totalNotDownloaded < $data['batch'][$batch->id]['num_files']) {
-                    $data['batch'][$batch->id]['total_download_status'] = "some";
-                }
-                // none of the files from batch have been downloaded
-                else if ($totalNotDownloaded > 0 && $totalNotDownloaded == $data['batch'][$batch->id]['num_files']) {
-                    $data['batch'][$batch->id]['total_download_status'] = "none";
-                }
-
-                // if all files from batch completely shipped
-                if ($totalNotShipped == 0) {
-                    $data['batch'][$batch->id]['total_shipped_status'] = "all";
-                }
-                // if some of the files from batch have been shipped
-                else if ($totalNotShipped > 0 && $totalNotShipped < $data['batch'][$batch->id]['num_files']) {
-                    $data['batch'][$batch->id]['total_shipped_status'] = "some";
-                }
-                // none of the files from batch have been shipped
-                else if ($totalNotShipped > 0 && $totalNotShipped == $data['batch'][$batch->id]['num_files']) {
-                    $data['batch'][$batch->id]['total_shipped_status'] = "none";
-                }
-            }
-
             return View::make('admin.file.received')->with('data', $data)->with('batches', $batches);
+        } else {
+            App::error(403, 'You do not have permission to view this page.');
         }
 
         // Wrongful request.  Normal users can't go here, log and abort to 404
         Log::warning('Someone tried to access the \'received files\' page without permission.');
-        App:abort('401', 'Unauthorized request.  You can\'t do that');
+        App::error(403, 'You do not have permission to view this page.');
     }
 
     public function postBatchCreate() {
@@ -400,7 +339,60 @@ class FileController extends BaseController {
     }
 
     public function getDownloadBatch($batch_id = null) {
+        if (!$batch_id) {
+            Redirect::back();
+        }
+        $batch = Batch::find($batch_id);
+        $files = File::where('batch_id', '=', $batch_id)->get();
 
+        if (!empty($batch->user_id)) {
+            $user = User::findOrFail($batch->user_id);
+            $file_directory_path = $user->upload_folder;
+        } else {
+            $file_directory_path = 'guest';
+        }
+
+        if ($batch->user_id == null) {
+            $from = $batch->guest_lab_name;
+        } else {
+            $from = User::find($batch->user_id)->dlp_user()->labName;  
+        }
+        $archive_name = Str::slug(Input::get('batch_from_lab_name') . '-batchID-' . Input::get('batch_id')) . '-' . $batch->created_at->format('Y-m-d h:i:sa') . '-' . str_random(10) . '.zip';
+        $archive_directory = public_path() . "/generated-zips/";
+        $archive_path = $archive_directory . $archive_name;
+
+        $archive = new ZipArchive();
+
+        if ($archive->open($archive_path, ZipArchive::CREATE) !== TRUE) {
+            App::error(500, 'Could not create .ZIP file');
+        }
+
+        foreach($files as $file) {
+            $file = File::where('id', '=', $file->id)->first();
+
+            $file_path = public_path() . '/uploads/' . $file_directory_path . '/' . $file->filename_random;
+
+            if (file_exists($file_path) && is_readable($file_path)) {
+                if (!$archive->addFile($file_path, $file->filename_original)) {
+                    App::error(500, 'Could not add file to ZIP for creation');
+                }
+            }
+            else {
+                App::error(500, 'File path incorrect.');
+            }
+        }
+
+        $archive->close();
+        if (file_exists($archive_path)) {
+            foreach($files as $file) {
+                $file = File::where('id', '=', $file->id)->first();
+                $file->download_status = 1;
+                $file->save();
+            }
+            return Response::download($archive_path, $archive_name);
+        } else {
+            App::error(500, 'Error creating ZIP file.');
+        }
     }
 
     public function postDownloadChecked() {
@@ -408,22 +400,50 @@ class FileController extends BaseController {
             $batch = Batch::find(Input::get('batch_id'));
 
             if (!empty($batch->user_id)) {
-                $file_directory_path = User::find($batch->user_id)->first()->upload_folder;
+                $user = User::findOrFail($batch->user_id);
+                $file_directory_path = $user->upload_folder;
             } else {
                 $file_directory_path = 'guest';
             }
 
-            $zippy = Zippy::load();
-            $archive_name = Str::slug(Input::get('batch_from_lab_name') . ' batchID ' . Input::get('batch_id')) . '_' . str_random(25) . '.zip';
-            $archive_path = public_path() . "/generated-zips/" . $archive_name;
-            $archive = $zippy->create($archive_path);
+            $archive_name = Str::slug(Input::get('batch_from_lab_name') . '-batchID-' . Input::get('batch_id')) . '-' . $batch->created_at->format('Y-m-d h:ia') . '-' . str_random(10) . '.zip';
+            $archive_directory = public_path() . "/generated-zips/";
+            $archive_path = $archive_directory . $archive_name;
 
-            foreach(Input::get('download-file') as $file_id) {
-                $file = File::find($file_id)->firstOrFail();
-                $archive->addMembers(array(public_path() . '/uploads/' . $file_directory_path . '/' . $file->filename_original), false);
+            $archive = new ZipArchive();
+
+            if ($archive->open($archive_path, ZipArchive::CREATE) !== TRUE) {
+                App::error(500, 'Could not create .ZIP file');
             }
 
-            return Response::download($archive_path, $archive_name);
+            foreach(Input::get('download-file') as $file_id) {
+                $file = File::where('id', '=', $file_id)->first();
+
+                $file_path = public_path() . '/uploads/' . $file_directory_path . '/' . $file->filename_random;
+
+                if (file_exists($file_path) && is_readable($file_path)) {
+                    if (!$archive->addFile($file_path, $file->filename_original)) {
+                        App::error(500, 'Could not add file to ZIP for creation');
+                    }
+                } else {
+                    App::error(500, 'File path incorrect.');
+                }
+            }
+
+            $archive->close();
+
+            if (file_exists($archive_path)) {
+                foreach(Input::get('download-file') as $file_id) {
+                    $file = File::where('id', '=', $file_id)->first();
+                    $file->download_status = 1;
+                    $file->save();
+                }
+                return Response::download($archive_path, $archive_name);
+            } else {
+                App::error(500, 'Error creating ZIP file.');
+            }
+        } else {
+            return Redirect::route('file_received');
         }
     }
 

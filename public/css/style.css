@@ -11,7 +11,12 @@ body {
 tr.hover {
    cursor: pointer;
 }
-
+div.alert {
+	text-align: center;
+}
+#dashboard-tiles > div {
+	padding: .3em 1em;
+}
 .dl-horizontal dt {
 	text-align: left;
 	margin-left: .5em;
