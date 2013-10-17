@@ -9,6 +9,7 @@ return array(
 	'file_upload_cutoff_time_CST' => 16, // 4pm CST in 24h format
 	'pagination_items_per_page' => 10, // Controls how many items we want listed per page of paginated items
 	'items_recently_received_limit' => 10,
+	'uploads_per_hour' => '5',
 
 	/*
 	|--------------------------------------------------------------------------

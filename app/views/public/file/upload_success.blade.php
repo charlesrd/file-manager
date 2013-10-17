@@ -1,5 +1,9 @@
 @extends('layouts.landing')
 
+@section('body-class')
+    <body class="login-page">
+@stop
+
 @section('main-content')
     <div class="success-wrapper">
         <div>

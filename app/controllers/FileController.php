@@ -54,21 +54,42 @@ class FileController extends BaseController {
             // user is logged in, upload to their user folder
             $destinationPath = 'uploads/' . $this->user->upload_folder;
             // Set upload validation rules
-            $uploadValidationRules = array('file' => 'required');
+            $uploadValidationRules = array('file.0' => 'mimes:application/sla,application/octet-stream,zip,sla,stl|required');
+            $uploadValidationMessages = array(
+                'file.0.required' => 'Please select files to attach.',
+                'file.0.mimes' => 'File type must be STL or ZIP'
+            );
 
             // Instantiate a validation object
-            $uploadValidation = Validator::make($uploadFiles, $uploadValidationRules);
+            $uploadValidation = Validator::make($uploadFiles, $uploadValidationRules, $uploadValidationMessages);
         } else if ($user) {
+            // get 
+            $key = session_id();
+            Cache::add($key, 0, 60);
+            $count = Cache::get($key);
+            $count++;
+            Cache::put($key, $count, 60);
+
+            // if ($count > Config::get('app.uploads_per_hour')) {
+            //     if (Request::ajax()) {
+            //         return Response::make('Hourly upload limit reached.', 400);
+            //     } else {
+            //         return Redirect::back()->with('upload_limit_reached', 'Hourly upload limit reached.')->withInput();
+            //     }
+            // }
+
+
             // user is not logged in, upload to guest folder
             $destinationPath = 'uploads/guest';
             // Set upload validation rules for guests
             $uploadValidationRules = array(
-                'file' => 'required',
+                'file.0' => 'mimes:application/sla,application/octet-stream,zip,sla,stl|required',
                 'guest_lab_name' => 'required',
                 'guest_lab_email' => 'required|email',
                 'guest_lab_phone' => 'required'
             );
             $uploadValidationMessages = array(
+                'file.0.required' => 'Please select files to attach.',
                 'guest_lab_name.required' => 'Please provide the name of your lab.',
                 'guest_lab_email.required' => 'Please provide a valid email.',
                 'guest_lab_phone.required' => 'Please provide a valid phone number.'
@@ -80,7 +101,12 @@ class FileController extends BaseController {
 
         // Run upload validation to check mime type, size, and required
         if ($uploadValidation->fails()) {
-            return Redirect::make($uploadValidation->messages()->first(), 400);
+            if (Request::ajax()) {
+                return Response::make($uploadValidation->messages()->first(), 400);
+            } else {
+                return Redirect::back()->withErrors($uploadValidation)->withInput();
+            }
+            
         }
 
         // Get the current file from upload array
@@ -123,11 +149,10 @@ class FileController extends BaseController {
             ));
         }
 
-        // Return the correct response based on upload status
-        if ($uploadSuccess) {
-            // Push this file onto the upload.files array session
-            //Session::put('upload.files', json_encode($file));
-            
+        // Upload to server and file move was successful
+        // Now we do the database stuff and then
+        // Return the correct response based on final upload status
+        if ($uploadSuccess) {            
             if (Session::has('upload.files')) {
                 $batch_id = $this->postBatchCreate();
 
@@ -153,7 +178,6 @@ class FileController extends BaseController {
                     } else {
                         return View::make('public.file.upload_fail')->with('file', $file);
                     }
-                    
                 }
 
                 if (Request::ajax()) {

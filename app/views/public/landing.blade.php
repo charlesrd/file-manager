@@ -37,14 +37,14 @@
                 <div class="controls" id="dz-container">
                     <div id="dz-guest-upload" class="dropzone">
                         <div class="fallback">
-                            {{ Form::file('file[]', array('multiple' => 'true')) }}
+                            {{ Form::file('file[]', array('multiple' => 'true', 'accept' => "application/x-rar-compressed,application/octet-stream,application/zip,application/sla")) }}
                         </div>
                     </div>
+                    {{ $errors->first('file.0', '<div class="alert alert-danger"><strong>Error!</strong> :message </div>') }}
                 </div>
             </div>
-
-            @if (Session::has('guest_upload_errors'))
-                <div class="alert alert-danger"><strong>Error!</strong> There was an error with your upload.  Please try again. </div>
+            @if (Session::has('upload_limit_reached'))
+                <div class="alert alert-danger text-center"><strong>Error!</strong> You have reached the maximum upload limit.<br /><br />Please try again in 60 minutes. </div>
             @endif
 
             <div class="form-group">
@@ -177,6 +177,8 @@
                 maxFiles: 100,
                 addRemoveLinks: true,
                 createImageThumbnails: false,
+                maxFiles: 10,
+                acceptedFiles: "application/x-rar-compressed,application/octet-stream,.zip,application/zip,.stl,application/sla,.sla",
                 url: "{{ route('file_upload_post') }}",
 
                 dictRemoveFile: "Delete",
@@ -193,6 +195,9 @@
                         focusInvalid: false, // do not focus the last invalid input
 
                         rules: {
+                            "file[]": {
+                                required: true
+                            },
                             guest_lab_name: {
                                 required: true
                             },
@@ -207,6 +212,7 @@
                         },
 
                         messages: {
+                            "file[]": "Please select files to attach.",
                             guest_lab_name: "Please provide the name of your lab.",
                             guest_lab_email: {
                                 required: "Please provide a valid email.",
@@ -241,7 +247,7 @@
                     });
 
                     dz.on("addedfile", function() {
-                        if (dz.files.length !== 0) {
+                        if (dz.files.length !== 0 && dz.files.length <= 10) {
                             $(".dropzone").css('overflow-y', 'scroll');
                             if (guestUploadForm.validate(validationOptions).checkForm()) {
                                 submitBtn.prop("disabled", false);
@@ -253,6 +259,9 @@
                             if (!guestUploadForm.validate(validationOptions).checkForm()) {
                                 submitBtn.prop("disabled", true);
                             }
+                        }
+                        if (dz.getRejectedFiles().length === 0) {
+                            $("#rejected-files").slideUp(500);
                         }
                     });
 
@@ -280,23 +289,48 @@
                         $("a.dz-remove").remove();
                     });
 
-                    dz.on("complete", function(file) {
-                        if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+                    var count = 0;
 
-                            $('<div class="alert alert-success lead text-muted text-center">Your files have been uploaded successfully. <br /><br />Check your email for a confirmation.  <a href="#" id="upload-more">Upload more?</a></div>').hide().appendTo('#dz-container').slideDown(500);
+                    dz.on("completemultiple", function(file) {
+                        if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0 && this.getRejectedFiles().length === 0) {
 
-                            $(document).on('click', '#upload-more', function(e) {
-                                e.preventDefault();
-                                e.stopPropagation();
+                            if (count == 0) {
+                                $('<div class="alert alert-success lead text-muted text-center">Your files have been uploaded successfully. <br /><br />Check your email for a confirmation.  <a href="#" id="upload-more">Upload more?</a></div>').hide().appendTo('#dz-container').slideDown(500);
 
-                                dz.removeAllFiles();
+                                $(document).on('click', '#upload-more', function(e) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
 
-                                $(".alert-success").slideUp(500, function() {
-                                    $(this).remove();
+                                    dz.removeAllFiles();
+
+                                    $(".alert-success").slideUp(500, function() {
+                                        $(this).remove();
+                                    });
+
+                                    count = 0;
+                                    submitBtn.prop('disabled', false)
                                 });
+                            }
+                            count++;
+                        } else {
+                            if (count == 0) {
+                                $('<div class="alert alert-danger lead text-muted text-center" id="rejected-files">Please fix errors above and <a href="#" id="try-again">Try again?</a></div>').hide().appendTo('#dz-container').slideDown(500);
 
-                                submitBtn.prop('disabled', false)
-                            });
+                                $(document).on('click', '#try-again', function(e) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+
+                                    dz.removeAllFiles();
+
+                                    $(".alert-danger").slideUp(500, function() {
+                                        $(this).remove();
+                                    });
+
+                                    count = 0;
+                                    submitBtn.prop('disabled', true)
+                                });
+                            }
+                            count++;
                         }
                     });
 
