@@ -7,21 +7,21 @@
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3>Message Inbox</h3>
+                                <h3>Conversation with {{ $conversation->users()->first()->dlp_user()->labName }} </h3>
                             </div>
                             <div class="panel-body">
                                 <ul class="messages">
                                     @if (isset($messages) && $messages->count())
                                         @foreach ($messages as $message)
-                                            @if ($message->user_id == $user->id)
+                                            @if ($message->user_id != 1)
                                                 <li>
                                                     <div class="message-to">
                                                         <div>
                                                             <h5>
-                                                            @if ($user->lab_contact)
-                                                                {{ $user->lab_contact }}
+                                                            @if ($message->user->lab_contact)
+                                                                {{ $message->user->lab_contact }}
                                                             @else
-                                                                {{ $user->username }}
+                                                                {{ $message->user->username }}
                                                             @endif
                                                             </h5>
                                                             <span class="time"><i class="icon-time"></i> {{ $message->formattedCreatedAt() }}</span>
@@ -59,6 +59,7 @@
                                 </div>
 
                                 {{ Form::open(array('route' => 'message_post', 'id' => 'form-message')) }}
+                                    {{ Form::hidden('conversation_id', $conversation->id) }}
                                     <div class="form-group" id="form-message-message">
                                         {{ Form::text('message', Input::old('message'), array('class' => 'form-control', 'placeholder' => 'Type your message here...')) }}
                                         {{ $errors->first('message', '<div class="alert alert-danger text-center"><strong>Error!</strong> :message </div>') }}

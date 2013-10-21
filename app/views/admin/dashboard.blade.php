@@ -4,20 +4,38 @@
 
 @section('main-content')
                 <div class="row" id="dashboard-tiles">
-                    <div class="col-md-3">
-                        <div class="tile tile-light-blue">
+                    <div class="col-md-4">
+                        <div class="tile">
                             <div class="img">
                                 <i class="icon-file"></i>
                             </div>
                             <div class="content">
                                 <p class="big">{{ $data['today_filecount'] }}</p>
-                                <p class="title">Today's Filecount</p>
+                                <p class="title">Today's Total</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
+                        <div class="tile">
+                            <div class="img">
+                                <i class="icon-file"></i>
+                            </div>
+                            <div class="content">
+                                <p class="big">{{ $data['weekly_filecount'] }}</p>
+                                <p class="title">Weekly Total</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
+                        <div class="tile">
+                            <div class="img">
+                                <i class="icon-file"></i>
+                            </div>
+                            <div class="content">
+                                <p class="big">{{ $data['averageXDays_filecount'] }}</p>
+                                <p class="title">Average of {{{ Config::get('app.average_last_x_days_filecount') }}} Days</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -33,7 +51,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>Date Uploaded</th>
-                                                    <th>From</th>
+                                                    <th>Lab</th>
+                                                    <th>Email</th>
                                                     <th>Files</th>
                                                     <th class="text-center">Download Status</th>
                                                     <th class="text-center">Shipping Status</th>
@@ -57,6 +76,9 @@
                                                             </td>
                                                             <td>
                                                                 {{ $batch['from_lab_name'] }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $batch['from_lab_email'] }}
                                                             </td>
                                                             <td>
                                                                 @if ($batch['num_files'] > 1)
@@ -94,7 +116,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr id="collapse-batch_details_{{ $batch['id'] }}" class="collapse no-transition batch-details">
-                                                            <td colspan="6">
+                                                            <td colspan="7">
                                                                 <div class="row batch-details-row">
                                                                     {{ Form::open(array('route' => 'file_download_checked', 'name' => 'form-batch-files', 'id' => 'form-batch-files-' . $batch['id'], 'data-batch-id' => $batch['id'])) }}
                                                                         <div class="col-md-2">

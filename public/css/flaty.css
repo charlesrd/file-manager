@@ -2124,7 +2124,9 @@ a.btn {
 }
 /* Tooltip  ------------------------------------------ */
 .tooltip .tooltip-inner {
-    border-radius: 0;
+    max-width: 450px;
+    padding: 10px;
+    word-wrap:break-word;
 }
 
 /* Popover ------------------------------------------ */
@@ -2166,10 +2168,13 @@ a.btn {
     position: relative;
     height: 120px;
     padding: 10px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
     margin-top: 10px;
     margin-bottom: 10px;
-    color: #fff;
+    color: #999;
     overflow: hidden;
+    background-color: rgba(0,0,0,0.05);
 }
 a.tile:hover {
     color: #fff;
@@ -2182,7 +2187,8 @@ a.tile:hover {
     background-repeat: no-repeat;
 }
 .tile p.title {
-    font-size: 16px;
+    font-size: 24px;
+    font-weight: 400;
     margin-bottom: 2px;
 }
 .tile.tile-img p.title {
@@ -2235,8 +2241,9 @@ a.tile:hover {
 }
 .tile .content > p.big {
     font-size: 35px;
-    font-weight: 400;
+    font-weight: 600;
     margin-bottom: 0;
+    line-height: 30px;
 }
 
 .tile-active {
@@ -2257,7 +2264,6 @@ a.tile:hover {
 }
 
 
-.tile,
 .tile-light-blue {background-color: #009dc6;}
 .tile-blue       {background-color: #0a59c0;}
 .tile-dark-blue  {background-color: #381095;}
@@ -2294,9 +2300,10 @@ a.tile:hover {
     width: 340px;
     margin: 0 auto;
 }
-.login-page form h3, .success-wrapper h3 {
+.login-page form h3, .error-page h3, .success-wrapper h3 {
     font-size: 25px;
     font-weight: 300;
+    text-align: center;
 }
 .login-page form input {
     border: 0;
@@ -2638,7 +2645,7 @@ a.tile:hover {
 }
 /* Error ------------------------------------------ */
 .error-page {
-    padding: 80px 0;
+    padding: 40px 0;
 }
 .error-page:before {
     content: "";
@@ -2652,7 +2659,7 @@ a.tile:hover {
     background-color: #fff;
     position: relative;
     z-index: 2;
-    width: 450px;
+    width: 475px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -2683,7 +2690,6 @@ a.tile:hover {
 .error-page form input {
     border: 0;
     background-color: #f5f6f7;
-    width: 345px;
 }
 .error-page form input,
 .error-page form button {

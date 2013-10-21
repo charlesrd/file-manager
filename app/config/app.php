@@ -9,7 +9,10 @@ return array(
 	'file_upload_cutoff_time_CST' => 16, // 4pm CST in 24h format
 	'pagination_items_per_page' => 10, // Controls how many items we want listed per page of paginated items
 	'items_recently_received_limit' => 10,
-	'uploads_per_hour' => '5',
+	'uploads_per_hour' => '1',
+	"average_last_x_days_filecount" => 7, // averages dashboard filecounts over the last X amount of days
+	'enable_upload_throttle' => false,
+	'noreply_email' => 'noreply@amsdti.com',
 
 	/*
 	|--------------------------------------------------------------------------

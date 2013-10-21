@@ -8,7 +8,7 @@
     <ul class="nav nav-list">
         <!-- BEGIN Search Form -->
         <li>
-            {{ Form::open(array('route' => 'file_search', 'class' => 'search-form')) }}
+            {{ Form::open(array('route' => 'search_post', 'class' => 'search-form')) }}
                 <span class="search-pan">
                     <button type="submit">
                         <i class="icon-search"></i>

@@ -23,20 +23,31 @@
                     <li class="hidden-xs">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <i class="icon-file"></i>
-                            <span class="badge badge-important">{{ $filesNotDownloaded->count() }}</span>
+                            @if($filesNotDownloaded->count() == 0)
+                                <span class="badge badge-success">{{ $filesNotDownloaded->count() }}</span>
+                            @else
+                                <span class="badge badge-important">{{ $filesNotDownloaded->count() }}</span>
+                            @endif
                         </a>
 
                         <!-- BEGIN Files Not Downloaded Dropdown -->
                         <ul class="dropdown-navbar dropdown-menu">
                             <li class="nav-header">
-                                <a class="label label-important show-tooltip" title="View all new files..." href="{{ route('file_received') }}"><i class="icon-download"></i></a>
-                                {{ $filesNotDownloaded->count() }} NEW FILES
+                                @if ($filesNotDownloaded->count() == 0)
+                                    <p class="text-center no-margin">NO NEW FILES</p>
+                                @elseif($filesNotDownloaded->count() == 1)
+                                    <a class="label label-important show-tooltip" title="View all new files..." href="{{ route('file_received') }}"><i class="icon-download"></i></a>
+                                    {{ $filesNotDownloaded->count() }} NEW FILE
+                                @else
+                                    <a class="label label-success show-tooltip" title="View all files..." href="{{ route('file_received') }}"><i class="icon-download"></i></a>
+                                    {{ $filesNotDownloaded->count() }} NEW FILES
+                                @endif
                             </li>
                                 
 
 
                             <li class="more">
-                                {{ Html::linkRoute('file_history', 'View new files...') }}
+                                {{ Html::linkRoute('file_history', 'View files...') }}
                             </li>
                         </ul>
                         <!-- END Files Not Downloaded Dropdown -->

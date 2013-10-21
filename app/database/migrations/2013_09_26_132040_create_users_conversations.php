@@ -20,6 +20,7 @@ class CreateUsersConversations extends Migration {
 			$table->integer('user_id'); // USER ID OF RECIPIENT
 			$table->integer('conversation_id');
 			$table->boolean('read')->default(0);
+			$table->boolean('read_admin')->default(0);
 			$table->timestamps();
 
 			// We'll need to ensure that MySQL uses the InnoDB engine to

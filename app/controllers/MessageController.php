@@ -13,24 +13,24 @@ class MessageController extends \BaseController {
 	}
 
 	public function getIndex() {
-		if ($this->user->id == 1) {
-			
+		// At this point in time, only user with id=1 (UDRC) should have access to conversations list
+		if ($this->user->hasAccess('admin') && $this->user->id == 1) {
+			$conversations = Conversation::with('users')->paginate(Config::get('app.pagination_items_per_page'));
+			return View::make('admin.message.conversations')->withConversations($conversations);
 		} else {
 			$conversation = $this->user->conversations->first();
+			$messages = null;
 
-			if ($conversation) {
-				$messages = Conversation::find($conversation->id)->messages()->paginate(Config::get('app.pagination_items_per_page'));
-			} else {
-				$messages = null;
+			if (!$conversation) {
+				return View::make('user.message.messages');
 			}
 
-			//$messages = Message::where('from_user_id', '=', $this->user->id)->orWhere('to_user_id', '=', $this->user->id)->orderBy('id', 'DESC')->paginate(15);
-		
-			return View::make('user.message.messages')->with('messages', $messages);
+			$messages = Conversation::find($conversation->id)->messages()->paginate(Config::get('app.pagination_items_per_page'));
+			return View::make('user.message.messages')->withMessages($messages);
 		}
 	}
 
-	public function postIndex() {
+	public function postMessage() {
 		$messageValidationRules = array(
             'message' => 'required'
         );
@@ -45,14 +45,39 @@ class MessageController extends \BaseController {
         	return Redirect::route('message')->withErrors($messageValidation);
         }
 
+        if (Input::has('conversation_id') && $this->user->id == 1) {
+        	$conversation = Conversation::findOrFail(Input::get('conversation_id'));
+        } else if ($this->user->hasAccess('users')) {
+        	$conversation = $this->user->conversations()->first();
+        }
+
+        if (!$conversation) {
+        	$conversation = new Conversation;
+        	$conversation->save();
+        }
+
 		$message = new Message;
 		$message->user_id = $this->user->id;
-		$message->conversation_id = 1;
+		$message->conversation_id = $conversation->id;
 		$message->body = Input::get('message');
+		$message->save();
 
-		if ($message->save()) {
-			return Redirect::route('message');
+		$conversation->messages()->save($message);
+		if (!$conversation->users()->where('user_id', '=', $this->user->id)->first()) {
+			$conversation->users()->attach($this->user->id);
 		}
+
+		if (Input::has('conversation_id')) {
+			return Redirect::route('message_conversation', Input::get('conversation_id'));
+		}
+		return Redirect::route('message');
+	}
+
+	public function getConversation($conversation_id) {
+		$conversation = Conversation::with('users')->findOrFail($conversation_id);
+		$messages = $conversation->messages()->with('user')->paginate(Config::get('app.pagination_items_per_page'));
+
+		return View::make('admin.message.messages')->withConversation($conversation)->withMessages($messages);
 	}
 
 }

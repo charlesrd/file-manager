@@ -3,11 +3,12 @@
 // app/models/Message.php
 
 namespace App\Models;
+use Eloquent;
 
-class Message extends \Eloquent {
+class Message extends Eloquent {
 
 	public function user() {
-		return $this->belongsTo('App\Models\User');
+		return $this->belongsTo('User');
 	}
 
 	public function conversation() {

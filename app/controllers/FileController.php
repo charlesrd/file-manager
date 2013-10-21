@@ -54,7 +54,7 @@ class FileController extends BaseController {
             // user is logged in, upload to their user folder
             $destinationPath = 'uploads/' . $this->user->upload_folder;
             // Set upload validation rules
-            $uploadValidationRules = array('file.0' => 'mimes:application/sla,application/octet-stream,zip,sla,stl|required');
+            $uploadValidationRules = array('file.0' => 'required');
             $uploadValidationMessages = array(
                 'file.0.required' => 'Please select files to attach.',
                 'file.0.mimes' => 'File type must be STL or ZIP'
@@ -63,33 +63,35 @@ class FileController extends BaseController {
             // Instantiate a validation object
             $uploadValidation = Validator::make($uploadFiles, $uploadValidationRules, $uploadValidationMessages);
         } else if ($user) {
-            // get 
-            $key = session_id();
-            Cache::add($key, 0, 60);
-            $count = Cache::get($key);
-            $count++;
-            Cache::put($key, $count, 60);
+            if (Config::get('app.enable_upload_throttle')) {
+                $key = session_id();
+                Cache::add($key, 0, 60);
+                $count = Cache::get($key);
+                $count++;
+                Cache::put($key, $count, 60);
 
-            // if ($count > Config::get('app.uploads_per_hour')) {
-            //     if (Request::ajax()) {
-            //         return Response::make('Hourly upload limit reached.', 400);
-            //     } else {
-            //         return Redirect::back()->with('upload_limit_reached', 'Hourly upload limit reached.')->withInput();
-            //     }
-            // }
+                if ($count > Config::get('app.uploads_per_hour')) {
+                    if (Request::ajax()) {
+                        return Response::make('Hourly upload limit reached.', 400);
+                    } else {
+                        return Redirect::back()->with('upload_limit_reached', 'Hourly upload limit reached.')->withInput();
+                    }
+                }
+            }   
 
 
             // user is not logged in, upload to guest folder
             $destinationPath = 'uploads/guest';
             // Set upload validation rules for guests
             $uploadValidationRules = array(
-                'file.0' => 'mimes:application/sla,application/octet-stream,zip,sla,stl|required',
+                'file.0' => 'required',
                 'guest_lab_name' => 'required',
                 'guest_lab_email' => 'required|email',
                 'guest_lab_phone' => 'required'
             );
             $uploadValidationMessages = array(
                 'file.0.required' => 'Please select files to attach.',
+                'file.0.mimes' => 'File type must be STL or ZIP',
                 'guest_lab_name.required' => 'Please provide the name of your lab.',
                 'guest_lab_email.required' => 'Please provide a valid email.',
                 'guest_lab_phone.required' => 'Please provide a valid phone number.'
@@ -102,7 +104,7 @@ class FileController extends BaseController {
         // Run upload validation to check mime type, size, and required
         if ($uploadValidation->fails()) {
             if (Request::ajax()) {
-                return Response::make($uploadValidation->messages()->first(), 400);
+                return Response::json($uploadValidation->messages()->first(), 400);
             } else {
                 return Redirect::back()->withErrors($uploadValidation)->withInput();
             }
@@ -208,9 +210,25 @@ class FileController extends BaseController {
     }
 
     public function getHistory() {
-        $files = $this->user->files()->orderBy('created_at', 'DESC')->paginate(Config::get('app.pagination_items_per_page'));
+        if ($this->user->hasAccess('superuser')) {
+            return View::make('superuser.dashboard');
+        } else if ($this->user->hasAccess('admin')) {
+            $data = File::getFiles($this->user->id);
+            $batches = $data['batches'];
+            $data['today_filecount'] = File::todayFileCount($this->user->id);
+            $data['weekly_filecount'] = File::weeklyFileCount($this->user->id);
+            $data['averageXDays_filecount'] = File::averageXDays($this->user->id);
 
-        return View::make('user.file.history')->with("files", $files);
+            return View::make('admin.dashboard')->with('data', $data)->with('batches', $batches);
+        } else if ($this->user->hasAccess('users')) {
+            $data = File::getFiles($this->user->id);
+            $batches = $data['batches'];
+            $data['today_filecount'] = File::todayFileCount($this->user->id);
+            $data['weekly_filecount'] = File::weeklyFileCount($this->user->id);
+            $data['averageXDays_filecount'] = File::averageXDays($this->user->id);
+
+            return View::make('user.dashboard')->with('data', $data)->with('batches', $batches);
+        }
     }
 
     public function postHistory() {
@@ -297,8 +315,8 @@ class FileController extends BaseController {
         if ($this->user->hasAccess('superuser')) {
             //return View::make('superuser.file.received')->with('files', $files);
         } else if ($this->user->hasAccess('admin')) {
-            $data = File::getReceivedFiles();
-            $batches = Batch::orderBy('created_at', 'DESC')->paginate(Config::get('app.pagination_items_per_page'));
+            $data = File::getFiles($this->user->id);
+            $batches = $data['batches'];
 
             return View::make('admin.file.received')->with('data', $data)->with('batches', $batches);
         } else {
@@ -469,6 +487,14 @@ class FileController extends BaseController {
         } else {
             return Redirect::route('file_received');
         }
+    }
+
+    public function getUpdateTracking($file_id) {
+
+    }
+
+    public function postUpdateTracking($file_id) {
+        
     }
 
 }

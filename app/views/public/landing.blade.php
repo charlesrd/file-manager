@@ -37,7 +37,7 @@
                 <div class="controls" id="dz-container">
                     <div id="dz-guest-upload" class="dropzone">
                         <div class="fallback">
-                            {{ Form::file('file[]', array('multiple' => 'true', 'accept' => "application/x-rar-compressed,application/octet-stream,application/zip,application/sla")) }}
+                            {{ Form::file('file[]', array('multiple' => 'true', 'accept' => ".STL, .SLA, .ZIP, application/octet-stream, application/zip, application/sla")) }}
                         </div>
                     </div>
                     {{ $errors->first('file.0', '<div class="alert alert-danger"><strong>Error!</strong> :message </div>') }}
@@ -92,7 +92,7 @@
                 <label class="checkbox pull-left">
                     {{ Form::checkbox('remember', '1') }} Remember me
                 </label>
-                <a href="#" class="goto-forgot pull-right">Forgot Password?</a>
+                <a href="{{ route('user_reset_password') }}" class="goto-forgot pull-right">Forgot Password?</a>
             </p>
             <hr />
             <img src="{{ asset('img/ams_filemanager_logo.png') }}" alt="{{ Config::get('app.company_name') }} - {{ Config::get('app.site_title') }} Logo" id="logo" />
@@ -111,14 +111,14 @@
         <!-- END Login Form -->
 
         <!-- BEGIN Forgot Password Form -->
-        {{ Form::open(array('route' => 'user_resetpassword', 'id' => 'form-forgot', 'style' => 'display: none;')) }}
+        {{ Form::open(array('route' => 'user_reset_password', 'id' => 'form-forgot', 'style' => 'display: none;')) }}
             <h3>Password Recovery</h3>
             <hr/>
             <p>Enter the email address associated with your DentalLabProfile.com account to receive your password</p>
             <hr/>
             <div class="form-group">
                 <div class="controls">
-                    <input type="text" placeholder="email" class="form-control" />
+                    <input type="text" name="lab_email" placeholder="email" class="form-control" />
                 </div>
             </div>
             <div class="form-group">
@@ -147,22 +147,28 @@
 
     <script type="text/javascript">
         function goToForm(form) {
+            var normalWidth = $('.login-wrapper').css('width');
             if (form == "login") {
                 $('.login-wrapper > form:visible').fadeOut(500, function(){
+                    $('.login-wrapper').css('width', '1050px');
                     $('#form-login, #form-guest-upload, span#landing-separator').fadeIn(500);
                 });
             } else {
                 $('.login-wrapper > form:visible, span#landing-separator').fadeOut(500, function(){
+                    $('.login-wrapper').css('width', '475px');
                     $('#form-forgot').fadeIn(500);
-                    $('span#landing-separator').css('')
                 });
             }
         }
         $(function() {
-            $('.goto-login').click(function(){
+            $('.goto-login').click(function(e){
+                e.preventDefault(); // prevent default action of click event
+                e.stopPropagation(); // stop DOM propagation
                 goToForm('login');
             });
-            $('.goto-forgot').click(function(){
+            $('.goto-forgot').click(function(e){
+                e.preventDefault(); // prevent default action of click event
+                e.stopPropagation(); // stop DOM propagation
                 goToForm('forgot');
             });
         });

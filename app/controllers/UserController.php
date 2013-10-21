@@ -96,11 +96,48 @@ class UserController extends BaseController {
 	}
 
     public function getResetPassword() {
-        dd($user);
+        return View::make('public.user.reset_password');
     }
 
     public function postResetPassword() {
+        // grab all posted inputs from login form
+        $inputs = Input::all();
 
+        // define validation rules
+        $rules = array(
+            'lab_email' => 'required|email'
+        );
+
+        $messages = array(
+            'lab_email.required' => 'Please enter the email address linked to your DentalLabProfile account.',
+            'lab_email.email' => 'Please enter a correctly formatted email.'
+        );
+
+        // create new Validator instance using inputs and rules
+        $validation = Validator::make($inputs, $rules, $messages);
+
+        // run validation check
+        if ($validation->fails()) {
+            return Redirect::route('user_reset_password')->withErrors($validation)->withInput();
+        } else {
+            $emptyModelInstance = Sentry::getUserProvider()->getEmptyUser();
+            $user = $emptyModelInstance->where('email', '=', Input::get('email'))->first();
+
+            if (!$user) {
+                return View::make('public.user.reset_password')->with('formError', 'User with email <code>' . Input::get('lab_email') . '</code> not found.');
+            } else {
+                $data = array(
+                    'lab_name' => $user->dlp_user->labName,
+                    'lab_email' => $user->email,
+                    'password_reset_code' => $user->getResetPasswordCode() 
+                );
+                Mail::send('emails.auth.reset_password', $data, function($message) use ($user) {
+                    $message->from(Config::get('app.noreply_email'), Config::get('app.company_name'));
+                    $message->to($data['lab_email'], $data['lab_name']);
+                });
+            }
+
+        }
     }
 
 }

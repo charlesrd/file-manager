@@ -1,12 +1,19 @@
 body {
 	background-color: #e9f0f9;
 }
+.popover {
+	text-align: center;
+}
 .no-transition {
 	-webkit-transition: height 0.001s;
 	-moz-transition: height 0.001s;
 	-ms-transition: height 0.001s;
 	-o-transition: height 0.001s;
 	transition: height 0.001s;
+}
+.tooltip-inner {
+	width: auto;
+	border-radius: 5px;
 }
 tr.hover {
    cursor: pointer;
@@ -16,6 +23,9 @@ div.alert {
 }
 #dashboard-tiles > div {
 	padding: .3em 1em;
+}
+.no-margin {
+	margin: 0;
 }
 .dl-horizontal dt {
 	text-align: left;
@@ -110,6 +120,10 @@ img#logo {
 
 .login-page .login-wrapper form {
     width: 475px;
+}
+
+.login-page .login-wrapper form > h3 {
+	text-align: center;
 }
 
 .login-page .login-wrapper form#form-guest-upload {

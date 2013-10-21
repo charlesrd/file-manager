@@ -7,7 +7,7 @@
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3>File History</h3>
+                                <h3>Received Files</h3>
                             </div>
                             <div class="panel-body">
                                 @if (!empty($data['batch']))
@@ -16,7 +16,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>Date Uploaded</th>
-                                                    <th>From</th>
+                                                    <th>Lab</th>
+                                                    <th>Email</th>
                                                     <th>Files</th>
                                                     <th class="text-center">Download Status</th>
                                                     <th class="text-center">Shipping Status</th>
@@ -40,6 +41,9 @@
                                                             </td>
                                                             <td>
                                                                 {{ $batch['from_lab_name'] }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $batch['from_lab_email'] }}
                                                             </td>
                                                             <td>
                                                                 @if ($batch['num_files'] > 1)
@@ -77,7 +81,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr id="collapse-batch_details_{{ $batch['id'] }}" class="collapse no-transition batch-details">
-                                                            <td colspan="6">
+                                                            <td colspan="7">
                                                                 <div class="row batch-details-row">
                                                                     {{ Form::open(array('route' => 'file_download_checked', 'name' => 'form-batch-files', 'id' => 'form-batch-files-' . $batch['id'], 'data-batch-id' => $batch['id'])) }}
                                                                         <div class="col-md-2">
@@ -101,6 +105,7 @@
                                                                                     <th>Date Uploaded</th>
                                                                                     <th>Expiration</th>
                                                                                     <th class="text-center">Download</th>
+                                                                                    <th>Shipping</th>
                                                                                 </thead>
                                                                                 <tbody>
                                                                             @foreach ($batch['files'] as $file)
@@ -118,6 +123,13 @@
                                                                                             <a href="{{ route('file_download_single', $file->id) }}" class="btn btn-success show-tooltip" title="Download {{ $file->filename_original }} again"><i class="icon-cloud-download"></i></a>
                                                                                         @else
                                                                                             <a href="{{ route('file_download_single', $file->id) }}" class="btn btn-danger show-tooltip" title="Download {{ $file->filename_original }}"><i class="icon-cloud-download"></i></a>
+                                                                                        @endif
+                                                                                    </td>
+                                                                                    <td class="text-center">
+                                                                                        @if ($file->shipping_status)
+                                                                                            <a href="{{ route('file_update_tracking', $file->id) }}" class="btn btn-success show-tooltip tracking-popover" title="Update tracking number for {{ $file->filename_original }} again" data-file-id="{{ $file->id }}"><i class="icon-truck"></i></a>
+                                                                                        @else
+                                                                                            <a href="{{ route('file_update_tracking', $file->id) }}" class="btn btn-danger show-tooltip tracking-popover" title="Add tracking number for {{ $file->filename_original }}" data-file-id="{{ $file->id }}"><i class="icon-truck"></i></a>
                                                                                         @endif
                                                                                     </td>
                                                                                 </tr>
@@ -149,7 +161,7 @@
                                         <strong><i class="icon-cloud-download"></i> </strong> Files can be downloaded for 7 days.  Download access to files will be removed after their expiration.
                                     </div>
                                 @else
-                                    <div class="alert alert-danger lead text-muted text-center">You don't seem to have any recently uploaded files.  <br /><br />Once you've uploaded files, detailed information will be available here.</div>
+                                    <div class="alert alert-danger lead text-muted text-center">You have not yet received files.  <br /><br />Once files have been uploaded, detailed information will be available here.</div>
                                 @endif
                             </div>
                         </div>
@@ -160,7 +172,26 @@
 @section('extra-scripts')
 
     <script type="text/javascript">
+        function buildTrackingUpdateForm(file_id) {
+            var html = null;
+
+            html = "{{ Form::open(array('route' => 'file_update_tracking_post', " + file_id + ")) }}
+                Test form!
+            {{ Form::close() }}";
+
+            return html;
+        }
         $(document).ready(function() {
+            $('.tracking-popover').on('click', function(e) {
+                e.preventDefault();
+            }).popover({
+                placement: 'bottom',
+                html: true,
+                content: function() {
+                    return buildTrackingUpdateForm($(this).data('file-id'));
+                }
+            });
+
             $("form button[id^=btn-download-as-batch]").prop('disabled', true);
             $("input[type=checkbox]").on('click', function() {
                 var batch_id = $(this).closest("form").data('batch-id');

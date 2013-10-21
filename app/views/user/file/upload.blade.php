@@ -21,7 +21,7 @@
                             <div class="controls" id="dz-container">
                                 <div id="dz-upload" class="dropzone">
                                     <div class="fallback">
-                                        {{ Form::file('file[]', array('multiple' => 'true')) }}
+                                        {{ Form::file('file[]', array('multiple' => 'true', 'accept' => '.STL, .SLA, .ZIP, application/octet-stream, application/zip, application/sla')) }}
                                     </div>
                                 </div>
                             </div>
@@ -52,69 +52,99 @@
     $(document).ready(function() {
         Dropzone.autoDiscover = false;
 
-            $("#dz-upload").dropzone({
-                autoProcessQueue: false,
-                uploadMultiple: true,
-                parallelUploads: 100,
-                maxFiles: 100,
-                addRemoveLinks: true,
-                createImageThumbnails: false,
-                url: "{{ route('file_upload_post') }}",
+        $("#dz-upload").dropzone({
+            autoProcessQueue: false,
+            uploadMultiple: true,
+            parallelUploads: 100,
+            maxFiles: 100,
+            addRemoveLinks: true,
+            createImageThumbnails: false,
+            maxFiles: 10,
+            acceptedFiles: "application/x-rar-compressed,application/octet-stream,.zip,application/zip,.stl,application/sla,.sla",
+            url: "{{ route('file_upload_post') }}",
 
-                dictRemoveFile: "Delete",
+            dictRemoveFile: "Delete",
 
-                init: function() {
-                    var dz = this;
-                    var uploadForm = $('#form-upload');
-                    var submitBtn = $("form#form-upload button[type=submit]");
+            init: function() {
+                var dz = this;
+                var uploadForm = $('#form-upload');
+                var submitBtn = $("#form-upload button[type=submit]");
 
-                    // disable submit button by default
-                    submitBtn.prop("disabled", true);
+                // Set vaidation options for upload form
+                var validationOptions = {
+                    errorElement: 'div', //default input error message container
+                    errorClass: 'alert alert-danger', // default input error message class
+                    focusInvalid: false, // do not focus the last invalid input
 
-                    // // Enable or disable submit button based on form validation and dropzone queue length
-                    // uploadForm.bind('keyup', function() {
-                    //     if ($(this).validate(validationOptions).checkForm() && dz.files.length > 0) {
-                    //         submitBtn.prop("disabled", false);
-                    //     } else {
-                    //         submitBtn.prop("disabled", true);
-                    //     }
-                    // });
+                    rules: {
+                        "file[]": {
+                            required: true
+                        }
+                    },
 
-                    dz.on("addedfile", function() {
-                        if (dz.files.length !== 0) {
-                            $(".dropzone").css('overflow-y', 'scroll');
+                    messages: {
+                        "file[]": "Please select files to attach."
+                    },
+
+                    highlight: function(element, errorClass, validClass) {
+                        $(element).removeClass(errorClass);
+                    },
+
+                    // Callback for handling actual submit when form is valid
+                    submitHandler: function(form) {
+                        form.submit();
+                    }
+                }
+
+                // disable submit button by default
+                submitBtn.prop("disabled", true);
+
+                dz.on("addedfile", function() {
+                    if (dz.files.length !== 0 && dz.files.length <= 10) {
+                        $(".dropzone").css('overflow-y', 'scroll');
+                        if (uploadForm.validate(validationOptions).checkForm()) {
                             submitBtn.prop("disabled", false);
                         }
-                    }).on("removedfile", function() {
-                        if (dz.files.length === 0) {
-                            $(".dropzone").css('overflow-y', '');
+                    }
+                }).on("removedfile", function() {
+                    if (dz.files.length === 0) {
+                        $(".dropzone").css('overflow-y', '');
+                        if (!uploadForm.validate(validationOptions).checkForm()) {
                             submitBtn.prop("disabled", true);
                         }
-                    });
+                    }
+                    if (dz.getRejectedFiles().length === 0) {
+                        $("#rejected-files").slideUp(500);
+                    }
+                });
 
-                    $("form#form-upload button[type=submit]").click(
-                        function(e) {
-                            e.preventDefault(); // prevent default action of click event
-                            e.stopPropagation(); // stop DOM propagation
+                $("form#form-upload button[type=submit]").click(
+                    function(e) {
+                        e.preventDefault(); // prevent default action of click event
+                        e.stopPropagation(); // stop DOM propagation
 
-                            // Process uploads if all validation has passed.
-                            dz.processQueue();
+                        // Process uploads if all validation has passed.
+                        dz.processQueue();
 
-                            $(this).prop('disabled', true);
-                        }
-                    );
+                        $(this).prop('disabled', true);
+                    }
+                );
 
-                    this.on("sending", function(file, xhr, formData) {
-                        formData.append('_token', $("input[name=_token]").val());
-                        formData.append('lab_message', $("#lab_message").val());
-                    });
+                dz.on("sendingmultiple", function(file, xhr, formData) {
+                    formData.append('lab_message', $("#lab_message").val());
+                    formData.append('_token', $("input[name=_token]").val());
+                });
 
-                    this.on("success", function(file, response) {
-                        $("a.dz-remove").remove();
-                    });
+                dz.on("successmultiple", function(file, response) {
+                    $("a.dz-remove").remove();
+                });
 
-                    this.on("complete", function(file) {
-                        if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+                var count = 0;
+
+                dz.on("completemultiple", function(file) {
+                    if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0 && this.getRejectedFiles().length === 0) {
+
+                        if (count == 0) {
                             $('<div class="alert alert-success lead text-muted text-center">Your files have been uploaded successfully. <br /><br />Check your email for a confirmation.  <a href="#" id="upload-more">Upload more?</a></div>').hide().appendTo('#dz-container').slideDown(500);
 
                             $(document).on('click', '#upload-more', function(e) {
@@ -127,13 +157,35 @@
                                     $(this).remove();
                                 });
 
+                                count = 0;
                                 submitBtn.prop('disabled', false)
                             });
                         }
-                    });
+                        count++;
+                    } else {
+                        if (count == 0) {
+                            $('<div class="alert alert-danger lead text-muted text-center" id="rejected-files">Please fix errors above and <a href="#" id="try-again">Try again?</a></div>').hide().appendTo('#dz-container').slideDown(500);
 
-                }
-            });
+                            $(document).on('click', '#try-again', function(e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+
+                                dz.removeAllFiles();
+
+                                $(".alert-danger").slideUp(500, function() {
+                                    $(this).remove();
+                                });
+
+                                count = 0;
+                                submitBtn.prop('disabled', true)
+                            });
+                        }
+                        count++;
+                    }
+                });
+
+            }
         });
+    });
     </script>
 @stop

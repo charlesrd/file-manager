@@ -41,12 +41,19 @@ Route::controller('file', 'FileController', array(
 	'postBatchCreate' => 'file_batch_create_post',
 	'getDownloadSingle' => 'file_download_single',
 	'getDownloadBatch' => 'file_download_batch',
-	'postDownloadChecked' => 'file_download_checked'
+	'postDownloadChecked' => 'file_download_checked',
+	'getUpdateTracking' => 'file_update_tracking',
+	'postUpdateTracking' => 'file_update_tracking_post'
+));
+
+Route::get('search', array(
+	'as' => 'search',
+	'uses' => 'SearchController@getIndex'
 ));
 
 Route::post('search', array(
 	'before' => 'csrf',
-	'as' => 'file_search',
+	'as' => 'search_post',
 	'uses' => 'SearchController@postResults'
 ));
 
@@ -59,7 +66,8 @@ Route::get('admin', array(
 // Message Routes
 Route::controller('message', 'MessageController', array(
 	'getIndex' => 'message',
-	'postIndex' => 'message_post'
+	'postMessage' => 'message_post',
+	'getConversation' => 'message_conversation'
 ));
 
 // User Routes
@@ -86,10 +94,14 @@ Route::group(array('prefix' => 'user'), function() {
 		'uses' => 'UserController@getLogout'
 	));
 
-	Route::get('resetpassword', array(
-		'as' => 'user_resetpassword',
-		'before' => 'auth',
+	Route::get('reset_password', array(
+		'as' => 'user_reset_password',
 		'uses' => 'UserController@getResetPassword'
+	));
+
+	Route::post('reset_password', array(
+		'as' => 'user_reset_password_post',
+		'uses' => 'UserController@postResetPassword'
 	));
 
 });
