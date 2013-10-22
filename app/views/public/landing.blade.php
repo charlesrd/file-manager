@@ -13,19 +13,19 @@
             <div class="form-group">
                 <div class="controls">
                     {{ Form::text('guest_lab_name', Input::old('guest_lab_name'), array('class' => 'form-control', 'id' => 'guest_lab_name', 'placeholder' => 'lab name (required)')) }}
-                    {{ $errors->first('guest_lab_name', '<div class="alert alert-danger"><strong>Error!</strong> :message </div>') }}
+                    {{ $errors->first('guest_lab_name', '<div class="alert alert-danger"> :message </div>') }}
                 </div>
             </div>
             <div class="form-group">
                 <div class="controls">
                     {{ Form::email('guest_lab_email', Input::old('guest_lab_email'), array('class' => 'form-control', 'id' => 'guest_lab_email', 'placeholder' => 'lab email (required)')) }}
-                    {{ $errors->first('guest_lab_email', '<div class="alert alert-danger"><strong>Error!</strong> :message </div>') }}
+                    {{ $errors->first('guest_lab_email', '<div class="alert alert-danger"> :message </div>') }}
                 </div>
             </div>
             <div class="form-group">
                 <div class="controls">
                     {{ Form::text('guest_lab_phone', Input::old('guest_lab_phone'), array('class' => 'form-control', 'id' => 'guest_lab_phone', 'placeholder' => 'lab phone number (required)')) }}
-                    {{ $errors->first('guest_lab_phone', '<div class="alert alert-danger"><strong>Error!</strong> :message </div>') }}
+                    {{ $errors->first('guest_lab_phone', '<div class="alert alert-danger"> :message </div>') }}
                 </div>
             </div>
             <div class="form-group">
@@ -40,11 +40,24 @@
                             {{ Form::file('file[]', array('multiple' => 'true', 'accept' => ".STL, .SLA, .ZIP, application/octet-stream, application/zip, application/sla")) }}
                         </div>
                     </div>
-                    {{ $errors->first('file.0', '<div class="alert alert-danger"><strong>Error!</strong> :message </div>') }}
+                    {{ $errors->first('file.0', '<div class="alert alert-danger"> :message </div>') }}
                 </div>
             </div>
             @if (Session::has('upload_limit_reached'))
-                <div class="alert alert-danger text-center"><strong>Error!</strong> You have reached the maximum upload limit.<br /><br />Please try again in 60 minutes. </div>
+                <div class="alert alert-danger text-center"> You have reached the maximum upload limit.<br /><br />Please try again in 60 minutes. </div>
+            @endif
+
+            @if (isset($afterCutoff) && $afterCutoff == true)
+                <div class="form-group">
+                    <div class="controls">
+                        <div class="alert alert-info"><strong>Notice!</strong>  Files uploaded after 4PM CST are subject to 10% processing fee for same day processing.
+                        <br />
+                        <p class="text-left">{{ Form::radio('accept_cutoff_fee', 'true', true) }} <strong>Yes</strong>, please process my files today and charge a 10% fee</p>
+                        <p class="text-left">{{ Form::radio('accept_cutoff_fee', 'false') }} <strong>No</strong>, please wait until the next business day to process files</p>
+                        </div>
+                        {{ $errors->first('accept_cutoff_fee', '<div class="alert alert-danger"> :message </div>') }}
+                    </div>
+                </div>
             @endif
 
             <div class="form-group">
@@ -80,7 +93,7 @@
             </div>
 
             @if (Session::has('login_errors'))
-                <div class="alert alert-danger"><strong>Error!</strong> Invalid login credentials. </div>
+                <div class="alert alert-danger">Invalid login credentials. </div>
             @endif
 
             <div class="form-group">
@@ -193,6 +206,7 @@
                     var dz = this;
                     var guestUploadForm = $('#form-guest-upload');
                     var submitBtn = $("form#form-guest-upload button[type=submit]");
+                    var acceptCutoffFee = $("input[type=radio][name=accept_cutoff_fee]");
 
                     // Set vaidation options for guest upload form
                     var validationOptions = {
@@ -237,6 +251,13 @@
                         // Callback for handling actual submit when form is valid
                         submitHandler: function(form) {
                             form.submit();
+                        }
+                    }
+
+                    if (acceptCutoffFee.length != 0) {
+                        validationOptions.rules.accept_cutoff_fee = {
+                            required: true,
+                            messages: "Please accept or reject the additional processing fee."
                         }
                     }
 
@@ -288,6 +309,7 @@
                         formData.append('guest_lab_email', $("#guest_lab_email").val());
                         formData.append('guest_lab_message', $("#guest_lab_message").val());
                         formData.append('guest_lab_phone', $("#guest_lab_phone").val());
+                        formData.append('accept_cutoff_fee', $("#accept_cutoff_fee").val());
                         formData.append('_token', $("input[name=_token]").val());
                     });
 

@@ -23,6 +23,7 @@ class CreateBatches extends Migration {
 			$table->text('guest_lab_phone')->nullable();
 			$table->text('message')->nullable();
 			$table->timestamp('expiration');
+			$table->integer('accept_cutoff_fee')->default(0);
 			$table->timestamps();
 
 			// We'll need to ensure that MySQL uses the InnoDB engine to

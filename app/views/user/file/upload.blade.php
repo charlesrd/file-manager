@@ -70,48 +70,18 @@
                 var uploadForm = $('#form-upload');
                 var submitBtn = $("#form-upload button[type=submit]");
 
-                // Set vaidation options for upload form
-                var validationOptions = {
-                    errorElement: 'div', //default input error message container
-                    errorClass: 'alert alert-danger', // default input error message class
-                    focusInvalid: false, // do not focus the last invalid input
-
-                    rules: {
-                        "file[]": {
-                            required: true
-                        }
-                    },
-
-                    messages: {
-                        "file[]": "Please select files to attach."
-                    },
-
-                    highlight: function(element, errorClass, validClass) {
-                        $(element).removeClass(errorClass);
-                    },
-
-                    // Callback for handling actual submit when form is valid
-                    submitHandler: function(form) {
-                        form.submit();
-                    }
-                }
-
                 // disable submit button by default
                 submitBtn.prop("disabled", true);
 
                 dz.on("addedfile", function() {
                     if (dz.files.length !== 0 && dz.files.length <= 10) {
                         $(".dropzone").css('overflow-y', 'scroll');
-                        if (uploadForm.validate(validationOptions).checkForm()) {
-                            submitBtn.prop("disabled", false);
-                        }
+                        submitBtn.prop("disabled", false);
                     }
                 }).on("removedfile", function() {
                     if (dz.files.length === 0) {
                         $(".dropzone").css('overflow-y', '');
-                        if (!uploadForm.validate(validationOptions).checkForm()) {
-                            submitBtn.prop("disabled", true);
-                        }
+                        submitBtn.prop("disabled", true);
                     }
                     if (dz.getRejectedFiles().length === 0) {
                         $("#rejected-files").slideUp(500);

@@ -4,6 +4,8 @@
 
 namespace App\Models;
 use Eloquent;
+use Sentry;
+use DB;
 
 class Conversation extends Eloquent {
 
@@ -17,6 +19,20 @@ class Conversation extends Eloquent {
 
 	public function formattedCreatedAt() {
 		return $this->created_at->format('g:ia \o\n M j, Y');
+	}
+
+	public function formattedUpdatedAt() {
+		return $this->updated_at->format('g:ia \o\n M j, Y');
+	}
+
+	public static function getUnreadConversations($user_id) {
+		$user = Sentry::getUser($user_id);
+		if ($user && $user->hasAccess('admin') && $user->id == 1) {
+			return DB::table('users_conversations')->where('read_admin', 0);
+		} else if ($user && $user->hasAccess('users')) {
+			return DB::table('users_conversations')->where('user_id', $user_id)->where('read', 0);
+		}
+		return false;
 	}
 
 }

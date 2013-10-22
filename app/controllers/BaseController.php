@@ -5,10 +5,13 @@ use App\Models\Conversation;
 
 class BaseController extends Controller {
 
-	public $user;
+	public $user = null;
 	public $afterCutoff = false;
+	public $beforeBeginningOfDay = false;
+	public $unread_conversation_count = null;
 
 	public function __construct() {
+		//parent::__construct();
 		//Check CSRF token on POST
 		$this->beforeFilter('csrf', array('on' => 'post'));
 
@@ -16,17 +19,18 @@ class BaseController extends Controller {
 
         // Check the current request time and compare it against upload time set in config.app
         // If the current request time is on or past the upload cutoff time, set to true
-        if ($now->hour >= Config::get('app.file_upload_cutoff_time_CST')) {
-            $this->afterCutoff = true;
-            View::share('afterCutoff', true);
-        } else {
-        	$this->afterCutoff = false;
-        	View::share('afterCutoff', false);
-        }
+        if ($now->hour >= Config::get('app.file_upload_cutoff_hour_CST') && $now->hour < Config::get('app.end_of_day_hour_CST')) {
+	        $this->afterCutoff = true;
+	    } else {
+	    	$this->afterCutoff = false;
+	    }
+
+	    View::share('afterCutoff', $this->afterCutoff);
 		
 		if (Sentry::check()) {
 			$this->user = Sentry::getUser();
 			View::share('user', $this->user);
+			View::share('unread_conversation_count', Conversation::getUnreadConversations($this->user->id)->count());
 
 			if ($this->user->hasAccess('admin')) {
 				$filesNotDownloaded = File::where('download_status', '=', '0');
@@ -35,8 +39,14 @@ class BaseController extends Controller {
 				View::share('filesNotDownloaded', $filesNotDownloaded);
 				View::share('conversations', $conversations);
 			}
+		}
+	}
+
+	public function getIndex() {
+		if (Sentry::getUser()) {
+			return Redirect::route('dashboard');
 		} else {
-			$this->user = null;
+			return View::make('public.landing');
 		}
 	}
 

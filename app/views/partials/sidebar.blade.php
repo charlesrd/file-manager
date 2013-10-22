@@ -28,7 +28,7 @@
         <li class="{{ Request::is('file/*') ? 'active' : '' }}">
             <a href="#" class="dropdown-toggle">
                 <i class="icon-file"></i>
-                <span>File Activity</span>
+                <span>Upload Center</span>
                 <b class="arrow icon-angle-right"></b>
             </a>
 

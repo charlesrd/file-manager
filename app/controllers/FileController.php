@@ -60,6 +60,11 @@ class FileController extends BaseController {
                 'file.0.mimes' => 'File type must be STL or ZIP'
             );
 
+            if ($this->afterCutoff) {
+                $uploadValidationRules['accept_cutoff_fee'] = 'required';
+                $uploadValidationMessages['accept_cutoff_fee.required'] = 'Please accept or reject the additional processing fee.';
+            }
+
             // Instantiate a validation object
             $uploadValidation = Validator::make($uploadFiles, $uploadValidationRules, $uploadValidationMessages);
         } else if ($user) {
@@ -96,6 +101,11 @@ class FileController extends BaseController {
                 'guest_lab_email.required' => 'Please provide a valid email.',
                 'guest_lab_phone.required' => 'Please provide a valid phone number.'
             );
+
+            if ($this->afterCutoff) {
+                $uploadValidationRules['accept_cutoff_fee'] = 'required';
+                $uploadValidationMessages['accept_cutoff_fee.required'] = 'Please accept or reject the additional processing fee.';
+            }
 
             // Instantiate a validation object
             $uploadValidation = Validator::make($uploadFiles, $uploadValidationRules, $uploadValidationMessages);
@@ -349,6 +359,10 @@ class FileController extends BaseController {
                 } else if (Input::has('guest_lab_message')) {
                     $batch->message = Input::get('guest_lab_message');
                 }
+            }
+
+            if ($this->afterCutoff && Input::has('accept_cutoff_fee')) {
+                var_dump(Input::all()); die();
             }
 
             if ($batch->save()) {

@@ -15,7 +15,7 @@ class MessageController extends \BaseController {
 	public function getIndex() {
 		// At this point in time, only user with id=1 (UDRC) should have access to conversations list
 		if ($this->user->hasAccess('admin') && $this->user->id == 1) {
-			$conversations = Conversation::with('users')->paginate(Config::get('app.pagination_items_per_page'));
+			$conversations = Conversation::with('users')->orderBy('created_at', 'desc')->paginate(Config::get('app.pagination_items_per_page'));
 			return View::make('admin.message.conversations')->withConversations($conversations);
 		} else {
 			$conversation = $this->user->conversations->first();
@@ -24,6 +24,7 @@ class MessageController extends \BaseController {
 			if (!$conversation) {
 				return View::make('user.message.messages');
 			}
+			DB::table('users_conversations')->where('conversation_id', '=', $conversation->id)->update(array('read' => 1));
 
 			$messages = Conversation::find($conversation->id)->messages()->paginate(Config::get('app.pagination_items_per_page'));
 			return View::make('user.message.messages')->withMessages($messages);
@@ -63,8 +64,19 @@ class MessageController extends \BaseController {
 		$message->save();
 
 		$conversation->messages()->save($message);
+		$conversation->updated_at = date('Y-m-d H:i:s');
+
+		// check if we can find a conversation for this user, if not, attach them
 		if (!$conversation->users()->where('user_id', '=', $this->user->id)->first()) {
 			$conversation->users()->attach($this->user->id);
+		}
+
+		$conversation->save();
+
+		if ($this->user->hasAccess('users')) {
+			DB::table('users_conversations')->where('conversation_id', '=', $conversation->id)->update(array('read' => 1, 'read_admin' => 0));
+		} else if ($this->user->hasAccess('admin') && $this->user->id == 1) {
+			DB::table('users_conversations')->where('conversation_id', '=', $conversation->id)->update(array('read' => 0, 'read_admin' => 1));
 		}
 
 		if (Input::has('conversation_id')) {
@@ -76,6 +88,8 @@ class MessageController extends \BaseController {
 	public function getConversation($conversation_id) {
 		$conversation = Conversation::with('users')->findOrFail($conversation_id);
 		$messages = $conversation->messages()->with('user')->paginate(Config::get('app.pagination_items_per_page'));
+
+		$user_conversation = DB::table('users_conversations')->where('conversation_id', '=', $conversation->id)->update(array('read_admin' => 1));
 
 		return View::make('admin.message.messages')->withConversation($conversation)->withMessages($messages);
 	}

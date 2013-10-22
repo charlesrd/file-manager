@@ -33,14 +33,13 @@
                         <!-- BEGIN Files Not Downloaded Dropdown -->
                         <ul class="dropdown-navbar dropdown-menu">
                             <li class="nav-header">
+                                <i class="icon-file"></i>
                                 @if ($filesNotDownloaded->count() == 0)
-                                    <p class="text-center no-margin">NO NEW FILES</p>
+                                    <p class="no-margin">0 New Files</p>
                                 @elseif($filesNotDownloaded->count() == 1)
-                                    <a class="label label-important show-tooltip" title="View all new files..." href="{{ route('file_received') }}"><i class="icon-download"></i></a>
-                                    {{ $filesNotDownloaded->count() }} NEW FILE
+                                    {{ $filesNotDownloaded->count() }} New File
                                 @else
-                                    <a class="label label-success show-tooltip" title="View all files..." href="{{ route('file_received') }}"><i class="icon-download"></i></a>
-                                    {{ $filesNotDownloaded->count() }} NEW FILES
+                                    {{ $filesNotDownloaded->count() }} New Files
                                 @endif
                             </li>
                                 
@@ -55,45 +54,31 @@
                     <!-- END Files Not Downloaded -->
 
                     <!-- BEGIN Button Messages -->
-                    {{--<li class="hidden-xs">
+                    <li class="hidden-xs">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <i class="icon-envelope"></i>
-                            <span class="badge badge-success">{{ $conversations->count() }}</span>
+                            <span class="badge badge-success">{{ $unread_conversation_count }}</span>
                         </a>
 
                         <!-- BEGIN Messages Dropdown -->
                         <ul class="dropdown-navbar dropdown-menu">
                             <li class="nav-header">
                                 <i class="icon-comments"></i>
-                                {{ $conversations->count() }} Unread Messages
-                            </li>
-                        
-
-                            <li class="msg">
-                                <a href="#">
-                                    <div>
-                                        <span class="msg-title">Sarah</span>
-                                        <span class="msg-time">
-                                            <i class="icon-time"></i>
-                                            <span>a moment ago</span>
-                                        </span>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                </a>
+                                {{ $unread_conversation_count }} Unread Messages
                             </li>
 
                             <li class="more">
-                                <a href="#">See all conversa</a>
+                                {{ Html::linkRoute('message', 'View messages...') }}
                             </li>
                         </ul>
                         <!-- END Notifications Dropdown -->
                     </li>
-                    --}}
+                    
                     <!-- END Button Messages -->
                     @endif
 
                     <!-- BEGIN Button User -->
-                    <li class="user-profile">
+                    <li class="user-profile hidden-xs">
                         <a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
                             <i class="icon-user"></i>
                             <span class="hidden-phone" id="user_info">

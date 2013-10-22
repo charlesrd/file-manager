@@ -13,13 +13,7 @@
 // Index route
 Route::get('/', array(
 	'as' => 'home',
-	function() {
-		if (Sentry::getUser()) {
-			return Redirect::route('dashboard');
-		} else {
-			return View::make('public.landing');
-		}
-	}
+	'uses' => 'BaseController@getIndex'
 ));
 
 // Dashboard route

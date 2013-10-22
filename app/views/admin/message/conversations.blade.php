@@ -10,7 +10,6 @@
                     <h3>Messaging Center</h3>
                 </div>
                 <div class="panel-body">
-                    <ul class="conversations">
                         @if (isset($conversations) && $conversations->count())
                         	<div class="table-responsive">
                                 <table class="table table-advance">
@@ -25,13 +24,13 @@
                                     <tbody>
                                 	@foreach ($conversations as $conversation)
                                         @if ($conversation->users()->first())
-                                            @if ($conversation->users()->first()->pivot->read == 0)
+                                            @if ($conversation->users()->first()->pivot->read_admin == 0)
                                             <tr class="table-flag-red">
 											@else
                                             <tr class="table-flag-green">
                                             @endif
                                                 <td>
-                                                    {{ $conversation->formattedCreatedAt() }}
+                                                    {{ $conversation->formattedUpdatedAt() }}
                                                 </td>
                                                 <td>
                                                     {{ $conversation->users()->first()->dlp_user()->labName }}
@@ -40,7 +39,7 @@
                                                     {{ $conversation->users()->first()->email }}
                                                 </td>
                                                 <td class="text-center">
-                                                    @if ($conversation->users()->first()->pivot->read == 0)
+                                                    @if ($conversation->users()->first()->pivot->read_admin == 0)
                                                         <a href="{{ route('message_conversation', $conversation->id) }}" class="btn btn-danger show-tooltip" title="This conversation has unread messages.  Click to read."><i class="icon-comment"></i> Unread</a>
                                                     @else
                                                         <a href="{{ route('message_conversation', $conversation->id) }}" class="btn btn-success show-tooltip" title="This conversation has been read.  Click to read."><i class="icon-comment"></i> Read</a>
@@ -61,8 +60,6 @@
                         @else
                             <div class="alert alert-danger lead text-muted text-center">You do not have any active conversations.</div>
                         @endif
-                    </ul>
-
                     <div class="text-center">
                         @if (isset($conversations))
                             {{ $conversations->links() }}
