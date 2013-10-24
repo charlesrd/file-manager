@@ -89,11 +89,26 @@
                                                                             <hr />
                                                                             <p>
                                                                                 @if (!empty($batch['message']))
-                                                                                    <div class="lead">{{ $batch['message'] }}</div>
+                                                                                    <div class="alert alert-danger text-center lead">
+                                                                                        {{ $batch['message'] }}
+                                                                                    </div>
                                                                                 @else
-                                                                                    No message attached.
+                                                                                    <div class="alert alert-info text-center lead">
+                                                                                        No message attached.
+                                                                                    </div>
                                                                                 @endif
                                                                             </p>
+                                                                            <h4><i class="icon-star"></i> Rush Processing</h4>
+                                                                            <hr />
+                                                                            @if ($batch['accept_cutoff_fee'] == true)
+                                                                                <div class="alert alert-danger text-center lead">
+                                                                                    RUSH PROCESS
+                                                                                </div>
+                                                                            @else
+                                                                                <div class="alert alert-info text-center lead">
+                                                                                    NO RUSH
+                                                                                </div>
+                                                                            @endif
                                                                         </div>
                                                                         <div class="col-md-7">
                                                                             <h4><i class="icon-file"></i> Files</h4>
@@ -105,6 +120,7 @@
                                                                                     <th>Date Uploaded</th>
                                                                                     <th>Expiration</th>
                                                                                     <th class="text-center">Download</th>
+                                                                                    <th class="text-center">Shipping</th>
                                                                                 </thead>
                                                                                 <tbody>
                                                                             @foreach ($batch['files'] as $file)
@@ -122,6 +138,13 @@
                                                                                             <a href="{{ route('file_download_single', $file->id) }}" class="btn btn-success show-tooltip" title="Download {{ $file->filename_original }} again"><i class="icon-cloud-download"></i></a>
                                                                                         @else
                                                                                             <a href="{{ route('file_download_single', $file->id) }}" class="btn btn-danger show-tooltip" title="Download {{ $file->filename_original }}"><i class="icon-cloud-download"></i></a>
+                                                                                        @endif
+                                                                                    </td>
+                                                                                    <td class="text-center">
+                                                                                        @if ($file->shipping_status)
+                                                                                            <a href="{{ route('file_update_tracking', $file->id) }}" class="btn btn-success show-tooltip tracking-popover" title="Update tracking number for {{ $file->filename_original }} again" data-file-id="{{ $file->id }}"><i class="icon-truck"></i></a>
+                                                                                        @else
+                                                                                            <a href="{{ route('file_update_tracking', $file->id) }}" class="btn btn-danger show-tooltip tracking-popover" title="Add tracking number for {{ $file->filename_original }}" data-file-id="{{ $file->id }}"><i class="icon-truck"></i></a>
                                                                                         @endif
                                                                                     </td>
                                                                                 </tr>

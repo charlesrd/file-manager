@@ -40,3 +40,11 @@
 <!--[if lt IE 7]>
     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 <![endif]-->
+
+<noscript class="alert alert-danger noscript">
+    <h3>JavaScript Not Enabled</h3>
+    <hr />
+    <p>This web application is currently in beta development.  JavaScript must be enabled for full functionality of this web application.  Upon final release, JavaScript support will be optional.</p>
+
+    <p>Here are the <a href="http://www.enable-javascript.com" target="_blank"> instructions on how to enable JavaScript in your web browser.</a></p>
+</noscript>

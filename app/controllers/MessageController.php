@@ -24,7 +24,7 @@ class MessageController extends \BaseController {
 			if (!$conversation) {
 				return View::make('user.message.messages');
 			}
-			DB::table('users_conversations')->where('conversation_id', '=', $conversation->id)->update(array('read' => 1));
+			DB::table('users_conversations')->where('conversation_id', '=', $conversation->id)->where('user_id', '=', $this->user->id)->update(array('read' => 1));
 
 			$messages = Conversation::find($conversation->id)->messages()->paginate(Config::get('app.pagination_items_per_page'));
 			return View::make('user.message.messages')->withMessages($messages);
@@ -74,9 +74,11 @@ class MessageController extends \BaseController {
 		$conversation->save();
 
 		if ($this->user->hasAccess('users')) {
-			DB::table('users_conversations')->where('conversation_id', '=', $conversation->id)->update(array('read' => 1, 'read_admin' => 0));
+			DB::table('users_conversations')->where('conversation_id', '=', $conversation->id)->where('user_id', $this->user->id)->update(array('read' => 1, 'read_admin' => 0));
+			DB::table('users_conversations')->where('conversation_id', '=', $conversation->id)->where('user_id', '!=', $this->user->id)->update(array('read' => 0, 'read_admin' => 0));
 		} else if ($this->user->hasAccess('admin') && $this->user->id == 1) {
-			DB::table('users_conversations')->where('conversation_id', '=', $conversation->id)->update(array('read' => 0, 'read_admin' => 1));
+			DB::table('users_conversations')->where('conversation_id', '=', $conversation->id)->where('user_id', $this->user->id)->update(array('read' => 0, 'read_admin' => 1));
+			DB::table('users_conversations')->where('conversation_id', '=', $conversation->id)->where('user_id', '!=', $this->user->id)->update(array('read' => 0, 'read_admin' => 1));
 		}
 
 		if (Input::has('conversation_id')) {

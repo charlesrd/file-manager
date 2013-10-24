@@ -43,21 +43,22 @@
                     {{ $errors->first('file.0', '<div class="alert alert-danger"> :message </div>') }}
                 </div>
             </div>
-            @if (Session::has('upload_limit_reached'))
-                <div class="alert alert-danger text-center"> You have reached the maximum upload limit.<br /><br />Please try again in 60 minutes. </div>
-            @endif
 
             @if (isset($afterCutoff) && $afterCutoff == true)
                 <div class="form-group">
                     <div class="controls">
                         <div class="alert alert-info"><strong>Notice!</strong>  Files uploaded after 4PM CST are subject to 10% processing fee for same day processing.
                         <br />
-                        <p class="text-left">{{ Form::radio('accept_cutoff_fee', 'true', true) }} <strong>Yes</strong>, please process my files today and charge a 10% fee</p>
-                        <p class="text-left">{{ Form::radio('accept_cutoff_fee', 'false') }} <strong>No</strong>, please wait until the next business day to process files</p>
+                        <p class="text-left">{{ Form::radio('accept_cutoff_fee', '0', true, array('required' => 'required')) }} <strong>No</strong>, please wait until the next business day to process files</p>
+                        <p class="text-left">{{ Form::radio('accept_cutoff_fee', '1', null, array('required' => 'required')) }} <strong>Yes</strong>, please process my files today and charge a 10% fee</p>
                         </div>
                         {{ $errors->first('accept_cutoff_fee', '<div class="alert alert-danger"> :message </div>') }}
                     </div>
                 </div>
+            @endif
+
+            @if (Session::has('upload_limit_reached'))
+                <div class="alert alert-danger text-center"> You have reached the maximum upload limit.<br /><br />Please try again in 60 minutes. </div>
             @endif
 
             <div class="form-group">
@@ -256,16 +257,19 @@
 
                     if (acceptCutoffFee.length != 0) {
                         validationOptions.rules.accept_cutoff_fee = {
-                            required: true,
-                            messages: "Please accept or reject the additional processing fee."
+                            required: true
                         }
+                        validationOptions.messages.accept_cutoff_fee = {
+                            required: "Please accept or reject the additional processing fee."
+                        }
+                        console.log(JSON.stringify(validationOptions, undefined, 2));
                     }
 
                     // disable submit button by default
                     submitBtn.prop("disabled", true);
 
                     // Enable or disable submit button based on form validation and dropzone queue length
-                    guestUploadForm.bind('keyup', function() {
+                    guestUploadForm.bind('keyup change', function() {
                         if ($(this).validate(validationOptions).checkForm() && dz.files.length > 0) {
                             submitBtn.prop("disabled", false);
                         } else {

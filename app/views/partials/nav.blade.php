@@ -19,62 +19,94 @@
                 <!-- BEGIN Navbar Buttons -->
                 <ul class="nav flaty-nav pull-right">
                     @if ($user->hasAccess('admin'))
-                    <!-- BEGIN Button Files Not Downloaded -->
-                    <li class="hidden-xs">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <i class="icon-file"></i>
-                            @if($filesNotDownloaded->count() == 0)
-                                <span class="badge badge-success">{{ $filesNotDownloaded->count() }}</span>
-                            @else
-                                <span class="badge badge-important">{{ $filesNotDownloaded->count() }}</span>
-                            @endif
-                        </a>
-
-                        <!-- BEGIN Files Not Downloaded Dropdown -->
-                        <ul class="dropdown-navbar dropdown-menu">
-                            <li class="nav-header">
+                        <!-- BEGIN Button Files Not Downloaded -->
+                        <li class="hidden-xs">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <i class="icon-file"></i>
-                                @if ($filesNotDownloaded->count() == 0)
-                                    <p class="no-margin">0 New Files</p>
-                                @elseif($filesNotDownloaded->count() == 1)
-                                    {{ $filesNotDownloaded->count() }} New File
+                                @if($filesNotDownloaded->count() == 0)
+                                    <span class="badge badge-success">{{ $filesNotDownloaded->count() }}</span>
                                 @else
-                                    {{ $filesNotDownloaded->count() }} New Files
+                                    <span class="badge badge-important">{{ $filesNotDownloaded->count() }}</span>
                                 @endif
-                            </li>
-                                
+                            </a>
+
+                            <!-- BEGIN Files Not Downloaded Dropdown -->
+                            <ul class="dropdown-navbar dropdown-menu">
+                                <li class="nav-header">
+                                    <i class="icon-file"></i>
+                                    @if ($filesNotDownloaded->count() == 0)
+                                        <p class="no-margin">0 New Files</p>
+                                    @elseif($filesNotDownloaded->count() == 1)
+                                        {{ $filesNotDownloaded->count() }} New File
+                                    @else
+                                        {{ $filesNotDownloaded->count() }} New Files
+                                    @endif
+                                </li>
+                                    
 
 
-                            <li class="more">
-                                {{ Html::linkRoute('file_history', 'View files...') }}
-                            </li>
-                        </ul>
-                        <!-- END Files Not Downloaded Dropdown -->
-                    </li>
-                    <!-- END Files Not Downloaded -->
+                                <li class="more">
+                                    {{ Html::linkRoute('file_received', 'View files...') }}
+                                </li>
+                            </ul>
+                            <!-- END Files Not Downloaded Dropdown -->
+                        </li>
+                        <!-- END Files Not Downloaded -->
 
-                    <!-- BEGIN Button Messages -->
-                    <li class="hidden-xs">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <i class="icon-envelope"></i>
-                            <span class="badge badge-success">{{ $unread_conversation_count }}</span>
-                        </a>
+                        <!-- BEGIN Button Messages -->
+                        <li class="hidden-xs">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <i class="icon-comment"></i>
+                                @if ($unread_conversation_count == 0)
+                                    <span class="badge badge-success">{{ $unread_conversation_count }}</span>
+                                @else
+                                    <span class="badge badge-important">{{ $unread_conversation_count }}</span>
+                                @endif
+                            </a>
 
-                        <!-- BEGIN Messages Dropdown -->
-                        <ul class="dropdown-navbar dropdown-menu">
-                            <li class="nav-header">
-                                <i class="icon-comments"></i>
-                                {{ $unread_conversation_count }} Unread Messages
-                            </li>
+                            <!-- BEGIN Messages Dropdown -->
+                            <ul class="dropdown-navbar dropdown-menu">
+                                <li class="nav-header">
+                                    <i class="icon-comments"></i>
+                                    {{ $unread_conversation_count }} Unread Messages
+                                </li>
 
-                            <li class="more">
-                                {{ Html::linkRoute('message', 'View messages...') }}
-                            </li>
-                        </ul>
-                        <!-- END Notifications Dropdown -->
-                    </li>
-                    
-                    <!-- END Button Messages -->
+                                <li class="more">
+                                    {{ Html::linkRoute('message', 'View messages...') }}
+                                </li>
+                            </ul>
+                            <!-- END Notifications Dropdown -->
+                        </li>
+                        <!-- END Button Messages -->
+
+                    @elseif ($user->hasAccess('users'))
+
+                        <!-- BEGIN Button Messages -->
+                        <li class="hidden-xs">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <i class="icon-comment"></i>
+                                @if ($unread_conversation_count == 0)
+                                    <span class="badge badge-success">{{ $unread_conversation_count }}</span>
+                                @else
+                                    <span class="badge badge-important">{{ $unread_conversation_count }}</span>
+                                @endif
+                            </a>
+
+                            <!-- BEGIN Messages Dropdown -->
+                            <ul class="dropdown-navbar dropdown-menu">
+                                <li class="nav-header">
+                                    <i class="icon-comments"></i>
+                                    {{ $unread_conversation_count }} Unread Messages
+                                </li>
+
+                                <li class="more">
+                                    {{ Html::linkRoute('message', 'View messages...') }}
+                                </li>
+                            </ul>
+                            <!-- END Notifications Dropdown -->
+                        </li>
+                        <!-- END Button Messages -->
+
                     @endif
 
                     <!-- BEGIN Button User -->

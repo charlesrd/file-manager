@@ -2280,7 +2280,7 @@ a.tile:hover {
 
 /* Login ------------------------------------------ */
 .login-page {
-    padding: 40px 0;
+    padding: 40px;
 }
 .login-page:before {
     content: "";
@@ -2291,6 +2291,7 @@ a.tile:hover {
     z-index: 1;
 }
 .login-page .login-wrapper, .success-wrapper {
+	
     position: relative;
     z-index: 2;
 }

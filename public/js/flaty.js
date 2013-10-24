@@ -53,9 +53,9 @@ $(function() {
     if ($(badge).length > 0 && parseInt($(badge).html()) > 0) {
         $('.flaty-nav .dropdown-toggle > .icon-file').addClass('anim-swing');
     }
-    badge = $('.flaty-nav .dropdown-toggle > .icon-envelope + .badge')
+    badge = $('.flaty-nav .dropdown-toggle > .icon-comment + .badge')
     if ($(badge).length > 0 && parseInt($(badge).html()) > 0) {
-        $('.flaty-nav .dropdown-toggle > .icon-envelope').addClass('anim-top-down');
+        $('.flaty-nav .dropdown-toggle > .icon-comment').addClass('anim-swing');
     }
 
     //---------------- Nice Scroll --------------------//
@@ -64,7 +64,7 @@ $(function() {
     //$('#sidebar.sidebar-fixed').css('height', $(window).height()).niceScroll({railoffset: {left: -3}});
 
     //---------------- Tooltip & Popover --------------------//
-    $('.show-tooltip').tooltip({container: 'body', delay: {show:100}});
+    $('.show-tooltip').tooltip({container: 'body', delay: {show:300}});
     $('.show-popover').popover();
 
     //---------------- Syntax Highlighter --------------------//

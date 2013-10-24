@@ -69,9 +69,7 @@ class File extends Eloquent {
 
         foreach($data['batches'] as $batch) {
             if ($batch->user_id) {
-                $user = User::find($batch->user_id);
-            }
-            if ($user) {
+                $user = User::findOrFail($batch->user_id);
                 $data['batch'][$batch->id]['from_lab_email'] = $user->email;
                 $data['batch'][$batch->id]['from_lab_name'] = $user->dlp_user()->labName;
                 $data['batch'][$batch->id]['from_lab_phone'] = $user->dlp_user()->labPhone;
@@ -87,6 +85,7 @@ class File extends Eloquent {
             $data['batch'][$batch->id]['expiration'] = $batch->expiration;
             $data['batch'][$batch->id]['created_at_formatted'] = $batch->formattedCreatedAt();
             $data['batch'][$batch->id]['expiration_formatted'] = $batch->formattedExpiration();
+            $data['batch'][$batch->id]['accept_cutoff_fee'] = $batch->accept_cutoff_fee;
 
             $totalNotDownloaded = 0;
             $totalNotShipped = 0;
@@ -172,9 +171,7 @@ class File extends Eloquent {
 
         foreach($data['batches'] as $batch) {
             if ($batch->user_id) {
-                $user = User::find($batch->user_id);
-            }
-            if ($user) {
+                $user = User::findOrFail($batch->user_id);
                 $data['batch'][$batch->id]['from_lab_email'] = $user->email;
                 $data['batch'][$batch->id]['from_lab_name'] = $user->dlp_user()->labName;
                 $data['batch'][$batch->id]['from_lab_phone'] = $user->dlp_user()->labPhone;

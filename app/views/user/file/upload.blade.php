@@ -24,8 +24,22 @@
                                         {{ Form::file('file[]', array('multiple' => 'true', 'accept' => '.STL, .SLA, .ZIP, application/octet-stream, application/zip, application/sla')) }}
                                     </div>
                                 </div>
+                                {{ $errors->first('file.0', '<div class="alert alert-danger"> :message </div>') }}
                             </div>
                         </div>
+
+                        @if (isset($afterCutoff) && $afterCutoff == true)
+                            <div class="form-group">
+                                <div class="controls">
+                                    <div class="alert alert-info"><strong>Notice!</strong>  Files uploaded after 4PM CST are subject to 10% processing fee for same day processing.
+                                    <br />
+                                    <p class="text-left">{{ Form::radio('accept_cutoff_fee', '0', true, array('required' => 'required')) }} <strong>No</strong>, please wait until the next business day to process files</p>
+                                    <p class="text-left">{{ Form::radio('accept_cutoff_fee', '1', null, array('required' => 'required')) }} <strong>Yes</strong>, please process my files today and charge a 10% fee</p>
+                                    </div>
+                                    {{ $errors->first('accept_cutoff_fee', '<div class="alert alert-danger"> :message </div>') }}
+                                </div>
+                            </div>
+                        @endif
 
                         <div class="form-group">
                             <div class="controls">
@@ -102,6 +116,7 @@
 
                 dz.on("sendingmultiple", function(file, xhr, formData) {
                     formData.append('lab_message', $("#lab_message").val());
+                    formData.append('accept_cutoff_fee', $("#accept_cutoff_fee").val());
                     formData.append('_token', $("input[name=_token]").val());
                 });
 

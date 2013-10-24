@@ -89,11 +89,26 @@
                                                                             <hr />
                                                                             <p>
                                                                                 @if (!empty($batch['message']))
-                                                                                    <div class="lead">{{ $batch['message'] }}</div>
+                                                                                    <div class="alert alert-danger text-center lead">
+                                                                                        {{ $batch['message'] }}
+                                                                                    </div>
                                                                                 @else
-                                                                                    No message attached.
+                                                                                    <div class="alert alert-info text-center lead">
+                                                                                        No message attached.
+                                                                                    </div>
                                                                                 @endif
                                                                             </p>
+                                                                            <h4><i class="icon-star"></i> Rush Processing</h4>
+                                                                            <hr />
+                                                                            @if ($batch['accept_cutoff_fee'] == true)
+                                                                                <div class="alert alert-danger text-center lead">
+                                                                                    RUSH PROCESS
+                                                                                </div>
+                                                                            @else
+                                                                                <div class="alert alert-info text-center lead">
+                                                                                    NO RUSH
+                                                                                </div>
+                                                                            @endif
                                                                         </div>
                                                                         <div class="col-md-7">
                                                                             <h4><i class="icon-file"></i> Files</h4>
@@ -105,7 +120,7 @@
                                                                                     <th>Date Uploaded</th>
                                                                                     <th>Expiration</th>
                                                                                     <th class="text-center">Download</th>
-                                                                                    <th>Shipping</th>
+                                                                                    <th class="text-center">Shipping</th>
                                                                                 </thead>
                                                                                 <tbody>
                                                                             @foreach ($batch['files'] as $file)

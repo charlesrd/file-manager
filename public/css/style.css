@@ -4,6 +4,9 @@ body {
 .popover {
 	text-align: center;
 }
+input[type=radio] {
+	margin: 4px 5px 0;
+}
 .no-transition {
 	-webkit-transition: height 0.001s;
 	-moz-transition: height 0.001s;
@@ -88,7 +91,21 @@ div.batch-details-row hr {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
-
+.noscript {
+	position: absolute;
+	z-index: 99999;
+	top: 15%;
+	left: 50%;
+	display: block;
+	width: 650px;
+	padding: 25px;
+	margin: 0 auto 0 -325px;
+	-webkit-box-shadow:  0px 0px 5px 10px rgba(200, 200, 200, .2);
+	box-shadow:  0px 0px 5px 10px rgba(200, 200, 200, .2);
+}
+.noscript h3 {
+	text-align: center;
+}
 .panel {
 	margin-bottom: 0;
 	border: none;
@@ -110,6 +127,18 @@ div.batch-details-row hr {
 	background-color: white;
 	background: url('../img/landing-splitter.png') white repeat-y;
 	background-origin:content-box;
+	-webkit-box-shadow:  0px 0px 5px 10px rgba(200, 200, 200, .2);
+	box-shadow:  0px 0px 5px 10px rgba(200, 200, 200, .2);
+}
+
+.login-page .login-wrapper div.clearfix {
+	height: 20px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: 3;
+	width: 100%;
+	background-color: white;
 }
 
 img#logo {
@@ -243,6 +272,18 @@ input.form-control, .form-control, btn, input {
 		padding: 0;
 		margin: 0;
 		float: none;
+	}
+}
+@media (max-width: 650px) {
+	.noscript {
+		position: absolute;
+		z-index: 99999;
+		top: 15%;
+		left: 50%;
+		display: block;
+		width: 100%;
+		padding: 25px;
+		margin: 0 auto 0 -50%;
 	}
 }
 @media (max-width: 768px) {

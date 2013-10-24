@@ -102,6 +102,8 @@ class FileController extends BaseController {
                 'guest_lab_phone.required' => 'Please provide a valid phone number.'
             );
 
+            // If it's after the cuttoff time, we need to validate the acceptance of extra fee
+            // which is done by checking whether or not the user selected yes/no radio button
             if ($this->afterCutoff) {
                 $uploadValidationRules['accept_cutoff_fee'] = 'required';
                 $uploadValidationMessages['accept_cutoff_fee.required'] = 'Please accept or reject the additional processing fee.';
@@ -197,6 +199,10 @@ class FileController extends BaseController {
                     return Response::json('success', 200);
                 } else {
                     Session::forget('upload.files');
+                    // user is logged in, so lets just redirect them back to their uploads
+                    if ($this->user) {
+                        return Redirect::route('file_history')->with('fileUploadSuccess', true);
+                    }
                     return View::make('public.file.upload_success');
                 }
             } else {
@@ -237,7 +243,7 @@ class FileController extends BaseController {
             $data['weekly_filecount'] = File::weeklyFileCount($this->user->id);
             $data['averageXDays_filecount'] = File::averageXDays($this->user->id);
 
-            return View::make('user.dashboard')->with('data', $data)->with('batches', $batches);
+            return View::make('user.file.history')->with('data', $data)->with('batches', $batches);
         }
     }
 
@@ -362,7 +368,11 @@ class FileController extends BaseController {
             }
 
             if ($this->afterCutoff && Input::has('accept_cutoff_fee')) {
-                var_dump(Input::all()); die();
+                if (Input::get('accept_cutoff_fee')) {
+                    $batch->accept_cutoff_fee = 1;
+                } else {
+                    $batch->accept_cutoff_fee = 0;
+                }
             }
 
             if ($batch->save()) {
@@ -386,12 +396,16 @@ class FileController extends BaseController {
                 $upload_path .= "guest";
             }
 
-        if ($this->user->hasAccess('admin') || $this->user->id = $file->user_id) {
-            $file->download_status = 1;
-            $file->save();
+        if ($this->user->hasAccess('admin') || $this->user->id == $file->user_id) {
+            if ($this->user->hasAccess('admin')) {
+                $file->download_status = 1;
+                $file->save();
+            }
 
             return Response::download(public_path() . '/uploads/' . $upload_path . '/' . $file->filename_random, $file->filename_original);
         }
+
+        App::error(403, 'Permission denied.');
     }
 
     public function getDownloadBatch($batch_id = null) {
@@ -442,8 +456,14 @@ class FileController extends BaseController {
         if (file_exists($archive_path)) {
             foreach($files as $file) {
                 $file = File::where('id', '=', $file->id)->first();
-                $file->download_status = 1;
-                $file->save();
+                if ($this->user->hasAccess('admin') && $this->user->id == 1) {
+                    $file->download_status = 1;
+                    $file->save();
+                }
+                // someone is trying to download files that aren't theirs!
+                if (!$this->user->hasAccess('admin') && $this->user->hasAccess('users') && $file->user_id != $this->user->id) {
+                    App::error(403, 'Permission denied.');
+                }
             }
             return Response::download($archive_path, $archive_name);
         } else {
@@ -491,8 +511,14 @@ class FileController extends BaseController {
             if (file_exists($archive_path)) {
                 foreach(Input::get('download-file') as $file_id) {
                     $file = File::where('id', '=', $file_id)->first();
-                    $file->download_status = 1;
-                    $file->save();
+                    if ($this->user->hasAccess('admin') && $this->user->id == 1) {
+                        $file->download_status = 1;
+                        $file->save();
+                    }
+                    // someone is trying to download files that aren't theirs!
+                    if (!$this->user->hasAccess('admin') && $this->user->hasAccess('users') && $file->user_id != $this->user->id) {
+                        App::error(403, 'Permission denied.');
+                    }
                 }
                 return Response::download($archive_path, $archive_name);
             } else {

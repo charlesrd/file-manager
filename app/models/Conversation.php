@@ -28,7 +28,7 @@ class Conversation extends Eloquent {
 	public static function getUnreadConversations($user_id) {
 		$user = Sentry::getUser($user_id);
 		if ($user && $user->hasAccess('admin') && $user->id == 1) {
-			return DB::table('users_conversations')->where('read_admin', 0);
+			return DB::table('users_conversations')->where('read_admin', 0)->where('user_id', '!=', $user->id);
 		} else if ($user && $user->hasAccess('users')) {
 			return DB::table('users_conversations')->where('user_id', $user_id)->where('read', 0);
 		}
