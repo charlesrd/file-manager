@@ -138,15 +138,29 @@ class File extends Eloquent {
 
         if (!empty($authUser)) {
             if ($authUser->hasAccess('admin') || $authUser->hasAccess('superuser')) {
-                $labs = DB::connection('dentallabprofile')->table('labprofile')->where('labName', 'LIKE', '%' . $searchPhrase . '%')->get();
+                $dlpLabs = DB::connection('dentallabprofile')->table('labprofile')->where('labName', 'LIKE', '%' . $searchPhrase . '%');
+                $guestLabs = DB::table('batches')->where('guest_lab_name', 'LIKE', '%' . $searchPhrase . '%')->orWhere('guest_lab_email', 'LIKE', '%' . $searchPhrase . '%');
+                $labs = array_merge($dlpLabs->get(), $guestLabs->get());
 
                 $batch_lab_id_array = array();
+                $batch_id_array = array();
                 foreach($labs as $lab) {
-                    $user =  User::where('lab_id', '=', $lab->labID)->firstOrFail();
-                    $batch_lab_id_array[] = $user->id;
+                    if (is_object($lab) && isset($lab->labID)) {
+                        $user = User::where('lab_id', '=', $lab->labID)->firstOrFail();
+                        $batch_lab_id_array[] = $user->id;
+                    } elseif (is_object($lab)) {
+                        $batch_id_array[] = $lab->id;
+                    }
                 }
 
-                if (!empty($batch_lab_id_array)) {
+                if (!empty($batch_lab_id_array) && !empty($batch_id_array)) {
+                    $userFiles = File::where('filename_original', 'LIKE', '%' . $searchPhrase . '%')->orWhereIn('batch_id', $batch_lab_id_array)->orderBy('created_at', 'DESC');
+                    $guestFiles = File::where('filename_original', 'LIKE', '%' . $searchPhrase . '%')->orWhereIn('batch_id', $batch_id_array)->orderBy('created_at', 'DESC');
+                    $files = $userFiles->merge($guestFiles);
+                    $files = $files->paginate(Config::get('app.pagination_items_per_page'));
+                } elseif (empty($batch_lab_id_array) && !empty($batch_id_array)) {
+                    $files = File::where('filename_original', 'LIKE', '%' . $searchPhrase . '%')->orWhereIn('batch_id', $batch_id_array)->orderBy('created_at', 'DESC')->paginate(Config::get('app.pagination_items_per_page'));
+                } elseif (!empty($batch_lab_id_array) && empty($batch_id_array)) {
                     $files = File::where('filename_original', 'LIKE', '%' . $searchPhrase . '%')->orWhereIn('batch_id', $batch_lab_id_array)->orderBy('created_at', 'DESC')->paginate(Config::get('app.pagination_items_per_page'));
                 } else {
                     $files = File::where('filename_original', 'LIKE', '%' . $searchPhrase . '%')->orderBy('created_at', 'DESC')->paginate(Config::get('app.pagination_items_per_page'));

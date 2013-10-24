@@ -7,9 +7,8 @@ return array(
 
 	// Application configuration options set here
 	'file_upload_cutoff_hour_CST' => 16, // 4pm CST in 24h format
-	'end_of_day_hour_CST' => 24, // 8pm CST in 24h format
+	'end_of_day_hour_CST' => 20, // 8pm CST in 24h format
 	'pagination_items_per_page' => 10, // Controls how many items we want listed per page of paginated items
-	'items_recently_received_limit' => 10,
 	'uploads_per_hour' => '1',
 	"average_last_x_days_filecount" => 7, // averages dashboard filecounts over the last X amount of days
 	'enable_upload_throttle' => false,
@@ -26,7 +25,7 @@ return array(
 	|
 	*/
 
-	'debug' => false,
+	'debug' => true,
 
 	/*
 	|--------------------------------------------------------------------------
