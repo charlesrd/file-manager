@@ -4,68 +4,156 @@
 		"selected_items":
 		[
 			[
-				"lab",
-				"lab_message"
+				"app",
+				"application"
 			],
 			[
-				"getRe",
-				"getRejectedFiles"
+				"vertical",
+				"vertical-align"
 			],
 			[
-				"archive",
-				"archive_path"
+				"upload",
+				"uploadValidationRules"
+			],
+			[
+				"af",
+				"accept_cutoff_fee"
+			],
+			[
+				"uploadValid",
+				"uploadValidationRules"
+			],
+			[
+				"accept",
+				"accept_cutoff_fee"
+			],
+			[
+				"accep",
+				"accept_cutoff_fee"
+			],
+			[
+				"acce",
+				"accept_cutoff_fee"
+			],
+			[
+				"validation",
+				"validationOptions"
+			],
+			[
+				"after",
+				"afterCutoff"
+			],
+			[
+				"unread",
+				"unread_conversation_count"
+			],
+			[
+				"get",
+				"getUnreadConversationsCount"
+			],
+			[
+				"Con",
+				"Conversation"
+			],
+			[
+				"conversation",
+				"conversation_id"
+			],
+			[
+				"users",
+				"users_conversations"
+			],
+			[
+				"no",
+				"noreply_email"
+			],
+			[
+				"fileswith",
+				"filesWithLikeLabName"
+			],
+			[
+				"filesWith",
+				"filesWithLikeFileName"
+			],
+			[
+				"average",
+				"average_last_x_days_filecount"
+			],
+			[
+				"file_id",
+				"file_id_array"
+			],
+			[
+				"weekly",
+				"weekly_filecount"
+			],
+			[
+				"user_reset",
+				"user_reset_password"
+			],
+			[
+				"today",
+				"todayFileCount"
+			],
+			[
+				"formatt",
+				"formattedCreatedAt"
+			],
+			[
+				"getRece",
+				"getReceivedFiles"
+			],
+			[
+				"guest",
+				"guest_lab_name"
 			],
 			[
 				"filename_",
 				"filename_original"
 			],
 			[
-				"format",
-				"formattedCreatedAt"
+				"filename",
+				"filename_random"
 			],
 			[
-				"verti",
-				"vertical-align"
+				"footer",
+				"footerBarKeywords"
 			],
 			[
-				"getDownload",
-				"getDownloadBatch"
+				"search",
+				"searchResults"
 			],
 			[
-				"expiration",
-				"expiration_formatted"
+				"files",
+				"filesNotDownloaded"
+			],
+			[
+				"un",
+				"unreadConversations"
 			],
 			[
 				"pagin",
 				"pagination_items_per_page"
 			],
 			[
-				"visible",
-				"visible-lg"
+				"messa",
+				"messageValidation"
+			],
+			[
+				"guest_lab",
+				"guest_lab_name"
 			],
 			[
 				"batch",
 				"batch_id"
 			],
 			[
-				"uploadF",
-				"uploadFiles"
-			],
-			[
-				"upload",
-				"uploadFileNameRandomized"
-			],
-			[
-				"uploadFile",
-				"uploadFileName"
+				"download",
+				"download_status"
 			],
 			[
 				"isa",
 				"is_array"
-			],
-			[
-				"guest_lab",
-				"guest_lab_phone"
 			],
 			[
 				"guest_",
@@ -92,10 +180,6 @@
 				"nullable"
 			],
 			[
-				"guest",
-				"guest_lab_email"
-			],
-			[
 				"submit",
 				"submitBtn"
 			],
@@ -105,10 +189,6 @@
 			],
 			[
 				"filan",
-				"filename_original"
-			],
-			[
-				"filename",
 				"filename_original"
 			],
 			[
@@ -204,10 +284,34 @@
 	"buffers":
 	[
 		{
-			"file": "/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/1615EB6E-192F-42F9-A9B1-51726F95A94D/vhosts.conf",
+			"file": "app/controllers/FileController.php",
 			"settings":
 			{
-				"buffer_size": 86969,
+				"buffer_size": 22407,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/public/landing.blade.php",
+			"settings":
+			{
+				"buffer_size": 19936,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/user/file/upload.blade.php",
+			"settings":
+			{
+				"buffer_size": 8116,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/config/app.php",
+			"settings":
+			{
+				"buffer_size": 7935,
 				"line_ending": "Unix"
 			}
 		}
@@ -215,9 +319,25 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 375.0,
+		"height": 181.0,
 		"selected_items":
 		[
+			[
+				"seed",
+				"Laravel Generate: Seed"
+			],
+			[
+				"Laravel ",
+				"Laravel Artisan: Migrate: Refresh"
+			],
+			[
+				"Laravel migra",
+				"Laravel Artisan: Migrate: Refresh"
+			],
+			[
+				"format",
+				"Format Code"
+			],
 			[
 				"install",
 				"Package Control: Install Package"
@@ -291,10 +411,6 @@
 				"Package Control: Remove Package"
 			],
 			[
-				"format",
-				"Tag: Auto-Format Tags on Selection"
-			],
-			[
 				"html",
 				"Tidy HTML"
 			],
@@ -331,7 +447,7 @@
 				"File: New View into File"
 			]
 		],
-		"width": 507.0
+		"width": 561.0
 	},
 	"console":
 	{
@@ -352,65 +468,101 @@
 	},
 	"file_history":
 	[
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/public/css/flaty.css",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/routes.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/composer.json",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/models/Batch.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/file/upload_success.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/landing.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/FileController.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/app.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/session.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/admin/file/received.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/errors/403.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/public/assets/dropzone/downloads/css/dropzone.css",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/dashboard.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/public/css/style.css",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/0981D527-4FBB-4828-BAD5-A7CB485DBA19/db.lososuna.us",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/providers/Zippy.php",
-		"/Volumes/Content Drive/.Trashes/501/providers/Zippy.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/public/js/scripts.js",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/public/css/flaty-responsive.css",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/file/detail_collapse.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/file/history.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/search/results.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/admin/dashboard.blade.php",
-		"/Volumes/Content Drive/Downloads/polaroid/polaroid_@2X.png",
-		"/Volumes/Content Drive/Downloads/polaroid/polaroid.png",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/BaseController.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/file/upload.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_16_095926_create_batches.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/landing.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/layouts/landing.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/public/js/scripts.js",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/partials/nav.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/MessageController.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/FileController.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/models/File.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/models/Conversation.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/admin/file/received.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/file/history.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/admin/dashboard.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/dashboard.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/public/js/flaty.js",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/app.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/public/css/style.css",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/public/css/flaty.css",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/partials/footer.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/partials/header.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/DashboardController.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/UserController.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/routes.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_16_095926_create_batches.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/BaseController.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/start/global.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/helpers/FileHelper.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_26_132040_create_users_conversations.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/admin/message/conversations.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/partials/sidebar.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/public/css/flaty-responsive.css",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/search/default.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/seeds/DatabaseSeeder.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/flaty_template/doc/assets/css/bootstrap.css",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/models/Message.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/admin/message/messages.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/message/messages.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/mail.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/emails/auth/reset_password.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/user/reset_password.blade.php",
+		"/Volumes/Content Drive/Dropbox/School/ECON252 - Macroeconomics/Assignment 9/Explain and Evaluate the Following Statements.txt",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/admin/search/default.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/search/results.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/admin/search/results.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/SearchController.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/search/results.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/.gitignore",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_03_135418_create_files.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/composer.json",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/errors/403.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/errors/404.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/errors/500.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/admin/file/detail_collapse.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/file/detail_collapse.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/file/detail.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/file/detail_modal.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/libraries/ZipStream/ZipStream.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/models/Batch.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/errors/default.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/error/403.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_07_134044_create_users.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_07_134054_create_groups.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_07_134105_create_users_groups.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_16_093819_create_session_table.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_16_093850_create_users_files.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_23_173804_create_messages.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_26_131511_create_conversations.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/session.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/E5D42D5A-47A8-41B5-9C00-E229D6D8A636/index.php",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/37728BE2-91BC-4BFF-97FD-C4F0633DFA9A/db.dealwithyourreality.com",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/storage/views/e0119c2addb95338f718395bb30f750f",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/superuser/file/upload.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/models/User.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/HomeController.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/emails/file/upload_confirmation.blade.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/public/assets/dropzone/downloads/css/dropzone.css",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/flaty_template/doc/assets/js/bootstrap.min.js",
+		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/62867EF7-7C0A-445B-B14A-A378FA09011E/db.dealwithyourreality.com",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/file/upload_fail.blade.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/file/history_detail_modal.blade.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/seeds/SentryUserSeeder.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/seeds/SentryUserGroupSeeder.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/superuser/file/upload.blade.php",
 		"/Users/choernig/Desktop/Rebate2.pdf",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/partials/sidebar.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/partials/header.blade.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/upload_cutoff.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_03_135418_create_files.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/DashboardController.php",
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/file/upload_success.blade.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/upload.blade.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/admin/file/incoming.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/seeds/DatabaseSeeder.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/seeds/BatchSeeder.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/models/User.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_23_173839_create_messages_users.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_23_173804_create_messages.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/public/js/flaty.js",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/partials/footer.blade.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_09_23_174636_create_users_messages.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/.gitignore",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/user/file/history_detail.blade.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/elements/pagination.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/view.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/flaty_template/code/table_advance.html",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/flaty_template/code/table_dynamic.html",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/layouts/dashboard_no_sidebar.blade.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/HomeController.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/controllers/UserController.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/layouts/login.blade.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views/public/login.blade.php",
 		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/0F61B88B-C6D5-4A4A-8B69-72A171DAE8CD/vhosts.conf",
@@ -429,15 +581,11 @@
 		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/4B3F6058-F9D8-496C-9085-4C57201DAA76/db.oralprostheticsbydesign.com",
 		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/D5A25FCE-B2C1-4DA9-A031-B1021FA4F10C/webstats",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/database.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_07_134044_create_users.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/seeds/SentryGroupSeeder.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/auth.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/filters.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_07_134054_create_groups.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_07_134114_create_throttle.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_07_134105_create_users_groups.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/vendor/cartalyst/sentry/src/migrations/2012_12_06_225945_migration_cartalyst_sentry_install_users_groups_pivot.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/config/mail.php",
 		"/Volumes/Content Drive/Dropbox/Sites/happybirthday.php",
 		"/Users/choernig/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
 		"/Users/choernig/Library/Application Support/Sublime Text 2/Settings/Session.sublime_session",
@@ -447,39 +595,7 @@
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_03_134828_install_users_groups.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/vendor/cartalyst/sentry/src/migrations/2012_12_06_225988_migration_cartalyst_sentry_install_throttle.php",
 		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_03_134941_install_throttle.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/vendor/cartalyst/sentry/src/migrations/2012_12_06_225929_migration_cartalyst_sentry_install_groups.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/database/migrations/2013_06_03_134614_install_groups.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/vendor/laravel/framework/src/Illuminate/Auth/Guard.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/start/global.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/vendor/laravel/framework/src/Illuminate/Auth/AMSDTIUserInterface.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/vendor/amsauth/Auth/AmsAuthUserProvider.php",
-		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/vendor/laravel/framework/src/Illuminate/Html/HtmlBuilder.php",
-		"/Users/choernig/Documents/Grow Diary.txt",
-		"/Volumes/Content Drive/Downloads/Pineapple Express UNRATED (2008)/Pineapple.Express.UNRATED.2008.720p.BrRip.x264.YIFY.srt",
-		"/Users/choernig/Desktop/4777579576 TGIF Coupon Number.txt",
-		"/Volumes/Content Drive/Downloads/Ableton Live 9 Suite 9.0.1 Mac os x (64 bit-io) [ChingLiu]/io.nfo",
-		"/Users/choernig/.ssh/known_hosts",
-		"/Volumes/.PEVolumes/PEVolume{5e1af21c-4116-4f32-909a-63f78188ada3}/cs45500/homework/hw3/problem1.c",
-		"/Volumes/.PEVolumes/PEVolume{5e1af21c-4116-4f32-909a-63f78188ada3}/cs45500/homework/hw3/problem3.c",
-		"/Volumes/Content Drive/Dropbox/School/CS455 - Computer Graphics/Exam 1 Study List.txt",
-		"/Volumes/Content Drive/Dropbox/Work/Preferences.sublime-settings",
-		"/Volumes/Content Drive/Downloads/hw3/problem1.c",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/7C0B3539-3D41-41F8-9DD9-4C8BE99D88F5/livestream_chat_log.html",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/5371F81D-DEF7-4A85-A204-45D5DEED96EE/livestream_chat_log.html",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/5E6A9D70-2875-4EE6-9010-8774CB4EC0FF/index.php",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/4D79A874-FD0C-4D3C-874D-50FC3DCCA75D/index.php",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/74112EB6-4DF3-47B5-A777-23DAE1FEDE2D/vhosts.conf",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/E6072674-71D1-49AF-AC35-F25D5984F80D/httpd-vhosts.conf",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/00514F1F-6174-45E1-82A2-BE81392493EB/ftpchroot",
-		"/Volumes/Content Drive/Downloads/template_maxi_1.6.0/template_maxi/TemplateMaxi.as",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/6925D4CA-DC19-44EF-AD1C-557A6B0A6AF7/livestream_test.php",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/082E77CF-A25E-4338-BC37-3C4A8DBB29C7/header.php",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/E09CFF45-D0C1-4F43-938F-A776FCC13BA9/admin.php",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/408D7EED-48C0-44D3-8B92-A715BF9DF077/full-width-page-homepage.php",
-		"/Library/Preferences/REVisionEffects/TwixtorPro5",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/0945EA63-D595-45D7-89C9-1D7AFB2F07BE/index.php",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/0D004EFF-F6D3-4B92-A061-EAC82A054795/autoload.php",
-		"/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/744DCAF8-D6BD-4E1F-98F1-0E51F399B130/index.php"
+		"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/vendor/cartalyst/sentry/src/migrations/2012_12_06_225929_migration_cartalyst_sentry_install_groups.php"
 	],
 	"find":
 	{
@@ -487,9 +603,15 @@
 	},
 	"find_in_files":
 	{
-		"height": 95.0,
+		"height": 91.0,
 		"where_history":
 		[
+			"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views",
+			"<open files>",
+			"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views",
+			"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app",
+			"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/models",
+			"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app",
 			"/Volumes/Content Drive/Dropbox/Sites/udrc/amsdti.com/app/views",
 			"<open files>",
 			"",
@@ -512,13 +634,50 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"dz-error",
-			"created_at_formatte",
-			"file_detail_post",
-			"file_history_post",
-			"history",
-			"landing-separator",
-			"user_id",
+			"<th class=\"text-center\">Download</th>",
+			"getReceived",
+			"$afterCutoff",
+			"validate",
+			"radio",
+			"40px",
+			"error!",
+			"search",
+			"g78",
+			"colspan=\"6\"",
+			"guestUploadForm",
+			"guestUpload",
+			"file_id_array",
+			"File::",
+			"tooltip",
+			"batches",
+			"upload",
+			"login-page",
+			"text-align",
+			"view::make",
+			"App::error",
+			"abort",
+			"main-content",
+			"fade",
+			"file->status",
+			"stat",
+			"file->status",
+			"tracking",
+			"file->status",
+			"paginate(",
+			"where('labID",
+			"$this->lab_id",
+			"dlp_user",
+			"status",
+			"div class=\"alert",
+			"messages",
+			"time",
+			"paginate",
+			"collapse",
+			"uploadedFiles",
+			"url",
+			"file->status",
+			"json_enc",
+			"Session::put(",
 			"error",
 			"hasAccess('user",
 			"batch",
@@ -599,6 +758,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"colspan=\"7\"",
+			"file->download_status",
 			"",
 			"njcondolawyers.com/",
 			"njcondolawyers.com",
@@ -622,24 +783,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/Users/choernig/Library/Caches/Cleanup At Startup/Transmit/1615EB6E-192F-42F9-A9B1-51726F95A94D/vhosts.conf",
+					"file": "app/controllers/FileController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 86969,
+						"buffer_size": 22407,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								25583,
-								25583
+								774,
+								774
 							]
 						],
 						"settings":
@@ -647,66 +808,281 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
 								"bh_regex",
 								"bh_regex_center",
 								"bh_regex_open",
 								"bh_regex_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
 								"bh_unmatched_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close"
+							],
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/views/public/landing.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 19936,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								10186,
+								10186
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
-								"bh_curly_close"
+								"bh_curly_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close"
 							],
-							"syntax": "Packages/ApacheConf.tmLanguage/ApacheConf.tmLanguage"
+							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 11561.0,
+						"translation.y": 2907.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/views/user/file/upload.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8116,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3772,
+								3772
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close"
+							],
+							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 890.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/config/app.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7935,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								995,
+								995
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close"
+							],
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				}
 			]
-		},
-		{
-			"sheets":
-			[
-			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 32.0
+		"height": 36.0
 	},
 	"input":
 	{
@@ -721,18 +1097,11 @@
 				0,
 				1,
 				1
-			],
-			[
-				1,
-				0,
-				2,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.5,
 			1.0
 		],
 		"rows":
@@ -742,6 +1111,10 @@
 		]
 	},
 	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 102.0
+	},
 	"output.sftp":
 	{
 		"height": 92.0
@@ -758,16 +1131,84 @@
 		"selected_items":
 		[
 			[
-				"dropzone.css",
-				"public/assets/dropzone/downloads/css/dropzone.css"
+				"upload",
+				"app/views/user/file/upload.blade.php"
+			],
+			[
+				"landing",
+				"app/views/public/landing.blade.php"
+			],
+			[
+				"user/upload",
+				"app/views/user/file/upload.blade.php"
+			],
+			[
+				"flaty",
+				"public/css/flaty.css"
 			],
 			[
 				"style",
 				"public/css/style.css"
 			],
 			[
-				"flaty",
+				"received",
+				"app/views/admin/file/received.blade.php"
+			],
+			[
+				"file",
+				"app/models/File.php"
+			],
+			[
+				"nav",
+				"app/views/partials/nav.blade.php"
+			],
+			[
+				"style.css",
+				"public/css/style.css"
+			],
+			[
+				"flaty-resp",
+				"public/css/flaty-responsive.css"
+			],
+			[
+				"style.",
+				"public/css/style.css"
+			],
+			[
+				"bootstrap",
+				"flaty_template/doc/assets/css/bootstrap.css"
+			],
+			[
+				"user/dashbo",
+				"app/views/user/dashboard.blade.php"
+			],
+			[
+				"bootstrap.css",
+				"flaty_template/doc/assets/css/bootstrap.css"
+			],
+			[
+				"sidebar",
+				"app/views/partials/sidebar.blade.php"
+			],
+			[
+				"flaty.css",
 				"public/css/flaty.css"
+			],
+			[
+				"styl",
+				"public/css/style.css"
+			],
+			[
+				"flat",
+				"public/css/flaty.css"
+			],
+			[
+				"bootstrap.min",
+				"flaty_template/doc/assets/js/bootstrap.min.js"
+			],
+			[
+				"dropzone.css",
+				"public/assets/dropzone/downloads/css/dropzone.css"
 			],
 			[
 				"flaty.",
@@ -799,7 +1240,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 227.0,
+	"side_bar_width": 247.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

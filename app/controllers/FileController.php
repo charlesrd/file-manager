@@ -57,7 +57,7 @@ class FileController extends BaseController {
             $uploadValidationRules = array('file.0' => 'required');
             $uploadValidationMessages = array(
                 'file.0.required' => 'Please select files to attach.',
-                'file.0.mimes' => 'File type must be STL or ZIP'
+                'file.0.mimes' => 'File type must be STL, LAB or ZIP'
             );
 
             if ($this->afterCutoff) {
@@ -96,7 +96,7 @@ class FileController extends BaseController {
             );
             $uploadValidationMessages = array(
                 'file.0.required' => 'Please select files to attach.',
-                'file.0.mimes' => 'File type must be STL or ZIP',
+                'file.0.mimes' => 'File type must be STL, LAB or ZIP',
                 'guest_lab_name.required' => 'Please provide the name of your lab.',
                 'guest_lab_email.required' => 'Please provide a valid email.',
                 'guest_lab_phone.required' => 'Please provide a valid phone number.'

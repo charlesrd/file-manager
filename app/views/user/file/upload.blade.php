@@ -21,7 +21,7 @@
                             <div class="controls" id="dz-container">
                                 <div id="dz-upload" class="dropzone">
                                     <div class="fallback">
-                                        {{ Form::file('file[]', array('multiple' => 'true', 'accept' => '.STL, .SLA, .ZIP, application/octet-stream, application/zip, application/sla')) }}
+                                        {{ Form::file('file[]', array('multiple' => 'true', 'accept' => '.STL, .SLA, .ZIP, .LAB, application/octet-stream, application/zip, application/sla')) }}
                                     </div>
                                 </div>
                                 {{ $errors->first('file.0', '<div class="alert alert-danger"> :message </div>') }}
@@ -74,7 +74,7 @@
             addRemoveLinks: true,
             createImageThumbnails: false,
             maxFiles: 10,
-            acceptedFiles: "application/x-rar-compressed,application/octet-stream,.zip,application/zip,.stl,application/sla,.sla",
+            acceptedFiles: "application/x-rar-compressed,application/octet-stream,.zip,application/zip,.stl,application/sla,.sla,.lab,application/lab",
             url: "{{ route('file_upload_post') }}",
 
             dictRemoveFile: "Delete",
