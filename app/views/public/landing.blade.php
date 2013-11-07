@@ -30,7 +30,7 @@
             </div>
             <div class="form-group">
                 <div class="controls">
-                    {{ Form::textarea('guest_lab_message', Input::old('guest_lab_message'), array('class' => 'form-control', 'id' => 'guest_lab_message', 'placeholder' => 'message to include with upload (optional)')) }}
+                    {{ Form::textarea('guest_lab_message', Input::old('guest_lab_message'), array('class' => 'form-control', 'id' => 'guest_lab_message', 'placeholder' => 'message: shade, patient name, tooth #, etc. (optional)')) }}
                 </div>
             </div>
             <div class="form-group">
@@ -78,7 +78,7 @@
 
         <!-- BEGIN Login Form -->
         {{ Form::open(array('route' => 'user_login', 'id' => 'form-login')) }}
-            <h3 class="text-center">Login using DentalLabProfile</h3>
+            <h3 class="text-center">Login as Member Lab</h3>
             <hr />
             <div class="form-group">
                 <div class="controls">
@@ -157,6 +157,7 @@
 @section('extra-scripts')
     {{ Html::script('assets/jquery-validation/dist/jquery.validate.min.js') }}
     {{ Html::script('assets/jquery-validation/dist/additional-methods.min.js') }}
+    {{ Html::script('assets/jquery-maskedinput/jquery.maskedinput.min.js') }}
     {{ Html::script('assets/dropzone/downloads/dropzone.min.js') }}
 
     <script type="text/javascript">
@@ -188,6 +189,7 @@
         });
 
         $(document).ready(function() {
+            $("#guest_lab_phone").mask("(999) 999-9999");
             Dropzone.autoDiscover = false;
 
             $("#dz-guest-upload").dropzone({
@@ -241,7 +243,7 @@
                             },
                             guest_lab_phone: {
                                 required: "Please provide a valid phone number.",
-                                phoneUS: "Please provide a correctly formatted U.S. phone number.<br /> Example: 8005556789 or 800-555-6789"
+                                phoneUS: "Please provide a correctly formatted U.S. phone number.<br /> Example: (800) 555-6789"
                             }
                         },
 

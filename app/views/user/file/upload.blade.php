@@ -14,7 +14,7 @@
                     {{ Form::open(array('route' => 'file_upload_post', 'files' => true, 'id' => 'form-upload')) }}
                         <div class="form-group">
                             <div class="controls">
-                                {{ Form::textarea('lab_message', Input::old('lab_message'), array('class' => 'form-control', 'id' => 'lab_message', 'placeholder' => 'message to include with upload (optional)')) }}
+                                {{ Form::textarea('lab_message', Input::old('lab_message'), array('class' => 'form-control', 'id' => 'lab_message', 'placeholder' => 'message: shade, patient name, tooth #, etc. (optional)')) }}
                             </div>
                         </div>
                         <div class="form-group">
