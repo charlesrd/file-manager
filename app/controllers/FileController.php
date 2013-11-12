@@ -60,7 +60,7 @@ class FileController extends BaseController {
                 'file.0.mimes' => 'File type must be STL, LAB or ZIP'
             );
 
-            if ($this->afterCutoff) {
+            if ($this->upload_cutoff) {
                 $uploadValidationRules['accept_cutoff_fee'] = 'required';
                 $uploadValidationMessages['accept_cutoff_fee.required'] = 'Please accept or reject the additional processing fee.';
             }
@@ -104,7 +104,7 @@ class FileController extends BaseController {
 
             // If it's after the cuttoff time, we need to validate the acceptance of extra fee
             // which is done by checking whether or not the user selected yes/no radio button
-            if ($this->afterCutoff) {
+            if ($this->upload_cutoff === 1) {
                 $uploadValidationRules['accept_cutoff_fee'] = 'required';
                 $uploadValidationMessages['accept_cutoff_fee.required'] = 'Please accept or reject the additional processing fee.';
             }
@@ -367,7 +367,7 @@ class FileController extends BaseController {
                 }
             }
 
-            if ($this->afterCutoff && Input::has('accept_cutoff_fee')) {
+            if ($this->upload_cutoff == 1 && Input::has('accept_cutoff_fee')) {
                 if (Input::get('accept_cutoff_fee')) {
                     $batch->accept_cutoff_fee = 1;
                 } else {
