@@ -44,17 +44,26 @@
                 </div>
             </div>
 
-            @if (isset($afterCutoff) && $afterCutoff == true)
-                <div class="form-group">
-                    <div class="controls">
-                        <div class="alert alert-info"><strong>Notice!</strong>  Files uploaded after 4PM CST are subject to 10% processing fee for same day processing.
-                        <br />
-                        <p class="text-left">{{ Form::radio('accept_cutoff_fee', '0', true, array('required' => 'required')) }} <strong>No</strong>, please wait until the next business day to process files</p>
-                        <p class="text-left">{{ Form::radio('accept_cutoff_fee', '1', null, array('required' => 'required')) }} <strong>Yes</strong>, please process my files today and charge a 10% fee</p>
+            @if (isset($upload_cutoff))
+                @if ($upload_cutoff === 1)
+                    <div class="form-group">
+                        <div class="controls">
+                            <div class="alert alert-info"><strong>Notice!</strong>  Files uploaded between {{ date("gA", mktime(Config::get('app.file_upload_soft_cutoff_hour'))) }} and {{ date("gA T", mktime(Config::get('app.file_upload_hard_cutoff_hour'))) }}  are subject to a $3.00 per tooth processing fee for same day processing.
+                            <br />
+                            <p class="text-left">{{ Form::radio('accept_cutoff_fee', '0', true, array('required' => 'required')) }} <strong>No</strong>, please wait until the next business day to process files.</p>
+                            <p class="text-left">{{ Form::radio('accept_cutoff_fee', '1', null, array('required' => 'required')) }} <strong>Yes</strong>, please process my files today and charge a ${{ Config::get('app.file_upload_rush_processing_fee') }} per tooth processing fee.</p>
+                            </div>
+                            {{ $errors->first('accept_cutoff_fee', '<div class="alert alert-danger"> :message </div>') }}
                         </div>
-                        {{ $errors->first('accept_cutoff_fee', '<div class="alert alert-danger"> :message </div>') }}
                     </div>
-                </div>
+                @elseif ($upload_cutoff === 2)
+                    <div class="form-group">
+                        <div class="controls">
+                            <div class="alert alert-info"><strong>Notice!</strong>  Files uploaded after {{ date("gA T", mktime(Config::get('app.file_upload_hard_cutoff_hour'))) }} will be processed next business day.
+                            </div>
+                        </div>
+                    </div>
+                @endif
             @endif
 
             @if (Session::has('upload_limit_reached'))

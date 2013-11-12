@@ -6,9 +6,10 @@ use App\Models\Conversation;
 class BaseController extends Controller {
 
 	public $user = null;
-	public $afterCutoff = false;
-	public $beforeBeginningOfDay = false;
+
+	public $upload_cutoff = 0; // 0 = no cutoff set, 1 = soft cutoff set, 2 = hard cutoff set
 	public $unread_conversation_count = null;
+	
 
 	public function __construct() {
 		//parent::__construct();
@@ -17,15 +18,16 @@ class BaseController extends Controller {
 
         $now = Carbon::now();
 
-        // Check the current request time and compare it against upload time set in config.app
-        // If the current request time is on or past the upload cutoff time, set to true
-        if ($now->hour >= Config::get('app.file_upload_cutoff_hour_CST') && $now->hour < Config::get('app.end_of_day_hour_CST')) {
-	        $this->afterCutoff = true;
-	    } else {
-	    	$this->afterCutoff = false;
+        // Determine whether or not the current time is between the soft cutoff 
+        if ($now->hour >= Config::get('app.file_upload_soft_cutoff_hour') && $now->hour < Config::get('app.file_upload_hard_cutoff_hour') + 1) {
+        	// it's soft cutoff time
+	        $this->upload_cutoff = 1;
+	    } else if ($now->hour >= Config::get('app.file_upload_soft_cutoff_hour') + 1 && $now->hour <= Config::get('app.end_of_day_hour')) {
+	    	// it's hard cutoff time
+	    	$this->upload_cutoff = 2;
 	    }
 
-	    View::share('afterCutoff', $this->afterCutoff);
+	    View::share('upload_cutoff', $this->upload_cutoff);
 		
 		if (Sentry::check()) {
 			$this->user = Sentry::getUser();
