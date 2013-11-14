@@ -55,10 +55,10 @@
                                                             <td class="text-center">
                                                                 {{-- If every file in the batch has been downloaded --}}
                                                                 @if ($batch['total_download_status'] == "all")
-                                                                    <a class="btn btn-success show-tooltip" title="All files in this batch have been downloaded."><i class="icon-cloud-download"></i> Downloaded</a>
+                                                                    <a class="btn btn-success show-tooltip" title="All files in this batch have been downloaded by AMS."><i class="icon-cloud-download"></i> Received by AMS</a>
                                                                 {{-- If none of the files in the batch have been downloaded --}}
                                                                 @elseif ($batch['total_download_status'] == "none")
-                                                                    <a class="btn btn-danger show-tooltip" title="None of the files in this batch have been downloaded."><i class="icon-cloud-download"></i> Not Downloaded</a>
+                                                                    <a class="btn btn-danger show-tooltip" title="None of the files in this batch have been downloaded."><i class="icon-cloud-download"></i> Not Yet Downloaded</a>
                                                                 {{-- If some of the files have been downloaded --}}
                                                                 @elseif ($batch['total_download_status'] == "some")
                                                                     <a class="btn btn-warning show-tooltip" title="Some of the files in this batch have been downloaded."><i class="icon-cloud-download"></i> Partially Downloaded</a>
@@ -70,7 +70,7 @@
                                                                     <a class="btn btn-success show-tooltip" title="All files in this batch have been shipped."><i class="icon-truck"></i> Shipped</a>
                                                                 {{-- If none of the files in the batch have been shipped --}}
                                                                 @elseif ($batch['total_shipped_status'] == "none")
-                                                                    <a class="btn btn-danger show-tooltip" title="None of the files in this batch have been shipped."><i class="icon-truck"></i> Not Shipped</a>
+                                                                    <a class="btn btn-danger show-tooltip" title="None of the files in this batch have been shipped."><i class="icon-truck"></i> Not Yet Shipped</a>
                                                                 {{-- If some of the files have been shipped --}}
                                                                 @elseif ($batch['total_shipped_status'] == "some")
                                                                     <a class="btn btn-warning show-tooltip" title="Some of the files in this batch have been shipped."><i class="icon-truck"></i> Partially Shipped</a>
@@ -83,7 +83,6 @@
                                                         <tr id="collapse-batch_details_{{ $batch['id'] }}" class="collapse no-transition batch-details">
                                                             <td colspan="7">
                                                                 <div class="row batch-details-row">
-                                                                    {{ Form::open(array('route' => 'file_download_checked', 'name' => 'form-batch-files', 'id' => 'form-batch-files-' . $batch['id'], 'data-batch-id' => $batch['id'])) }}
                                                                         <div class="col-md-2">
                                                                             <h4><i class="icon-comment"></i> Message</h4>
                                                                             <hr />
@@ -110,22 +109,20 @@
                                                                                 </div>
                                                                             @endif
                                                                         </div>
-                                                                        <div class="col-md-7">
+                                                                        <div class="col-md-10">
                                                                             <h4><i class="icon-file"></i> Files</h4>
                                                                             <hr />
                                                                             <table class="table" id="batch-files-list">
                                                                                 <thead>
-                                                                                    <th>{{ Form::checkbox('check-all', '') }}</th>
                                                                                     <th>Filename</th>
                                                                                     <th>Date Uploaded</th>
                                                                                     <th>Expiration</th>
-                                                                                    <th class="text-center">Download</th>
-                                                                                    <th class="text-center">Shipping</th>
+                                                                                    <th class="text-center">Download<br />Status</th>
+                                                                                    <th class="text-center">Shipping<br />Status</th>
                                                                                 </thead>
                                                                                 <tbody>
                                                                             @foreach ($batch['files'] as $file)
                                                                                 <tr>
-                                                                                    <td>{{ Form::checkbox('download-file[]', $file->id) }}</td>
                                                                                     <td>{{ $file->filename_original }}</td>
                                                                                     <td>
                                                                                         {{ $file->formattedCreatedAt() }}
@@ -135,16 +132,16 @@
                                                                                     </td>
                                                                                     <td class="text-center">
                                                                                         @if ($file->download_status)
-                                                                                            <a href="{{ route('file_download_single', $file->id) }}" class="btn btn-success show-tooltip" title="Download {{ $file->filename_original }} again"><i class="icon-cloud-download"></i></a>
+                                                                                            <span class="btn btn-success show-tooltip" title="AMS has received this file"><i class="icon-cloud-download"></i></span>
                                                                                         @else
-                                                                                            <a href="{{ route('file_download_single', $file->id) }}" class="btn btn-danger show-tooltip" title="Download {{ $file->filename_original }}"><i class="icon-cloud-download"></i></a>
+                                                                                            <span class="btn btn-danger show-tooltip" title="AMS has not yet received this file"><i class="icon-cloud-download"></i></span>
                                                                                         @endif
                                                                                     </td>
                                                                                     <td class="text-center">
                                                                                         @if ($file->shipping_status)
-                                                                                            <a href="{{ route('file_update_tracking', $file->id) }}" class="btn btn-success show-tooltip tracking-popover" title="Update tracking number for {{ $file->filename_original }} again" data-file-id="{{ $file->id }}"><i class="icon-truck"></i></a>
+                                                                                            <span class="btn btn-success show-tooltip" title="Update tracking number for {{ $file->filename_original }} again" data-file-id="{{ $file->id }}"><i class="icon-truck"></i></span>
                                                                                         @else
-                                                                                            <a href="{{ route('file_update_tracking', $file->id) }}" class="btn btn-danger show-tooltip tracking-popover" title="Add tracking number for {{ $file->filename_original }}" data-file-id="{{ $file->id }}"><i class="icon-truck"></i></a>
+                                                                                            <span class="btn btn-danger show-tooltip tracking-popover" title="This " data-file-id="{{ $file->id }}"><i class="icon-truck"></i></span>
                                                                                         @endif
                                                                                     </td>
                                                                                 </tr>
@@ -152,16 +149,6 @@
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>
-                                                                        <div class="col-md-3">
-                                                                            <h4><i class="icon-cloud-download"></i> Download Center</h4>
-                                                                            <hr />
-                                                                            <button type="submit" class="btn btn-inverse btn-lg btn-block" id="btn-download-as-batch-{{ $batch['id'] }}">Download Checked as .ZIP</button>
-                                                                            <a href="{{ route('file_download_batch', $batch['id']) }}" class="btn btn-inverse btn-lg btn-block">Download Batch as .ZIP</a>
-                                                                        </div>
-                                                                        {{ Form::hidden('batch_from_lab_name', $batch['from_lab_name']) }}
-                                                                        {{ Form::hidden('batch_from_lab_email', $batch['from_lab_email']) }}
-                                                                        {{ Form::hidden('batch_id', $batch['id']) }}
-                                                                    {{ Form::close() }}
                                                                 </div>
                                                             </td>
                                                         </tr>

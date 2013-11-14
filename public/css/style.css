@@ -91,7 +91,7 @@ table#batch-files-list tr {
 	margin-bottom: 5px;
 }
 
-div.batch-details-row form > div {
+div.batch-details-row > div, div.batch-details-row form > div {
 	padding: 1em;
 }
 
