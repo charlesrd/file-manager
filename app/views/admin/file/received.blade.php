@@ -77,7 +77,7 @@
                                                                 @endif
                                                             </td>
                                                             <td class="text-center">
-                                                                {{ $batch['expiration_formatted'] }}
+                                                                {{ $batch['expires_at_formatted'] }}
                                                             </td>
                                                         </tr>
                                                         <tr id="collapse-batch_details_{{ $batch['id'] }}" class="collapse no-transition batch-details">
@@ -131,7 +131,7 @@
                                                                                         {{ $file->formattedCreatedAt() }}
                                                                                     </td>
                                                                                     <td>
-                                                                                        {{ $file->formattedExpiration() }}
+                                                                                        {{ $file->formattedExpiresAt() }}
                                                                                     </td>
                                                                                     <td class="text-center">
                                                                                         @if ($file->download_status)

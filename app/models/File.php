@@ -23,30 +23,45 @@ class File extends Eloquent {
 	}
 
 	public function batch() {
-		return $this->belongsTo('Batch');
-		//return DB::table('batches')->where('id', '=', $$this->batch_id)->first();
+		//return $this->belongsTo('Batch');
+		return DB::table('batches')->where('id', '=', $this->batch_id)->first();
 	}
-
-	// public function user() {
-	// 	return \DB::table('users')->where('id', '=', $this->user_id)->first();
-	// }
-
-	// public function batch() {
-	// 	return \DB::table('batches')->where('id', '=', $this->batch_id)
-	// 								->first();
-	// }
 
 	public function getDates() {
-		return array('created_at', 'updated_at', 'deleted_at', 'expiration');
+		return array('created_at', 'updated_at', 'deleted_at', 'expires_at', 'ships_at');
 	}
 
-	public function formattedCreatedAt() {
-		return $this->created_at->format('g:ia \o\n M j, Y');
+	public function formattedCreatedAt($for_humans = false) {
+		if (!$for_humans) {
+            return $this->created_at->format('g:ia \o\n M j, Y');
+        } else {
+            return $this->created_at->diffForHumans();
+        }
 	}
 
-	public function formattedExpiration() {
-		return $this->expiration->format('M j, Y');
+	public function formattedExpiresAt($for_humans = false) {
+		if (!$for_humans) {
+            return $this->expires_at->format('g:ia \o\n M j, Y');
+        } else {
+            return $this->expires_at->diffForHumans();
+        }
 	}
+
+    public function formattedShipsAt($for_humans = false) {
+        if (!$for_humans) {
+            return $this->ships_at->format('M j, Y');
+        } else {
+            return $this->ships_at->diffForHumans();
+        }
+    }
+
+    public function isShipped() {
+        if ($this->ships_at->isPast()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 	/*
 	Needed to send a lot of data to a view...this code is terrible, I know :/
@@ -82,9 +97,11 @@ class File extends Eloquent {
             $data['batch'][$batch->id]['num_files'] = $batch->files()->count();
             $data['batch'][$batch->id]['message'] = $batch->message;
             $data['batch'][$batch->id]['created_at'] = $batch->created_at;
-            $data['batch'][$batch->id]['expiration'] = $batch->expiration;
+            $data['batch'][$batch->id]['expires_at'] = $batch->expires_at;
             $data['batch'][$batch->id]['created_at_formatted'] = $batch->formattedCreatedAt();
-            $data['batch'][$batch->id]['expiration_formatted'] = $batch->formattedExpiration();
+            $data['batch'][$batch->id]['created_at_formatted_human'] = $batch->formattedCreatedAt(true);
+            $data['batch'][$batch->id]['expires_at_formatted'] = $batch->formattedExpiresAt();
+            $data['batch'][$batch->id]['expires_at_formatted_human'] = $batch->formattedExpiresAt(true);
             $data['batch'][$batch->id]['accept_cutoff_fee'] = $batch->accept_cutoff_fee;
 
             $totalNotDownloaded = 0;
@@ -95,7 +112,7 @@ class File extends Eloquent {
                 if ($file->download_status == 0) {
                     $totalNotDownloaded++;
                 }
-                if ($file->shipping_status == 0) {
+                if ($file->shipping_status == 0 && !$file->isShipped()) {
                     $totalNotShipped++;
                 }
             }
@@ -198,9 +215,11 @@ class File extends Eloquent {
             $data['batch'][$batch->id]['num_files'] = $batch->files()->count();
             $data['batch'][$batch->id]['message'] = $batch->message;
             $data['batch'][$batch->id]['created_at'] = $batch->created_at;
-            $data['batch'][$batch->id]['expiration'] = $batch->expiration;
+            $data['batch'][$batch->id]['expires_at'] = $batch->expires_at;
             $data['batch'][$batch->id]['created_at_formatted'] = $batch->formattedCreatedAt();
-            $data['batch'][$batch->id]['expiration_formatted'] = $batch->formattedExpiration();
+            $data['batch'][$batch->id]['created_at_formatted_human'] = $batch->formattedCreatedAt(true);
+            $data['batch'][$batch->id]['expires_at_formatted'] = $batch->formattedExpiresAt();
+            $data['batch'][$batch->id]['expires_at_formatted_human'] = $batch->formattedExpiresAt(true);
 
             $totalNotDownloaded = 0;
             $totalNotShipped = 0;
@@ -210,7 +229,7 @@ class File extends Eloquent {
                 if ($file->download_status == 0) {
                     $totalNotDownloaded++;
                 }
-                if ($file->shipping_status == 0) {
+                if ($file->shipping_status == 0 || !$file->ships_at->isPast()) {
                     $totalNotShipped++;
                 }
             }

@@ -184,6 +184,26 @@ class FileController extends BaseController {
                         $fileModel->filename_original = $file['filename_original'];
                         $fileModel->filename_random = $file['filename_random'];
 
+                        // Save model to db so we can work with it
+                        $fileModel->save();
+
+                        // Set the file expiration to 7 days from upload date
+                        $fileModel->expires_at = $fileModel->created_at->addDays(7);
+
+                        // Determine the estimated shipping date
+                        // IF file was uploaded after cutoff then ships 2 weekdays later
+                        // otherwise ships next day
+                        if (($fileModel->created_at->hour >= Config::get('app.file_upload_hard_cutoff_hour') && $fileModel->created_at->hour <= Config::get('app.soft_cutoff_reset_hour'))
+                            || $fileModel->created_at->isWeekend()) {
+                            if ($fileModel->batch()->accept_cutoff_fee) {
+                                $fileModel->ships_at = $fileModel->created_at->addWeekday();
+                            } else {
+                                $fileModel->ships_at = $fileModel->created_at->addWeekdays(2);
+                            }
+                        } else {
+                            $fileModel->ships_at = $fileModel->created_at->addWeekday();
+                        }
+
                         $fileModel->save();
                     }
                 } else {

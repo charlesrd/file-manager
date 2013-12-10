@@ -21,15 +21,31 @@ class Batch extends Eloquent {
 	}
 
 	public function getDates() {
-		return array('created_at', 'updated_at', 'deleted_at', 'expiration');
+		return array('created_at', 'updated_at', 'deleted_at', 'expires_at');
 	}
 
-	public function formattedCreatedAt() {
-		return $this->created_at->format('g:ia \o\n M j, Y');
+	public function formattedCreatedAt($for_humans = false) {
+		if (!$for_humans) {
+			return $this->created_at->format('g:ia \o\n M j, Y');
+		} else {
+			return $this->created_at->diffForHumans();
+		}
 	}
 
-	public function formattedExpiration() {
-		return $this->expiration->format('M j, Y');
+	public function formattedExpiresAt($for_humans = false) {
+		if (!$for_humans) {
+			return $this->expires_at->format('g:ia \o\n M j, Y');
+		} else {
+			return $this->expires_at->diffForHumans();
+		}
 	}
+
+	public function formattedShipsAt($for_humans = false) {
+        if (!$for_humans) {
+            return $this->ships_at->format('M j, Y');
+        } else {
+            return $this->ships_at->diffForHumans();
+        }
+    }
 
 }

@@ -503,7 +503,6 @@ hr.margin-0  {margin: 0;}
     position: relative;
 }
 .nav-list .search-form {
-    margin-top: 16px;
     margin-bottom: 16px;
 }
 .nav-list .search-pan {
@@ -699,7 +698,7 @@ hr.margin-0  {margin: 0;}
     padding-left: 12px;
 }
 .sidebar-collapsed .nav-list .search-pan input {
-    height: 43px;
+    height: 46.5px;
     line-height: 20px;
     padding-top: 10px;
     padding-bottom: 10px;

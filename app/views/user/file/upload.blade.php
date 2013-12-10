@@ -92,6 +92,7 @@
                 var dz = this;
                 var uploadForm = $('#form-upload');
                 var submitBtn = $("#form-upload button[type=submit]");
+                var errorCount = 0;
 
                 // disable submit button by default
                 submitBtn.prop("disabled", true);
@@ -123,6 +124,10 @@
                     }
                 );
 
+                dz.on('error', function(file, errorMessage) {
+                    errorCount++;
+                });
+
                 dz.on("sendingmultiple", function(file, xhr, formData) {
                     formData.append('lab_message', $("#lab_message").val());
                     formData.append('accept_cutoff_fee', $("#accept_cutoff_fee").val());
@@ -135,46 +140,70 @@
 
                 var count = 0;
 
+                dz.on("errormultiple", function(files, message, xhr) {
+                    console.log("Files = " + files);
+                    console.log("Message = " + JSON.stringify(JSON.parse(message), null, 4));
+                    console.log("XHR = " + JSON.stringify(xhr, null, 4));
+                });
+
                 dz.on("completemultiple", function(file) {
-                    if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0 && this.getRejectedFiles().length === 0) {
+                    if (errorCount == 0) {
+                        if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0 && this.getRejectedFiles().length === 0) {
 
-                        if (count == 0) {
-                            $('<div class="alert alert-success lead text-muted text-center">Your files have been uploaded successfully. <br /><br />Check your email for a confirmation.  <a href="#" id="upload-more">Upload more?</a></div>').hide().appendTo('#dz-container').slideDown(500);
+                            if (count == 0) {
+                                $('<div class="alert alert-success lead text-muted text-center">Your files have been uploaded successfully. <br /><br />{{ link_to_route('file_history', 'View Uploaded Files') }} or <a href="#" id="upload-more">Upload more?</a></div>').hide().appendTo('#dz-container').slideDown(500);
 
-                            $(document).on('click', '#upload-more', function(e) {
-                                e.preventDefault();
-                                e.stopPropagation();
+                                $(document).on('click', '#upload-more', function(e) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
 
-                                dz.removeAllFiles();
+                                    dz.removeAllFiles();
 
-                                $(".alert-success").slideUp(500, function() {
-                                    $(this).remove();
+                                    $(".alert-success").slideUp(500, function() {
+                                        $(this).remove();
+                                    });
+
+                                    count = 0;
+                                    submitBtn.prop('disabled', false)
                                 });
+                            }
+                            count++;
+                        } else {
+                            if (count == 0) {
+                                $('<div class="alert alert-danger lead text-muted text-center" id="rejected-files">Please fix errors above and <a href="#" id="try-again">Try again?</a></div>').hide().appendTo('#dz-container').slideDown(500);
 
-                                count = 0;
-                                submitBtn.prop('disabled', false)
-                            });
+                                $(document).on('click', '#try-again', function(e) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+
+                                    dz.removeAllFiles();
+
+                                    $(".alert-danger").slideUp(500, function() {
+                                        $(this).remove();
+                                    });
+
+                                    count = 0;
+                                    submitBtn.prop('disabled', true)
+                                });
+                            }
+                            count++;
                         }
-                        count++;
                     } else {
-                        if (count == 0) {
-                            $('<div class="alert alert-danger lead text-muted text-center" id="rejected-files">Please fix errors above and <a href="#" id="try-again">Try again?</a></div>').hide().appendTo('#dz-container').slideDown(500);
+                        $('<div class="alert alert-danger lead text-muted text-center" id="rejected-files">Please fix errors above and <a href="#" id="try-again">Try again?</a></div>').hide().appendTo('#dz-container').slideDown(500);
 
-                            $(document).on('click', '#try-again', function(e) {
-                                e.preventDefault();
-                                e.stopPropagation();
+                        $(document).on('click', '#try-again', function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
 
-                                dz.removeAllFiles();
+                            dz.removeAllFiles();
 
-                                $(".alert-danger").slideUp(500, function() {
-                                    $(this).remove();
-                                });
-
-                                count = 0;
-                                submitBtn.prop('disabled', true)
+                            $(".alert-danger").slideUp(500, function() {
+                                $(this).remove();
                             });
-                        }
-                        count++;
+
+                            count = 0;
+                            submitBtn.prop('disabled', true)
+                        });
                     }
                 });
 

@@ -16,8 +16,6 @@
                                             <thead>
                                                 <tr>
                                                     <th>Date Uploaded</th>
-                                                    <th>Lab</th>
-                                                    <th>Email</th>
                                                     <th>Files</th>
                                                     <th class="text-center">Download Status</th>
                                                     <th class="text-center">Shipping Status</th>
@@ -38,12 +36,6 @@
                                                         @endif
                                                             <td>
                                                                 {{ $batch['created_at_formatted'] }}
-                                                            </td>
-                                                            <td>
-                                                                {{ $batch['from_lab_name'] }}
-                                                            </td>
-                                                            <td>
-                                                                {{ $batch['from_lab_email'] }}
                                                             </td>
                                                             <td>
                                                                 @if ($batch['num_files'] > 1)
@@ -77,11 +69,11 @@
                                                                 @endif
                                                             </td>
                                                             <td class="text-center">
-                                                                {{ $batch['expiration_formatted'] }}
+                                                                {{ $batch['expires_at_formatted'] }}
                                                             </td>
                                                         </tr>
                                                         <tr id="collapse-batch_details_{{ $batch['id'] }}" class="collapse no-transition batch-details">
-                                                            <td colspan="7">
+                                                            <td colspan="5">
                                                                 <div class="row batch-details-row">
                                                                     {{ Form::open(array('route' => 'file_download_checked', 'name' => 'form-batch-files', 'id' => 'form-batch-files-' . $batch['id'], 'data-batch-id' => $batch['id'])) }}
                                                                         <div class="col-md-2">
@@ -115,7 +107,7 @@
                                                                                         {{ $file->formattedCreatedAt() }}
                                                                                     </td>
                                                                                     <td>
-                                                                                        {{ $file->formattedExpiration() }}
+                                                                                        {{ $file->formattedExpiresAt() }}
                                                                                     </td>
                                                                                     <td class="text-center">
                                                                                         @if ($file->download_status)

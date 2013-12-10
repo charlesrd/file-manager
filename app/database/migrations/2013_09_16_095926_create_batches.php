@@ -22,19 +22,15 @@ class CreateBatches extends Migration {
 			$table->text('guest_lab_email')->nullable();
 			$table->text('guest_lab_phone')->nullable();
 			$table->text('message')->nullable();
-			$table->timestamp('expiration');
+			$table->timestamp('expires_at');
 			$table->integer('accept_cutoff_fee')->default(0);
 			$table->timestamps();
 
 			// We'll need to ensure that MySQL uses the InnoDB engine to
 			// support the indexes, other engines aren't affected.
 			$table->engine = 'InnoDB';
+			$table->foreign('id')->references('batch_id')->on('files')->onDelete('cascade');
 		});
-		if (Schema::hasColumn('batches', 'expiration')) {
-			DB::unprepared('CREATE TRIGGER set_batch_expiration 
-						   BEFORE INSERT ON `batches` 
-						   FOR EACH ROW SET NEW.expiration = TIMESTAMPADD(WEEK, 1, NOW())');
-		}
 	}
 
 	/**

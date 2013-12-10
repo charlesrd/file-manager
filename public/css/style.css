@@ -99,6 +99,9 @@ div.batch-details-row hr {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+div.text-warning {
+	color: #b94a48;
+}
 .noscript {
 	position: absolute;
 	z-index: 99999;

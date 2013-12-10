@@ -26,19 +26,15 @@ class CreateFiles extends Migration {
 			$table->boolean('download_status');
 			$table->boolean('shipping_status');
 			$table->string('tracking')->nullable();
-			$table->timestamp('expiration');
+			$table->timestamp('expires_at');
+			$table->timestamp('ships_at');
 			$table->timestamps();
 
 			// We'll need to ensure that MySQL uses the InnoDB engine to
 			// support the indexes, other engines aren't affected.
 			$table->engine = 'InnoDB';
+			$table->foreign('batch_id')->references('id')->on('batches')->onDelete('cascade');
 		});
-
-		if (Schema::hasColumn('files', 'expiration')) {
-			DB::unprepared('CREATE TRIGGER set_file_expiration 
-						   BEFORE INSERT ON `files` 
-						   FOR EACH ROW SET NEW.expiration = TIMESTAMPADD(WEEK, 1, NOW())');
-		}
 	}
 
 	/**
