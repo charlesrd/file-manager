@@ -17,6 +17,7 @@ input[type=radio] {
 .tooltip-inner {
 	width: auto;
 	border-radius: 5px;
+	white-space: pre-wrap;
 }
 tr.hover {
    cursor: pointer;
@@ -42,7 +43,9 @@ div.alert {
 	font-size: 14px;
 	margin-bottom: 5px;
 }
-
+.legend {
+	margin-bottom: 10px;
+}
 .row {
 	margin-left: 0;
 	margin-right: 0;

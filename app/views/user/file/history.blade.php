@@ -11,11 +11,21 @@
                                     <div class="col-md-3">
                                         <h3>File History</h3>
                                     </div>
-                                    <div class="col-md-6 col-md-offset-3">
+                                    <div class="col-md-6 col-md-offset-3 visible-md visible-lg" id="legend">
                                         <div class="row">
-                                            <div class="col-md-4 text-right">Icon Legend</div>
-                                            <div class="col-md-4 text-right">Test</div>
-                                            <div class="col-md-4 text-right">Test</div>
+                                            <div class="col-md-1 text-right">
+                                                LEGEND
+                                            </div>
+                                            <div class="col-md-6 col-md-offset-1">
+                                                <a class="btn btn-success legend"><i class="icon-cloud-download"></i></a> = All files have been downloaded and milled by AMS<br />
+                                                <a class="btn btn-warning legend"><i class="icon-cloud-download"></i></a> = Some files have been downloaded and milled by AMS<br />
+                                                <a class="btn btn-danger legend"><i class="icon-cloud-download"></i></a> = No files have been downloaded and milled by AMS
+                                            </div>
+                                            <div class="col-md-4">
+                                                <a class="btn btn-success legend"><i class="icon-truck"></i></a> = All files have been shipped by AMS<br />
+                                                <a class="btn btn-warning legend"><i class="icon-truck"></i></a> = Some files have been shipped by AMS<br />
+                                                <a class="btn btn-danger legend"><i class="icon-truck"></i></a> = No files have been shipped by AMS
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -48,7 +58,7 @@
                                                             <td class="text-center show-tooltip" title="{{ $batch['created_at_formatted_human'] }}">
                                                                 {{ $batch['created_at_formatted'] }}
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td class="text-center show-tooltip" title="{{ $batch['filename_list'] }}">
                                                                 @if ($batch['num_files'] > 1)
                                                                     {{ $batch['num_files'] }} files
                                                                 @else
@@ -79,7 +89,7 @@
                                                                     <a class="btn btn-warning show-tooltip" title="Some of the files in this batch have been shipped.  Expand to view estimated shipping dates."><i class="icon-truck"></i> Partially Shipped</a>
                                                                 @endif
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td class="text-center show-tooltip" title="{{ $batch['expires_at_formatted_human'] }}">
                                                                 {{ $batch['expires_at_formatted'] }}
                                                             </td>
                                                         </tr>
@@ -161,9 +171,6 @@
                                     </div>
                                     <div class="text-center">
                                         {{ $batches->links() }}
-                                    </div>
-                                    <div class="alert alert-info lead text-muted text-center">
-                                        <strong><i class="icon-cloud-download"></i> </strong> Files can be downloaded for 7 days.  Download access to files will be removed after their expiration.
                                     </div>
                                 @else
                                     <div class="alert alert-danger lead text-muted text-center">You don't seem to have any recently uploaded files.  <br /><br />Once you've uploaded files, detailed information will be available here.</div>

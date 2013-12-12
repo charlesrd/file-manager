@@ -24,6 +24,19 @@ class Batch extends Eloquent {
 		return array('created_at', 'updated_at', 'deleted_at', 'expires_at');
 	}
 
+	// Used to build a string of filenames for tooltips
+	public function buildFilenameList() {
+		$filename_list = null;
+		$files = DB::table('files')->where('batch_id', $this->id)->get();
+
+		foreach($files as $file) {
+			// concatenate filenames into a string and separate each with a new line
+			$filename_list .= $file->filename_original . "\n";
+		}
+
+		return $filename_list;
+	}
+
 	public function formattedCreatedAt($for_humans = false) {
 		if (!$for_humans) {
 			return $this->created_at->format('g:ia \o\n M j, Y');

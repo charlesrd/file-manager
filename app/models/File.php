@@ -56,7 +56,9 @@ class File extends Eloquent {
     }
 
     public function isShipped() {
-        if ($this->ships_at->isPast()) {
+        // We assume that if the file has been downloaded and the estimated shipping date is now or has passed
+        // then the file has been processed and shipped
+        if ($this->ships_at->isPast() && $this->download_status == 1) {
             return true;
         } else {
             return false;
@@ -103,6 +105,7 @@ class File extends Eloquent {
             $data['batch'][$batch->id]['expires_at_formatted'] = $batch->formattedExpiresAt();
             $data['batch'][$batch->id]['expires_at_formatted_human'] = $batch->formattedExpiresAt(true);
             $data['batch'][$batch->id]['accept_cutoff_fee'] = $batch->accept_cutoff_fee;
+            $data['batch'][$batch->id]['filename_list'] = $batch->buildFilenameList();
 
             $totalNotDownloaded = 0;
             $totalNotShipped = 0;
@@ -147,25 +150,50 @@ class File extends Eloquent {
 	}
 
     public static function getSearchFiles($searchPhrase, $user_id) {
+        // Get the user object based on user_id passed in
         $authUser = User::find($user_id);
 
+        // We need to initialize a few variables
         $file_batch_id_array = array();
         $data = array();
         $user = null;
 
+        // Determine whether or not we found a user with specific user_id
         if (!empty($authUser)) {
+
+            // Success, user exists, so lets check their access permissions
+            // If the user has admin or superadmin priveldges, we want to search ALL files and ALL batches
             if ($authUser->hasAccess('admin') || $authUser->hasAccess('superuser')) {
+
+                // We want to be able to search by lab name
+                // Grab a collection of all labs from DLP that have a LIKE match to the search phrase
                 $dlpLabs = DB::connection('dentallabprofile')->table('labprofile')->where('labName', 'LIKE', '%' . $searchPhrase . '%');
+
+                // Guest labs have sent us files, too, and we need to be able to search for them as well using either lab name or email
                 $guestLabs = DB::table('batches')->where('guest_lab_name', 'LIKE', '%' . $searchPhrase . '%')->orWhere('guest_lab_email', 'LIKE', '%' . $searchPhrase . '%');
+
+                // Combine both collections into a single collection of labs so we can use them in a single loop
                 $labs = array_merge($dlpLabs->get(), $guestLabs->get());
 
+                // We need a place to store the user_id of each lab that is in the collection of labs
                 $batch_lab_id_array = array();
+
+                // We also need a place to store the batch_id of each batch that is in the search results
+                // This is used when a lab_id doesn't exist (which means the batch was uploaded by a guest lab)
                 $batch_id_array = array();
+
+                // Loop through the entire collection of labs/guest labs
+                // and add elements to the arrays we created
                 foreach($labs as $lab) {
+                    // We need to check if the lab is registered (labID != null means they are registered)
                     if (is_object($lab) && isset($lab->labID)) {
+                        // If the lab ID is set in the batch, it was uploaded by a registered user, so lets grab that user
                         $user = User::where('lab_id', '=', $lab->labID)->firstOrFail();
+                        // And then lets add an element to the array containing their user id
                         $batch_lab_id_array[] = $user->id;
-                    } elseif (is_object($lab)) {
+                    } elseif (is_object($lab)) { // If the lab ID was not set, a guest uploaded the batch
+                        // Weird naming convention, but $lab in this case is actually a batch
+                        // So lets add that ID to the batch_id array
                         $batch_id_array[] = $lab->id;
                     }
                 }
@@ -186,7 +214,7 @@ class File extends Eloquent {
             } else {
                 $files = File::where('user_id', '=', $authUser->id)->orderBy('created_at', 'DESC')->paginate(Config::get('app.pagination_items_per_page'));
             }
-        } else {
+        } else { // no user with specific user_id found, return error
             return Response::make('Could not validate user', 500);
         }
 
@@ -220,6 +248,8 @@ class File extends Eloquent {
             $data['batch'][$batch->id]['created_at_formatted_human'] = $batch->formattedCreatedAt(true);
             $data['batch'][$batch->id]['expires_at_formatted'] = $batch->formattedExpiresAt();
             $data['batch'][$batch->id]['expires_at_formatted_human'] = $batch->formattedExpiresAt(true);
+            $data['batch'][$batch->id]['accept_cutoff_fee'] = $batch->accept_cutoff_fee;
+            $data['batch'][$batch->id]['filename_list'] = $batch->buildFilenameList();
 
             $totalNotDownloaded = 0;
             $totalNotShipped = 0;
