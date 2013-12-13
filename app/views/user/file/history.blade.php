@@ -8,10 +8,10 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-12">
                                         <h3>File History</h3>
                                     </div>
-                                    <div class="col-md-6 col-md-offset-3 visible-md visible-lg" id="legend">
+                                    <!--<div class="col-md-6 col-md-offset-3 visible-md visible-lg" id="legend">
                                         <div class="row">
                                             <div class="col-md-1 text-right">
                                                 LEGEND
@@ -26,7 +26,7 @@
                                                 <a class="btn btn-warning legend"><i class="icon-truck"></i></a> = Some files have been shipped by AMS<br />
                                                 <a class="btn btn-danger legend"><i class="icon-truck"></i></a> = No files have been shipped by AMS
                                             </div>
-                                        </div>
+                                        </div>-->
                                     </div>
                                 </div>
                             </div>

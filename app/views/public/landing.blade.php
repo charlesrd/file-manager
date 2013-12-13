@@ -122,7 +122,7 @@
             <p class="lead text-center">
                 <span class="text-info">Wondering what the benefits are?</span>
                 <dl>
-                    <dt><i class="icon-truck"></i> Real-Time File Tracking &amp; Updates</dt>
+                    <dt><i class="icon-truck"></i> Real-Time File Updates</dt>
                         <dd>allows you to easily see which files we have processed</dd>
                     <dt><i class="icon-comment"></i> AMS Messaging Center</dt>
                         <dd>keeps you connected directly with our staff</dd>

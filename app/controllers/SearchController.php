@@ -18,6 +18,15 @@ class SearchController extends \BaseController {
 	{
 		if (Input::has('search')) {
 			$searchPhrase = Input::get('search');
+
+			if (strlen($searchPhrase) < 3) {
+				if ($this->user->hasAccess('admin') || $this->user->hasAccess('superuser')) {
+					return View::make('admin.search.default')->with('searchLengthError', 'Please try a longer search phrase.');
+				} else {
+					return View::make('user.search.default')->with('searchLengthError', 'Please try a longer search phrase.');
+				}
+			}
+
 			$data = File::getSearchFiles($searchPhrase, $this->user->id);
             $batches = $data['batches'];
 

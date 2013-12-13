@@ -10,6 +10,12 @@
                                 <h3>Search</h3>
                             </div>
                             <div class="panel-body">
+                                @if(isset($searchLengthError))
+                                    <div class="alert alert-danger lead text-muted text-center">
+                                        <strong><i class="icon-frown"></i> </strong> 
+                                        {{ $searchLengthError }}
+                                    </div>
+                                @endif
                                 {{ Form::open(array('route' => 'search_post', 'files' => true, 'id' => 'form-upload')) }}
                                     <div class="form-group">
                                         <div class="controls">
