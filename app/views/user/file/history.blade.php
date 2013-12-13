@@ -7,28 +7,7 @@
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h3>File History</h3>
-                                    </div>
-                                    <!--<div class="col-md-6 col-md-offset-3 visible-md visible-lg" id="legend">
-                                        <div class="row">
-                                            <div class="col-md-1 text-right">
-                                                LEGEND
-                                            </div>
-                                            <div class="col-md-6 col-md-offset-1">
-                                                <a class="btn btn-success legend"><i class="icon-cloud-download"></i></a> = All files have been downloaded and milled by AMS<br />
-                                                <a class="btn btn-warning legend"><i class="icon-cloud-download"></i></a> = Some files have been downloaded and milled by AMS<br />
-                                                <a class="btn btn-danger legend"><i class="icon-cloud-download"></i></a> = No files have been downloaded and milled by AMS
-                                            </div>
-                                            <div class="col-md-4">
-                                                <a class="btn btn-success legend"><i class="icon-truck"></i></a> = All files have been shipped by AMS<br />
-                                                <a class="btn btn-warning legend"><i class="icon-truck"></i></a> = Some files have been shipped by AMS<br />
-                                                <a class="btn btn-danger legend"><i class="icon-truck"></i></a> = No files have been shipped by AMS
-                                            </div>
-                                        </div>-->
-                                    </div>
-                                </div>
+                                <h3>File History</h3>
                             </div>
                             <div class="panel-body">
                                 @if (!empty($data['batch']))
@@ -47,18 +26,18 @@
                                                     @foreach ($data['batch'] as $batch)
                                                         {{-- If every file in the batch has been downloaded --}}
                                                         @if ($batch['total_download_status'] == "all")
-                                                        <tr class="table-flag-green clickable" title="Click to expand and view batch details" data-href="{{ route('batch_detail_post') }}/{{ $batch['id'] }}" data-toggle="collapse" data-target="#collapse-batch_details_{{ $batch['id'] }}" data-id="{{ $batch['id'] }}">
+                                                        <tr class="table-flag-green clickable show-tooltip" data-placement="bottom" title="Click to expand and view upload details" data-href="{{ route('batch_detail_post') }}/{{ $batch['id'] }}" data-toggle="collapse" data-target="#collapse-batch_details_{{ $batch['id'] }}" data-id="{{ $batch['id'] }}">
                                                         {{-- If none of the files in the batch have been downloaded --}}
                                                         @elseif ($batch['total_download_status'] == "none")
-                                                        <tr class="table-flag-red clickable" title="Click to expand and view batch details." data-href="{{ route('batch_detail_post') }}/{{ $batch['id'] }}" data-toggle="collapse" data-target="#collapse-batch_details_{{ $batch['id'] }}" data-id="{{ $batch['id'] }}">
+                                                        <tr class="table-flag-red clickable show-tooltip" data-placement="bottom" title="Click to expand and view upload details." data-href="{{ route('batch_detail_post') }}/{{ $batch['id'] }}" data-toggle="collapse" data-target="#collapse-batch_details_{{ $batch['id'] }}" data-id="{{ $batch['id'] }}">
                                                         {{-- If some of the files have been downloaded --}}
                                                         @elseif ($batch['total_download_status'] == "some")
-                                                        <tr class="table-flag-orange clickable" title="Click to expand and view batch details." data-href="{{ route('batch_detail_post') }}/{{ $batch['id'] }}" data-toggle="collapse" data-target="#collapse-batch_details_{{ $batch['id'] }}" data-id="{{ $batch['id'] }}">
+                                                        <tr class="table-flag-orange clickable show-tooltip" data-placement="bottom" title="Click to expand and view upload details." data-href="{{ route('batch_detail_post') }}/{{ $batch['id'] }}" data-toggle="collapse" data-target="#collapse-batch_details_{{ $batch['id'] }}" data-id="{{ $batch['id'] }}">
                                                         @endif
                                                             <td class="text-center show-tooltip" title="{{ $batch['created_at_formatted_human'] }}">
                                                                 {{ $batch['created_at_formatted'] }}
                                                             </td>
-                                                            <td class="text-center show-tooltip" title="{{ $batch['filename_list'] }}">
+                                                            <td class="show-tooltip" title="{{ $batch['filename_list'] }}">
                                                                 @if ($batch['num_files'] > 1)
                                                                     {{ $batch['num_files'] }} files
                                                                 @else
@@ -68,25 +47,25 @@
                                                             <td class="text-center">
                                                                 {{-- If every file in the batch has been downloaded --}}
                                                                 @if ($batch['total_download_status'] == "all")
-                                                                    <a class="btn btn-success show-tooltip" title="All files in this batch have been downloaded and processed by AMS."><i class="icon-cloud-download"></i> Fully Processed</a>
+                                                                    <a class="btn btn-success show-tooltip" title="AMS has recevied and processed all files."><i class="icon-cloud-download"></i> Fully Processed</a>
                                                                 {{-- If none of the files in the batch have been downloaded --}}
                                                                 @elseif ($batch['total_download_status'] == "none")
-                                                                    <a class="btn btn-danger show-tooltip" title="None of the files in this batch have been downloaded or processed by AMS."><i class="icon-cloud-download"></i> Not Yet Processed</a>
+                                                                    <a class="btn btn-danger show-tooltip" title="AMS has recevied all files, but none been processed."><i class="icon-cloud-download"></i> Not Yet Processed</a>
                                                                 {{-- If some of the files have been downloaded --}}
                                                                 @elseif ($batch['total_download_status'] == "some")
-                                                                    <a class="btn btn-warning show-tooltip" title="Some of the files in this batch have been downloaded and processed by AMS."><i class="icon-cloud-download"></i> Partially Processed</a>
+                                                                    <a class="btn btn-warning show-tooltip" title="AMS has received all files, but some have not been processed."><i class="icon-cloud-download"></i> Partially Processed</a>
                                                                 @endif
                                                             </td>
                                                             <td class="text-center">
                                                                 {{-- If every file in the batch has been shipped --}}
                                                                 @if ($batch['total_shipped_status'] == "all")
-                                                                    <a class="btn btn-success show-tooltip" title="All files in this batch have been shipped."><i class="icon-truck"></i> Shipped</a>
+                                                                    <a class="btn btn-success show-tooltip" title="All cases have been shipped."><i class="icon-truck"></i> Shipped</a>
                                                                 {{-- If none of the files in the batch have been shipped --}}
                                                                 @elseif ($batch['total_shipped_status'] == "none")
-                                                                    <a class="btn btn-danger show-tooltip" title="None of the files in this batch have been shipped.  Expand to view estimated shipping dates."><i class="icon-truck"></i> Not Yet Shipped</a>
+                                                                    <a class="btn btn-danger show-tooltip" title="No cases have been shipped.  Click row to expand and view estimated shipping dates."><i class="icon-truck"></i> Not Yet Shipped</a>
                                                                 {{-- If some of the files have been shipped --}}
                                                                 @elseif ($batch['total_shipped_status'] == "some")
-                                                                    <a class="btn btn-warning show-tooltip" title="Some of the files in this batch have been shipped.  Expand to view estimated shipping dates."><i class="icon-truck"></i> Partially Shipped</a>
+                                                                    <a class="btn btn-warning show-tooltip" title="Some cases have been shipped.  Click row to expand and view estimated shipping dates."><i class="icon-truck"></i> Partially Shipped</a>
                                                                 @endif
                                                             </td>
                                                             <td class="text-center show-tooltip" title="{{ $batch['expires_at_formatted_human'] }}">

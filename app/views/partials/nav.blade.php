@@ -107,6 +107,15 @@
                         </li>
                         <!-- END Button Messages -->
 
+                        <!-- BEGIN Button Upload Files -->
+                        <li class="hidden-xs">
+                            <a href="{{ route('file_upload') }}">
+                                <i class="icon-cloud-upload"> </i>
+                                &nbsp;Upload Files
+                            </a>
+                        </li>
+                        <!-- END Button Upload Files -->
+
                     @endif
 
                     <!-- BEGIN Button User -->
@@ -122,52 +131,16 @@
                         <!-- BEGIN User Dropdown -->
                         <ul class="dropdown-menu dropdown-navbar" id="user_menu">
 
+                            <!--
                             <li>
                                 <a href="#">
                                     <i class="icon-cog"></i>
                                     Account Settings
                                 </a>
                             </li>
-
-                            <!--<li>
-                                <a href="#">
-                                    <i class="icon-user"></i>
-                                    Manage DentalLabProfile Account
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    <i class="icon-question"></i>
-                                    Help
-                                </a>
-                            </li>-->
-
-                            <li class="divider visible-sm"></li>
-
-                            <li class="visible-sm">
-                                <a href="#">
-                                    <i class="icon-tasks"></i>
-                                    Tasks
-                                    <span class="badge badge-warning">4</span>
-                                </a>
-                            </li>
-                            <li class="visible-sm">
-                                <a href="#">
-                                    <i class="icon-bell-alt"></i>
-                                    Notifications
-                                    <span class="badge badge-important">8</span>
-                                </a>
-                            </li>
-                            <li class="visible-sm">
-                                <a href="#">
-                                    <i class="icon-envelope"></i>
-                                    Messages
-                                    <span class="badge badge-success">5</span>
-                                </a>
-                            </li>
-
+                            
                             <li class="divider"></li>
+                            -->
 
                             <li>
                                 <a href="{{ route('user_logout') }}">

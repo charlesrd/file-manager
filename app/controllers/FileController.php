@@ -193,12 +193,15 @@ class FileController extends BaseController {
                         // Determine the estimated shipping date
                         // IF file was uploaded after cutoff then ships 2 weekdays later
                         // otherwise ships next day
-                        if (($fileModel->created_at->hour >= Config::get('app.file_upload_hard_cutoff_hour') && $fileModel->created_at->hour <= Config::get('app.soft_cutoff_reset_hour'))
-                            || $fileModel->created_at->isWeekend()) {
-                            if ($fileModel->batch()->accept_cutoff_fee) {
+                        if (($fileModel->created_at->hour >= Config::get('app.file_upload_soft_cutoff_hour') && $fileModel->created_at->hour <= Config::get('app.end_of_day_hour')) || $fileModel->created_at->isWeekend()) {
+                            if ($fileModel->created_at->isWeekend()) {
                                 $fileModel->ships_at = $fileModel->created_at->addWeekday();
                             } else {
-                                $fileModel->ships_at = $fileModel->created_at->addWeekdays(2);
+                                if ($fileMolde->batch()->accept_cutoff_fee) {
+                                    $fileModel->ships_at = $fileModel->created_at->addWeekday();
+                                } else {
+                                    $fileModel->ships_at = $fileModel->created_at->addWeekdays(2);
+                                }
                             }
                         } else {
                             $fileModel->ships_at = $fileModel->created_at->addWeekday();
@@ -394,6 +397,8 @@ class FileController extends BaseController {
                     $batch->accept_cutoff_fee = 0;
                 }
             }
+
+            $batch->expires_at = Carbon::now()->addDays(7);
 
             if ($batch->save()) {
                 return $batch->id;
