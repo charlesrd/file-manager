@@ -57,7 +57,7 @@ class FileController extends BaseController {
             $uploadValidationRules = array('file.0' => 'required');
             $uploadValidationMessages = array(
                 'file.0.required' => 'Please select files to attach.',
-                'file.0.mimes' => 'File type must be STL, LAB or ZIP'
+                'file.0.mimes' => 'File type must be STL, PTS, LAB, or ZIP'
             );
 
             if ($this->upload_cutoff) {
@@ -96,7 +96,7 @@ class FileController extends BaseController {
             );
             $uploadValidationMessages = array(
                 'file.0.required' => 'Please select files to attach.',
-                'file.0.mimes' => 'File type must be STL, LAB or ZIP',
+                'file.0.mimes' => 'File type must be STL, PTS, LAB, or ZIP',
                 'guest_lab_name.required' => 'Please provide the name of your lab.',
                 'guest_lab_email.required' => 'Please provide a valid email.',
                 'guest_lab_phone.required' => 'Please provide a valid phone number.'
@@ -191,7 +191,7 @@ class FileController extends BaseController {
                         $fileModel->expires_at = $fileModel->created_at->addDays(7);
 
                         // Determine the estimated shipping date
-                        // IF file was uploaded after cutoff then ships 2 weekdays later
+                        // IF file was uploaded after cutoff date and user didn't accept cutoff fees or was uploaded on a weekend, then ships 2 weekdays later
                         // otherwise ships next day
                         if (($fileModel->created_at->hour >= Config::get('app.file_upload_soft_cutoff_hour') && $fileModel->created_at->hour <= Config::get('app.end_of_day_hour')) || $fileModel->created_at->isWeekend()) {
                             if ($fileModel->created_at->isWeekend()) {

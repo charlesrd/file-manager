@@ -16,9 +16,9 @@ class CreateMessages extends Migration {
 		}
 		Schema::create('messages', function($table)
 		{
-			$table->bigIncrements('id');
-			$table->integer('user_id'); // USER_ID OF THE SENDER
-			$table->integer('conversation_id');
+			$table->bigIncrements('id')->unsigned();
+			$table->integer('user_id')->unsigned(); // USER_ID OF THE SENDER
+			$table->integer('conversation_id')->unsigned();
 			$table->text('body');
 			$table->timestamps();
 

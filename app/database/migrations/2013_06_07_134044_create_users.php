@@ -15,7 +15,7 @@ class CreateUsers extends Migration {
 			Schema::drop('users');
 		}
 		Schema::create('users', function($table) {
-			$table->increments('id');
+			$table->increments('id')->unsigned();
 			$table->integer('lab_id')->nullable();
 			$table->string('username');
 			$table->string('email')->nullable();

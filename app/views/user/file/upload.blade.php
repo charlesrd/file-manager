@@ -14,14 +14,14 @@
                     {{ Form::open(array('route' => 'file_upload_post', 'files' => true, 'id' => 'form-upload')) }}
                         <div class="form-group">
                             <div class="controls">
-                                {{ Form::textarea('lab_message', Input::old('lab_message'), array('class' => 'form-control', 'id' => 'lab_message', 'placeholder' => 'message: shade, patient name, tooth #, etc. (optional)')) }}
+                                {{ Form::textarea('lab_message', Input::old('lab_message'), array('class' => 'form-control', 'id' => 'lab_message', 'placeholder' => 'message: shade, patient name, tooth #, etc.  if filenames include patient name, shade, and tooth #, this field is optional.')) }}
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="controls" id="dz-container">
                                 <div id="dz-upload" class="dropzone">
                                     <div class="fallback">
-                                        {{ Form::file('file[]', array('multiple' => 'true', 'accept' => '.STL, .SLA, .ZIP, .LAB, application/octet-stream, application/zip, application/sla')) }}
+                                        {{ Form::file('file[]', array('multiple' => 'true', 'accept' => '.pts, .stl, .sla, .zip, .lab, application/octet-stream, application/zip, application/sla')) }}
                                     </div>
                                 </div>
                                 {{ $errors->first('file.0', '<div class="alert alert-danger"> :message </div>') }}
@@ -32,10 +32,13 @@
                             @if ($upload_cutoff === 1)
                                 <div class="form-group">
                                     <div class="controls">
-                                        <div class="alert alert-info"><strong>Notice!</strong>  Files uploaded between {{ date("gA", mktime(Config::get('app.file_upload_soft_cutoff_hour'))) }} and {{ date("gA T", mktime(Config::get('app.file_upload_hard_cutoff_hour'))) }}  are subject to a $3.00 per tooth processing fee for same day processing.
-                                        <br />
-                                        <p class="text-left">{{ Form::radio('accept_cutoff_fee', '0', true, array('required' => 'required')) }} <strong>No</strong>, please wait until the next business day to process files.</p>
-                                        <p class="text-left">{{ Form::radio('accept_cutoff_fee', '1', null, array('required' => 'required')) }} <strong>Yes</strong>, please process my files today and charge a ${{ Config::get('app.file_upload_rush_processing_fee') }} per tooth processing fee.</p>
+                                        <div class="alert alert-info">
+                                            <strong>Notice!</strong>  Files uploaded between {{ date("gA", mktime(Config::get('app.file_upload_soft_cutoff_hour'))) }} and {{ date("gA T", mktime(Config::get('app.file_upload_hard_cutoff_hour'))) }}  are subject to a $3.00 per tooth processing fee for same day processing.
+                                            <br />
+                                            <strong>Additional charges will not begin until February 1, 2014.</strong>
+                                            <br />
+                                            <p class="text-left">{{ Form::radio('accept_cutoff_fee', '0', true, array('required' => 'required')) }} <strong>No</strong>, please wait until the next business day to process files.</p>
+                                            <p class="text-left">{{ Form::radio('accept_cutoff_fee', '1', null, array('required' => 'required')) }} <strong>Yes</strong>, please process my files today and charge a ${{ Config::get('app.file_upload_rush_processing_fee') }} per tooth processing fee.</p>
                                         </div>
                                         {{ $errors->first('accept_cutoff_fee', '<div class="alert alert-danger"> :message </div>') }}
                                     </div>
@@ -83,7 +86,7 @@
             addRemoveLinks: true,
             createImageThumbnails: false,
             maxFiles: 10,
-            acceptedFiles: "application/x-rar-compressed,application/octet-stream,.zip,application/zip,.stl,application/sla,.sla,.lab,application/lab",
+            acceptedFiles: "application/x-rar-compressed,application/octet-stream,.zip,application/zip,.stl,application/sla,.sla,.lab,application/lab,.pts",
             url: "{{ route('file_upload_post') }}",
 
             dictRemoveFile: "Delete",

@@ -17,8 +17,8 @@ class CreateUsersConversations extends Migration {
 		Schema::create('users_conversations', function($table)
 		{
 			$table->increments('id');
-			$table->integer('user_id'); // USER ID OF RECIPIENT
-			$table->integer('conversation_id');
+			$table->integer('user_id')->unsigned(); // USER ID OF RECIPIENT
+			$table->integer('conversation_id')->unsigned();
 			$table->boolean('read')->default(0);
 			$table->boolean('read_admin')->default(0);
 			$table->timestamps();

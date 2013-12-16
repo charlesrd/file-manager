@@ -18,14 +18,13 @@ class CreateFiles extends Migration {
 
 		// Create the files database table
 		Schema::create('files', function($table) {
-			$table->increments('id');
+			$table->increments('id')->unsigned();
 			$table->integer('user_id')->nullable();
-			$table->integer('batch_id');
+			$table->integer('batch_id')->unsigned();
 			$table->string('filename_original');
 			$table->string('filename_random');
 			$table->boolean('download_status');
 			$table->boolean('shipping_status');
-			$table->string('tracking')->nullable();
 			$table->timestamp('expires_at');
 			$table->timestamp('ships_at');
 			$table->timestamps();
@@ -33,7 +32,6 @@ class CreateFiles extends Migration {
 			// We'll need to ensure that MySQL uses the InnoDB engine to
 			// support the indexes, other engines aren't affected.
 			$table->engine = 'InnoDB';
-			$table->foreign('batch_id')->references('id')->on('batches')->onDelete('cascade');
 		});
 	}
 

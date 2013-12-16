@@ -6,15 +6,15 @@ return array(
 	'site_title' => 'File Management System',
 
 	// Application configuration options set here
-	'file_upload_soft_cutoff_hour' => 15, // 3pm CST for soft cutoff time (24H format)
-	'file_upload_hard_cutoff_hour' => 16, // 4pm CST for hard cutoff time (24H format)
+	'file_upload_soft_cutoff_hour' => 20, // 3pm CST for soft cutoff time (24H format)
+	'file_upload_hard_cutoff_hour' => 21, // 4pm CST for hard cutoff time (24H format)
 	'end_of_day_hour' => 24, // at 12am CST, no more cutoff
 	'file_upload_rush_processing_fee' => 3, // $3.00 per tooth processing fee
 	'soft_cutoff_reset_hour' => 20, // 8pm CST in 24h format
 	'pagination_items_per_page' => 10, // Controls how many items we want listed per page of paginated items
 	'uploads_per_hour' => '1',
 	"average_last_x_days_filecount" => 7, // averages dashboard filecounts over the last X amount of days
-	'enable_upload_throttle' => false,
+	'enable_upload_throttle' => true,
 	'noreply_email' => 'noreply@amsdti.com',
 
 	/*
@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'debug' => true,
+	'debug' => false,
 
 	/*
 	|--------------------------------------------------------------------------

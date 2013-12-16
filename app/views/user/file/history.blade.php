@@ -17,7 +17,7 @@
                                                 <tr>
                                                     <th class="text-center">Date Uploaded</th>
                                                     <th class="text-center">Files</th>
-                                                    <th class="text-center">Processing Status</th>
+                                                    <th class="text-center">Mill Status</th>
                                                     <th class="text-center">Shipping Status</th>
                                                     <th class="text-center">Expiring</th>
                                                 </tr>
@@ -47,13 +47,13 @@
                                                             <td class="text-center">
                                                                 {{-- If every file in the batch has been downloaded --}}
                                                                 @if ($batch['total_download_status'] == "all")
-                                                                    <a class="btn btn-success show-tooltip" title="AMS has recevied and processed all files."><i class="icon-cloud-download"></i> Fully Processed</a>
+                                                                    <a class="btn btn-success show-tooltip" title="AMS has recevied and milled all files."><i class="icon-cloud-download"></i> Fully Milled</a>
                                                                 {{-- If none of the files in the batch have been downloaded --}}
                                                                 @elseif ($batch['total_download_status'] == "none")
-                                                                    <a class="btn btn-danger show-tooltip" title="AMS has recevied all files, but none been processed."><i class="icon-cloud-download"></i> Not Yet Processed</a>
+                                                                    <a class="btn btn-danger show-tooltip" title="AMS has recevied all files, but none been milled."><i class="icon-cloud-download"></i> Not Yet Milled</a>
                                                                 {{-- If some of the files have been downloaded --}}
                                                                 @elseif ($batch['total_download_status'] == "some")
-                                                                    <a class="btn btn-warning show-tooltip" title="AMS has received all files, but some have not been processed."><i class="icon-cloud-download"></i> Partially Processed</a>
+                                                                    <a class="btn btn-warning show-tooltip" title="AMS has received all files, but some have not been milled."><i class="icon-cloud-download"></i> Partially Milled</a>
                                                                 @endif
                                                             </td>
                                                             <td class="text-center">
@@ -89,11 +89,11 @@
                                                                                     </div>
                                                                                 @endif
                                                                             </p>
-                                                                            <h4><i class="icon-star"></i> Rush Processing</h4>
+                                                                            <h4><i class="icon-star"></i> Rush Milling</h4>
                                                                             <hr />
                                                                             @if ($batch['accept_cutoff_fee'] == true)
                                                                                 <div class="alert alert-info text-center lead text-warning">
-                                                                                    <strong>RUSH PROCESS</strong>
+                                                                                    <strong>RUSH MILL</strong>
                                                                                 </div>
                                                                             @else
                                                                                 <div class="alert alert-info text-center lead">
@@ -109,7 +109,7 @@
                                                                                     <th class="text-center">File</th>
                                                                                     <th class="text-center">Date Uploaded</th>
                                                                                     <th class="text-center">Expiration</th>
-                                                                                    <th class="text-center">Processing<br />Status</th>
+                                                                                    <th class="text-center">Milling<br />Status</th>
                                                                                     <th class="text-center">Shipping<br />Status</th>
                                                                                 </thead>
                                                                                 <tbody>
@@ -124,9 +124,9 @@
                                                                                     </td>
                                                                                     <td class="text-center">
                                                                                         @if ($file->download_status)
-                                                                                            <span class="btn btn-success show-tooltip" title="AMS has received this file and it has been processed."><i class="icon-cloud-download"></i></span>
+                                                                                            <span class="btn btn-success show-tooltip" title="AMS has received this file and it has been milled."><i class="icon-cloud-download"></i></span>
                                                                                         @else
-                                                                                            <span class="btn btn-danger show-tooltip" title="AMS has received this file but it has not yet been processed."><i class="icon-cloud-download"></i></span>
+                                                                                            <span class="btn btn-danger show-tooltip" title="AMS has received this file but it has not yet been milled."><i class="icon-cloud-download"></i></span>
                                                                                         @endif
                                                                                     </td>
                                                                                     <td class="text-center">

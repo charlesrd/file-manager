@@ -9,15 +9,14 @@ class CreateBatches extends Migration {
 	 *
 	 * @return void
 	 */
-	public function up()
-	{
+	public function up() {
 		if (Schema::hasTable('batches')) {
 			Schema::drop('batches');
 		}
-		Schema::create('batches', function($table)
-		{
-			$table->increments('id');
-			$table->integer('user_id')->nullable();
+
+		Schema::create('batches', function($table) {
+			$table->increments('id')->unsigned();
+			$table->integer('user_id')->unsigned()->nullable();
 			$table->text('guest_lab_name')->nullable();
 			$table->text('guest_lab_email')->nullable();
 			$table->text('guest_lab_phone')->nullable();
@@ -29,7 +28,6 @@ class CreateBatches extends Migration {
 			// We'll need to ensure that MySQL uses the InnoDB engine to
 			// support the indexes, other engines aren't affected.
 			$table->engine = 'InnoDB';
-			$table->foreign('id')->references('batch_id')->on('files')->onDelete('cascade');
 		});
 	}
 
@@ -38,8 +36,7 @@ class CreateBatches extends Migration {
 	 *
 	 * @return void
 	 */
-	public function down()
-	{
+	public function down() {
 		Schema::drop('batches');
 	}
 

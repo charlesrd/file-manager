@@ -209,7 +209,7 @@
                                         <strong><i class="icon-cloud-download"></i> </strong> Files can be downloaded for 7 days.  Download access to files will be removed after their expiration.
                                     </div>
                                 @else
-                                    <div class="alert alert-danger lead text-muted text-center">You don't seem to have any recently uploaded files.  <br /><br />Once you've uploaded files, detailed information will be available here.</div>
+                                    <div class="alert alert-danger lead text-muted text-center">You have not yet received files.  <br /><br />Once files have been uploaded, detailed information will be available here.</div>
                                 @endif
                             </div>
                         </div>

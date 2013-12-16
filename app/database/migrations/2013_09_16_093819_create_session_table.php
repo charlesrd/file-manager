@@ -14,11 +14,11 @@ class CreateSessionTable extends Migration {
 		if (Schema::hasTable('sessions')) {
 			Schema::drop('sessions');
 		}
-		Schema::create('sessions', function($t)
-		{
-			$t->string('id')->unique();
-			$t->text('payload');
-			$t->integer('last_activity');
+
+		Schema::create('sessions', function($table) {
+			$table->string('id')->unique();
+			$table->text('payload');
+			$table->integer('last_activity');
 		});
 	}
 

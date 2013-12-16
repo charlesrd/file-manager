@@ -15,7 +15,7 @@ class MessageController extends \BaseController {
 	public function getIndex() {
 		// At this point in time, only user with id=1 (UDRC) should have access to conversations list
 		if ($this->user->hasAccess('admin') && $this->user->id == 1) {
-			$conversations = Conversation::with('users')->orderBy('created_at', 'desc')->paginate(Config::get('app.pagination_items_per_page'));
+			$conversations = Conversation::with('users')->orderBy('updated_at', 'desc')->paginate(Config::get('app.pagination_items_per_page'));
 			return View::make('admin.message.conversations')->withConversations($conversations);
 		} else {
 			$conversation = $this->user->conversations->first();

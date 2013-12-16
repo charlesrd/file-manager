@@ -16,7 +16,7 @@ class CreateConversations extends Migration {
 		}
 		Schema::create('conversations', function($table)
 		{
-			$table->increments('id');
+			$table->increments('id')->unsigned();
 			$table->timestamps();
 
 			// We'll need to ensure that MySQL uses the InnoDB engine to
