@@ -5,3 +5,6 @@ composer.phar
 /public/uploads
 /public/generated-zips
 tags
+amsdti.sublime-project
+/flaty_template
+/sql
