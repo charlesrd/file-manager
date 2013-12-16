@@ -1,3 +1,20 @@
+# ----------------------------------------------------------------------
+# Password protect staging server
+# Use one .htaccess file across multiple environments
+# (e.g. local, dev, staging, production)
+# but only password protect a specific environment.
+# ----------------------------------------------------------------------
+
+SetEnvIf Host beta.amsdti.com passreq
+AuthType Basic
+AuthName "Password Required"
+AuthUserFile /usr/htpasswd/www.amsdti.com/beta/.htpasswd
+Require valid-user
+Order allow,deny
+Allow from all
+Deny from env=passreq
+Satisfy any
+
 <IfModule mod_rewrite.c>
 	Options -MultiViews
 	RewriteEngine On
