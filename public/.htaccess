@@ -6,10 +6,11 @@
 # ----------------------------------------------------------------------
 
 SetEnvIf Host beta.amsdti.com passreq
-AuthType Basic
-AuthName "Password Required"
-AuthUserFile /usr/htpasswd/www.amsdti.com/beta/.htpasswd
-Require valid-user
+AuthName "Restricted Area" 
+AuthType Basic 
+AuthUserFile /usr/htpasswd/www.amsdti.com/beta/.htpasswd 
+AuthGroupFile /dev/null 
+require valid-user
 Order allow,deny
 Allow from all
 Deny from env=passreq
