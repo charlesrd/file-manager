@@ -167,7 +167,7 @@ class File extends Eloquent {
 
                 // We want to be able to search by lab name
                 // Grab a collection of all labs from DLP that have a LIKE match to the search phrase
-                $dlpLabs = DB::connection('dentallabprofile')->table('labprofile')->where('labName', 'LIKE', '%' . $searchPhrase . '%')->orWhere('labEmail', 'LIKE', '%' . $searchPhrase . '%');
+                $dlpLabs = DB::table('users')->where('lab_name', 'LIKE', '%' . $searchPhrase . '%')->orWhere('email', 'LIKE', '%' . $searchPhrase . '%');
 
                 // Guest labs have sent us files, too, and we need to be able to search them as well using either lab name or email
                 $guestLabs = DB::table('batches')->where('guest_lab_name', 'LIKE', '%' . $searchPhrase . '%')->orWhere('guest_lab_email', 'LIKE', '%' . $searchPhrase . '%');

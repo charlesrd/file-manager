@@ -17,6 +17,7 @@ class CreateUsers extends Migration {
 		Schema::create('users', function($table) {
 			$table->increments('id')->unsigned();
 			$table->integer('lab_id')->nullable();
+			$table->integer('lab_name')->nullable();
 			$table->string('username');
 			$table->string('email')->nullable();
 			$table->string('password');
@@ -34,7 +35,7 @@ class CreateUsers extends Migration {
 			// We'll need to ensure that MySQL uses the InnoDB engine to
 			// support the indexes, other engines aren't affected.
 			$table->engine = 'InnoDB';
-			$table->unique(array('lab_id', 'email'));
+			$table->unique(array('lab_id', 'email', 'username'));
 		});
 	}
 

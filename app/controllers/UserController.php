@@ -58,6 +58,7 @@ class UserController extends BaseController {
                             try {
                                 $this->user = Sentry::createUser(array(
                                     'lab_id' => $dlp_user->labID,
+                                    'lab_name' => $dlp_user->labName,
                                     'username' => $dlp_user->labLogin,
                                     'email'    => $dlp_user->labEmail,
                                     'password' => Hash::make($dlp_user->labPassword),
