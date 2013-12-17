@@ -75,7 +75,7 @@
                                                         <tr id="collapse-batch_details_{{ $batch['id'] }}" class="collapse no-transition batch-details">
                                                             <td colspan="5">
                                                                 <div class="row batch-details-row">
-                                                                        <div class="col-md-2">
+                                                                        <div class="col-md-3">
                                                                             <h4><i class="icon-comment"></i> Message</h4>
                                                                             <hr />
                                                                             <p class="batch-message">
@@ -101,7 +101,7 @@
                                                                                 </div>
                                                                             @endif
                                                                         </div>
-                                                                        <div class="col-md-10">
+                                                                        <div class="col-md-9">
                                                                             <h4><i class="icon-file"></i> Files</h4>
                                                                             <hr />
                                                                             <table class="table" id="batch-files-list">
