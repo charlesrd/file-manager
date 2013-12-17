@@ -187,13 +187,10 @@ class File extends Eloquent {
                 foreach($labs as $lab) {
 
                     // We need to check if the lab is registered (labID != null means they are registered)
-                    if (is_object($lab) && isset($lab->labID)) {
-
-                        // If the lab ID is set in the batch, it was uploaded by a registered user, so lets grab that user
-                        $user = User::where('lab_id', '=', $lab->labID)->firstOrFail();
+                    if (is_object($lab) && isset($lab->lab_id)) {
 
                         // And then lets add an element to the array containing their user id
-                        $batch_lab_id_array[] = $user->id;
+                        $batch_lab_id_array[] = $lab->id;
 
                     } elseif (is_object($lab)) { // If the lab ID was not set, a guest uploaded the batch
 

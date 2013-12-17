@@ -26,7 +26,7 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
-	'local' => array('localhost', 'amsdti.dev', 'ColinMBP'),
+	'local' => array('localhost', 'amsdti.dev', 'ColinMBP', 'Colins-Mac-Mini.local'),
 	'production' => array('americasmiles.com', 'amsdti.com')
 
 ));
