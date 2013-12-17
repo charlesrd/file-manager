@@ -197,7 +197,7 @@ class FileController extends BaseController {
                             if ($fileModel->created_at->isWeekend()) {
                                 $fileModel->ships_at = $fileModel->created_at->addWeekday();
                             } else {
-                                if ($fileMolde->batch()->accept_cutoff_fee) {
+                                if ($fileModel->batch()->accept_cutoff_fee) {
                                     $fileModel->ships_at = $fileModel->created_at->addWeekday();
                                 } else {
                                     $fileModel->ships_at = $fileModel->created_at->addWeekdays(2);
