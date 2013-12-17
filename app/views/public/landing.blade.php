@@ -94,7 +94,7 @@
             <hr />
             <div class="form-group">
                 <div class="controls">
-                    {{ Form::text('user_username', Input::old('user_username'), array('class' => 'form-control', 'id' => 'user_username', 'placeholder' => 'username')) }}
+                    {{ Form::text('user_username', Input::old('user_username'), array('class' => 'form-control', 'id' => 'user_username', 'placeholder' => 'email or username')) }}
                     {{ $errors->first('user_username', '<div class="alert alert-danger"> :message </div>') }}
                 </div>
             </div>
