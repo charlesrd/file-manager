@@ -82,8 +82,7 @@ class FileController extends BaseController {
                         return Redirect::back()->with('upload_limit_reached', 'Hourly upload limit reached.')->withInput();
                     }
                 }
-            }   
-
+            }
 
             // user is not logged in, upload to guest folder
             $destinationPath = 'uploads/guest';
@@ -241,7 +240,7 @@ class FileController extends BaseController {
             if (Request::ajax()) {
                 return Response::json('error', 400);
             } else {
-
+                App::abort(500, 'Error with file upload.');
             }
             
         }
