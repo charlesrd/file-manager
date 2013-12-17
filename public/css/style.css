@@ -98,6 +98,10 @@ div.batch-details-row > div, div.batch-details-row form > div {
 	padding: 1em;
 }
 
+div.batch-details-row .lead {
+	font-size: 18px;
+}
+
 div.batch-details-row hr {
 	margin-top: 10px;
 	margin-bottom: 10px;

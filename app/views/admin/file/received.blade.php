@@ -42,7 +42,7 @@
                                                             <td class="text-center visible-lg">
                                                                 {{ $batch['from_lab_name'] }}
                                                             </td>
-                                                            <td>
+                                                            <td class="text-center">
                                                                 {{ $batch['from_lab_email'] }}
                                                             </td>
                                                             <td class="show-tooltip" title="{{ $batch['filename_list'] }}">
@@ -55,13 +55,13 @@
                                                             <td class="text-center">
                                                                 {{-- If every file in the batch has been downloaded --}}
                                                                 @if ($batch['total_download_status'] == "all")
-                                                                    <a class="btn btn-success" title="AMS has recevied and processed all files."><i class="icon-cloud-download"></i> Fully Processed</a>
+                                                                    <a class="btn btn-success" title="All files have been downloaded."><i class="icon-cloud-download"></i> Fully Downloaded</a>
                                                                 {{-- If none of the files in the batch have been downloaded --}}
                                                                 @elseif ($batch['total_download_status'] == "none")
-                                                                    <a class="btn btn-danger" title="AMS has recevied all files, but none been processed."><i class="icon-cloud-download"></i> Not Yet Processed</a>
+                                                                    <a class="btn btn-danger" title="No files have been downloaded."><i class="icon-cloud-download"></i> Not Downloaded</a>
                                                                 {{-- If some of the files have been downloaded --}}
                                                                 @elseif ($batch['total_download_status'] == "some")
-                                                                    <a class="btn btn-warning" title="AMS has received all files, but some have not been processed."><i class="icon-cloud-download"></i> Partially Processed</a>
+                                                                    <a class="btn btn-warning" title="Some files have been downloaded."><i class="icon-cloud-download"></i> Partially Downloaded</a>
                                                                 @endif
                                                             </td>
                                                             <td class="text-center">
@@ -98,11 +98,11 @@
                                                                                     </div>
                                                                                 @endif
                                                                             </p>
-                                                                            <h4><i class="icon-star"></i> Rush Processing</h4>
+                                                                            <h4><i class="icon-star"></i> Rush Milling</h4>
                                                                             <hr />
                                                                             @if ($batch['accept_cutoff_fee'] == true)
                                                                                 <div class="alert alert-info text-center lead text-warning">
-                                                                                    <strong>RUSH PROCESS</strong>
+                                                                                    <strong>RUSH MILL</strong>
                                                                                 </div>
                                                                             @else
                                                                                 <div class="alert alert-info text-center lead">

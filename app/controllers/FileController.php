@@ -359,12 +359,12 @@ class FileController extends BaseController {
 
             return View::make('admin.file.received')->with('data', $data)->with('batches', $batches);
         } else {
-            App::error(403, 'You do not have permission to view this page.');
+            App::abort(403, 'You do not have permission to view this page.');
         }
 
         // Wrongful request.  Normal users can't go here, log and abort to 404
         Log::warning('Someone tried to access the \'received files\' page without permission.');
-        App::error(403, 'You do not have permission to view this page.');
+        App::abort(403, 'You do not have permission to view this page.');
     }
 
     public function postBatchCreate() {
@@ -430,7 +430,7 @@ class FileController extends BaseController {
             return Response::download(public_path() . '/uploads/' . $upload_path . '/' . $file->filename_random, $file->filename_original);
         }
 
-        App::error(403, 'Permission denied.');
+        App::abort(403, 'You do not have permission to view this page.');
     }
 
     public function getDownloadBatch($batch_id = null) {
@@ -459,7 +459,7 @@ class FileController extends BaseController {
         $archive = new ZipArchive();
 
         if ($archive->open($archive_path, ZipArchive::CREATE) !== TRUE) {
-            App::error(500, 'Could not create .ZIP file');
+            App::abort(500, 'Could not create .ZIP file');
         }
 
         foreach($files as $file) {
@@ -469,11 +469,10 @@ class FileController extends BaseController {
 
             if (file_exists($file_path) && is_readable($file_path)) {
                 if (!$archive->addFile($file_path, $file->filename_original)) {
-                    App::error(500, 'Could not add file to ZIP for creation');
+                    App::abort(500, 'Could not add file to ZIP for creation');
                 }
-            }
-            else {
-                App::error(500, 'File path incorrect.');
+            } else {
+                App::abort(500, 'File path incorrect.');
             }
         }
 
@@ -487,12 +486,12 @@ class FileController extends BaseController {
                 }
                 // someone is trying to download files that aren't theirs!
                 if (!$this->user->hasAccess('admin') && $this->user->hasAccess('users') && $file->user_id != $this->user->id) {
-                    App::error(403, 'Permission denied.');
+                    App::abort(403, 'You do not have permission to view this page.');
                 }
             }
             return Response::download($archive_path, $archive_name);
         } else {
-            App::error(500, 'Error creating ZIP file.');
+            App::abort(500, 'Error creating ZIP file.  Archive could not be created.');
         }
     }
 
@@ -514,7 +513,7 @@ class FileController extends BaseController {
             $archive = new ZipArchive();
 
             if ($archive->open($archive_path, ZipArchive::CREATE) !== TRUE) {
-                App::error(500, 'Could not create .ZIP file');
+                App::abort(500, 'Could not create .ZIP file');
             }
 
             foreach(Input::get('download-file') as $file_id) {
@@ -524,10 +523,10 @@ class FileController extends BaseController {
 
                 if (file_exists($file_path) && is_readable($file_path)) {
                     if (!$archive->addFile($file_path, $file->filename_original)) {
-                        App::error(500, 'Could not add file to ZIP for creation');
+                        App::abort(500, 'Could not add file to ZIP for creation');
                     }
                 } else {
-                    App::error(500, 'File path incorrect.');
+                    App::abort(500, 'File path incorrect.');
                 }
             }
 
@@ -542,24 +541,16 @@ class FileController extends BaseController {
                     }
                     // someone is trying to download files that aren't theirs!
                     if (!$this->user->hasAccess('admin') && $this->user->hasAccess('users') && $file->user_id != $this->user->id) {
-                        App::error(403, 'Permission denied.');
+                        App::abort(403, 'You do not have permission to view this page.');
                     }
                 }
                 return Response::download($archive_path, $archive_name);
             } else {
-                App::error(500, 'Error creating ZIP file.');
+                App::abort(500, 'Error creating ZIP file.  Archive could not be created.');
             }
         } else {
             return Redirect::route('file_received');
         }
-    }
-
-    public function getUpdateTracking($file_id) {
-
-    }
-
-    public function postUpdateTracking($file_id) {
-        
     }
 
 }

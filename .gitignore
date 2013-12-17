@@ -2,8 +2,6 @@
 /vendor
 composer.phar
 .DS_Store
-/public/uploads
-/public/generated-zips
 tags
 amsdti.sublime-project
 /flaty_template
