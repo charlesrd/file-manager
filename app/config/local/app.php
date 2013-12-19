@@ -14,7 +14,7 @@ return array(
 	'pagination_items_per_page' => 10, // Controls how many items we want listed per page of paginated items
 	'uploads_per_hour' => '1',
 	"average_last_x_days_filecount" => 7, // averages dashboard filecounts over the last X amount of days
-	'enable_upload_throttle' => true,
+	'enable_upload_throttle' => false,
 	'noreply_email' => 'noreply@amsdti.com',
 
 	/*

@@ -334,7 +334,7 @@ class File extends Eloquent {
                 if ($file->download_status == 0) {
                     $totalNotDownloaded++;
                 }
-                if ($file->shipping_status == 0 || !$file->ships_at->isPast()) {
+                if ($file->shipping_status == 0 && !$file->isShipped()) {
                     $totalNotShipped++;
                 }
             }

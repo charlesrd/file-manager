@@ -207,8 +207,7 @@
             $("#dz-guest-upload").dropzone({
                 autoProcessQueue: false,
                 uploadMultiple: true,
-                parallelUploads: 100,
-                maxFiles: 100,
+                parallelUploads: 10,
                 addRemoveLinks: true,
                 createImageThumbnails: false,
                 maxFiles: 10,
@@ -276,34 +275,15 @@
                         validationOptions.messages.accept_cutoff_fee = {
                             required: "Please accept or reject the additional processing fee."
                         }
-                        console.log(JSON.stringify(validationOptions, undefined, 2));
                     }
-
-                    // disable submit button by default
-                    submitBtn.prop("disabled", true);
-
-                    // Enable or disable submit button based on form validation and dropzone queue length
-                    guestUploadForm.bind('keyup change', function() {
-                        if ($(this).validate(validationOptions).checkForm() && dz.files.length > 0) {
-                            submitBtn.prop("disabled", false);
-                        } else {
-                            submitBtn.prop("disabled", true);
-                        }
-                    });
 
                     dz.on("addedfile", function() {
                         if (dz.files.length !== 0 && dz.files.length <= 10) {
                             $(".dropzone").css('overflow-y', 'scroll');
-                            if (guestUploadForm.validate(validationOptions).checkForm()) {
-                                submitBtn.prop("disabled", false);
-                            }
                         }
                     }).on("removedfile", function() {
                         if (dz.files.length === 0) {
                             $(".dropzone").css('overflow-y', '');
-                            if (!guestUploadForm.validate(validationOptions).checkForm()) {
-                                submitBtn.prop("disabled", true);
-                            }
                         }
                         if (dz.getRejectedFiles().length === 0) {
                             $("#rejected-files").slideUp(500);
@@ -315,10 +295,12 @@
                             e.preventDefault(); // prevent default action of click event
                             e.stopPropagation(); // stop DOM propagation
 
-                            // Process uploads if all validation has passed.
-                            dz.processQueue();
+                            guestUploadForm.validate(validationOptions);
 
-                            $(this).prop('disabled', true);
+                            if (guestUploadForm.valid()) {
+                                // Process uploads if all validation has passed.
+                                dz.processQueue();
+                            }
                         }
                     );
 
@@ -354,7 +336,6 @@
                                     });
 
                                     count = 0;
-                                    submitBtn.prop('disabled', false)
                                 });
                             }
                             count++;
@@ -373,7 +354,6 @@
                                     });
 
                                     count = 0;
-                                    submitBtn.prop('disabled', true)
                                 });
                             }
                             count++;
@@ -415,16 +395,6 @@
                     form.submit();
                 }
             }
-
-            submitBtn.prop("disabled", 'true');
-
-            loginForm.bind('keyup', function() {
-                if ($(this).validate(validationOptions).checkForm()) {
-                    submitBtn.prop("disabled", false);
-                } else {
-                    submitBtn.prop("disabled", true);
-                }
-            });
         });
     </script>
 @stop
