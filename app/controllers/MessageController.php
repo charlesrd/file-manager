@@ -26,7 +26,7 @@ class MessageController extends \BaseController {
 			}
 			DB::table('users_conversations')->where('conversation_id', '=', $conversation->id)->where('user_id', '=', $this->user->id)->update(array('read' => 1));
 
-			$messages = Conversation::find($conversation->id)->messages()->paginate(Config::get('app.pagination_items_per_page'));
+			$messages = Conversation::find($conversation->id)->messages()->orderBy('updated_at', 'desc')->paginate(Config::get('app.pagination_items_per_page'));
 			return View::make('user.message.messages')->withMessages($messages);
 		}
 	}

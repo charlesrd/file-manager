@@ -11,9 +11,9 @@ class FileController extends BaseController {
         $this->beforeFilter('auth', array('only' => array('getHistory', 'postDetail', 'getReceived')));
     }
 
-	public function getIndex() {
+    public function getIndex() {
         return Redirect::route('file_upload');
-	}
+    }
 
     public function getUpload() {
         if ($this->user) {
@@ -61,8 +61,8 @@ class FileController extends BaseController {
             );
 
             if ($this->upload_cutoff) {
-                $uploadValidationRules['accept_cutoff_fee'] = 'required';
-                $uploadValidationMessages['accept_cutoff_fee.required'] = 'Please accept or reject the additional processing fee.';
+                // $uploadValidationRules['accept_cutoff_fee'] = 'required';
+                // $uploadValidationMessages['accept_cutoff_fee.required'] = 'Please accept or reject the additional processing fee.';
             }
 
             // Instantiate a validation object
@@ -77,9 +77,9 @@ class FileController extends BaseController {
 
                 if ($count > Config::get('app.uploads_per_hour')) {
                     if (Request::ajax()) {
-                        return Response::make('Hourly upload limit reached.', 400);
+                        // return Response::make('Hourly upload limit reached.', 400);
                     } else {
-                        return Redirect::back()->with('upload_limit_reached', 'Hourly upload limit reached.')->withInput();
+                        // return Redirect::back()->with('upload_limit_reached', 'Hourly upload limit reached.')->withInput();
                     }
                 }
             }
@@ -104,8 +104,8 @@ class FileController extends BaseController {
             // If it's after the cuttoff time, we need to validate the acceptance of extra fee
             // which is done by checking whether or not the user selected yes/no radio button
             if ($this->upload_cutoff === 1) {
-                $uploadValidationRules['accept_cutoff_fee'] = 'required';
-                $uploadValidationMessages['accept_cutoff_fee.required'] = 'Please accept or reject the additional processing fee.';
+                // $uploadValidationRules['accept_cutoff_fee'] = 'required';
+                // $uploadValidationMessages['accept_cutoff_fee.required'] = 'Please accept or reject the additional processing fee.';
             }
 
             // Instantiate a validation object
@@ -115,9 +115,9 @@ class FileController extends BaseController {
         // Run upload validation to check mime type, size, and required
         if ($uploadValidation->fails()) {
             if (Request::ajax()) {
-                return Response::json($uploadValidation->messages()->first(), 400);
+                // return Response::json($uploadValidation->messages()->first(), 400);
             } else {
-                return Redirect::back()->withErrors($uploadValidation)->withInput();
+                // return Redirect::back()->withErrors($uploadValidation)->withInput();
             }
             
         }
@@ -125,6 +125,22 @@ class FileController extends BaseController {
         // Get the current file from upload array
         $uploadFiles = Input::file('file');
         $uploadSuccess = false;
+
+        // setup variables
+        $uploadFileCount = 1;
+        $uploadValidFileNameArray = array();
+        $uploadFileMillingTypeArray = array();
+        $uploadFileDeliveryMethodArray = array();
+        $selectedUploadFileNames = Input::get('upload-filenames');
+        $selectedMillingOptions = Input::get('selected-milling-options');
+        $selectedDeliveryMethods = Input::get('selected-delivery-methods');
+        $uploadFileMillingType = 1;
+        $uploadFileDeliveryMethod = 1;
+
+        // set the array values
+        $uploadValidFileNameArray = explode("|", $selectedUploadFileNames);
+        $uploadFileMillingTypeArray = explode("|", $selectedMillingOptions);
+        $uploadFileDeliveryMethodArray = explode("|", $selectedDeliveryMethods);
 
         if (is_array($uploadFiles)) {
             foreach($uploadFiles as $file) {
@@ -135,6 +151,26 @@ class FileController extends BaseController {
                 $uploadFileExtension = $file->getClientOriginalExtension();
                 // Generate a random filename and concatenate original extension
                 $uploadFileNameRandomized = str_random(64) . '.' . $uploadFileExtension;
+
+                // get the chosen milling type and delivery method of the current file
+                $filePosition = array_search($uploadFileName, $uploadValidFileNameArray);
+
+                if (is_int($filePosition))
+                {
+                    $uploadFileMillingType = $uploadFileMillingTypeArray[$filePosition];
+                    $uploadFileDeliveryMethod = $uploadFileDeliveryMethodArray[$filePosition];
+                }
+
+                // if the milling type is not set, defult to ECONOMY milling
+                // if (!isset($uploadFileMillingType)) {$uploadFileMillingType = 1;}
+
+                // if the delivery method is not set, defult to REGULAR shipping
+                // if (!isset($uploadFileDeliveryMethod)) {$uploadFileDeliveryMethod = 1;}
+
+                // add the data to the arrays
+                // $uploadFileMillingTypeArray[] = $uploadFileMillingType;
+                // $uploadFileDeliveryMethodArray[] = $uploadFileDeliveryMethod;
+
                 // Attempt to move the files, returns true/false
                 $uploadSuccess = $file->move($destinationPath, $uploadFileNameRandomized);
 
@@ -143,6 +179,9 @@ class FileController extends BaseController {
                     'filename_original' => $uploadFileName,
                     'filename_random' => $uploadFileNameRandomized
                 ));
+
+                // update the counters
+                $uploadFileCount++;
             }
         } else {
             // Validation passed, begin to upload files
@@ -152,6 +191,30 @@ class FileController extends BaseController {
             $uploadFileExtension = $uploadFiles->getClientOriginalExtension();
             // Generate a random filename and concatenate original extension
             $uploadFileNameRandomized = str_random(64) . '.' . $uploadFileExtension;
+
+            // get the chosen milling type and delivery method of the current file
+            $filePosition = array_search($uploadFileName, $uploadValidFileNameArray);
+
+            if (is_int($filePosition))
+            {
+                $uploadFileMillingType = $uploadFileMillingTypeArray[$filePosition];
+                $uploadFileDeliveryMethod = $uploadFileDeliveryMethodArray[$filePosition];
+            }
+
+            // get the chosen milling type and delivery method of the current file
+            // $uploadFileMillingType = Input::get('milling-option-'.$uploadFileCount);
+            // $uploadFileDeliveryMethod = Input::get('delivery-method-'.$uploadFileCount);
+
+            // if the milling type is not set, defult to ECONOMY milling
+            // if (!isset($uploadFileMillingType)) {$uploadFileMillingType = 1;}
+
+            // if the delivery method is not set, defult to REGULAR shipping
+            // if (!isset($uploadFileDeliveryMethod)) {$uploadFileDeliveryMethod = 1;}
+
+            // add the data to the arrays
+            // $uploadFileMillingTypeArray[] = $uploadFileMillingType;
+            // $uploadFileDeliveryMethodArray[] = $uploadFileDeliveryMethod;
+
             // Attempt to move the files, returns true/false
             $uploadSuccess = $uploadFiles->move($destinationPath, $uploadFileNameRandomized);
 
@@ -172,6 +235,10 @@ class FileController extends BaseController {
                 $uploadFiles = Session::get('upload.files');
 
                 if (is_array($uploadFiles) && !empty($uploadFiles) && $batch_id != null) {
+
+                    // setup variables
+                    $fileCount = 0;
+
                     foreach($uploadFiles as $file) {
                         $fileModel = new File;
                         if ($this->user) {
@@ -182,6 +249,19 @@ class FileController extends BaseController {
                         $fileModel->batch_id = $batch_id;
                         $fileModel->filename_original = $file['filename_original'];
                         $fileModel->filename_random = $file['filename_random'];
+
+                        $filePosition = array_search($file['filename_original'], $uploadValidFileNameArray);
+
+                        if (is_int($filePosition))
+                        {
+                            $fileModel->milling_type = $uploadFileMillingTypeArray[$filePosition];
+                            $fileModel->shipping_type = $uploadFileDeliveryMethodArray[$filePosition];
+                        }
+                        else
+                        {
+                            $fileModel->milling_type = 1;
+                            $fileModel->shipping_type = 1;
+                        }
 
                         // Save model to db so we can work with it
                         $fileModel->save();
@@ -194,23 +274,52 @@ class FileController extends BaseController {
                         // otherwise ships next day
                         if (($fileModel->created_at->hour >= Config::get('app.file_upload_soft_cutoff_hour') && $fileModel->created_at->hour <= Config::get('app.end_of_day_hour')) || $fileModel->created_at->isWeekend()) {
                             if ($fileModel->created_at->isWeekend()) {
-                                $fileModel->ships_at = $fileModel->created_at->addWeekday();
+                                // if file was uploaded on SATURDAY, it ships on Tuesday
+                                if ($fileModel->created_at->format("N") == 6) {
+                                    $fileModel->ships_at = $fileModel->created_at->addWeekdays(3);
+                                }
+                                else {
+                                    // file was uploaded on SUNDAY, it ships on Tuesday
+                                    $fileModel->ships_at = $fileModel->created_at->addWeekdays(2);
+                                }
                             } else {
                                 if ($fileModel->batch()->accept_cutoff_fee) {
-                                    $fileModel->ships_at = $fileModel->created_at->addWeekday();
+                                    // if file was uploaded on FRIDAY and they accepted the fee, it ships on MONDAY
+                                    if ($fileModel->created_at->format("N") == 5) {
+                                        $fileModel->ships_at = $fileModel->created_at->addWeekdays(3);
+                                    }
+                                    else {
+                                        $fileModel->ships_at = $fileModel->created_at->addWeekday();
+                                    }
                                 } else {
-                                    $fileModel->ships_at = $fileModel->created_at->addWeekdays(2);
+                                    // if file was uploaded on FRIDAY and they DID NOT accept the fee, it ships on MONDAY
+                                    if ($fileModel->created_at->format("N") == 5) {
+                                        $fileModel->ships_at = $fileModel->created_at->addWeekdays(3);
+                                    }
+                                    // if file was uploaded on THURSDAY and they DID NOT accept the fee, it ships on MONDAY
+                                    elseif ($fileModel->created_at->format("N") == 4) {
+                                        $fileModel->ships_at = $fileModel->created_at->addWeekdays(4);
+                                    }
+                                    else {
+                                        $fileModel->ships_at = $fileModel->created_at->addWeekdays(2);
+                                    }
                                 }
                             }
                         } else {
                             $fileModel->ships_at = $fileModel->created_at->addWeekday();
                         }
 
+                        $fileModel->mills_at = $fileModel->created_at;
+                        // $fileModel->mills_at = $file['filename_original'];
+
                         $fileModel->save();
+
+                        // update the counters
+                        $fileCount++;
                     }
                 } else {
                     if (Request::ajax()) {
-                        return Response::json('error', 400);
+                        // return Response::json('error', 400);
                     } else {
                         return View::make('public.file.upload_fail')->with('file', $file);
                     }
@@ -230,7 +339,7 @@ class FileController extends BaseController {
             } else {
                 if (Request::ajax()) {
                     Session::forget('upload.files');
-                    return Response::json('error', 400);
+                    // return Response::json('error', 400);
                 } else {
                     Session::forget('upload.files');
                     return View::make('public.file.upload_fail')->with('file', $file);
@@ -238,7 +347,7 @@ class FileController extends BaseController {
             }
         } else {
             if (Request::ajax()) {
-                return Response::json('error', 400);
+                // return Response::json('error', 400);
             } else {
                 App::abort(500, 'Error with file upload.');
             }
@@ -251,7 +360,7 @@ class FileController extends BaseController {
         if ($this->user->hasAccess('superuser')) {
             return View::make('superuser.dashboard');
         } else if ($this->user->hasAccess('admin')) {
-            $data = File::getFiles($this->user->id);
+            $data = File::getSearchFiles('.', $this->user->id);
             $batches = $data['batches'];
             $data['today_filecount'] = File::todayFileCount($this->user->id);
             $data['weekly_filecount'] = File::weeklyFileCount($this->user->id);
@@ -259,13 +368,20 @@ class FileController extends BaseController {
 
             return View::make('admin.dashboard')->with('data', $data)->with('batches', $batches);
         } else if ($this->user->hasAccess('users')) {
-            $data = File::getFiles($this->user->id);
+            $data = File::getSearchFiles('.', $this->user->id);
             $batches = $data['batches'];
             $data['today_filecount'] = File::todayFileCount($this->user->id);
             $data['weekly_filecount'] = File::weeklyFileCount($this->user->id);
             $data['averageXDays_filecount'] = File::averageXDays($this->user->id);
 
-            return View::make('user.file.history')->with('data', $data)->with('batches', $batches);
+            if ($this->user->id == 200)
+            {
+                return View::make('user.file.history3')->with('data', $data)->with('batches', $batches);
+            }
+            else
+            {
+                return View::make('user.file.history3')->with('data', $data)->with('batches', $batches);
+            }
         }
     }
 
@@ -353,10 +469,10 @@ class FileController extends BaseController {
         if ($this->user->hasAccess('superuser')) {
             //return View::make('superuser.file.received')->with('files', $files);
         } else if ($this->user->hasAccess('admin')) {
-            $data = File::getFiles($this->user->id);
+            $data = File::getSearchFiles('.', $this->user->id);
             $batches = $data['batches'];
 
-            return View::make('admin.file.received')->with('data', $data)->with('batches', $batches);
+            return View::make('admin.file.received2')->with('data', $data)->with('batches', $batches);
         } else {
             App::abort(403, 'You do not have permission to view this page.');
         }
@@ -389,12 +505,18 @@ class FileController extends BaseController {
                 }
             }
 
-            if ($this->upload_cutoff == 1 && Input::has('accept_cutoff_fee')) {
-                if (Input::get('accept_cutoff_fee')) {
-                    $batch->accept_cutoff_fee = 1;
-                } else {
-                    $batch->accept_cutoff_fee = 0;
-                }
+            if ($this->upload_cutoff === 1 && Input::has('accept_cutoff_fee')) {
+
+                $batch->accept_cutoff_fee = Input::get('accept_cutoff_fee');
+
+                // Jquery hidden input hack. This is NOT recommended...
+                //$batch->accept_cutoff_fee = Input::get('hidAcceptFee');
+
+                // if (Input::get('accept_cutoff_fee')) {
+                //     $batch->accept_cutoff_fee = 1;
+                // } else {
+                //     $batch->accept_cutoff_fee = 0;
+                // }
             }
 
             $batch->expires_at = Carbon::now()->addDays(7);
@@ -412,6 +534,7 @@ class FileController extends BaseController {
             }
 
             $file = File::findOrFail($file_id);
+            $fileUser = User::findOrFail($file->user_id);
             $upload_path = '';
 
             if ($file->user) {
@@ -423,10 +546,37 @@ class FileController extends BaseController {
         if ($this->user->hasAccess('admin') || $this->user->id == $file->user_id) {
             if ($this->user->hasAccess('admin')) {
                 $file->download_status = 1;
+                $file->download_user_id = $this->user->id;
                 $file->save();
             }
 
-            return Response::download(public_path() . '/uploads/' . $upload_path . '/' . $file->filename_random, $file->filename_original);
+
+            $filename_no_extension = strtolower(substr($file->filename_original, 0, -4));
+            $filename_extension = strtolower(substr($file->filename_original, -3));
+
+            // IF the filename_extension is a PTS file, then print the file->id of the corresponding STL file if one exists
+            if ($filename_extension == "pts")
+            {
+                // connect to the Database
+                $db2 = mysql_connect("localhost", "americasmiles", "smiles2003") or die ("Could not connect to database");
+                mysql_select_db("amsdti",$db2) or die ("Could not select database");
+
+                // check if this lab is a member
+                $sql = "SELECT F.id
+                        FROM `amsdti`.`files` F 
+                        WHERE LOWER(`filename_original`) = '".$filename_no_extension.".stl'";
+
+                $q0 = mysql_query($sql);
+                $stlFile = mysql_fetch_object($q0);
+                $stlFileID = $stlFile->id;
+
+                return Response::download(public_path() . '/uploads/' . $upload_path . '/' . $file->filename_random, $fileUser->lab_name . '___' . $file->milling_type . '___' . $file->shipping_type . '___' . $fileUser->lab_id . '___' . $stlFileID . '___' . $file->filename_original);
+            }
+            else
+            {
+                return Response::download(public_path() . '/uploads/' . $upload_path . '/' . $file->filename_random, $fileUser->lab_name . '___' . $file->milling_type . '___' . $file->shipping_type . '___' . $fileUser->lab_id . '___' . $file->id . '___' . $file->filename_original);
+            }
+            
         }
 
         App::abort(403, 'You do not have permission to view this page.');
@@ -449,7 +599,8 @@ class FileController extends BaseController {
         if ($batch->user_id == null) {
             $from = $batch->guest_lab_name;
         } else {
-            $from = User::find($batch->user_id)->dlp_user()->labName;  
+            $from = User::find($batch->user_id)->dlp_user()->labName;
+            $labID = User::find($batch->user_id)->dlp_user()->labID;
         }
         $archive_name = Str::slug(Input::get('batch_from_lab_name') . '-batchID-' . Input::get('batch_id')) . '-' . $batch->created_at->format('Y-m-d h:i:sa') . '-' . str_random(10) . '.zip';
         $archive_directory = public_path() . "/generated-zips/";
@@ -467,9 +618,38 @@ class FileController extends BaseController {
             $file_path = public_path() . '/uploads/' . $file_directory_path . '/' . $file->filename_random;
 
             if (file_exists($file_path) && is_readable($file_path)) {
-                if (!$archive->addFile($file_path, $file->filename_original)) {
-                    App::abort(500, 'Could not add file to ZIP for creation');
+
+                $filename_no_extension = strtolower(substr($file->filename_original, 0, -4));
+                $filename_extension = strtolower(substr($file->filename_original, -3));
+
+                // IF the filename_extension is a PTS file, then print the file->id of the corresponding STL file if one exists
+                if ($filename_extension == "pts")
+                {
+                    // connect to the Database
+                    $db2 = mysql_connect("localhost", "americasmiles", "smiles2003") or die ("Could not connect to database");
+                    mysql_select_db("amsdti",$db2) or die ("Could not select database");
+
+                    // check if this lab is a member
+                    $sql = "SELECT F.id
+                            FROM `amsdti`.`files` F 
+                            WHERE LOWER(`filename_original`) = '".$filename_no_extension.".stl'";
+
+                    $q0 = mysql_query($sql);
+                    $stlFile = mysql_fetch_object($q0);
+                    $stlFileID = $stlFile->id;
+
+                    if (!$archive->addFile($file_path, $from . '___' . $file->milling_type . '___' . $file->shipping_type . '___' . $labID . '___' . $stlFileID . '___' . $file->filename_original)) {
+                        App::abort(500, 'Could not add file to ZIP for creation');
+                    }
                 }
+                else
+                {
+                    if (!$archive->addFile($file_path, $from . '___' . $file->milling_type . '___' . $file->shipping_type . '___' . $labID . '___' . $file->id . '___' . $file->filename_original)) {
+                        App::abort(500, 'Could not add file to ZIP for creation');
+                    }
+                }
+
+
             } else {
                 App::abort(500, 'File path incorrect.');
             }
@@ -479,8 +659,9 @@ class FileController extends BaseController {
         if (file_exists($archive_path)) {
             foreach($files as $file) {
                 $file = File::where('id', '=', $file->id)->first();
-                if ($this->user->hasAccess('admin') && $this->user->id == 1) {
+                if ($this->user->hasAccess('admin') || $this->user->id == $file->user_id) {
                     $file->download_status = 1;
+                    $file->download_user_id = $this->user->id;
                     $file->save();
                 }
                 // someone is trying to download files that aren't theirs!
@@ -505,6 +686,13 @@ class FileController extends BaseController {
                 $file_directory_path = 'guest';
             }
 
+            if ($batch->user_id == null) {
+                $from = $batch->guest_lab_name;
+            } else {
+                $from = User::find($batch->user_id)->dlp_user()->labName;
+                $labID = User::find($batch->user_id)->dlp_user()->labID;
+            }
+
             $archive_name = Str::slug(Input::get('batch_from_lab_name') . '-batchID-' . Input::get('batch_id')) . '-' . $batch->created_at->format('Y-m-d h:ia') . '-' . str_random(10) . '.zip';
             $archive_directory = public_path() . "/generated-zips/";
             $archive_path = $archive_directory . $archive_name;
@@ -521,9 +709,37 @@ class FileController extends BaseController {
                 $file_path = public_path() . '/uploads/' . $file_directory_path . '/' . $file->filename_random;
 
                 if (file_exists($file_path) && is_readable($file_path)) {
-                    if (!$archive->addFile($file_path, $file->filename_original)) {
-                        App::abort(500, 'Could not add file to ZIP for creation');
+
+                    $filename_no_extension = strtolower(substr($file->filename_original, 0, -4));
+                    $filename_extension = strtolower(substr($file->filename_original, -3));
+
+                    // IF the filename_extension is a PTS file, then print the file->id of the corresponding STL file if one exists
+                    if ($filename_extension == "pts")
+                    {
+                        // connect to the Database
+                        $db2 = mysql_connect("localhost", "americasmiles", "smiles2003") or die ("Could not connect to database");
+                        mysql_select_db("amsdti",$db2) or die ("Could not select database");
+
+                        // check if this lab is a member
+                        $sql = "SELECT F.id
+                                FROM `amsdti`.`files` F 
+                                WHERE LOWER(`filename_original`) = '".$filename_no_extension.".stl'";
+
+                        $q0 = mysql_query($sql);
+                        $stlFile = mysql_fetch_object($q0);
+                        $stlFileID = $stlFile->id;
+
+                        if (!$archive->addFile($file_path, $from . '___' . $file->milling_type . '___' . $file->shipping_type . '___' . $labID . '___' . $stlFileID . '___' . $file->filename_original)) {
+                            App::abort(500, 'Could not add file to ZIP for creation');
+                        }
                     }
+                    else
+                    {
+                        if (!$archive->addFile($file_path, $from . '___' . $file->milling_type . '___' . $file->shipping_type . '___' . $labID . '___' . $file->id . '___' . $file->filename_original)) {
+                            App::abort(500, 'Could not add file to ZIP for creation');
+                        }
+                    }
+
                 } else {
                     App::abort(500, 'File path incorrect.');
                 }
@@ -534,8 +750,9 @@ class FileController extends BaseController {
             if (file_exists($archive_path)) {
                 foreach(Input::get('download-file') as $file_id) {
                     $file = File::where('id', '=', $file_id)->first();
-                    if ($this->user->hasAccess('admin') && $this->user->id == 1) {
+                    if ($this->user->hasAccess('admin') || $this->user->id == $file->user_id) {
                         $file->download_status = 1;
+                        $file->download_user_id = $this->user->id;
                         $file->save();
                     }
                     // someone is trying to download files that aren't theirs!

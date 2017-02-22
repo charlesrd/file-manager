@@ -45,7 +45,7 @@
                                                             <td class="text-center">
                                                                 {{ $batch['from_lab_email'] }}
                                                             </td>
-                                                            <td class="show-tooltip" title="{{ $batch['filename_list'] }}">
+                                                            <td class="text-center show-tooltip" title="{{ $batch['filename_list'] }}">
                                                                 @if ($batch['num_files'] > 1)
                                                                     {{ $batch['num_files'] }} files
                                                                 @else
@@ -172,9 +172,6 @@
                                     <div class="text-center">
                                         {{ $batches->links() }}
                                     </div>
-                                    <div class="alert alert-info lead text-muted text-center">
-                                        <strong><i class="icon-cloud-download"></i> </strong> Files can be downloaded for 7 days.  Download access to files will be removed after their expiration.
-                                    </div>
                                 @else
                                     <div class="alert alert-danger lead text-muted text-center">You have not yet received files.  <br /><br />Once files have been uploaded, detailed information will be available here.</div>
                                 @endif
@@ -203,6 +200,8 @@
 
             $(".clickable").click(function(e) {
                 e.preventDefault();
+
+                $($(this).data("target")).slideToggle(300);
 
             }).hover( function() {
                 $(this).toggleClass('hover');

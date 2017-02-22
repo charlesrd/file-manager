@@ -6,3 +6,16 @@ tags
 amsdti.sublime-project
 /flaty_template
 /sql
+/public/tpl
+/app/controllers/FileController-2015-12-21.php
+/app/controllers/FileController-2016-02-04.php
+/app/controllers/FileController.php
+/app/views/admin/file/received2.blade.php
+/app/views/admin/search/results2.blade.php
+/app/views/user/dashboard3.blade.php
+/app/views/user/dashboard3_2016-05-13.blade.php
+/app/views/user/file/history3.blade.php
+/app/views/user/file/history3_2016-05-13.blade.php
+/app/views/user/file/history3testing.blade.php
+/app/views/user/search/results3.blade.php
+/app/views/user/search/results3_2016-05-13.blade.php

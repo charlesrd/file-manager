@@ -35,4 +35,12 @@ class Conversation extends Eloquent {
 		return false;
 	}
 
+	public static function getUnusedScanFlagCoupons($user_id) {
+		$user = Sentry::getUser($user_id);
+		if ($user && $user->hasAccess('users')) {
+			return DB::table('users_coupons')->where('user_id', $user_id)->where('file_id', '=', 0);
+		}
+		return false;
+	}
+
 }

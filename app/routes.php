@@ -64,6 +64,32 @@ Route::controller('message', 'MessageController', array(
 	'getConversation' => 'message_conversation'
 ));
 
+// Order Routes
+Route::controller('order', 'OrderController', array(
+	'getIndex' => 'order',
+	'postOrder' => 'order_post'
+));
+
+// Rewards Routes
+Route::controller('rewards', 'RewardsController', array(
+	'getIndex' => 'rewards',
+	'getTest' => 'rewards_test',
+	'postRewards' => 'rewards_post'
+));
+
+// Test Routes
+Route::controller('test', 'TestController', array(
+	'getIndex' => 'test',
+	'postTest' => 'test_post'
+));
+
+// Help Routes
+Route::controller('help', 'HelpController', array(
+	'getIndex' => 'help',
+	'getPricing' => 'help_pricing',
+	'getUpload' => 'help_upload'
+));
+
 // User Routes
 Route::group(array('prefix' => 'user'), function() {
 
@@ -96,6 +122,11 @@ Route::group(array('prefix' => 'user'), function() {
 	Route::post('reset_password', array(
 		'as' => 'user_reset_password_post',
 		'uses' => 'UserController@postResetPassword'
+	));
+
+	Route::get('check_session', array(
+		'as' => 'user_check_session',
+		'uses' => 'UserController@checkSession'
 	));
 
 });

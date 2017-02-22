@@ -39,6 +39,14 @@ class File extends Eloquent {
         }
 	}
 
+    public function formattedUpdatedAt($for_humans = false) {
+        if (!$for_humans) {
+            return $this->updated_at->format('g:ia \o\n M j, Y');
+        } else {
+            return $this->updated_at->diffForHumans();
+        }
+    }
+
 	public function formattedExpiresAt($for_humans = false) {
 		if (!$for_humans) {
             return $this->expires_at->format('g:ia \o\n M j, Y');
@@ -99,6 +107,7 @@ class File extends Eloquent {
             $data['batch'][$batch->id]['num_files'] = $batch->files()->count();
             $data['batch'][$batch->id]['message'] = $batch->message;
             $data['batch'][$batch->id]['created_at'] = $batch->created_at;
+            $data['batch'][$batch->id]['updated_at'] = $batch->updated_at;
             $data['batch'][$batch->id]['expires_at'] = $batch->expires_at;
             $data['batch'][$batch->id]['created_at_formatted'] = $batch->formattedCreatedAt();
             $data['batch'][$batch->id]['created_at_formatted_human'] = $batch->formattedCreatedAt(true);
@@ -106,6 +115,15 @@ class File extends Eloquent {
             $data['batch'][$batch->id]['expires_at_formatted_human'] = $batch->formattedExpiresAt(true);
             $data['batch'][$batch->id]['accept_cutoff_fee'] = $batch->accept_cutoff_fee;
             $data['batch'][$batch->id]['filename_list'] = $batch->buildFilenameList();
+
+
+
+
+
+            $data['batch'][$batch->id]['files'][] = "File from " . $data['batch'][$batch->id]['from_lab_name'];
+
+
+
 
             $totalNotDownloaded = 0;
             $totalNotShipped = 0;
@@ -287,7 +305,8 @@ class File extends Eloquent {
         // Create a collection of batches where the batch id is in the $file_batch_id_array
         $data['batches'] = Batch::whereIn('id', $file_batch_id_array)
                             ->orderBy('created_at', 'DESC')
-                            ->paginate(Config::get('app.pagination_items_per_page'));
+                            ->paginate(30);
+                            // ->paginate(Config::get('app.pagination_items_per_page'));
 
         // Loop through each batch and build the data object that will be sent to the view
         foreach($data['batches'] as $batch) {

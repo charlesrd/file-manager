@@ -22,6 +22,13 @@ App::after(function($request, $response)
 	//
 });
 
+
+App::missing(function($exception)
+{
+    Log::error('Missing URL was: ' . Request::fullUrl());
+});
+
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Filters

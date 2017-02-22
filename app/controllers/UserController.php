@@ -141,4 +141,15 @@ class UserController extends BaseController {
         }
     }
 
+    public function checkSession() {
+
+        if (!Sentry::check()) {
+            // User is not logged in, or is not activated
+            return Response::json(['logged_in' => false]);
+        } else {
+            // User is logged in
+            return Response::json(['logged_in' => true]);
+        }
+    }
+
 }

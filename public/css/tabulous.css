@@ -1,0 +1,280 @@
+a:active,a:focus {
+	outline: expression(hideFocus='true');
+}
+
+#tabs,#tabs2,#tabs3,#tabs4,#tabs5 {
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+}
+
+#tabs li,#tabs2 li,#tabs3 li,#tabs4 li,#tabs5 li {
+	float: left;
+	list-style-type: none;
+	font-weight: 700;
+	font-size: 1.5em;
+	width: 20%;
+}
+
+#tabs li a,#tabs2 li a,#tabs3 li a,#tabs4 li a,#tabs5 li a {
+	display: block;
+	padding: 17px 30px;
+	background: #fff;
+	text-decoration: none;
+	color: #4fbff9;
+	-webkit-border-radius: 30px 5px;
+	-moz-border-radius: 30px 5px;
+	border-radius: 30px 5px;
+	border: 2px solid #c5c2ea;
+}
+
+#tabs li a:hover,#tabs2 li a:hover,#tabs3 li a:hover,#tabs4 li a:hover,#tabs5 li a:hover {
+	background: #4fbff9;
+	color: #fff;
+}
+
+.tabulous_active {
+	background: #248dc1 !important;
+	color: #fff !important;
+}
+
+#tabs_container {
+	width: 100%;
+	min-height: 600px;
+	height: 100%;
+	border: 2px solid #c5c2ea; 
+	padding: 0px;
+	margin: 0px;
+	position: relative;
+	top: -10px;
+	background: white;
+}
+
+#tabs_container div[id^="tabs-"] {
+	position: relative;
+	top: -100px;
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+}
+
+/* Tabs */
+
+#my-points-layout {
+	margin: 0px auto;
+	width: 100%;
+	height: 100%;
+}
+
+#my-points-links {
+	border-right: 4px solid #248dc1;
+	width: 25%;
+}
+
+#my-points-links ul {
+	width: 90%;
+	min-height: 500px;
+	height: 100%;
+}
+
+#my-points-links ul li {
+	width: 100%;
+	list-style-type: none;
+	float: none;
+	display: block;
+	padding: 17px 30px;
+	background: #fff;
+	text-decoration: none;
+	color: #4fbff9;
+	-webkit-border-radius: 15px 15px;
+	-moz-border-radius: 15px 15px;
+	border-radius: 15px 15px;
+	border: 2px solid #c5c2ea;
+	cursor: pointer;
+}
+
+#my-points-links ul li:hover {
+	background: #4fbff9;
+	color: #fff;
+}
+
+#my-points-links ul li.active {
+	background: #248dc1 !important;
+	color: #fff !important;
+}
+
+.full-icon span {
+	font-size: 10.0em;
+	color: #fbed10;
+	text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+#current-points {
+	border-top: 1px solid #c3c3c3;
+	border-bottom: 2px solid #b1b1b1;
+	font-size: 3.3em;
+	font-weight: 800;
+	color: #ff2222;
+	width: 100%;
+	line-height: 50px;
+}
+
+#my-points-view-2 {
+	display: none;
+}
+
+/* Transitions */
+
+.transition {
+	-webkit-transition: all .3s ease-in-out;
+	-moz-transition: all .3s ease-in-out;
+	-o-transition: all .3s ease-in-out;
+	-ms-transition: all .3s ease-in-out;
+	transition: all .3s ease-in-out;
+
+	-webkit-transition-delay: .3s;
+	-moz-transition-delay: .3s;
+	-o-transition-delay: .3s;
+	-ms-transition-delay: .3s;
+	transition-delay: .3s;
+}
+
+.make_transist {
+	-webkit-transition: all .3s ease-in-out;
+	-moz-transition: all .3s ease-in-out;
+	-o-transition: all .3s ease-in-out;
+	-ms-transition: all .3s ease-in-out;
+	transition: all .3s ease-in-out;
+}
+
+.hidescale {
+	-webkit-transform: scale(0.9);
+	-moz-transform: scale(0.9);
+	-o-transform: scale(0.9);
+	-ms-transform: scale(0.9);
+	transform: scale(0.9);
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	filter: alpha(opacity=0);
+	opacity: 0;
+}
+
+.showscale {
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-o-transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: alpha(opacity=100);
+	opacity: 1;
+
+	-webkit-transition-delay: .3s;
+	-moz-transition-delay: .3s;
+	-o-transition-delay: .3s;
+	-ms-transition-delay: .3s;
+	transition-delay: .3s;
+}
+
+.hideleft {
+	-webkit-transform: translateX(-100%);
+	-moz-transform: translateX(-100%);
+	-o-transform: translateX(-100%);
+	-ms-transform: translateX(-100%);
+	transform: translateX(-100%);
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	opacity: 0;
+}
+
+.showleft {
+	-webkit-transform: translateX(0px);
+	-moz-transform: translateX(0px);
+	-o-transform: translateX(0px);
+	-ms-transform: translateX(0px);
+	transform: translateX(0px);
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: alpha(opacity=100);
+	opacity: 1;
+
+	-webkit-transition-delay: .3s;
+	-moz-transition-delay: .3s;
+	-o-transition-delay: .3s;
+	-ms-transition-delay: .3s;
+	transition-delay: .3s;
+}
+
+.hidescaleup {
+	-webkit-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-o-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	transform: scale(1.1);
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	opacity: 0;
+}
+
+.showscaleup {
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-o-transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: alpha(opacity=100);
+	opacity: 1;
+
+	-webkit-transition-delay: .3s;
+	-moz-transition-delay: .3s;
+	-o-transition-delay: .3s;
+	-ms-transition-delay: .3s;
+	transition-delay: .3s;
+}
+
+.hideflip {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	opacity: 0;
+
+	-webkit-transform: rotatey(-90deg) scale(1.1);
+	-moz-transform: rotatey(-90deg) scale(1.1);
+	-o-transform: rotatey(-90deg) scale(1.1);
+	-ms-transform: rotatey(-90deg) scale(1.1);
+	transform: rotatey(-90deg) scale(1.1);
+
+	-webkit-transform-origin: 50% 50%;
+	-moz-transform-origin: 50% 50%;
+	-o-transform-origin: 50% 50%;
+	-ms-transform-origin: 50% 50%;
+	transform-origin: 50% 50%;
+}
+
+.showflip {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: alpha(opacity=100);
+	opacity: 1;
+
+	-webkit-transition-delay: .3s;
+	-moz-transition-delay: .3s;
+	-o-transition-delay: .3s;
+	-ms-transition-delay: .3s;
+	transition-delay: .3s;
+
+	-webkit-transform: rotatey(0deg) scale(1);
+	-moz-transform: rotatey(0deg) scale(1);
+	-o-transform: rotatey(0deg) scale(1);
+	-ms-transform: rotatey(0deg) scale(1);
+	transform: rotatey(0deg) scale(1);
+
+	-webkit-transform-origin: 50% 50%;
+	-moz-transform-origin: 50% 50%;
+	-o-transform-origin: 50% 50%;
+	-ms-transform-origin: 50% 50%;
+	transform-origin: 50% 50%;
+}
+
+.tabulousclear {
+	display: block;
+	clear: both;
+}

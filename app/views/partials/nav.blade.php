@@ -1,4 +1,4 @@
-<!-- BEGIN Navbar -->
+        <!-- BEGIN Navbar -->
         <div id="navbar" class="navbar navbar-black">
             <!-- BEGIN Responsive Sidebar Collapse -->
             <button type="button" class="navbar-toggle navbar-btn collapsed" data-toggle="collapse" data-target="#sidebar">
@@ -11,7 +11,7 @@
                     <small>
                         <i class="icon-home"></i>
                         &nbsp;
-                        {{ Config::get('app.company_name') }} <span class="hidden-xs" style="display:inline;"> - {{ Config::get('app.site_title') }}</span>
+                        {{ Config::get('app.company_name') }} <span class="hidden-xs"> - {{ Config::get('app.site_title') }}</span>
                     </small>
                 </a>
                 <!-- END Brand -->
@@ -81,6 +81,82 @@
 
                     @elseif ($user->hasAccess('users'))
 
+                        <!-- BEGIN Button Help -->
+                        <li class="hidden-xs hidden-sm">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <i class="icon-question"></i>
+                            </a>
+
+                            <!-- BEGIN Help Dropdown -->
+                            <ul id="help-dropdown" class="dropdown-navbar dropdown-menu">
+                                <li class="nav-header">
+                                <i class="icon-question"></i>
+                                    Help
+                                </li>
+
+                                <li class="more">
+                                    {{ Html::linkRoute('help_upload', 'How to Upload Files?') }}
+                                </li>
+                                <li class="more">
+                                    {{ Html::linkRoute('help_pricing', 'Understanding Our Pricing Structure') }}
+                                </li>
+                            </ul>
+                            <!-- END Help Dropdown -->
+                        </li>
+                        <!-- END Button Help -->
+
+                        <!-- BEGIN Button AMS Reward Points -->
+                        <li class="hidden-xs hidden-sm">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <i class="icon-star"></i>
+                                <span class="badge badge-success"><span class="rewards-points"></span></span>
+                            </a>
+
+                            <!-- BEGIN AMS Reward Points Dropdown -->
+                            <ul id="amsrewards-dropdown" class="dropdown-navbar dropdown-menu">
+                                <li class="nav-header">
+                                <i class="icon-star"></i>
+                                    <span class="rewards-points"></span> AMS Star Rewards
+                                </li>
+
+                                <li class="more">
+                                    {{ Html::linkRoute('rewards', 'AMS Star Rewards!') }}
+                                </li>
+                            </ul>
+                            <!-- END AMS Reward Points Dropdown -->
+                        </li>
+                        <!-- END Button AMS Reward Points -->
+
+                        <!-- BEGIN Button Scan Flag -->
+                        <li class="hidden-xs hidden-sm">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <i class="icon-flag"></i>
+                                @if ($scan_flag_coupon_count == 0)
+                                    <span class="badge badge-important">{{ $scan_flag_coupon_count }}</span>
+                                @else
+                                    <span class="badge badge-success">{{ $scan_flag_coupon_count }}</span>
+                                @endif
+                            </a>
+
+                            <!-- BEGIN Scan Flag Dropdown -->
+                            <ul class="dropdown-navbar dropdown-menu">
+                                <li class="nav-header">
+                                    <i class="icon-flag"></i>
+                                    @if ($scan_flag_coupon_count == 1)
+                                        {{ $scan_flag_coupon_count }} Scan Flag Coupon
+                                    @else
+                                        {{ $scan_flag_coupon_count }} Scan Flag Coupons
+                                    @endif
+                                </li>
+
+                                <li class="more">
+                                     {{ Html::linkRoute('order', 'Order more Scan Flags...') }}
+                                </li>
+                            </ul>
+                            <!-- END Scan Flag Dropdown -->
+                        </li>
+                        <!-- END Button Scan Flag -->
+
                         <!-- BEGIN Button Messages -->
                         <li class="hidden-xs">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -123,7 +199,8 @@
                         <a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
                             <i class="icon-user"></i>
                             <span class="hidden-phone" id="user_info">
-                                {{ $user->email }}
+                                <!-- {{ $user->email }} -->
+                                {{ $user->lab_name }}
                             </span>
                             <i class="icon-caret-down"></i>
                         </a>
@@ -155,4 +232,22 @@
                 </ul>
                 <!-- END Navbar Buttons -->
         </div>
-        <!-- END Navbar -->
+        <!-- END Navbar  -->
+
+        <!-- Hidden inputs -->
+        <input type="hidden" name="amsmember" id="amsmember" value="{{ $user->amsmember }}" />
+
+        @if ($user->hasAccess('users'))
+
+        <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            getCurrentRewardsPoints({{ $user->lab_id }});
+
+        });
+
+        </script>
+
+        @endif
+        

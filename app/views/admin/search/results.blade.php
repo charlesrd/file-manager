@@ -201,6 +201,8 @@
             $(".clickable").click(function(e) {
                 e.preventDefault();
 
+                $($(this).data("target")).slideToggle(300);
+
             }).hover( function() {
                 $(this).toggleClass('hover');
             });

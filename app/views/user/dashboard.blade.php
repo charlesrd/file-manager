@@ -47,13 +47,13 @@
                                                             <td class="text-center">
                                                                 {{-- If every file in the batch has been downloaded --}}
                                                                 @if ($batch['total_download_status'] == "all")
-                                                                    <a class="btn btn-success show-tooltip" title="AMS has recevied and milled all files."><i class="icon-cloud-download"></i> Fully Milled</a>
+                                                                    <a class="btn btn-success show-tooltip" title="AMS has recevied all files."><i class="icon-cloud-download"></i> Fully Downloaded</a>
                                                                 {{-- If none of the files in the batch have been downloaded --}}
                                                                 @elseif ($batch['total_download_status'] == "none")
-                                                                    <a class="btn btn-danger show-tooltip" title="AMS has recevied all files, but none been milled."><i class="icon-cloud-download"></i> Not Yet Milled</a>
+                                                                    <a class="btn btn-danger show-tooltip" title="AMS has recevied all files, but none have been milled."><i class="icon-cloud-download"></i> Not Yet Downloaded</a>
                                                                 {{-- If some of the files have been downloaded --}}
                                                                 @elseif ($batch['total_download_status'] == "some")
-                                                                    <a class="btn btn-warning show-tooltip" title="AMS has received all files, but some have not been milled."><i class="icon-cloud-download"></i> Partially Milled</a>
+                                                                    <a class="btn btn-warning show-tooltip" title="AMS has received all files, but some have not been milled."><i class="icon-cloud-download"></i> Partially Downloaded</a>
                                                                 @endif
                                                             </td>
                                                             <td class="text-center">
@@ -124,7 +124,7 @@
                                                                                     </td>
                                                                                     <td class="text-center">
                                                                                         @if ($file->download_status)
-                                                                                            <span class="btn btn-success show-tooltip" title="AMS has received this file and it has been milled."><i class="icon-cloud-download"></i></span>
+                                                                                            <span class="btn btn-success show-tooltip" title="AMS has received this file."><i class="icon-cloud-download"></i></span>
                                                                                         @else
                                                                                             <span class="btn btn-danger show-tooltip" title="AMS has received this file but it has not yet been milled."><i class="icon-cloud-download"></i></span>
                                                                                         @endif

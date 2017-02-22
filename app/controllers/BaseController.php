@@ -9,6 +9,7 @@ class BaseController extends Controller {
 
 	public $upload_cutoff = 0; // 0 = no cutoff set, 1 = soft cutoff set, 2 = hard cutoff set
 	public $unread_conversation_count = null;
+	public $scan_flag_coupon_count = null;
 	
 
 	public function __construct() {
@@ -19,7 +20,7 @@ class BaseController extends Controller {
         $now = Carbon::now();
 
         // Determine whether or not the current time is between the soft cutoff 
-        if ($now->hour >= Config::get('app.file_upload_soft_cutoff_hour') && $now->hour < Config::get('app.file_upload_hard_cutoff_hour') + 1) {
+        if ($now->hour >= Config::get('app.file_upload_soft_cutoff_hour') && $now->hour <= Config::get('app.file_upload_hard_cutoff_hour')) {
         	// it's soft cutoff time
 	        $this->upload_cutoff = 1;
 	    } else if ($now->hour >= Config::get('app.file_upload_soft_cutoff_hour') + 1 && $now->hour <= Config::get('app.end_of_day_hour')) {
@@ -33,6 +34,8 @@ class BaseController extends Controller {
 			$this->user = Sentry::getUser();
 			View::share('user', $this->user);
 			View::share('unread_conversation_count', Conversation::getUnreadConversations($this->user->id)->count());
+			// View::share('scan_flag_coupon_count', Conversation::getUnusedScanFlagCoupons($this->user->id));
+			View::share('scan_flag_coupon_count', Conversation::getUnusedScanFlagCoupons($this->user->id)->count());
 
 			if ($this->user->hasAccess('admin')) {
 				$filesNotDownloaded = File::where('download_status', '=', '0');

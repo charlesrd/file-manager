@@ -6,91 +6,20 @@
 
 @section('main-content')
     <div class="login-wrapper">
-        <!-- BEGIN Guest Upload Form -->
-        {{ Form::open(array('route' => 'file_upload_post', 'files' => true, 'id' => 'form-guest-upload')) }}
-            <h3 class="text-center">Upload Files as Guest Lab</h3>
-            <hr/>
-            <div class="form-group">
-                <div class="controls">
-                    {{ Form::text('guest_lab_name', Input::old('guest_lab_name'), array('class' => 'form-control', 'id' => 'guest_lab_name', 'placeholder' => 'lab name (required)')) }}
-                    {{ $errors->first('guest_lab_name', '<div class="alert alert-danger"> :message </div>') }}
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="controls">
-                    {{ Form::email('guest_lab_email', Input::old('guest_lab_email'), array('class' => 'form-control', 'id' => 'guest_lab_email', 'placeholder' => 'lab email (required)')) }}
-                    {{ $errors->first('guest_lab_email', '<div class="alert alert-danger"> :message </div>') }}
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="controls">
-                    {{ Form::text('guest_lab_phone', Input::old('guest_lab_phone'), array('class' => 'form-control', 'id' => 'guest_lab_phone', 'placeholder' => 'lab phone number (required)')) }}
-                    {{ $errors->first('guest_lab_phone', '<div class="alert alert-danger"> :message </div>') }}
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="controls">
-                    {{ Form::textarea('guest_lab_message', Input::old('guest_lab_message'), array('class' => 'form-control', 'id' => 'guest_lab_message', 'placeholder' => 'message: shade, patient name, tooth #, etc.  if filenames include patient name, shade, and tooth #, this field is optional.')) }}
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="controls" id="dz-container">
-                    <div id="dz-guest-upload" class="dropzone">
-                        <div class="fallback">
-                            {{ Form::file('file[]', array('multiple' => 'true', 'accept' => ".pts, .stl, .sla, .zip, .lab, application/octet-stream, application/zip, application/sla")) }}
-                        </div>
-                    </div>
-                    {{ $errors->first('file.0', '<div class="alert alert-danger"> :message </div>') }}
-                </div>
-            </div>
-
-            @if (isset($upload_cutoff))
-                @if ($upload_cutoff === 1)
-                    <div class="form-group">
-                        <div class="controls">
-                            <div class="alert alert-info">
-                                <strong>Notice!</strong>  Files uploaded between {{ date("gA", mktime(Config::get('app.file_upload_soft_cutoff_hour'))) }} and {{ date("gA T", mktime(Config::get('app.file_upload_hard_cutoff_hour'))) }}  are subject to a $3.00 per tooth processing fee for same day processing.
-                                <br />
-                                <strong>Additional charges will not begin until February 1, 2014.</strong>
-                                <br />
-                                <p class="text-left">{{ Form::radio('accept_cutoff_fee', '0', true, array('required' => 'required')) }} <strong>No</strong>, please wait until the next business day to process files.</p>
-                                <p class="text-left">{{ Form::radio('accept_cutoff_fee', '1', null, array('required' => 'required')) }} <strong>Yes</strong>, please process my files today and charge a ${{ Config::get('app.file_upload_rush_processing_fee') }} per tooth processing fee.</p>
-                            </div>
-                            {{ $errors->first('accept_cutoff_fee', '<div class="alert alert-danger"> :message </div>') }}
-                        </div>
-                    </div>
-                @elseif ($upload_cutoff === 2)
-                    <div class="form-group">
-                        <div class="controls">
-                            <div class="alert alert-info"><strong>Notice!</strong>  Files uploaded after {{ date("gA T", mktime(Config::get('app.file_upload_hard_cutoff_hour'))) }} will be processed next business day.
-                            </div>
-                        </div>
-                    </div>
-                @endif
-            @endif
-
-            @if (Session::has('upload_limit_reached'))
-                <div class="alert alert-danger text-center"> You have reached the maximum upload limit.<br /><br />Please try again in 60 minutes. </div>
-            @endif
-
-            <div class="form-group">
-                <div class="controls">
-                    {{ Form::button('Upload Files', array('class' => 'btn btn-primary form-control', 'type' => 'submit')) }}
-                </div>
-            </div>
-
-            <div class="clearfix">
-            </div>
-        {{ Form::close() }}
-        <!-- END Guest Upload Form -->
-
-        <span id="landing-separator">
-            or
-        </span>
+    
+        <?php
+        // <!-- <div class="alert alert-warning">
+        //     <h2 style="font-size: 2.0em; color: #ff0000; text-decoration: underline;"><strong>Good Friday Schedule</strong></h2>
+        //     <h3>
+        //     Files received after noon (12pm CST) will be milled on Monday, April 6<sup>th</sup>.
+        //     </h3>
+        // </div> -->
+        ?>
+        
 
         <!-- BEGIN Login Form -->
         {{ Form::open(array('route' => 'user_login', 'id' => 'form-login')) }}
-            <h3 class="text-center">Login as Member Lab</h3>
+            <h3 class="text-center">Lab Login</h3>
             <hr />
             <div class="form-group">
                 <div class="controls">
@@ -122,17 +51,27 @@
             </p>
             <hr />
             <img src="{{ asset('img/ams_filemanager_logo.png') }}" alt="{{ Config::get('app.company_name') }} - {{ Config::get('app.site_title') }} Logo" id="logo" />
-            <p class="lead text-center">
-                <span class="text-info">Wondering what the benefits are?</span>
-                <dl>
-                    <dt><i class="icon-truck"></i> Real-Time File Updates</dt>
-                        <dd>allows you to easily see which files we have processed</dd>
-                    <dt><i class="icon-comment"></i> AMS Messaging Center</dt>
-                        <dd>keeps you connected directly with our staff</dd>
-                    <dt><i class="icon-file"></i> File History</dt>
-                        <dd>keeps track of every file you've ever sent us</dd>
-                </dl>
-            </p>
+            <div class="row">
+                <div class="col-xs-12">
+                    <p class="lead text-center">
+                        <span class="text-info">Wondering what the benefits are?</span>
+                        <dl>
+                            <dt><i class="icon-truck"></i> Real-Time File Updates</dt>
+                                <dd>allows you to easily see which files we have processed</dd>
+                            <dt><i class="icon-comment"></i> AMS Messaging Center</dt>
+                                <dd>keeps you connected directly with our staff</dd>
+                            <dt><i class="icon-file"></i> File History</dt>
+                                <dd>keeps track of every file you've ever sent us</dd>
+                        </dl>
+                    </p>
+                </div>
+                <!-- <div class="col-xs-12 col-sm-6">
+                    <img src="http://beta.amsdti.com/img/chicago_blackhawks.png" width="200" title="Chicago Blackhawks - 2015 Stanley Cup Champions!" alt="Chicago Blackhawks - 2015 Stanley Cup Champions!">
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <img src="http://beta.amsdti.com/img/2015-stanley-cup-champs.jpg" width="280" title="Chicago Blackhawks - 2015 Stanley Cup Champions!" alt="Chicago Blackhawks - 2015 Stanley Cup Champions!">
+                </div> -->
+            </div>
         {{ Form::close() }}
         <!-- END Login Form -->
 
@@ -211,7 +150,7 @@
                 addRemoveLinks: true,
                 createImageThumbnails: false,
                 maxFiles: 10,
-                acceptedFiles: "application/x-rar-compressed,application/octet-stream,.zip,application/zip,.stl,application/sla,.sla,application/lab,.lab",
+                acceptedFiles: "application/x-rar-compressed,application/octet-stream,.zip,.ZIP,application/zip,.stl,.STL,application/sla,.sla,.SLA,application/lab,.lab,.LAB,application/pts,.pts,.PTS",
                 url: "{{ route('file_upload_post') }}",
 
                 dictRemoveFile: "Delete",

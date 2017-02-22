@@ -56,7 +56,7 @@
                                                     <th class="text-center">Files</th>
                                                     <th class="text-center">Download Status</th>
                                                     <th class="text-center">Shipping Status</th>
-                                                    <th class="text-center visible-lg">Expiring</th>
+                                                    <th class="text-center visible-lg">Downloaded</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -80,7 +80,7 @@
                                                             <td class="text-center">
                                                                 {{ $batch['from_lab_email'] }}
                                                             </td>
-                                                            <td class="show-tooltip" title="{{ $batch['filename_list'] }}">
+                                                            <td class="text-center show-tooltip" title="{{ $batch['filename_list'] }}">
                                                                 @if ($batch['num_files'] > 1)
                                                                     {{ $batch['num_files'] }} files
                                                                 @else
@@ -203,9 +203,6 @@
                                                     @endforeach
                                             </tbody>
                                         </table>
-                                    </div>
-                                    <div class="alert alert-info lead text-muted text-center">
-                                        <strong><i class="icon-cloud-download"></i> </strong> Files can be downloaded for 7 days.  Download access to files will be removed after their expiration.
                                     </div>
                                 @else
                                     <div class="alert alert-danger lead text-muted text-center">You have not yet received files.  <br /><br />Once files have been uploaded, detailed information will be available here.</div>

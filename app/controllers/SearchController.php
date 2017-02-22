@@ -19,7 +19,7 @@ class SearchController extends \BaseController {
 		if (Input::has('search')) {
 			$searchPhrase = Input::get('search');
 
-			if (strlen($searchPhrase) < 3) {
+			if (strlen($searchPhrase) < 0) {
 				if ($this->user->hasAccess('admin') || $this->user->hasAccess('superuser')) {
 					return View::make('admin.search.default')->with('searchLengthError', 'Please try a longer search phrase.');
 				} else {
@@ -31,9 +31,17 @@ class SearchController extends \BaseController {
             $batches = $data['batches'];
 
 			if ($this->user->hasAccess('admin') || $this->user->hasAccess('superuser')) {
-				return View::make('admin.search.results')->with('data', $data)->with('searchPhrase', $searchPhrase)->with('batches', $batches);
+				return View::make('admin.search.results2')->with('data', $data)->with('searchPhrase', $searchPhrase)->with('batches', $batches);
 			} else {
-				return View::make('user.search.results')->with('data', $data)->with('searchPhrase', $searchPhrase)->with('batches', $batches);
+
+				if ($this->user->id == 200)
+            	{
+            		return View::make('user.search.results3')->with('data', $data)->with('searchPhrase', $searchPhrase)->with('batches', $batches);
+            	}
+            	else
+            	{
+            		return View::make('user.search.results3')->with('data', $data)->with('searchPhrase', $searchPhrase)->with('batches', $batches);
+            	}
 			}
 		} else {
 			if ($this->user->hasAccess('admin') || $this->user->hasAccess('superuser')) {

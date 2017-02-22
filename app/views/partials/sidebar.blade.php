@@ -50,6 +50,33 @@
                 <span>Messages</span>
             </a>
         </li>
+
+        <li class="{{ (Request::is('rewards') || Request::is('rewards/*')) ? 'active' : '' }}">
+            <a href="{{ route('rewards') }}">
+                <i class="icon-star"></i>
+                @if ($user->hasAccess('admin') || $user->hasAccess('superuser'))
+                    <span>AMS Star Rewards Points</span>
+                @else
+                    <span><b style="color:#00ff00;" class="rewards-points"></b> AMS Star Rewards Points</span>
+                @endif
+            </a>
+        </li>
+
+        <li class="{{ Request::is('help/*') ? 'active' : '' }}">
+            <a href="#" class="dropdown-toggle">
+                <i class="icon-question"></i>
+                <span>Help</span>
+                <b class="arrow icon-angle-right"></b>
+            </a>
+
+            <!-- BEGIN Submenu -->
+            <ul class="submenu">
+                <li class="{{ Request::is('help/upload') ? 'active' : '' }}">{{ Html::linkRoute('help_upload', 'How to Upload Files?') }}</li>
+                <li class="{{ Request::is('help/pricing') ? 'active' : '' }}">{{ Html::linkRoute('help_pricing', 'Understanding Our Pricing Structure') }}</li>
+            </ul>
+            <!-- END Submenu -->
+        </li>
+
     </ul>
     <!-- END Navlist -->
 
@@ -58,5 +85,6 @@
         <i class="icon-double-angle-left"></i>
     </div>
     <!-- END Sidebar Collapse Button -->
+
 </div>
 <!-- END Sidebar -->
