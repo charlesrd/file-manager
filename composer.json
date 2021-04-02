@@ -3,12 +3,16 @@
 	"description": "AmericaSmiles Dental Technologies, Inc - File Management System.  Easy file sending and management for dental labs.",
 	"license": "proprietary",
 	"authors": [{
+		"name": "Charles Dyke",
+		"email": "charles@americasmiles.com",
+		"role": "Developer"
+	},{
 		"name": "Colin Hoernig",
 		"email": "colin@americasmiles.com",
-		"role": "Lead Developer"
+		"role": "Developer"
 	}],
 	"require": {
-		"laravel/framework": "4.0.*@dev",
+		"laravel/framework": "6.20.14",
 		"cartalyst/sentry": "2.0.*@dev",
 		"way/generators": "dev-master"
 	},
